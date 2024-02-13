@@ -2,7 +2,7 @@ namespace WindowAPI.winuser.h.Enums
 {
 
 
-    public enum POINTER_DEVICE_CURSOR_TYPE:uint
+    public enum POINTER_DEVICE_CURSOR_TYPE : uint
     {
         POINTER_DEVICE_CURSOR_TYPE_UNKNOWN = 00000000,
         POINTER_DEVICE_CURSOR_TYPE_TIP = 00000001,

@@ -8,7 +8,7 @@ namespace WindowAPI.winuser.h.Structures
         public byte fVirt;
         public short key;
         public short cmd;
-  
+
     }
 
 

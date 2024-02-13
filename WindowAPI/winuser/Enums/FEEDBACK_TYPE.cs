@@ -2,7 +2,7 @@ namespace WindowAPI.winuser.h.Enums
 {
 
 
-    public enum FEEDBACK_TYPE:uint
+    public enum FEEDBACK_TYPE : uint
     {
         FEEDBACK_TOUCH_CONTACTVISUALIZATION = 1,
         FEEDBACK_PEN_BARRELVISUALIZATION = 2,
