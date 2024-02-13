@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -12,7 +7,7 @@ namespace WindowAPI.Winuser.Structures
     {
         public IntPtr lParam;
         public IntPtr wParam;
-        public IntPtr message;
+        public uint message;
         public IntPtr hwnd;
     }
 

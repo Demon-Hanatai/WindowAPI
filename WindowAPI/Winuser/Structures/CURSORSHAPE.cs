@@ -1,22 +1,17 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct CURSORSHAPE
     {
-        public IntPtr xHotSpot;
-        public IntPtr yHotSpot;
-        public IntPtr cx;
-        public IntPtr cy;
-        public IntPtr cbWidth;
-        public IntPtr Planes;
-        public IntPtr BitsPixel;
+        public int xHotSpot;
+        public int yHotSpot;
+        public int cx;
+        public int cy;
+        public int cbWidth;
+        public byte Planes;
+        public byte BitsPixel;
     }
 
 

@@ -1,19 +1,14 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct MOUSEMOVEPOINT
     {
-        public IntPtr x;
-        public IntPtr y;
+        public int x;
+        public int y;
         public uint time;
-        public IntPtr dwExtraInfo;
+        public int dwExtraInfo;
     }
 
 

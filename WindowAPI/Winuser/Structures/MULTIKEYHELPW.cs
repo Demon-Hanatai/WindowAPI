@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -11,7 +6,8 @@ namespace WindowAPI.Winuser.Structures
     public struct MULTIKEYHELPW
     {
         public uint mkSize;
-        public IntPtr mkKeylist;
+        public StringBuilder mkKeylist;
+        public StringBuilder szKeyphrase;
     }
 
 

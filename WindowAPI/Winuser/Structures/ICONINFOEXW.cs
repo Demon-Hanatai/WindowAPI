@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -17,6 +12,8 @@ namespace WindowAPI.Winuser.Structures
         public IntPtr hbmMask;
         public IntPtr hbmColor;
         public short wResID;
+        public StringBuilder szModName;
+        public StringBuilder szResName;
     }
 
 

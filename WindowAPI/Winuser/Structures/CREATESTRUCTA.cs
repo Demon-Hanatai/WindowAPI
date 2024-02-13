@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -14,10 +9,10 @@ namespace WindowAPI.Winuser.Structures
         public IntPtr hInstance;
         public IntPtr hMenu;
         public IntPtr hwndParent;
-        public IntPtr cy;
-        public IntPtr cx;
-        public IntPtr y;
-        public IntPtr x;
+        public int cy;
+        public int cx;
+        public int y;
+        public int x;
         public int style;
         public string lpszName;
         public string lpszClass;

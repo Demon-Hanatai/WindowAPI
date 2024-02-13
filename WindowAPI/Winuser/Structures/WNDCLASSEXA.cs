@@ -1,20 +1,15 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct WNDCLASSEXA
     {
-        public IntPtr cbSize;
-        public IntPtr style;
-        public IntPtr lpfnWndProc;
-        public IntPtr cbClsExtra;
-        public IntPtr cbWndExtra;
+        public uint cbSize;
+        public uint style;
+        public WNDPROC lpfnWndProc;
+        public int cbClsExtra;
+        public int cbWndExtra;
         public IntPtr hInstance;
         public IntPtr hIcon;
         public IntPtr hCursor;

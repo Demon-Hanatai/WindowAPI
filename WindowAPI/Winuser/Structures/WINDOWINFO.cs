@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -11,14 +6,14 @@ namespace WindowAPI.Winuser.Structures
     public struct WINDOWINFO
     {
         public uint cbSize;
-        public IntPtr rcWindow;
-        public IntPtr rcClient;
+        public RECT rcWindow;
+        public RECT rcClient;
         public uint dwStyle;
         public uint dwExStyle;
         public uint dwWindowStatus;
-        public IntPtr cxWindowBorders;
-        public IntPtr cyWindowBorders;
-        public IntPtr atomWindowType;
+        public uint cxWindowBorders;
+        public uint cyWindowBorders;
+        public int atomWindowType;
         public short wCreatorVersion;
     }
 

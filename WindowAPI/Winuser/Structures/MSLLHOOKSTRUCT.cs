@@ -1,20 +1,15 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct MSLLHOOKSTRUCT
     {
-        public IntPtr pt;
+        public POINT pt;
         public uint mouseData;
         public uint flags;
         public uint time;
-        public IntPtr dwExtraInfo;
+        public int dwExtraInfo;
     }
 
 

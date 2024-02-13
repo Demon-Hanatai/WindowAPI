@@ -1,21 +1,16 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct HELPINFO
     {
-        public IntPtr cbSize;
-        public IntPtr iContextType;
-        public IntPtr iCtrlId;
+        public uint cbSize;
+        public int iContextType;
+        public int iCtrlId;
         public IntPtr hItemHandle;
-        public IntPtr dwContextId;
-        public IntPtr MousePos;
+        public uint dwContextId;
+        public POINT MousePos;
     }
 
 

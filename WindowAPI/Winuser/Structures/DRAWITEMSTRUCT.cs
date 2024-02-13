@@ -1,24 +1,19 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct DRAWITEMSTRUCT
     {
-        public IntPtr CtlType;
-        public IntPtr CtlID;
-        public IntPtr itemID;
-        public IntPtr itemAction;
-        public IntPtr itemState;
+        public uint CtlType;
+        public uint CtlID;
+        public uint itemID;
+        public uint itemAction;
+        public uint itemState;
         public IntPtr hwndItem;
         public IntPtr hDC;
-        public IntPtr rcItem;
-        public IntPtr itemData;
+        public RECT rcItem;
+        public int itemData;
     }
 
 

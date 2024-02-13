@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -11,14 +6,14 @@ namespace WindowAPI.Winuser.Structures
     public struct ALTTABINFO
     {
         public uint cbSize;
-        public IntPtr cItems;
-        public IntPtr cColumns;
-        public IntPtr cRows;
-        public IntPtr iColFocus;
-        public IntPtr iRowFocus;
-        public IntPtr cxItem;
-        public IntPtr cyItem;
-        public IntPtr ptStart;
+        public int cItems;
+        public int cColumns;
+        public int cRows;
+        public int iColFocus;
+        public int iRowFocus;
+        public int cxItem;
+        public int cyItem;
+        public POINT ptStart;
     }
 
 

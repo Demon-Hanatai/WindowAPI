@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -14,7 +9,7 @@ namespace WindowAPI.Winuser.Structures
         public short wScan;
         public uint dwFlags;
         public uint time;
-        public IntPtr dwExtraInfo;
+        public int dwExtraInfo;
     }
 
 

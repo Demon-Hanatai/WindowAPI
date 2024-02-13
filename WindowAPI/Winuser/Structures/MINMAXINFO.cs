@@ -1,20 +1,15 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct MINMAXINFO
     {
-        public IntPtr ptReserved;
-        public IntPtr ptMaxSize;
-        public IntPtr ptMaxPosition;
-        public IntPtr ptMinTrackSize;
-        public IntPtr ptMaxTrackSize;
+        public POINT ptReserved;
+        public POINT ptMaxSize;
+        public POINT ptMaxPosition;
+        public POINT ptMinTrackSize;
+        public POINT ptMaxTrackSize;
     }
 
 

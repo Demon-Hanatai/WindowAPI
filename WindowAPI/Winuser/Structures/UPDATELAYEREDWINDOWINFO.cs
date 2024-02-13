@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -13,7 +8,7 @@ namespace WindowAPI.Winuser.Structures
         public uint cbSize;
         public IntPtr hdcDst;
         public IntPtr hdcSrc;
-        public IntPtr crKey;
+        public int crKey;
         public uint dwFlags;
     }
 

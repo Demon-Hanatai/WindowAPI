@@ -1,18 +1,13 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct EVENTMSG
     {
-        public IntPtr message;
-        public IntPtr paramL;
-        public IntPtr paramH;
+        public uint message;
+        public uint paramL;
+        public uint paramH;
         public uint time;
         public IntPtr hwnd;
     }

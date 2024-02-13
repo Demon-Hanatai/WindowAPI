@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -12,9 +7,10 @@ namespace WindowAPI.Winuser.Structures
     {
         public IntPtr hdc;
         public bool fErase;
-        public IntPtr rcPaint;
+        public RECT rcPaint;
         public bool fRestore;
         public bool fIncUpdate;
+        public byte rgbReserved;
     }
 
 

@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -13,10 +8,10 @@ namespace WindowAPI.Winuser.Structures
         public POINTER_INFO pointerInfo;
         public IntPtr touchFlags;
         public IntPtr touchMask;
-        public IntPtr rcContact;
-        public IntPtr rcContactRaw;
-        public IntPtr orientation;
-        public IntPtr pressure;
+        public RECT rcContact;
+        public RECT rcContactRaw;
+        public int orientation;
+        public int pressure;
     }
 
 

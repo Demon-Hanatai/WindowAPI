@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -13,10 +8,10 @@ namespace WindowAPI.Winuser.Structures
         public uint cbSize;
         public uint fMask;
         public uint dwStyle;
-        public IntPtr cyMax;
+        public uint cyMax;
         public IntPtr hbrBack;
         public uint dwContextHelpID;
-        public IntPtr dwMenuData;
+        public int dwMenuData;
     }
 
 

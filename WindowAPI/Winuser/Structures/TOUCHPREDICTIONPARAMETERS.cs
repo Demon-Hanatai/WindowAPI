@@ -1,19 +1,14 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct TOUCHPREDICTIONPARAMETERS
     {
-        public IntPtr cbSize;
-        public IntPtr dwLatency;
-        public IntPtr dwSampleTime;
-        public IntPtr bUseHWTimeStamp;
+        public uint cbSize;
+        public uint dwLatency;
+        public uint dwSampleTime;
+        public uint bUseHWTimeStamp;
     }
 
 

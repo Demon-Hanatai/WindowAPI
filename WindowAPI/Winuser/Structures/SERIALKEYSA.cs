@@ -1,22 +1,17 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct SERIALKEYSA
     {
-        public IntPtr cbSize;
+        public uint cbSize;
         public uint dwFlags;
         public string lpszActivePort;
         public string lpszPort;
-        public IntPtr iBaudRate;
-        public IntPtr iPortState;
-        public IntPtr iActive;
+        public uint iBaudRate;
+        public uint iPortState;
+        public uint iActive;
     }
 
 

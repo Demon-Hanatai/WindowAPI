@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -11,11 +6,11 @@ namespace WindowAPI.Winuser.Structures
     public struct MSG
     {
         public IntPtr hwnd;
-        public IntPtr message;
+        public uint message;
         public IntPtr wParam;
         public IntPtr lParam;
         public uint time;
-        public IntPtr pt;
+        public POINT pt;
         public uint lPrivate;
     }
 

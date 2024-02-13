@@ -1,19 +1,14 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct ACCEL
     {
-        public IntPtr fVirt;
+        public byte fVirt;
         public short key;
         public short cmd;
-
+  
     }
 
 

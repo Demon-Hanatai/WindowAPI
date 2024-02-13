@@ -1,17 +1,12 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct TPMPARAMS
     {
-        public IntPtr cbSize;
-        public IntPtr rcExclude;
+        public uint cbSize;
+        public RECT rcExclude;
     }
 
 

@@ -1,17 +1,13 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct POWERBROADCAST_SETTING
     {
-        public IntPtr PowerSetting;
+        public int PowerSetting;
         public uint DataLength;
+        public char Data;
     }
 
 

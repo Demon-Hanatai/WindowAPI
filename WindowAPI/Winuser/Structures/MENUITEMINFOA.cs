@@ -1,26 +1,21 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct MENUITEMINFOA
     {
-        public IntPtr cbSize;
-        public IntPtr fMask;
-        public IntPtr fType;
-        public IntPtr fState;
-        public IntPtr wID;
+        public uint cbSize;
+        public uint fMask;
+        public uint fType;
+        public uint fState;
+        public uint wID;
         public IntPtr hSubMenu;
         public IntPtr hbmpChecked;
         public IntPtr hbmpUnchecked;
-        public IntPtr dwItemData;
+        public int dwItemData;
         public string dwTypeData;
-        public IntPtr cch;
+        public uint cch;
         public IntPtr hbmpItem;
     }
 

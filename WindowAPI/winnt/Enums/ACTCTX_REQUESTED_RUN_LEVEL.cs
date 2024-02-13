@@ -1,0 +1,17 @@
+namespace WindowAPI.winnt.Enums
+{
+
+
+    public enum ACTCTX_REQUESTED_RUN_LEVEL
+    {
+        ACTCTX_RUN_LEVEL_UNSPECIFIED = 0,
+        ACTCTX_RUN_LEVEL_AS_INVOKER,
+        ACTCTX_RUN_LEVEL_HIGHEST_AVAILABLE,
+        ACTCTX_RUN_LEVEL_REQUIRE_ADMIN,
+        ACTCTX_RUN_LEVEL_NUMBERS
+    }
+
+
+
+}
+

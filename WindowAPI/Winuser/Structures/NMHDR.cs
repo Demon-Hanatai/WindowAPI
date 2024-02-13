@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -11,8 +6,8 @@ namespace WindowAPI.Winuser.Structures
     public struct NMHDR
     {
         public IntPtr hwndFrom;
-        public IntPtr idFrom;
-        public IntPtr code;
+        public int idFrom;
+        public uint code;
     }
 
 

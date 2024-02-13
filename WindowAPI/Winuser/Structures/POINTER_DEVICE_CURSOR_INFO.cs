@@ -1,17 +1,12 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct POINTER_DEVICE_CURSOR_INFO
     {
-        public IntPtr cursorId;
-        public IntPtr cursor;
+        public int cursorId;
+        public POINTER_DEVICE_CURSOR_TYPE cursor;
     }
 
 

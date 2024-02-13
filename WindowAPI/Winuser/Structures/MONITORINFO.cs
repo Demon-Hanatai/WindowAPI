@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -11,8 +6,8 @@ namespace WindowAPI.Winuser.Structures
     public struct MONITORINFO
     {
         public uint cbSize;
-        public IntPtr rcMonitor;
-        public IntPtr rcWork;
+        public RECT rcMonitor;
+        public RECT rcWork;
         public uint dwFlags;
     }
 

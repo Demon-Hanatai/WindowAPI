@@ -1,20 +1,15 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct DRAWTEXTPARAMS
     {
-        public IntPtr cbSize;
-        public IntPtr iTabLength;
-        public IntPtr iLeftMargin;
-        public IntPtr iRightMargin;
-        public IntPtr uiLengthDrawn;
+        public uint cbSize;
+        public int iTabLength;
+        public int iLeftMargin;
+        public int iRightMargin;
+        public uint uiLengthDrawn;
     }
 
 

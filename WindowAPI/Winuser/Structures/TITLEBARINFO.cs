@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -11,7 +6,8 @@ namespace WindowAPI.Winuser.Structures
     public struct TITLEBARINFO
     {
         public uint cbSize;
-        public IntPtr rcTitleBar;
+        public RECT rcTitleBar;
+        public uint rgstate;
     }
 
 

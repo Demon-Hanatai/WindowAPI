@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -12,7 +7,7 @@ namespace WindowAPI.Winuser.Structures
     {
         public ushort page;
         public ushort usage;
-        public IntPtr value;
+        public int value;
         public ushort index;
     }
 

@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -14,7 +9,7 @@ namespace WindowAPI.Winuser.Structures
         public ushort Flags;
         public ushort Reserved;
         public ushort VKey;
-        public IntPtr Message;
+        public uint Message;
         public uint ExtraInformation;
     }
 

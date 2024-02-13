@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -17,7 +12,7 @@ namespace WindowAPI.Winuser.Structures
         public uint dwFlags;
         public uint dwMask;
         public uint dwTime;
-        public IntPtr dwExtraInfo;
+        public int dwExtraInfo;
         public uint cxContact;
         public uint cyContact;
     }

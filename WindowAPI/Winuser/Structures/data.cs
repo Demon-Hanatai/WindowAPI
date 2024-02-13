@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -11,8 +6,8 @@ namespace WindowAPI.Winuser.Structures
     public struct data
     {
         public IntPtr header;
-        public IntPtr mouse;
-        public IntPtr keyboard;
+        public int mouse;
+        public int keyboard;
         public RAWHID hid;
     }
 

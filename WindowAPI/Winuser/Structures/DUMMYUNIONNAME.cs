@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -12,8 +7,8 @@ namespace WindowAPI.Winuser.Structures
     {
         public uint cbSize;
         public uint dwType;
-        public IntPtr mouse;
-        public IntPtr keyboard;
+        public int mouse;
+        public int keyboard;
         public IntPtr hid;
     }
 

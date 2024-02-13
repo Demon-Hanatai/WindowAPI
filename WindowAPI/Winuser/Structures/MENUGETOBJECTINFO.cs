@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -11,7 +6,7 @@ namespace WindowAPI.Winuser.Structures
     public struct MENUGETOBJECTINFO
     {
         public uint dwFlags;
-        public IntPtr uPos;
+        public uint uPos;
         public IntPtr hmenu;
         public IntPtr riid;
         public IntPtr pvObj;

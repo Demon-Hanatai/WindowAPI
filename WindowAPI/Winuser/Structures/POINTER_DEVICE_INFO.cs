@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -12,10 +7,11 @@ namespace WindowAPI.Winuser.Structures
     {
         public uint displayOrientation;
         public IntPtr device;
-        public IntPtr pointerDeviceType;
+        public POINTER_DEVICE_TYPE pointerDeviceType;
         public IntPtr monitor;
         public uint startingCursorId;
         public ushort maxActiveContacts;
+        public StringBuilder productString;
     }
 
 

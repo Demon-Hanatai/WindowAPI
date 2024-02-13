@@ -1,6 +1,3 @@
-using System.Runtime.InteropServices;
-
-
 namespace WindowAPI.olecl.h.Structures
 {
 

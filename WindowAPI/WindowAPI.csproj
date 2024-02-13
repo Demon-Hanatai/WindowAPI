@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+<GenerateDocumentationFile>true</GenerateDocumentationFile>
+  <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -11,8 +13,13 @@
     <Folder Include="Winbase.h\Enums\" />
     <Folder Include="Winbase.h\CallBacks\" />
     <Folder Include="Winbase.h\Structures\" />
-    <Folder Include="Winuser\Enums\" />
-    <Folder Include="Winuser\CallBack\" />
+    <Folder Include="windef\Enums\" />
+    <Folder Include="windef\Structures\" />
+    <Folder Include="wingdi\Enums\" />
+    <Folder Include="wingdi\CallBacks\" />
+    <Folder Include="winuser\Enums\" />
+    <Folder Include="winuser\CallBacks\" />
+    <Folder Include="winuser\Structures\" />
   </ItemGroup>
 
 </Project>

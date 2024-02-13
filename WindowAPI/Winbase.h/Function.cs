@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 namespace WindowAPI.Winbase.h
 {
     public static class Functions
@@ -64,6 +63,9 @@ namespace WindowAPI.Winbase.h
         /// <param name="DesiredAccess">Access mask that specifies the access rights to check. This mask must have been mapped by the MapGenericMask function to contain no generic access rights.If this parameter is MAXIMUM_ALLOWED, the function sets the GrantedAccess access mask to indicate the maximum access rights the security descriptor allows the client.</param>
         /// <param name="GenericMapping">A pointer to the GENERIC_MAPPING structure associated with the object for which access is being checked.</param>
         /// <param name="ObjectCreation">Specifies a flag that determines whether the calling application will create a new object when access is granted. A value of TRUE indicates the application will create a new object. A value of FALSE indicates the application will open an existing object.</param>
+        /// <param name="GrantedAccess"></param>
+        /// <param name="AccessStatus"></param>
+        /// <param name="pfGenerateOnClose"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -84,6 +86,9 @@ namespace WindowAPI.Winbase.h
         /// <param name="ObjectTypeListLength">The number of elements in the ObjectTypeList array.</param>
         /// <param name="GenericMapping">A pointer to the GENERIC_MAPPING structure associated with the object for which access is being checked.</param>
         /// <param name="ObjectCreation">A flag that determines whether the calling application will create a new object when access is granted. A value of TRUE indicates the application will create a new object. A value of FALSE indicates the application will open an existing object.</param>
+        /// <param name="GrantedAccess"></param>
+        /// <param name="AccessStatus"></param>
+        /// <param name="pfGenerateOnClose"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -104,6 +109,9 @@ namespace WindowAPI.Winbase.h
         /// <param name="ObjectTypeListLength">The number of elements in the ObjectTypeList array.</param>
         /// <param name="GenericMapping">A pointer to the GENERIC_MAPPING structure associated with the object for which access is being checked.</param>
         /// <param name="ObjectCreation">A flag that determines whether the calling application will create a new object when access is granted. A value of TRUE indicates the application will create a new object. A value of FALSE indicates the application will open an existing object.</param>
+        /// <param name="GrantedAccess"></param>
+        /// <param name="AccessStatusList"></param>
+        /// <param name="pfGenerateOnClose"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -125,6 +133,9 @@ namespace WindowAPI.Winbase.h
         /// <param name="ObjectTypeListLength">The number of elements in the ObjectTypeList array.</param>
         /// <param name="GenericMapping">A pointer to the GENERIC_MAPPING structure associated with the object for which access is being checked.</param>
         /// <param name="ObjectCreation">A flag that determines whether the calling application will create a new object when access is granted. A value of TRUE indicates the application will create a new object. A value of FALSE indicates the application will open an existing object.</param>
+        /// <param name="GrantedAccess"></param>
+        /// <param name="AccessStatusList"></param>
+        /// <param name="pfGenerateOnClose"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -136,6 +147,7 @@ namespace WindowAPI.Winbase.h
         ///The ActivateActCtx function activates the specified activation context. It does this by pushing the specified activation context to the top of the activation stack. The specified activation context is thus associated with the current thread and any appropriate side-by-side API functions.
         /// </summary>
         /// <param name="hActCtx">Handle to an ACTCTX structure that contains information on the activation context that is to be made active.</param>
+        /// <param name="lpCookie"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool ActivateActCtx(IntPtr hActCtx, out int lpCookie);
@@ -165,13 +177,13 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///The AddConditionalAce function adds a conditional access control entry (ACE) to the specified access control list (ACL). A conditional ACE specifies a logical condition that is evaluated during access checks.
         /// </summary>
-        /// <param name="pAcl">A pointer to an ACL. This function adds an ACE to this ACL.The value of this parameter cannot be NULL.</param>
         /// <param name="dwAceRevision">Specifies the revision level of the ACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs.</param>
         /// <param name="AceFlags">A set of bit flags that control ACE inheritance. The function sets these flags in the AceFlags member of the ACE_HEADER structure of the new ACE. This parameter can be a combination of the following values.</param>
         /// <param name="AceType">The type of the ACE.This can be one of the following values.</param>
         /// <param name="AccessMask">Specifies the mask of access rights to be granted to the specified SID.</param>
         /// <param name="pSid">A pointer to the SID that represents a user, group, or logon account being granted access.</param>
         /// <param name="ConditionStr">A string that specifies the conditional statement to be evaluated for the ACE.</param>
+        /// <param name="ReturnLength"></param>
 
         [DllImport("Advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool AddConditionalAce(uint dwAceRevision, uint AceFlags, char AceType, uint AccessMask, int pSid, char ConditionStr, out uint ReturnLength);
@@ -179,7 +191,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Adds a new required security identifier (SID) to the specified boundary descriptor.
         /// </summary>
-        /// <param name="BoundaryDescriptor">A handle to the boundary descriptor. The CreateBoundaryDescriptor function returns this handle.</param>
         /// <param name="IntegrityLabel">A pointer to a SID structure that represents the mandatory integrity level for the namespace. Use one of the following RID values to create the SID:SECURITY_MANDATORY_UNTRUSTED_RID SECURITY_MANDATORY_LOW_RID SECURITY_MANDATORY_MEDIUM_RID SECURITY_MANDATORY_SYSTEM_RID SECURITY_MANDATORY_PROTECTED_PROCESS_RID For more information, see Well-Known SIDs.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.A process can create a private namespace only with an integrity level that is equal to or lower than the current integrity level of the process. Therefore, a high integrity-level process can create a high, medium or low integrity-level namespace. A medium integrity-level process can create only a medium or low integrity-level namespace.A process would usually specify a namespace at the same integrity level as the process for protection against squatting attacks by lower integrity-level processes.The security descriptor that the creator places on the namespace determines who can open the namespace. So a low or medium integrity-level process could be given permission to open a high integrity level namespace if the security descriptor of the namespace permits it.To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later.CreateBoundaryDescriptor</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -250,9 +261,12 @@ namespace WindowAPI.Winbase.h
         ///The BackupRead function can be used to back up a file or directory, including the security information. The function reads data associated with a specified file or directory into a buffer, which can then be written to the backup medium using the WriteFile function.
         /// </summary>
         /// <param name="hFile">Handle to the file or directory to be backed up. To obtain the handle, call the CreateFile function. The SACLs are not read unless the file handle was created with the ACCESS_SYSTEM_SECURITY access right. For more information, see File security and access rights.The handle must be synchronous (nonoverlapped). This means that the FILE_FLAG_OVERLAPPED flag must not be set when CreateFile is called. This function does not validate that the handle it receives is synchronous, so it does not return an error code for a synchronous handle, but calling it with an asynchronous (overlapped) handle can result in subtle errors that are very difficult to debug.The BackupRead function may fail if CreateFile was called with the flag FILE_FLAG_NO_BUFFERING. In this case, the GetLastError function returns the value ERROR_INVALID_PARAMETER.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nNumberOfBytesToRead">Length of the buffer, in bytes. The buffer size must be greater than the size of a WIN32_STREAM_ID structure.</param>
+        /// <param name="lpNumberOfBytesRead"></param>
         /// <param name="bAbort">Indicates whether you have finished using BackupRead on the handle. While you are backing up the file, specify this parameter as FALSE. Once you are done using BackupRead, you must call BackupRead one more time specifying TRUE for this parameter and passing the appropriate lpContext. lpContext must be passed when bAbort is TRUE; all other parameters are ignored.</param>
         /// <param name="bProcessSecurity">Indicates whether the function will restore the access-control list (ACL) data for the file or directory.If bProcessSecurity is TRUE, the ACL data will be backed up.</param>
+        /// <param name="lpContext"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -266,6 +280,8 @@ namespace WindowAPI.Winbase.h
         /// <param name="hFile">Handle to the file or directory. This handle is created by using the CreateFile function.The handle must be synchronous (nonoverlapped). This means that the FILE_FLAG_OVERLAPPED flag must not be set when CreateFile is called. This function does not validate that the handle it receives is synchronous, so it does not return an error code for a synchronous handle, but calling it with an asynchronous (overlapped) handle can result in subtle errors that are very difficult to debug.</param>
         /// <param name="dwLowBytesToSeek">Low-order part of the number of bytes to seek.</param>
         /// <param name="dwHighBytesToSeek">High-order part of the number of bytes to seek.</param>
+        /// <param name="lpdwLowByteSeeked"></param>
+        /// <param name="lpdwHighByteSeeked"></param>
         /// <param name="lpContext">Pointer to an internal data structure used by the function. This structure must be the same structure that was initialized by the BackupRead or BackupWrite function. An application must not touch the contents of this structure.If the function could seek the requested amount, the function returns a nonzero value.If the function could not seek the requested amount, the function returns zero. To get extended error information, call GetLastError.Applications use the BackupSeek function to skip portions of a data stream that cause errors. This function does not seek across stream headers. For example, this function cannot be used to skip the stream name. If an application attempts to seek past the end of a substream, the function fails, the lpdwLowByteSeeked and lpdwHighByteSeeked parameters indicate the actual number of bytes the function seeks, and the file position is placed at the start of the next stream header.BackupReadBackupWriteCreateFile</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -280,8 +296,10 @@ namespace WindowAPI.Winbase.h
         /// <param name="hFile">Handle to the file or directory to be restored. To obtain the handle, call the CreateFile function. The SACLs are not restored unless the file handle was created with the ACCESS_SYSTEM_SECURITY access right. To ensure that the integrity ACEs are restored correctly, the file handle must also have been created with the WRITE_OWNER access right. For more information, see File security and access rights.The handle must be synchronous (nonoverlapped). This means that the FILE_FLAG_OVERLAPPED flag must not be set when CreateFile is called. This function does not validate that the handle it receives is synchronous, so it does not return an error code for a synchronous handle, but calling it with an asynchronous (overlapped) handle can result in subtle errors that are very difficult to debug.The BackupWrite function may fail if CreateFile was called with the flag FILE_FLAG_NO_BUFFERING. In this case, the GetLastError function returns the value ERROR_INVALID_PARAMETER.</param>
         /// <param name="lpBuffer">Pointer to a buffer that the function writes data from.</param>
         /// <param name="nNumberOfBytesToWrite">Size of the buffer, in bytes. The buffer size must be greater than the size of a WIN32_STREAM_ID structure.</param>
+        /// <param name="lpNumberOfBytesWritten"></param>
         /// <param name="bAbort">Indicates whether you have finished using BackupWrite on the handle. While you are restoring the file, specify this parameter as FALSE. After you are done using BackupWrite, you must call BackupWrite one more time specifying TRUE for this parameter and passing the appropriate lpContext. lpContext must be passed when bAbort is TRUE; all other parameters are ignored.</param>
         /// <param name="bProcessSecurity">Specifies whether the function will restore the access-control list (ACL) data for the file or directory.If bProcessSecurity is TRUE, you need to specify WRITE_OWNER and WRITE_DAC access when opening the file or directory handle. If the handle does not have those access rights, the operating system denies access to the ACL data, and ACL data restoration will not occur.</param>
+        /// <param name="lpContext"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -330,6 +348,7 @@ namespace WindowAPI.Winbase.h
         ///Fills a specified DCB structure with values specified in a device-control string. The device-control string uses the syntax of the mode command.
         /// </summary>
         /// <param name="lpDef">The device-control information. The function takes this string, parses it, and then sets appropriate values in the DCB structure pointed to by lpDCB.The string must have the same form as the mode command's command-line arguments:COMx[:][baud=b][parity=p][data=d][stop=s][to={on|off}][xon={on|off}][odsr={on|off}][octs={on|off}][dtr={on|off|hs}][rts={on|off|hs|tg}][idsr={on|off}]The device name is optional, but it must specify a valid device if used.For example, the following string specifies a baud rate of 1200, no parity, 8 data bits, and 1 stop bit:baud=1200 parity=N data=8 stop=1</param>
+        /// <param name="lpDCB"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -341,6 +360,8 @@ namespace WindowAPI.Winbase.h
         ///Translates a device-definition string into appropriate device-control block codes and places them into a device control block. The function can also set up time-out values, including the possibility of no time-outs, for a device; the function's behavior in this regard depends on the contents of the device-definition string.
         /// </summary>
         /// <param name="lpDef">The device-control information. The function takes this string, parses it, and then sets appropriate values in the DCB structure pointed to by lpDCB.The string must have the same form as the mode command's command-line arguments:COMx[:][baud={11|110|15|150|30|300|60|600|12|1200|24|2400|48|4800|96|9600|19|19200}][parity={n|e|o|m|s}][data={5|6|7|8}][stop={1|1.5|2}][to={on|off}][xon={on|off}][odsr={on|off}][octs={on|off}][dtr={on|off|hs}][rts={on|off|hs|tg}][idsr={on|off}]The "baud" substring can be any of the values listed, which are in pairs. The two-digit values are the first two digits of the associated values that they represent. For example, 11 represents 110 baud, 19 represents 19,200 baud.The "parity" substring indicates how the parity bit is used to detect transmission errors. The values represent "none", "even", "odd", "mark", and "space".For more information, see the Mode command reference in TechNet.For example, the following string specifies a baud rate of 1200, no parity, 8 data bits, and 1 stop bit:baud=1200 parity=N data=8 stop=1</param>
+        /// <param name="lpDCB"></param>
+        /// <param name="lpCommTimeouts"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -352,6 +373,8 @@ namespace WindowAPI.Winbase.h
         ///Translates a device-definition string into appropriate device-control block codes and places them into a device control block. The function can also set up time-out values, including the possibility of no time-outs, for a device; the function's behavior in this regard depends on the contents of the device-definition string.
         /// </summary>
         /// <param name="lpDef">The device-control information. The function takes this string, parses it, and then sets appropriate values in the DCB structure pointed to by lpDCB.The string must have the same form as the mode command's command-line arguments:COMx[:][baud={11|110|15|150|30|300|60|600|12|1200|24|2400|48|4800|96|9600|19|19200}][parity={n|e|o|m|s}][data={5|6|7|8}][stop={1|1.5|2}][to={on|off}][xon={on|off}][odsr={on|off}][octs={on|off}][dtr={on|off|hs}][rts={on|off|hs|tg}][idsr={on|off}]The "baud" substring can be any of the values listed, which are in pairs. The two-digit values are the first two digits of the associated values that they represent. For example, 11 represents 110 baud, 19 represents 19,200 baud.The "parity" substring indicates how the parity bit is used to detect transmission errors. The values represent "none", "even", "odd", "mark", and "space".For more information, see the Mode command reference in TechNet.For example, the following string specifies a baud rate of 1200, no parity, 8 data bits, and 1 stop bit:baud=1200 parity=N data=8 stop=1</param>
+        /// <param name="lpDCB"></param>
+        /// <param name="lpCommTimeouts"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -363,6 +386,7 @@ namespace WindowAPI.Winbase.h
         ///Fills a specified DCB structure with values specified in a device-control string. The device-control string uses the syntax of the mode command.
         /// </summary>
         /// <param name="lpDef">The device-control information. The function takes this string, parses it, and then sets appropriate values in the DCB structure pointed to by lpDCB.The string must have the same form as the mode command's command-line arguments:COMx[:][baud=b][parity=p][data=d][stop=s][to={on|off}][xon={on|off}][odsr={on|off}][octs={on|off}][dtr={on|off|hs}][rts={on|off|hs|tg}][idsr={on|off}]The device name is optional, but it must specify a valid device if used.For example, the following string specifies a baud rate of 1200, no parity, 8 data bits, and 1 stop bit:baud=1200 parity=N data=8 stop=1</param>
+        /// <param name="lpDCB"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -376,7 +400,9 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpNamedPipeName">The pipe name.</param>
         /// <param name="lpInBuffer">The data to be written to the pipe.</param>
         /// <param name="nInBufferSize">The size of the write buffer, in bytes.</param>
+        /// <param name="lpOutBuffer"></param>
         /// <param name="nOutBufferSize">The size of the read buffer, in bytes.</param>
+        /// <param name="lpBytesRead"></param>
         /// <param name="nTimeOut">The number of milliseconds to wait for the named pipe to be available. In addition to numeric values, the following special values can be specified.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.If the message written to the pipe by the server process is longer than nOutBufferSize, CallNamedPipe returns FALSE, and GetLastError returns ERROR_MORE_DATA. The remainder of the message is discarded, because CallNamedPipe closes the handle to the pipe before returning.Calling CallNamedPipe is equivalent to calling the CreateFile (or WaitNamedPipe, if CreateFile cannot open the pipe immediately), TransactNamedPipe, and CloseHandle functions. CreateFile is called with an access flag of GENERIC_READ | GENERIC_WRITE, and an inherit handle flag of FALSE.CallNamedPipe fails if the pipe is a byte-type pipe.Windows 10, version 1709:  Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax \\.\pipe\LOCAL\ for the pipe name.For an example, see Transactions on Named Pipes.CloseHandleCreateFileCreateNamedPipePipe FunctionsPipes OverviewTransactNamedPipeWaitNamedPipe</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -390,6 +416,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpName">The file name, in 8.3 format.</param>
         /// <param name="OemNameSize">The size of the lpOemName buffer, in characters. If lpOemName is NULL, this parameter must be 0 (zero).</param>
+        /// <param name="pbNameLegal"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -402,6 +429,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpName">The file name, in 8.3 format.</param>
         /// <param name="OemNameSize">The size of the lpOemName buffer, in characters. If lpOemName is NULL, this parameter must be 0 (zero).</param>
+        /// <param name="pbNameLegal"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -466,7 +494,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Closes the specified event log.
         /// </summary>
-        /// <param name="hEventLog">A handle to the event log to be closed. The OpenEventLog or OpenBackupEventLog function returns this handle.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.Event Logging FunctionsOpenEventLog</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -479,7 +506,6 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpszName">The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.</param>
         /// <param name="hWnd">A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be NULL if the dialog box is to have no owner.</param>
-        /// <param name="lpCC">A pointer to a COMMCONFIG structure. This structure contains initial settings for the dialog box before the call, and changed values after the call.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.The CommConfigDialog function requires a dynamic-link library (DLL) provided by the communications hardware vendor.COMMCONFIGCommunications FunctionsCommunications Resources</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -492,7 +518,6 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpszName">The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.</param>
         /// <param name="hWnd">A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be NULL if the dialog box is to have no owner.</param>
-        /// <param name="lpCC">A pointer to a COMMCONFIG structure. This structure contains initial settings for the dialog box before the call, and changed values after the call.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.The CommConfigDialog function requires a dynamic-link library (DLL) provided by the communications hardware vendor.COMMCONFIGCommunications FunctionsCommunications Resources</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -534,7 +559,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Copies a source context structure (including any XState) onto an initialized destination context structure.
         /// </summary>
-        /// <param name="Destination">A pointer to a CONTEXT structure that receives the context copied from the Source. The CONTEXT structure should be initialized by calling InitializeContext before calling this function.</param>
         /// <param name="ContextFlags">Flags specifying the pieces of the Source CONTEXT structure that will be copied into the destination. This must be a subset of the ContextFlags specified when calling InitializeContext on the Destination CONTEXT.</param>
         /// <param name="Source">A pointer to a CONTEXT structure from which to copy processor context data.This function returns TRUE if the context was copied successfully, otherwise FALSE. To get extended error information, call GetLastError.The function copies data from the Source CONTEXT over the corresponding data in the Destination CONTEXT, including extended context if any is present. The Destination CONTEXT must have been initialized with InitializeContext to ensure proper alignment and initialization. If any data is present in the Destination CONTEXT and the corresponding flag is not set in the Source CONTEXT or in the ContextFlags parameter, the data remains valid in the Destination.Windows 7 with SP1 and Windows Server 2008 R2 with SP1:  The AVX API is first implemented on Windows 7 with SP1 and Windows Server 2008 R2 with SP1 . Since there is no SDK for SP1, that means there are no available headers and library files to work with. In this situation, a caller must declare the needed functions from this documentation and get pointers to them using GetModuleHandle on "Kernel32.dll", followed by calls to GetProcAddress. See Working with XState Context for details.CONTEXTInitializeContextIntel AVXWorking with XState Context</param>
         /// <remarks>
@@ -649,7 +673,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///The CreateActCtx function creates an activation context.
         /// </summary>
-        /// <param name="pActCtx">Pointer to an ACTCTX structure that contains information about the activation context to be created.If the function succeeds, it returns a handle to the returned activation context. Otherwise, it returns INVALID_HANDLE_VALUE.This function sets errors that can be retrieved by calling GetLastError. For an example, see Retrieving the Last-Error Code. For a complete list of error codes, see System Error Codes.Set any undefined bits in dwFlags of ACTCTX to 0. If any undefined bits are not set to 0, the call to CreateActCtx that creates the activation context fails and returns an invalid parameter error code. The handle returned from CreateActCtx is passed in a call to ActivateActCtx to activate the context for the current thread.ACTCTX</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr CreateActCtxA();
@@ -657,7 +680,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///The CreateActCtx function creates an activation context.
         /// </summary>
-        /// <param name="pActCtx">Pointer to an ACTCTX structure that contains information about the activation context to be created.If the function succeeds, it returns a handle to the returned activation context. Otherwise, it returns INVALID_HANDLE_VALUE.This function sets errors that can be retrieved by calling GetLastError. For an example, see Retrieving the Last-Error Code. For a complete list of error codes, see System Error Codes.Set any undefined bits in dwFlags of ACTCTX to 0. If any undefined bits are not set to 0, the call to CreateActCtx that creates the activation context fails and returns an invalid parameter error code. The handle returned from CreateActCtx is passed in a call to ActivateActCtx to activate the context for the current thread.ACTCTX</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr CreateActCtxW();
@@ -943,6 +965,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="dwLogonFlags">The logon option. This parameter can be 0 (zero) or one of the following values.</param>
         /// <param name="dwCreationFlags">The flags that control how the process is created. The CREATE_DEFAULT_ERROR_MODE, CREATE_NEW_CONSOLE, and CREATE_NEW_PROCESS_GROUP flags are enabled by default. For a list of values, see Process Creation Flags.This parameter also controls the new process's priority class, which is used to determine the scheduling priorities of the process's threads. For a list of values, see GetPriorityClass. If none of the priority class flags is specified, the priority class defaults to NORMAL_PRIORITY_CLASS unless the priority class of the creating process is IDLE_PRIORITY_CLASS or BELOW_NORMAL_PRIORITY_CLASS. In this case, the child process receives the default priority class of the calling process.If the dwCreationFlags parameter has a value of 0:</param>
         /// <param name="lpStartupInfo">A pointer to a STARTUPINFO structure.The application must add permission for the specified user account to the specified window station and desktop, even for WinSta0\Default.If the lpDesktop member is NULL or an empty string, the new process inherits the desktop and window station of its parent process. The application must add permission for the specified user account to the inherited window station and desktop.Windows XP:  CreateProcessWithLogonW adds permission for the specified user account to the inherited window station and desktop.Handles in STARTUPINFO must be closed with CloseHandle when they are no longer needed.</param>
+        /// <param name="lpProcessInformation"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -957,6 +980,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="dwLogonFlags">The logon option. This parameter can be zero or one of the following values.</param>
         /// <param name="dwCreationFlags">The flags that control how the process is created. The CREATE_DEFAULT_ERROR_MODE, CREATE_NEW_CONSOLE, and CREATE_NEW_PROCESS_GROUP flags are enabled by default. For a list of values, see Process Creation Flags.This parameter also controls the new process's priority class, which is used to determine the scheduling priorities of the process's threads. For a list of values, see GetPriorityClass. If none of the priority class flags is specified, the priority class defaults to NORMAL_PRIORITY_CLASS unless the priority class of the creating process is IDLE_PRIORITY_CLASS or BELOW_NORMAL_PRIORITY_CLASS. In this case, the child process receives the default priority class of the calling process.If the dwCreationFlags parameter has a value of 0:</param>
         /// <param name="lpStartupInfo">A pointer to a STARTUPINFO or STARTUPINFOEX structure.If the lpDesktop member is NULL or an empty string, the new process inherits the desktop and window station of its parent process. The function adds permission for the specified user account to the inherited window station and desktop. Otherwise, if this member specifies a desktop, it is the responsibility of the application to add permission for the specified user account to the specified window station and desktop, even for WinSta0\Default.Handles in STARTUPINFO or STARTUPINFOEX must be closed with CloseHandle when they are no longer needed.</param>
+        /// <param name="lpProcessInformation"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1231,6 +1255,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="UmsCompletionList">A pointer to the completion list from which to retrieve worker threads.</param>
         /// <param name="WaitTimeOut">The time-out interval for the retrieval operation, in milliseconds. The function returns if the interval elapses, even if no worker threads are queued to the completion list.If the WaitTimeOut parameter is zero, the completion list is checked for available worker threads without waiting for worker threads to become available. If the WaitTimeOut parameter is INFINITE, the function's time-out interval never elapses. This is not recommended, however, because it causes the function to block until one or more worker threads become available.</param>
+        /// <param name="UmsThreadList"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError. Possible error values include the following.
         /// </remarks>
@@ -1241,7 +1266,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Closes the specified event log.
         /// </summary>
-        /// <param name="hEventLog">A handle to the event log. The RegisterEventSource function returns this handle.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.Event Logging FunctionsEvent SourcesRegisterEventSource</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1261,7 +1285,7 @@ namespace WindowAPI.Winbase.h
         ///Converts a DNS-style host name to a NetBIOS-style computer name.
         /// </summary>
         /// <param name="Hostname">The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see Computer Names.</param>
-        /// <param name="nSize">On input, specifies the size of the buffer, in TCHARs. On output, receives the number of TCHARs copied to the destination buffer, not including the terminating null character.If the buffer is too small, the function fails, GetLastError returns ERROR_MORE_DATA, and nSize receives the required buffer size, not including the terminating null character.If the function succeeds, the return value is a nonzero value.If the function fails, the return value is zero. To get extended error information, call GetLastError. Possible values include the following.This function performs a textual mapping of the name. This convention limits the names of computers to be the common subset of the names. (Specifically, the leftmost label of the DNS name is truncated to 15-bytes of OEM characters.) Therefore, do not use this function to convert a DNS domain name to a NetBIOS domain name. There is no textual mapping for domain names.To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more information, see Using the Windows Headers.GetComputerNameExSetComputerNameExSystem Information Functions</param>
+        /// <param name="ComputerName"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError. Possible values include the following.
         /// </remarks>
@@ -1273,7 +1297,7 @@ namespace WindowAPI.Winbase.h
         ///Converts a DNS-style host name to a NetBIOS-style computer name.
         /// </summary>
         /// <param name="Hostname">The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see Computer Names.</param>
-        /// <param name="nSize">On input, specifies the size of the buffer, in TCHARs. On output, receives the number of TCHARs copied to the destination buffer, not including the terminating null character.If the buffer is too small, the function fails, GetLastError returns ERROR_MORE_DATA, and nSize receives the required buffer size, not including the terminating null character.If the function succeeds, the return value is a nonzero value.If the function fails, the return value is zero. To get extended error information, call GetLastError. Possible values include the following.This function performs a textual mapping of the name. This convention limits the names of computers to be the common subset of the names. (Specifically, the leftmost label of the DNS name is truncated to 15-bytes of OEM characters.) Therefore, do not use this function to convert a DNS domain name to a NetBIOS domain name. There is no textual mapping for domain names.To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more information, see Using the Windows Headers.GetComputerNameExSetComputerNameExSystem Information Functions</param>
+        /// <param name="ComputerName"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError. Possible values include the following.
         /// </remarks>
@@ -1286,6 +1310,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="wFatDate">The MS-DOS date. The date is a packed value with the following format.</param>
         /// <param name="wFatTime">The MS-DOS time. The time is a packed value with the following format.</param>
+        /// <param name="lpFileTime"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1299,6 +1324,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="ThreadHandle">The handle to the thread on which you want to enable profiling. This must be the current thread.</param>
         /// <param name="Flags">To receive thread profiling data such as context switch count, set this parameter to THREAD_PROFILING_FLAG_DISPATCH; otherwise, set to 0.</param>
         /// <param name="HardwareCounters">To receive hardware performance counter data, set this parameter to a bitmask that identifies the hardware counters to collect. You can specify up to 16 performance counters. Each bit relates directly to the zero-based hardware counter index for the hardware performance counters that you configured. Set to zero if you are not collecting hardware counter data. If you set a bit for a hardware counter that has not been configured, the counter value that is read for that counter is zero.</param>
+        /// <param name="PerformanceDataHandle"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern uint EnableThreadProfiling(IntPtr ThreadHandle, uint Flags, uint HardwareCounters, out IntPtr PerformanceDataHandle);
@@ -1439,7 +1465,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Runs the specified UMS worker thread.
         /// </summary>
-        /// <param name="UmsThread">A pointer to the UMS thread context of the worker thread to run.If the function succeeds, it does not return a value.If the function fails, the return value is zero. To get extended error information, call GetLastError. Possible error codes include the following.The ExecuteUmsThread function loads the state of the specified UMS worker thread over the state of the calling UMS scheduler thread so that the worker thread can run. The worker thread runs until it yields by calling the UmsThreadYield function, blocks, or terminates.When a worker thread yields or blocks, the system calls the scheduler thread's UmsSchedulerProc entry point function. When a previously blocked worker thread becomes unblocked, the system queues the worker thread to the completion list specified with the UpdateProcThreadAttribute function when the worker thread was created.The ExecuteUmsThread function does not return unless an error occurs. If the function returns ERROR_RETRY, the error is transitory and the operation can be retried.If the function returns an error other than ERROR_RETRY, the application's scheduler should check whether the thread is suspended or terminated by calling QueryUmsThreadInformation with UmsThreadIsSuspended or UmsThreadIsTerminated, respectively. Other possible errors include calling the function on a thread that is not a UMS scheduler thread, passing an invalid UMS worker thread context, or specifying a worker thread that is already executing on another scheduler thread.UmsSchedulerProcUmsThreadYieldUpdateProcThreadAttribute</param>
         /// <remarks>
         /// To get extended error information, call GetLastError. Possible error codes include the following.
         /// </remarks>
@@ -1459,6 +1484,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the encryption status of the specified file.
         /// </summary>
         /// <param name="lpFileName">The name of the file.</param>
+        /// <param name="lpStatus"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1470,6 +1496,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the encryption status of the specified file.
         /// </summary>
         /// <param name="lpFileName">The name of the file.</param>
+        /// <param name="lpStatus"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1481,6 +1508,8 @@ namespace WindowAPI.Winbase.h
         ///Converts a file time to MS-DOS date and time values.
         /// </summary>
         /// <param name="lpFileTime">A pointer to a FILETIME structure containing the file time to convert to MS-DOS date and time format.</param>
+        /// <param name="lpFatDate"></param>
+        /// <param name="lpFatTime"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1495,6 +1524,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpExtensionGuid">Reserved; must be null.</param>
         /// <param name="ulSectionId">Identifier of the section of the activation context in which to search for the specified GUID.The following are valid GUID section identifiers:</param>
         /// <param name="lpGuidToFind">Pointer to a GUID to be used as the search criteria.</param>
+        /// <param name="ReturnedData"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool FindActCtxSectionGuid(uint dwFlags, int lpExtensionGuid, int ulSectionId, int lpGuidToFind, out int ReturnedData);
@@ -1506,6 +1536,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpExtensionGuid">Reserved; must be null.</param>
         /// <param name="ulSectionId">Identifier of the string section of the activation context in which to search for the specific string.The following are valid string section identifiers:</param>
         /// <param name="lpStringToFind">Pointer to a null-terminated string to be used as the search criteria.</param>
+        /// <param name="ReturnedData"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool FindActCtxSectionStringA(uint dwFlags, int lpExtensionGuid, int ulSectionId, string lpStringToFind, out int ReturnedData);
@@ -1517,6 +1548,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpExtensionGuid">Reserved; must be null.</param>
         /// <param name="ulSectionId">Identifier of the string section of the activation context in which to search for the specific string.The following are valid string section identifiers:</param>
         /// <param name="lpStringToFind">Pointer to a null-terminated string to be used as the search criteria.</param>
+        /// <param name="ReturnedData"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool FindActCtxSectionStringW(uint dwFlags, int lpExtensionGuid, int ulSectionId, string lpStringToFind, out int ReturnedData);
@@ -1548,8 +1580,6 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpFileName">The name of the file.The file must reside on the local computer; otherwise, the function fails and the last error code is set to ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE (6805).</param>
         /// <param name="dwFlags">Reserved; specify zero (0).</param>
-        /// <param name="StringLength">The size of the buffer pointed to by the LinkName parameter, in characters. If this call fails and the error is ERROR_MORE_DATA (234), the value that is returned by this parameter is the size that the buffer pointed to by LinkName must be to contain all the data.</param>
-        /// <param name="LinkName">A pointer to a buffer to store the first link name found for lpFileName.</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr FindFirstFileNameTransactedW(string lpFileName, uint dwFlags);
@@ -1559,6 +1589,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpFileName">The directory or path, and the file name. The file name can include wildcard characters, for example, an asterisk (*) or a question mark (?).This parameter should not be NULL, an invalid string (for example, an empty string or a string that is missing the terminating null character), or end in a trailing backslash (\).If the string ends with a wildcard, period (.), or directory name, the user must have access to the root and all subdirectories on the path.By default, the name is limited to MAX_PATH characters. To extend this limit to 32,767 wide characters, prepend "\\?\" to the path. For more information, see Naming Files, Paths, and Namespaces.The file must reside on the local computer; otherwise, the function fails and the last error code is set to ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE.</param>
         /// <param name="fInfoLevelId">The information level of the returned data.This parameter is one of the FINDEX_INFO_LEVELS enumeration values.</param>
+        /// <param name="lpFindFileData"></param>
         /// <param name="fSearchOp">The type of filtering to perform that is different from wildcard matching.This parameter is one of the FINDEX_SEARCH_OPS enumeration values.lpSearchFilterA pointer to the search criteria if the specified fSearchOp needs structured search information.At this time, none of the supported fSearchOp values require extended search information. Therefore, this pointer must be NULL.</param>
         /// <param name="dwAdditionalFlags">Specifies additional flags that control the search.</param>
         /// <param name="hTransaction">A handle to the transaction. This handle is returned by the CreateTransaction function.If the function succeeds, the return value is a search handle used in a subsequent call to FindNextFile or FindClose, and the lpFindFileData parameter contains information about the first file or directory found.If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate. To get extended error information, call the GetLastError function.The FindFirstFileTransacted function opens a search handle and returns information about the first file that the file system finds with a name that matches the specified pattern. This may or may not be the first file or directory that appears in a directory-listing application (such as the dir command) when given the same file name string pattern. This is because FindFirstFileTransacted does no sorting of the search results. For additional information, see FindNextFile.The following list identifies some other search characteristics:After the search handle is established, use it in the FindNextFile function to search for other files that match the same pattern with the same filtering that is being performed. When the search handle is not needed, it should be closed by using the FindClose function.As stated previously, you cannot use a trailing backslash (\) in the lpFileName input string for FindFirstFileTransacted, therefore it may not be obvious how to search root directories. If you want to see files or get the attributes of a root directory, the following options would apply:On network shares, you can use an lpFileName in the form of the following: "\\server\service*". However, you cannot use an lpFileName that points to the share itself; for example, "\\server\service" is not valid.To examine a directory that is not a root directory, use the path to that directory, without a trailing backslash. For example, an argument of "C:\Windows" returns information about the directory "C:\Windows", not about a directory or file in "C:\Windows". To examine the files and directories in "C:\Windows", use an lpFileName of "C:\Windows\*".Be aware that some other thread or process could create or delete a file with this name between the time you query for the result and the time you act on the information. If this is a potential concern for your application, one possible solution is to use the CreateFile function with CREATE_NEW (which fails if the file exists) or OPEN_EXISTING (which fails if the file does not exist).If you are writing a 32-bit application to list all the files in a directory and the application may be run on a 64-bit computer, you should call Wow64DisableWow64FsRedirection before calling FindFirstFileTransacted and call Wow64RevertWow64FsRedirection after the last call to FindNextFile. For more information, see File System Redirector.If the path points to a symbolic link, the WIN32_FIND_DATA buffer contains information about the symbolic link, not the target.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB 3.0 does not support TxF.File Management FunctionsFindCloseFindNextFileGetFileAttributesSetFileAttributesSymbolic LinksTransactional NTFSWIN32_FIND_DATA</param>
@@ -1574,6 +1605,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpFileName">The directory or path, and the file name. The file name can include wildcard characters, for example, an asterisk (*) or a question mark (?).This parameter should not be NULL, an invalid string (for example, an empty string or a string that is missing the terminating null character), or end in a trailing backslash (\).If the string ends with a wildcard, period (.), or directory name, the user must have access to the root and all subdirectories on the path.The file must reside on the local computer; otherwise, the function fails and the last error code is set to ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE.By default, the name is limited to MAX_PATH characters. To extend this limit to 32,767 wide characters, prepend "\\?\" to the path. For more information, see Naming Files, Paths, and Namespaces.</param>
         /// <param name="fInfoLevelId">The information level of the returned data.This parameter is one of the FINDEX_INFO_LEVELS enumeration values.</param>
+        /// <param name="lpFindFileData"></param>
         /// <param name="fSearchOp">The type of filtering to perform that is different from wildcard matching.This parameter is one of the FINDEX_SEARCH_OPS enumeration values.lpSearchFilterA pointer to the search criteria if the specified fSearchOp needs structured search information.At this time, none of the supported fSearchOp values require extended search information. Therefore, this pointer must be NULL.</param>
         /// <param name="dwAdditionalFlags">Specifies additional flags that control the search.</param>
         /// <param name="hTransaction">A handle to the transaction. This handle is returned by the CreateTransaction function.If the function succeeds, the return value is a search handle used in a subsequent call to FindNextFile or FindClose, and the lpFindFileData parameter contains information about the first file or directory found.If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate. To get extended error information, call the GetLastError function.The FindFirstFileTransacted function opens a search handle and returns information about the first file that the file system finds with a name that matches the specified pattern. This may or may not be the first file or directory that appears in a directory-listing application (such as the dir command) when given the same file name string pattern. This is because FindFirstFileTransacted does no sorting of the search results. For additional information, see FindNextFile.The following list identifies some other search characteristics:After the search handle is established, use it in the FindNextFile function to search for other files that match the same pattern with the same filtering that is being performed. When the search handle is not needed, it should be closed by using the FindClose function.As stated previously, you cannot use a trailing backslash (\) in the lpFileName input string for FindFirstFileTransacted, therefore it may not be obvious how to search root directories. If you want to see files or get the attributes of a root directory, the following options would apply:On network shares, you can use an lpFileName in the form of the following: "\\server\service*". However, you cannot use an lpFileName that points to the share itself; for example, "\\server\service" is not valid.To examine a directory that is not a root directory, use the path to that directory, without a trailing backslash. For example, an argument of "C:\Windows" returns information about the directory "C:\Windows", not about a directory or file in "C:\Windows". To examine the files and directories in "C:\Windows", use an lpFileName of "C:\Windows\*".Be aware that some other thread or process could create or delete a file with this name between the time you query for the result and the time you act on the information. If this is a potential concern for your application, one possible solution is to use the CreateFile function with CREATE_NEW (which fails if the file exists) or OPEN_EXISTING (which fails if the file does not exist).If you are writing a 32-bit application to list all the files in a directory and the application may be run on a 64-bit computer, you should call Wow64DisableWow64FsRedirection before calling FindFirstFileTransacted and call Wow64RevertWow64FsRedirection after the last call to FindNextFile. For more information, see File System Redirector.If the path points to a symbolic link, the WIN32_FIND_DATA buffer contains information about the symbolic link, not the target.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB 3.0 does not support TxF.File Management FunctionsFindCloseFindNextFileGetFileAttributesSetFileAttributesSymbolic LinksTransactional NTFSWIN32_FIND_DATA</param>
@@ -1589,6 +1621,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpFileName">The fully qualified file name.The file must reside on the local computer; otherwise, the function fails and the last error code is set to ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE (6805).</param>
         /// <param name="InfoLevel">The information level of the returned data. This parameter is one of the values in the STREAM_INFO_LEVELS enumeration type.</param>
+        /// <param name="lpFindStreamData"></param>
         /// <param name="hTransaction">A handle to the transaction. This handle is returned by the CreateTransaction function.If the function succeeds, the return value is a search handle that can be used in subsequent calls to the FindNextStreamW function.If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call GetLastError.All files contain a default data stream. On NTFS, files can also contain one or more named data streams. On FAT file systems, files cannot have more that the default data stream, and therefore, this function will not return valid results when used on FAT filesystem files. This function works on all file systems that supports hard links; otherwise, the function returns ERROR_STATUS_NOT_IMPLEMENTED (6805).The FindFirstStreamTransactedW function opens a search handle and returns information about the first stream in the specified file or directory. For files, this is always the default data stream, ::$DATA. After the search handle has been established, use it in the FindNextStreamW function to search for other streams in the specified file or directory. When the search handle is no longer needed, it should be closed using the FindClose function.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB 3.0 does not support TxF.File Management FunctionsFindCloseFindNextStreamWSTREAM_INFO_LEVELSTransactional NTFSWIN32_FIND_STREAM_DATA</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -1600,6 +1633,7 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Retrieves the name of a volume on a computer. FindFirstVolume is used to begin scanning the volumes of a computer.
         /// </summary>
+        /// <param name="lpszVolumeName"></param>
         /// <param name="cchBufferLength">The length of the buffer to receive the volume GUID path, in TCHARs.If the function succeeds, the return value is a search handle used in a subsequent call to the FindNextVolume and FindVolumeClose functions.If the function fails to find any volumes, the return value is the INVALID_HANDLE_VALUE error code. To get extended error information, call GetLastError.The FindFirstVolume function opens a volume search handle and returns information about the first volume found on a computer. After the search handle is established, you can use the FindNextVolume function to search for other volumes. When the search handle is no longer needed, close it by using the FindVolumeClose function.You should not assume any correlation between the order of the volumes that are returned by these functions and the order of the volumes that are on the computer. In particular, do not assume any correlation between volume order and drive letters as assigned by the BIOS (if any) or the Disk Administrator.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB does not support volume management functions.For an example, see Displaying Volume Paths.FindNextVolumeFindVolumeCloseMounted FoldersVolume Management Functions</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -1612,6 +1646,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the name of a mounted folder on the specified volume. FindFirstVolumeMountPoint is used to begin scanning the mounted folders on a volume.
         /// </summary>
         /// <param name="lpszRootPathName">A volume GUID path for the volume to scan for mounted folders. A trailing backslash is required.</param>
+        /// <param name="lpszVolumeMountPoint"></param>
         /// <param name="cchBufferLength">The length of the buffer that receives the path to the mounted folder, in TCHARs.If the function succeeds, the return value is a search handle used in a subsequent call to the FindNextVolumeMountPoint and FindVolumeMountPointClose functions.If the function fails to find a mounted folder on the volume, the return value is the INVALID_HANDLE_VALUE error code. To get extended error information, call GetLastError.The FindFirstVolumeMountPoint function opens a mounted folder search handle and returns information about the first mounted folder that is found on the specified volume. After the search handle is established, you can use the FindNextVolumeMountPoint function to search for other mounted folders. When the search handle is no longer needed, close it with the FindVolumeMountPointClose function.The FindFirstVolumeMountPoint, FindNextVolumeMountPoint, and FindVolumeMountPointClose functions return paths to mounted folders for a specified volume. They do not return drive letters or volume GUID paths. For information about enumerating the volume GUID paths for a volume, see Enumerating Volume GUID Paths.You should not assume any correlation between the order of the mounted folders that are returned by these functions and the order of the mounted folders that are returned by other functions or tools.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB does not support volume management functions. CsvFS does not support adding mount point on a CSV volume. ReFS does not index mount points.FindNextVolumeMountPointFindVolumeMountPointCloseMounted FoldersVolume Management Functions</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -1624,6 +1659,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the name of a mounted folder on the specified volume. FindFirstVolumeMountPoint is used to begin scanning the mounted folders on a volume.
         /// </summary>
         /// <param name="lpszRootPathName">A volume GUID path for the volume to scan for mounted folders. A trailing backslash is required.</param>
+        /// <param name="lpszVolumeMountPoint"></param>
         /// <param name="cchBufferLength">The length of the buffer that receives the path to the mounted folder, in TCHARs.If the function succeeds, the return value is a search handle used in a subsequent call to the FindNextVolumeMountPoint and FindVolumeMountPointClose functions.If the function fails to find a mounted folder on the volume, the return value is the INVALID_HANDLE_VALUE error code. To get extended error information, call GetLastError.The FindFirstVolumeMountPoint function opens a mounted folder search handle and returns information about the first mounted folder that is found on the specified volume. After the search handle is established, you can use the FindNextVolumeMountPoint function to search for other mounted folders. When the search handle is no longer needed, close it with the FindVolumeMountPointClose function.The FindFirstVolumeMountPoint, FindNextVolumeMountPoint, and FindVolumeMountPointClose functions return paths to mounted folders for a specified volume. They do not return drive letters or volume GUID paths. For information about enumerating the volume GUID paths for a volume, see Enumerating Volume GUID Paths.You should not assume any correlation between the order of the mounted folders that are returned by these functions and the order of the mounted folders that are returned by other functions or tools.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB does not support volume management functions. CsvFS does not support adding mount point on a CSV volume. ReFS does not index mount points.FindNextVolumeMountPointFindVolumeMountPointCloseMounted FoldersVolume Management Functions</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -1636,6 +1672,7 @@ namespace WindowAPI.Winbase.h
         ///Continues a volume search started by a call to the FindFirstVolume function. FindNextVolume finds one volume per call.
         /// </summary>
         /// <param name="hFindVolume">The volume search handle returned by a previous call to the FindFirstVolume function.</param>
+        /// <param name="lpszVolumeName"></param>
         /// <param name="cchBufferLength">The length of the buffer that receives the volume GUID path, in TCHARs.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError. If no matching files can be found, the GetLastError function returns the ERROR_NO_MORE_FILES error code. In that case, close the search with the FindVolumeClose function.After the search handle is established by calling FindFirstVolume, you can use the FindNextVolume function to search for other volumes.You should not assume any correlation between the order of the volumes that are returned by these functions and the order of the volumes that are on the computer. In particular, do not assume any correlation between volume order and drive letters as assigned by the BIOS (if any) or the Disk Administrator.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB does not support volume management functions.For an example, see Displaying Volume Paths.FindFirstVolumeFindVolumeCloseMounted FoldersVolume Management Functions</param>
         /// <remarks>
         /// To get extended error information, call GetLastError. If no matching files can be found, the GetLastError function returns the ERROR_NO_MORE_FILES error code. In that case, close the search with the FindVolumeClose function.
@@ -1648,6 +1685,7 @@ namespace WindowAPI.Winbase.h
         ///Continues a mounted folder search started by a call to the FindFirstVolumeMountPoint function. FindNextVolumeMountPoint finds one mounted folder per call.
         /// </summary>
         /// <param name="hFindVolumeMountPoint">A mounted folder search handle returned by a previous call to the FindFirstVolumeMountPoint function.</param>
+        /// <param name="lpszVolumeMountPoint"></param>
         /// <param name="cchBufferLength">The length of the buffer that receives the mounted folder name, in TCHARs.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError. If no more mounted folders can be found, the GetLastError function returns the ERROR_NO_MORE_FILES error code. In that case, close the search with the FindVolumeMountPointClose function.After the search handle is established by calling FindFirstVolumeMountPoint, you can use the FindNextVolumeMountPoint function to search for other mounted folders.The FindFirstVolumeMountPoint, FindNextVolumeMountPoint, and FindVolumeMountPointClose functions return paths to mounted folders for a specified volume. They do not return drive letters or volume GUID paths. For information about enumerating the volume GUID paths for a volume, see Enumerating Volume GUID Paths.You should not assume any correlation between the order of the mounted folders that are returned with these functions and the order of the mounted folders that are returned by other functions or tools.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB does not support volume management functions. CsvFS does not support adding mount point on a CSV volume. ReFS does not index mount points.FindFirstVolumeMountPointFindVolumeMountPointCloseMounted FoldersVolume Management Functions</param>
         /// <remarks>
         /// To get extended error information, call GetLastError. If no more mounted folders can be found, the GetLastError function returns the ERROR_NO_MORE_FILES error code. In that case, close the search with the FindVolumeMountPointClose function.
@@ -1660,6 +1698,7 @@ namespace WindowAPI.Winbase.h
         ///Continues a mounted folder search started by a call to the FindFirstVolumeMountPoint function. FindNextVolumeMountPoint finds one mounted folder per call.
         /// </summary>
         /// <param name="hFindVolumeMountPoint">A mounted folder search handle returned by a previous call to the FindFirstVolumeMountPoint function.</param>
+        /// <param name="lpszVolumeMountPoint"></param>
         /// <param name="cchBufferLength">The length of the buffer that receives the mounted folder name, in TCHARs.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError. If no more mounted folders can be found, the GetLastError function returns the ERROR_NO_MORE_FILES error code. In that case, close the search with the FindVolumeMountPointClose function.After the search handle is established by calling FindFirstVolumeMountPoint, you can use the FindNextVolumeMountPoint function to search for other mounted folders.The FindFirstVolumeMountPoint, FindNextVolumeMountPoint, and FindVolumeMountPointClose functions return paths to mounted folders for a specified volume. They do not return drive letters or volume GUID paths. For information about enumerating the volume GUID paths for a volume, see Enumerating Volume GUID Paths.You should not assume any correlation between the order of the mounted folders that are returned with these functions and the order of the mounted folders that are returned by other functions or tools.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB does not support volume management functions. CsvFS does not support adding mount point on a CSV volume. ReFS does not index mount points.FindFirstVolumeMountPointFindVolumeMountPointCloseMounted FoldersVolume Management Functions</param>
         /// <remarks>
         /// To get extended error information, call GetLastError. If no more mounted folders can be found, the GetLastError function returns the ERROR_NO_MORE_FILES error code. In that case, close the search with the FindVolumeMountPointClose function.
@@ -1710,6 +1749,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="dwFlags">The formatting options, and how to interpret the lpSource parameter. The low-order byte of dwFlags specifies how the function handles line breaks in the output buffer. The low-order byte can also specify the maximum width of a formatted output line.This parameter can be one or more of the following values.The low-order byte of dwFlags can specify the maximum width of a formatted output line. The following are possible values of the low-order byte.If the low-order byte is a nonzero value other than FORMAT_MESSAGE_MAX_WIDTH_MASK, it specifies the maximum number of characters in an output line. The function ignores regular line breaks in the message definition text. The function never splits a string delimited by white space across a line break. The function stores hard-coded line breaks in the message definition text into the output buffer. Hard-coded line breaks are coded with the %n escape sequence.</param>
         /// <param name="dwMessageId">The message identifier for the requested message. This parameter is ignored if dwFlags includes FORMAT_MESSAGE_FROM_STRING.</param>
         /// <param name="dwLanguageId">The language identifier for the requested message. This parameter is ignored if dwFlags includes FORMAT_MESSAGE_FROM_STRING.If you pass a specific LANGID in this parameter, FormatMessage will return a message for that LANGID only. If the function cannot find a message for that LANGID, it sets Last-Error to ERROR_RESOURCE_LANG_NOT_FOUND. If you pass in zero, FormatMessage looks for a message for LANGIDs in the following order:</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nSize">If the FORMAT_MESSAGE_ALLOCATE_BUFFER flag is not set, this parameter specifies the size of the output buffer, in TCHARs. If FORMAT_MESSAGE_ALLOCATE_BUFFER is set, this parameter specifies the minimum number of TCHARs to allocate for an output buffer.The output buffer cannot be larger than 64K bytes.</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -1724,6 +1764,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="dwFlags">The formatting options, and how to interpret the lpSource parameter. The low-order byte of dwFlags specifies how the function handles line breaks in the output buffer. The low-order byte can also specify the maximum width of a formatted output line.This parameter can be one or more of the following values.The low-order byte of dwFlags can specify the maximum width of a formatted output line. The following are possible values of the low-order byte.If the low-order byte is a nonzero value other than FORMAT_MESSAGE_MAX_WIDTH_MASK, it specifies the maximum number of characters in an output line. The function ignores regular line breaks in the message definition text. The function never splits a string delimited by white space across a line break. The function stores hard-coded line breaks in the message definition text into the output buffer. Hard-coded line breaks are coded with the %n escape sequence.</param>
         /// <param name="dwMessageId">The message identifier for the requested message. This parameter is ignored if dwFlags includes FORMAT_MESSAGE_FROM_STRING.</param>
         /// <param name="dwLanguageId">The language identifier for the requested message. This parameter is ignored if dwFlags includes FORMAT_MESSAGE_FROM_STRING.If you pass a specific LANGID in this parameter, FormatMessage will return a message for that LANGID only. If the function cannot find a message for that LANGID, it sets Last-Error to ERROR_RESOURCE_LANG_NOT_FOUND. If you pass in zero, FormatMessage looks for a message for LANGIDs in the following order:</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nSize">If the FORMAT_MESSAGE_ALLOCATE_BUFFER flag is not set, this parameter specifies the size of the output buffer, in TCHARs. If FORMAT_MESSAGE_ALLOCATE_BUFFER is set, this parameter specifies the minimum number of TCHARs to allocate for an output buffer.The output buffer cannot be larger than 64K bytes.</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -1738,6 +1779,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="dwFlags">The formatting options, and how to interpret the lpSource parameter. The low-order byte of dwFlags specifies how the function handles line breaks in the output buffer. The low-order byte can also specify the maximum width of a formatted output line.This parameter can be one or more of the following values.The low-order byte of dwFlags can specify the maximum width of a formatted output line. The following are possible values of the low-order byte.If the low-order byte is a nonzero value other than FORMAT_MESSAGE_MAX_WIDTH_MASK, it specifies the maximum number of characters in an output line. The function ignores regular line breaks in the message definition text. The function never splits a string delimited by white space across a line break. The function stores hard-coded line breaks in the message definition text into the output buffer. Hard-coded line breaks are coded with the %n escape sequence.</param>
         /// <param name="dwMessageId">The message identifier for the requested message. This parameter is ignored if dwFlags includes FORMAT_MESSAGE_FROM_STRING.</param>
         /// <param name="dwLanguageId">The language identifier for the requested message. This parameter is ignored if dwFlags includes FORMAT_MESSAGE_FROM_STRING.If you pass a specific LANGID in this parameter, FormatMessage will return a message for that LANGID only. If the function cannot find a message for that LANGID, it sets Last-Error to ERROR_RESOURCE_LANG_NOT_FOUND. If you pass in zero, FormatMessage looks for a message for LANGIDs in the following order:</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nSize">If the FORMAT_MESSAGE_ALLOCATE_BUFFER flag is not set, this parameter specifies the size of the output buffer, in TCHARs. If FORMAT_MESSAGE_ALLOCATE_BUFFER is set, this parameter specifies the minimum number of TCHARs to allocate for an output buffer.The output buffer cannot be larger than 64K bytes.</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -1768,6 +1810,10 @@ namespace WindowAPI.Winbase.h
         ///Retrieves a pointer to the callback routine registered for the specified process. The address returned is in the virtual address space of the process.
         /// </summary>
         /// <param name="hProcess">A handle to the process. This handle must have the PROCESS_VM_READ access right.</param>
+        /// <param name="pRecoveryCallback"></param>
+        /// <param name="ppvParameter"></param>
+        /// <param name="pdwPingInterval"></param>
+        /// <param name="pdwFlags"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr GetApplicationRecoveryCallback(IntPtr hProcess, out int pRecoveryCallback, out IntPtr ppvParameter, out uint pdwPingInterval, out uint pdwFlags);
@@ -1776,7 +1822,6 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the restart information registered for the specified process.
         /// </summary>
         /// <param name="hProcess">A handle to the process. This handle must have the PROCESS_VM_READ access right.</param>
-        /// <param name="pcchSize">On input, specifies the size of the pwzCommandLine buffer, in characters.If the buffer is not large enough to receive the command line, the function fails with HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) and sets this parameter to the required buffer size, in characters.On output, specifies the size of the buffer that was used.To determine the required buffer size, set pwzCommandLine to NULL and this parameter to zero. The size includes one for the null-terminator character. Note that the function returns S_OK, not HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) in this case.</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr GetApplicationRestartSettings(IntPtr hProcess);
@@ -1785,6 +1830,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves a copy of the character string associated with the specified local atom.
         /// </summary>
         /// <param name="nAtom">Type: ATOMThe local atom that identifies the character string to be retrieved.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nSize">Type: intThe size, in characters, of the buffer.Type: UINTIf the function succeeds, the return value is the length of the string copied to the buffer, in characters, not including the terminating null character.If the function fails, the return value is zero. To get extended error information, call GetLastError.The string returned for an integer atom (an atom whose value is in the range 0x0001 to 0xBFFF) is a null-terminated string in which the first character is a pound sign (#) and the remaining characters represent the unsigned integer atom value.AddAtomDeleteAtomFindAtomGlobalAddAtomGlobalDeleteAtomGlobalFindAtomGlobalGetAtomNameMAKEINTATOMReference</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -1797,6 +1843,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves a copy of the character string associated with the specified local atom.
         /// </summary>
         /// <param name="nAtom">Type: ATOMThe local atom that identifies the character string to be retrieved.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nSize">Type: intThe size, in characters, of the buffer.Type: UINTIf the function succeeds, the return value is the length of the string copied to the buffer, in characters, not including the terminating null character.If the function fails, the return value is zero. To get extended error information, call GetLastError.The string returned for an integer atom (an atom whose value is in the range 0x0001 to 0xBFFF) is a null-terminated string in which the first character is a pound sign (#) and the remaining characters represent the unsigned integer atom value.AddAtomDeleteAtomFindAtomGlobalAddAtomGlobalDeleteAtomGlobalFindAtomGlobalGetAtomNameMAKEINTATOMReference</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -1809,6 +1856,7 @@ namespace WindowAPI.Winbase.h
         ///Determines whether a file is an executable (.exe) file, and if so, which subsystem runs the executable file.
         /// </summary>
         /// <param name="lpApplicationName">The full path of the file whose executable type is to be determined.By default, the name is limited to MAX_PATH characters. To extend this limit to 32,767 wide characters, prepend "\\?\" to the path. For more information, see Naming Files, Paths, and Namespaces.</param>
+        /// <param name="lpBinaryType"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError. If the file is a DLL, the last error code is ERROR_BAD_EXE_FORMAT.
         /// </remarks>
@@ -1820,6 +1868,7 @@ namespace WindowAPI.Winbase.h
         ///Determines whether a file is an executable (.exe) file, and if so, which subsystem runs the executable file.
         /// </summary>
         /// <param name="lpApplicationName">The full path of the file whose executable type is to be determined.By default, the name is limited to MAX_PATH characters. To extend this limit to 32,767 wide characters, prepend "\\?\" to the path. For more information, see Naming Files, Paths, and Namespaces.</param>
+        /// <param name="lpBinaryType"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError. If the file is a DLL, the last error code is ERROR_BAD_EXE_FORMAT.
         /// </remarks>
@@ -1831,7 +1880,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the current configuration of a communications device.
         /// </summary>
         /// <param name="hCommDev">A handle to the open communications device. The CreateFile function returns this handle.</param>
-        /// <param name="lpdwSize">The size, in bytes, of the buffer pointed to by lpCC. When the function returns, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, use the GetLastError function.COMMCONFIGCommunications FunctionsCommunications ResourcesCreateFileGetDefaultCommConfigSetCommConfig</param>
+        /// <param name="lpCC"></param>
         /// <remarks>
         /// To get extended error information, use the GetLastError function.
         /// </remarks>
@@ -1843,6 +1892,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the value of the event mask for a specified communications device.
         /// </summary>
         /// <param name="hFile">A handle to the communications device. The CreateFile function returns this handle.</param>
+        /// <param name="lpEvtMask"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1854,6 +1904,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the modem control-register values.
         /// </summary>
         /// <param name="hFile">A handle to the communications device. The CreateFile function returns this handle.</param>
+        /// <param name="lpModemStat"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1864,7 +1915,9 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Gets an array that contains the well-formed COM ports.
         /// </summary>
+        /// <param name="lpPortNumbers"></param>
         /// <param name="uPortNumbersCount">The length of the array in the lpPortNumbers parameter.</param>
+        /// <param name="puPortNumbersFound"></param>
 
         [DllImport("KernelBase.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern int GetCommPorts(out int lpPortNumbers, int uPortNumbersCount, out int puPortNumbersFound);
@@ -1873,6 +1926,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves information about the communications properties for a specified communications device.
         /// </summary>
         /// <param name="hFile">A handle to the communications device. The CreateFile function returns this handle.</param>
+        /// <param name="lpCommProp"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1884,7 +1938,6 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the current control settings for a specified communications device.
         /// </summary>
         /// <param name="hFile">A handle to the communications device. The CreateFile function returns this handle.</param>
-        /// <param name="lpDCB">A pointer to a DCB structure that receives the control settings information.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.Communications FunctionsCommunications ResourcesCreateFileDCBSetCommState</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1896,6 +1949,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the time-out parameters for all read and write operations on a specified communications device.
         /// </summary>
         /// <param name="hFile">A handle to the communications device. The CreateFile function returns this handle.</param>
+        /// <param name="lpCommTimeouts"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1930,7 +1984,7 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Retrieves the NetBIOS name of the local computer. This name is established at system startup, when the system reads it from the registry.
         /// </summary>
-        /// <param name="nSize">On input, specifies the size of the buffer, in TCHARs. On output, the number of TCHARs copied to the destination buffer, not including the terminating null character.If the buffer is too small, the function fails and GetLastError returns ERROR_BUFFER_OVERFLOW. The lpnSize parameter specifies the size of the buffer required, including the terminating null character.If the function succeeds, the return value is a nonzero value.If the function fails, the return value is zero. To get extended error information, call GetLastError.The GetComputerName function retrieves the NetBIOS name established at system startup. Name changes made by the SetComputerName or SetComputerNameEx functions do not take effect until the user restarts the computer.If the caller is running under a client session, this function returns the server name. To retrieve the client name, use the WTSQuerySessionInformation function.For an example, see Getting System Information.Computer NamesGetComputerNameExSetComputerNameSetComputerNameExSystem Information Functions</param>
+        /// <param name="lpBuffer"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1941,7 +1995,7 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Retrieves the NetBIOS name of the local computer. This name is established at system startup, when the system reads it from the registry.
         /// </summary>
-        /// <param name="nSize">On input, specifies the size of the buffer, in TCHARs. On output, the number of TCHARs copied to the destination buffer, not including the terminating null character.If the buffer is too small, the function fails and GetLastError returns ERROR_BUFFER_OVERFLOW. The lpnSize parameter specifies the size of the buffer required, including the terminating null character.If the function succeeds, the return value is a nonzero value.If the function fails, the return value is zero. To get extended error information, call GetLastError.The GetComputerName function retrieves the NetBIOS name established at system startup. Name changes made by the SetComputerName or SetComputerNameEx functions do not take effect until the user restarts the computer.If the caller is running under a client session, this function returns the server name. To retrieve the client name, use the WTSQuerySessionInformation function.For an example, see Getting System Information.Computer NamesGetComputerNameExSetComputerNameSetComputerNameExSystem Information Functions</param>
+        /// <param name="lpBuffer"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1960,6 +2014,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the current directory for the current process.
         /// </summary>
         /// <param name="nBufferLength">The length of the buffer for the current directory string, in TCHARs. The buffer length must include room for a terminating null character.</param>
+        /// <param name="lpBuffer"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2001,7 +2056,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the default configuration for the specified communications device.
         /// </summary>
         /// <param name="lpszName">The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.</param>
-        /// <param name="lpdwSize">A pointer to a variable that specifies the size of the buffer pointed to by lpCC, in bytes. Upon return, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, use the GetLastError function.COMMCONFIGCommunications FunctionsCommunications ResourcesSetDefaultCommConfig</param>
+        /// <param name="lpCC"></param>
         /// <remarks>
         /// To get extended error information, use the GetLastError function.
         /// </remarks>
@@ -2013,7 +2068,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the default configuration for the specified communications device.
         /// </summary>
         /// <param name="lpszName">The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.</param>
-        /// <param name="lpdwSize">A pointer to a variable that specifies the size of the buffer pointed to by lpCC, in bytes. Upon return, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, use the GetLastError function.COMMCONFIGCommunications FunctionsCommunications ResourcesSetDefaultCommConfig</param>
+        /// <param name="lpCC"></param>
         /// <remarks>
         /// To get extended error information, use the GetLastError function.
         /// </remarks>
@@ -2025,6 +2080,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the current power state of the specified device. This function cannot be used to query the power state of a display device.
         /// </summary>
         /// <param name="hDevice">A handle to an object on the device, such as a file or socket, or a handle to the device itself.</param>
+        /// <param name="pfOn"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool GetDevicePowerState(IntPtr hDevice, out bool pfOn);
@@ -2033,6 +2089,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the application-specific portion of the search path used to locate DLLs for the application.
         /// </summary>
         /// <param name="nBufferLength">The size of the output buffer, in characters.</param>
+        /// <param name="lpBuffer"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2044,6 +2101,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the application-specific portion of the search path used to locate DLLs for the application.
         /// </summary>
         /// <param name="nBufferLength">The size of the output buffer, in characters.</param>
+        /// <param name="lpBuffer"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2071,7 +2129,9 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="hEventLog">A handle to the event log. The OpenEventLog or RegisterEventSource function returns this handle.</param>
         /// <param name="dwInfoLevel">The level of event log information to return.This parameter can be the following value.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="cbBufSize">The size of the lpBuffer buffer, in bytes.</param>
+        /// <param name="pcbBytesNeeded"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2084,6 +2144,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpFileName">The name of the file or directory.By default, the name is limited to MAX_PATH characters. To extend this limit to 32,767 wide characters, prepend "\\?\" to the path. For more information, see Naming Files, Paths, and Namespaces.The file or directory must reside on the local computer; otherwise, the function fails and the last error code is set to ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE.</param>
         /// <param name="fInfoLevelId">The level of attribute information to retrieve.This parameter can be the following value from the GET_FILEEX_INFO_LEVELS enumeration.</param>
+        /// <param name="lpFileInformation"></param>
         /// <param name="hTransaction">A handle to the transaction. This handle is returned by the CreateTransaction function.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero (0). To get extended error information, call GetLastError.When GetFileAttributesTransacted is called on a directory that is a mounted folder, it returns the attributes of the directory, not those of the root directory in the volume that the mounted folder associates with the directory. To obtain the file attributes of the associated volume, call GetVolumeNameForVolumeMountPoint to obtain the name of the associated volume. Then use the resulting name in a call to GetFileAttributesTransacted. The results are the attributes of the root directory on the associated volume.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB 3.0 does not support TxF.Symbolic links:  If the path points to a symbolic link, the function returns attributes for the symbolic link.DeviceIoControlFile Attribute ConstantsFile Management FunctionsFindFirstFileTransactedFindNextFileGET_FILEEX_INFO_LEVELSSetFileAttributesTransactedSymbolic LinksTransactional NTFS</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -2097,6 +2158,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpFileName">The name of the file or directory.The file or directory must reside on the local computer; otherwise, the function fails and the last error code is set to ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE.By default, the name is limited to MAX_PATH characters. To extend this limit to 32,767 wide characters, prepend "\\?\" to the path. For more information, see Naming Files, Paths, and Namespaces.</param>
         /// <param name="fInfoLevelId">The level of attribute information to retrieve.This parameter can be the following value from the GET_FILEEX_INFO_LEVELS enumeration.</param>
+        /// <param name="lpFileInformation"></param>
         /// <param name="hTransaction">A handle to the transaction. This handle is returned by the CreateTransaction function.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero (0). To get extended error information, call GetLastError.When GetFileAttributesTransacted is called on a directory that is a mounted folder, it returns the attributes of the directory, not those of the root directory in the volume that the mounted folder associates with the directory. To obtain the file attributes of the associated volume, call GetVolumeNameForVolumeMountPoint to obtain the name of the associated volume. Then use the resulting name in a call to GetFileAttributesTransacted. The results are the attributes of the root directory on the associated volume.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB 3.0 does not support TxF.Symbolic links:  If the path points to a symbolic link, the function returns attributes for the symbolic link.DeviceIoControlFile Attribute ConstantsFile Management FunctionsFindFirstFileTransactedFindNextFileGET_FILEEX_INFO_LEVELSSetFileAttributesTransactedSymbolic LinksTransactional NTFS</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -2109,6 +2171,11 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the bandwidth reservation properties of the volume on which the specified file resides.
         /// </summary>
         /// <param name="hFile">A handle to the file.</param>
+        /// <param name="lpPeriodMilliseconds"></param>
+        /// <param name="lpBytesPerPeriod"></param>
+        /// <param name="pDiscardable"></param>
+        /// <param name="lpTransferSize"></param>
+        /// <param name="lpNumOutstandingRequests"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2121,6 +2188,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="hFile">A handle to the file that contains the information to be retrieved.This handle should not be a pipe handle.</param>
         /// <param name="FileInformationClass">A FILE_INFO_BY_HANDLE_CLASS enumeration value that specifies the type of information to be retrieved.For a table of valid values, see the Remarks section.</param>
+        /// <param name="lpFileInformation"></param>
         /// <param name="dwBufferSize">The size of the lpFileInformation buffer, in bytes.If the function succeeds, the return value is nonzero and file information data is contained in the buffer pointed to by the lpFileInformation parameter.If the function fails, the return value is zero. To get extended error information, call GetLastError.If FileInformationClass is FileStreamInfo and the calls succeed but no streams are returned, the error that is returned by GetLastError is ERROR_HANDLE_EOF.Certain file information classes behave slightly differently on different operating system releases. These classes are supported by the underlying drivers, and any information they return is subject to change between operating system releases.The following table shows the valid file information class types and their corresponding data structure types for use with this function.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.FILE_INFO_BY_HANDLE_CLASSFile Management FunctionsSetFileInformationByHandle</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -2145,6 +2213,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpFileName">A pointer to a null-terminated string that specifies the file or directory for which security information is retrieved.</param>
         /// <param name="RequestedInformation">A SECURITY_INFORMATION value that identifies the security information being requested.</param>
         /// <param name="nLength">Specifies the size, in bytes, of the buffer pointed to by the pSecurityDescriptor parameter.</param>
+        /// <param name="lpnLengthNeeded"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2157,6 +2226,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpName">The name of the firmware environment variable. The pointer must not be NULL.</param>
         /// <param name="lpGuid">The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format "{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}" where 'x' represents a hexadecimal value.</param>
+        /// <param name="pBuffer"></param>
         /// <param name="nSize">The size of the pBuffer buffer, in bytes.If the function succeeds, the return value is the number of bytes stored in the pBuffer buffer.If the function fails, the return value is zero. To get extended error information, call GetLastError. Possible error codes include ERROR_INVALID_FUNCTION.Starting with Windows 10, version 1803, Universal Windows apps can read and write Unified Extensible Firmware Interface (UEFI) firmware variables. See Access UEFI firmware variables from a Universal Windows App for details.To read a firmware environment variable, the user account that the app is running under must have the SE_SYSTEM_ENVIRONMENT_NAME privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in Access UEFI firmware variables from a Universal Windows App.Starting with Windows 10, version 1803, reading Unified Extensible Firmware Interface (UEFI) variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI variables from UMDF drivers is not supported.The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware. For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the UEFI specification. For more information about UEFI and Windows, see UEFI and Windows.Firmware variables are not supported on a legacy BIOS-based system. The GetFirmwareEnvironmentVariable function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI. To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the lpName parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the lpGuid parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist.If you are creating a backup application, you can use this function to save all the boot settings for the system so they can be restored using the SetFirmwareEnvironmentVariable function if needed.GetFirmwareEnvironmentVariable is the user-mode equivalent of the ExGetFirmwareEnvironmentVariable kernel-mode routine.Access UEFI firmware variables from a Universal Windows AppGetFirmwareEnvironmentVariableExSetFirmwareEnvironmentVariableSystem Information Functions</param>
         /// <remarks>
         /// To get extended error information, call GetLastError. Possible error codes include ERROR_INVALID_FUNCTION.
@@ -2190,6 +2260,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpName">The name of the firmware environment variable. The pointer must not be NULL.</param>
         /// <param name="lpGuid">The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format "{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}" where 'x' represents a hexadecimal value.</param>
+        /// <param name="pBuffer"></param>
         /// <param name="nSize">The size of the pBuffer buffer, in bytes.If the function succeeds, the return value is the number of bytes stored in the pBuffer buffer.If the function fails, the return value is zero. To get extended error information, call GetLastError. Possible error codes include ERROR_INVALID_FUNCTION.Starting with Windows 10, version 1803, Universal Windows apps can read and write Unified Extensible Firmware Interface (UEFI) firmware variables. See Access UEFI firmware variables from a Universal Windows App for details.To read a firmware environment variable, the user account that the app is running under must have the SE_SYSTEM_ENVIRONMENT_NAME privilege. A Universal Windows app must be run from an administrator account and follow the requirements outlined in Access UEFI firmware variables from a Universal Windows App.Starting with Windows 10, version 1803, reading Unified Extensible Firmware Interface (UEFI) variables is also supported from User-Mode Driver Framework (UMDF) drivers. Writing UEFI variables from UMDF drivers is not supported.The exact set of firmware environment variables is determined by the boot firmware. The location of these environment variables is also specified by the firmware. For example, on a UEFI-based system, NVRAM contains firmware environment variables that specify system boot settings. For information about specific variables used, see the UEFI specification. For more information about UEFI and Windows, see UEFI and Windows.Firmware variables are not supported on a legacy BIOS-based system. The GetFirmwareEnvironmentVariable function will always fail on a legacy BIOS-based system, or if Windows was installed using legacy BIOS on a system that supports both legacy BIOS and UEFI. To identify these conditions, call the function with a dummy firmware environment name such as an empty string ("") for the lpName parameter and a dummy GUID such as "{00000000-0000-0000-0000-000000000000}" for the lpGuid parameter. On a legacy BIOS-based system, or on a system that supports both legacy BIOS and UEFI where Windows was installed using legacy BIOS, the function will fail with ERROR_INVALID_FUNCTION. On a UEFI-based system, the function will fail with an error specific to the firmware, such as ERROR_NOACCESS, to indicate that the dummy GUID namespace does not exist.If you are creating a backup application, you can use this function to save all the boot settings for the system so they can be restored using the SetFirmwareEnvironmentVariable function if needed.GetFirmwareEnvironmentVariable is the user-mode equivalent of the ExGetFirmwareEnvironmentVariable kernel-mode routine.Access UEFI firmware variables from a Universal Windows AppGetFirmwareEnvironmentVariableExSetFirmwareEnvironmentVariableSystem Information Functions</param>
         /// <remarks>
         /// To get extended error information, call GetLastError. Possible error codes include ERROR_INVALID_FUNCTION.
@@ -2201,7 +2272,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Retrieves the firmware type of the local computer.
         /// </summary>
-        /// <param name="FirmwareType">A pointer to a FIRMWARE_TYPE enumeration.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call the GetLastError function.FIRMWARE_TYPE</param>
         /// <remarks>
         /// To get extended error information, call the GetLastError function.
         /// </remarks>
@@ -2214,6 +2284,8 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpFileName">The name of the file.This string can use short (the 8.3 form) or long file names. This string can be a share or volume name.The file must reside on the local computer; otherwise, the function fails and the last error code is set to ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE.</param>
         /// <param name="nBufferLength">The size of the buffer to receive the null-terminated string for the drive and path, in TCHARs.</param>
+        /// <param name="lpBuffer"></param>
+        /// <param name="lpFilePart"></param>
         /// <param name="hTransaction">A handle to the transaction. This handle is returned by the CreateTransaction function.If the function succeeds, the return value is the length, in TCHARs, of the string copied to lpBuffer, not including the terminating null character.If the lpBuffer buffer is too small to contain the path, the return value is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.If the function fails for any other reason, the return value is zero. To get extended error information, call GetLastError.GetFullPathNameTransacted merges the name of the current drive and directory with a specified file name to determine the full path and file name of a specified file. It also calculates the address of the file name portion of the full path and file name. This function does not verify that the resulting path and file name are valid, or that they see an existing file on the associated volume.Share and volume names are valid input for lpFileName. For example, the following list identities the returned path and file names if test-2 is a remote computer and U: is a network mapped drive:If the return value is greater than the value specified in nBufferLength, you can call the function again with a buffer that is large enough to hold the path. For an example of this case as well as using zero length buffer for dynamic allocation, see the Example Code section.SMB 3.0 does not support TxF.File Management FunctionsGetFullPathNameGetLongPathNameTransactedGetShortPathNameGetTempPathSearchPathTransactional NTFS</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -2227,6 +2299,8 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpFileName">The name of the file.This string can use short (the 8.3 form) or long file names. This string can be a share or volume name.The file must reside on the local computer; otherwise, the function fails and the last error code is set to ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE.</param>
         /// <param name="nBufferLength">The size of the buffer to receive the null-terminated string for the drive and path, in TCHARs.</param>
+        /// <param name="lpBuffer"></param>
+        /// <param name="lpFilePart"></param>
         /// <param name="hTransaction">A handle to the transaction. This handle is returned by the CreateTransaction function.If the function succeeds, the return value is the length, in TCHARs, of the string copied to lpBuffer, not including the terminating null character.If the lpBuffer buffer is too small to contain the path, the return value is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.If the function fails for any other reason, the return value is zero. To get extended error information, call GetLastError.GetFullPathNameTransacted merges the name of the current drive and directory with a specified file name to determine the full path and file name of a specified file. It also calculates the address of the file name portion of the full path and file name. This function does not verify that the resulting path and file name are valid, or that they see an existing file on the associated volume.Share and volume names are valid input for lpFileName. For example, the following list identities the returned path and file names if test-2 is a remote computer and U: is a network mapped drive:If the return value is greater than the value specified in nBufferLength, you can call the function again with a buffer that is large enough to hold the path. For an example of this case as well as using zero length buffer for dynamic allocation, see the Example Code section.SMB 3.0 does not support TxF.File Management FunctionsGetFullPathNameGetLongPathNameTransactedGetShortPathNameGetTempPathSearchPathTransactional NTFS</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -2239,6 +2313,7 @@ namespace WindowAPI.Winbase.h
         ///Fills a buffer with strings that specify valid drives in the system.
         /// </summary>
         /// <param name="nBufferLength">The maximum size of the buffer pointed to by lpBuffer, in TCHARs. This size does not include the terminating null character. If this parameter is zero, lpBuffer is not used.</param>
+        /// <param name="lpBuffer"></param>
         /// <remarks>
         /// To get extended error information, use the GetLastError function.
         /// </remarks>
@@ -2250,6 +2325,7 @@ namespace WindowAPI.Winbase.h
         ///[Microsoft strongly recommends developers utilize alternative means to achieve your application’s needs. Many scenarios that TxF was developed for can be achieved through simpler and more readily available techniques. Furthermore, TxF may not be available in future versions of Microsoft Windows. For more information, and alternatives to TxF, please see Alternatives to using Transactional NTFS.]
         /// </summary>
         /// <param name="lpszShortPath">The path to be converted.By default, the name is limited to MAX_PATH characters. To extend this limit to 32,767 wide characters, prepend "\\?\" to the path. For more information, see Naming Files, Paths, and Namespaces.The path must reside on the local computer; otherwise, the function fails and the last error code is set to ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE.</param>
+        /// <param name="lpszLongPath"></param>
         /// <param name="cchBuffer">The size of the buffer lpszLongPath points to, in TCHARs.</param>
         /// <param name="hTransaction">A handle to the transaction. This handle is returned by the CreateTransaction function.If the function succeeds, the return value is the length, in TCHARs, of the string copied to lpszLongPath, not including the terminating null character.If the lpBuffer buffer is too small to contain the path, the return value is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.If the function fails for any other reason, such as if the file does not exist, the return value is zero. To get extended error information, call GetLastError.On many file systems, a short file name contains a tilde (~) character. However, not all file systems follow this convention. Therefore, do not assume that you can skip calling GetLongPathNameTransacted if the path does not contain a tilde (~) character.If a long path is not found, this function returns the name specified in the lpszShortPath parameter in the lpszLongPath parameter.If the return value is greater than the value specified in cchBuffer, you can call the function again with a buffer that is large enough to hold the path. For an example of this case, see the Example Code section for GetFullPathName.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB 3.0 does not support TxF.File Management FunctionsGetFullPathNameTransactedGetShortPathNameNaming Files, Paths, and NamespacesTransactional NTFS</param>
         /// <remarks>
@@ -2263,6 +2339,7 @@ namespace WindowAPI.Winbase.h
         ///[Microsoft strongly recommends developers utilize alternative means to achieve your application’s needs. Many scenarios that TxF was developed for can be achieved through simpler and more readily available techniques. Furthermore, TxF may not be available in future versions of Microsoft Windows. For more information, and alternatives to TxF, please see Alternatives to using Transactional NTFS.]
         /// </summary>
         /// <param name="lpszShortPath">The path to be converted.The path must reside on the local computer; otherwise, the function fails and the last error code is set to ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE.By default, the name is limited to MAX_PATH characters. To extend this limit to 32,767 wide characters, prepend "\\?\" to the path. For more information, see Naming Files, Paths, and Namespaces.</param>
+        /// <param name="lpszLongPath"></param>
         /// <param name="cchBuffer">The size of the buffer lpszLongPath points to, in TCHARs.</param>
         /// <param name="hTransaction">A handle to the transaction. This handle is returned by the CreateTransaction function.If the function succeeds, the return value is the length, in TCHARs, of the string copied to lpszLongPath, not including the terminating null character.If the lpBuffer buffer is too small to contain the path, the return value is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.If the function fails for any other reason, such as if the file does not exist, the return value is zero. To get extended error information, call GetLastError.On many file systems, a short file name contains a tilde (~) character. However, not all file systems follow this convention. Therefore, do not assume that you can skip calling GetLongPathNameTransacted if the path does not contain a tilde (~) character.If a long path is not found, this function returns the name specified in the lpszShortPath parameter in the lpszLongPath parameter.If the return value is greater than the value specified in cchBuffer, you can call the function again with a buffer that is large enough to hold the path. For an example of this case, see the Example Code section for GetFullPathName.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB 3.0 does not support TxF.File Management FunctionsGetFullPathNameTransactedGetShortPathNameNaming Files, Paths, and NamespacesTransactional NTFS</param>
         /// <remarks>
@@ -2305,6 +2382,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the client computer name for the specified named pipe.
         /// </summary>
         /// <param name="Pipe">A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe function.</param>
+        /// <param name="ClientComputerName"></param>
         /// <param name="ClientComputerNameLength">The size of the ClientComputerName buffer, in bytes.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call the GetLastError function.Windows 10, version 1709:  Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax \\.\pipe\LOCAL\ for the pipe name.CreateNamedPipePipe FunctionsPipes Overview</param>
         /// <remarks>
         /// To get extended error information, call the GetLastError function.
@@ -2317,6 +2395,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the client process identifier for the specified named pipe.
         /// </summary>
         /// <param name="Pipe">A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe function.</param>
+        /// <param name="ClientProcessId"></param>
         /// <remarks>
         /// To get extended error information, call the GetLastError function.
         /// </remarks>
@@ -2328,6 +2407,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the client session identifier for the specified named pipe.
         /// </summary>
         /// <param name="Pipe">A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe function.</param>
+        /// <param name="ClientSessionId"></param>
         /// <remarks>
         /// To get extended error information, call the GetLastError function.
         /// </remarks>
@@ -2351,6 +2431,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the server process identifier for the specified named pipe.
         /// </summary>
         /// <param name="Pipe">A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe function.</param>
+        /// <param name="ServerProcessId"></param>
         /// <remarks>
         /// To get extended error information, call the GetLastError function.
         /// </remarks>
@@ -2362,6 +2443,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the server session identifier for the specified named pipe.
         /// </summary>
         /// <param name="Pipe">A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe function.</param>
+        /// <param name="ServerSessionId"></param>
         /// <remarks>
         /// To get extended error information, call the GetLastError function.
         /// </remarks>
@@ -2372,7 +2454,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Returns the next user-mode scheduling (UMS) thread context in a list of thread contexts.
         /// </summary>
-        /// <param name="UmsContext">A pointer to a UMS context in a list of thread contexts. This list is retrieved by the DequeueUmsCompletionListItems function.If the function succeeds, it returns a pointer to the next thread context in the list.If there is no thread context after the context specified by the UmsContext parameter, the function returns NULL. To get extended error information, call GetLastError.DequeueUmsCompletionListItems</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2384,6 +2465,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the amount of memory available in the specified node.
         /// </summary>
         /// <param name="Node">The number of the node.</param>
+        /// <param name="AvailableBytes"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2395,6 +2477,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the amount of memory that is available in a node specified as a USHORT value.
         /// </summary>
         /// <param name="Node">The number of the node.</param>
+        /// <param name="AvailableBytes"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2406,6 +2489,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the NUMA node associated with the file or I/O device represented by the specified file handle.
         /// </summary>
         /// <param name="hFile">A handle to a file or I/O device. Examples of I/O devices include files, file streams, volumes, physical disks, and sockets. For more information, see the CreateFile function.</param>
+        /// <param name="NodeNumber"></param>
         /// <remarks>
         /// To get extended error information, use GetLastError.
         /// </remarks>
@@ -2417,6 +2501,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the processor mask for the specified node.
         /// </summary>
         /// <param name="Node">The number of the node.</param>
+        /// <param name="ProcessorMask"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2428,6 +2513,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the node number for the specified processor.
         /// </summary>
         /// <param name="Processor">The processor number.On a system with more than 64 logical processors, the processor number is relative to the processor group that contains the processor on which the calling thread is running.</param>
+        /// <param name="NodeNumber"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2439,6 +2525,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the node number as a USHORT value for the specified logical processor.
         /// </summary>
         /// <param name="Processor">A pointer to a PROCESSOR_NUMBER structure that represents the logical processor and the processor group to which it is assigned.</param>
+        /// <param name="NodeNumber"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2450,6 +2537,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the NUMA node number that corresponds to the specified proximity domain identifier.
         /// </summary>
         /// <param name="ProximityId">The proximity domain identifier of the node.</param>
+        /// <param name="NodeNumber"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2461,6 +2549,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the number of records in the specified event log.
         /// </summary>
         /// <param name="hEventLog">A handle to the open event log. The OpenEventLog or OpenBackupEventLog function returns this handle.</param>
+        /// <param name="NumberOfRecords"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2472,6 +2561,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the absolute record number of the oldest record in the specified event log.
         /// </summary>
         /// <param name="hEventLog">A handle to the open event log. The OpenEventLog or OpenBackupEventLog function returns this handle.</param>
+        /// <param name="OldestRecord"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2516,6 +2606,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves all the keys and values for the specified section of an initialization file.
         /// </summary>
         /// <param name="lpAppName">The name of the section in the initialization file.</param>
+        /// <param name="lpReturnedString"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpReturnedString parameter, in characters.The maximum profile section size is 32,767 characters.</param>
         /// <param name="lpFileName">The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to nSize minus two.The data in the buffer pointed to by the lpReturnedString parameter consists of one or more null-terminated strings, followed by a final null character. Each string has the following format:key=stringThe GetPrivateProfileSection function is not case-sensitive; the string pointed to by the lpAppName parameter can be a combination of uppercase and lowercase letters.This operation is atomic; no updates to the specified initialization file are allowed while the key name and value pairs for the section are being copied to the buffer pointed to by the lpReturnedString parameter.The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:GetPrivateProfileSectionNamesGetProfileSectionWritePrivateProfileSection</param>
 
@@ -2526,6 +2617,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves all the keys and values for the specified section of an initialization file.
         /// </summary>
         /// <param name="lpAppName">The name of the section in the initialization file.</param>
+        /// <param name="lpReturnedString"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpReturnedString parameter, in characters.The maximum profile section size is 32,767 characters.</param>
         /// <param name="lpFileName">The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to nSize minus two.The data in the buffer pointed to by the lpReturnedString parameter consists of one or more null-terminated strings, followed by a final null character. Each string has the following format:key=stringThe GetPrivateProfileSection function is not case-sensitive; the string pointed to by the lpAppName parameter can be a combination of uppercase and lowercase letters.This operation is atomic; no updates to the specified initialization file are allowed while the key name and value pairs for the section are being copied to the buffer pointed to by the lpReturnedString parameter.The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:GetPrivateProfileSectionNamesGetProfileSectionWritePrivateProfileSection</param>
 
@@ -2535,6 +2627,7 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Retrieves the names of all sections in an initialization file.
         /// </summary>
+        /// <param name="lpszReturnBuffer"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpszReturnBuffer parameter, in characters.</param>
         /// <param name="lpFileName">The name of the initialization file. If this parameter is NULL, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.The return value specifies the number of characters copied to the specified buffer, not including the terminating null character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by nSize minus two.This operation is atomic; no updates to the initialization file are allowed while the section names are being copied to the buffer.The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:GetPrivateProfileSectionWritePrivateProfileSection</param>
 
@@ -2544,6 +2637,7 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Retrieves the names of all sections in an initialization file.
         /// </summary>
+        /// <param name="lpszReturnBuffer"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpszReturnBuffer parameter, in characters.</param>
         /// <param name="lpFileName">The name of the initialization file. If this parameter is NULL, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.The return value specifies the number of characters copied to the specified buffer, not including the terminating null character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by nSize minus two.This operation is atomic; no updates to the initialization file are allowed while the section names are being copied to the buffer.The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:GetPrivateProfileSectionWritePrivateProfileSection</param>
 
@@ -2553,6 +2647,7 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Retrieves the names of all sections in an initialization file.
         /// </summary>
+        /// <param name="lpszReturnBuffer"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpszReturnBuffer parameter, in characters.</param>
         /// <param name="lpFileName">The name of the initialization file. If this parameter is NULL, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.The return value specifies the number of characters copied to the specified buffer, not including the terminating null character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by nSize minus two.This operation is atomic; no updates to the initialization file are allowed while the section names are being copied to the buffer.The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:GetPrivateProfileSectionWritePrivateProfileSection</param>
 
@@ -2563,6 +2658,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves all the keys and values for the specified section of an initialization file.
         /// </summary>
         /// <param name="lpAppName">The name of the section in the initialization file.</param>
+        /// <param name="lpReturnedString"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpReturnedString parameter, in characters.The maximum profile section size is 32,767 characters.</param>
         /// <param name="lpFileName">The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to nSize minus two.The data in the buffer pointed to by the lpReturnedString parameter consists of one or more null-terminated strings, followed by a final null character. Each string has the following format:key=stringThe GetPrivateProfileSection function is not case-sensitive; the string pointed to by the lpAppName parameter can be a combination of uppercase and lowercase letters.This operation is atomic; no updates to the specified initialization file are allowed while the key name and value pairs for the section are being copied to the buffer pointed to by the lpReturnedString parameter.The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:GetPrivateProfileSectionNamesGetProfileSectionWritePrivateProfileSection</param>
 
@@ -2575,6 +2671,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpAppName">The name of the section containing the key name. If this parameter is NULL, the GetPrivateProfileString function copies all section names in the file to the supplied buffer.</param>
         /// <param name="lpKeyName">The name of the key whose associated string is to be retrieved. If this parameter is NULL, all key names in the section specified by the lpAppName parameter are copied to the buffer specified by the lpReturnedString parameter.</param>
         /// <param name="lpDefault">A default string. If the lpKeyName key cannot be found in the initialization file, GetPrivateProfileString copies the default string to the lpReturnedString buffer.If this parameter is NULL, the default is an empty string, "".Avoid specifying a default string with trailing blank characters. The function inserts a null character in the lpReturnedString buffer to strip any trailing blanks.</param>
+        /// <param name="lpReturnedString"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpReturnedString parameter, in characters.</param>
         /// <param name="lpFileName">The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.The return value is the number of characters copied to the buffer, not including the terminating null character.If neither lpAppName nor lpKeyName is NULL and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a null character, and the return value is equal to nSize minus one.If either lpAppName or lpKeyName is NULL and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two null characters. In this case, the return value is equal to nSize minus two.In the event the initialization file specified by lpFileName is not found, or contains invalid values, calling GetLastError will return '0x2' (File Not Found). To retrieve extended error information, call GetLastError.The GetPrivateProfileString function searches the specified initialization file for a key that matches the name specified by the lpKeyName parameter under the section heading specified by the lpAppName parameter. If it finds the key, the function copies the corresponding string to the buffer. If the key does not exist, the function copies the default character string specified by the lpDefault parameter. A section in the initialization file must have the following form:If lpAppName is NULL, GetPrivateProfileString copies all section names in the specified file to the supplied buffer. If lpKeyName is NULL, the function copies all key names in the specified section to the supplied buffer. An application can use this method to enumerate all of the sections and keys in a file. In either case, each string is followed by a null character and the final string is followed by a second null character. If the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two null characters.If the string associated with lpKeyName is enclosed in single or double quotation marks, the marks are discarded when the GetPrivateProfileString function retrieves the string.The GetPrivateProfileString function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.To retrieve a string from the Win.ini file, use the GetProfileString function.The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:The following example demonstrates the use of GetPrivateProfileString.GetProfileStringWritePrivateProfileString</param>
 
@@ -2587,6 +2684,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpAppName">The name of the section containing the key name. If this parameter is NULL, the GetPrivateProfileString function copies all section names in the file to the supplied buffer.</param>
         /// <param name="lpKeyName">The name of the key whose associated string is to be retrieved. If this parameter is NULL, all key names in the section specified by the lpAppName parameter are copied to the buffer specified by the lpReturnedString parameter.</param>
         /// <param name="lpDefault">A default string. If the lpKeyName key cannot be found in the initialization file, GetPrivateProfileString copies the default string to the lpReturnedString buffer.If this parameter is NULL, the default is an empty string, "".Avoid specifying a default string with trailing blank characters. The function inserts a null character in the lpReturnedString buffer to strip any trailing blanks.</param>
+        /// <param name="lpReturnedString"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpReturnedString parameter, in characters.</param>
         /// <param name="lpFileName">The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.The return value is the number of characters copied to the buffer, not including the terminating null character.If neither lpAppName nor lpKeyName is NULL and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a null character, and the return value is equal to nSize minus one.If either lpAppName or lpKeyName is NULL and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two null characters. In this case, the return value is equal to nSize minus two.In the event the initialization file specified by lpFileName is not found, or contains invalid values, this function will set errorno with a value of '0x2' (File Not Found). To retrieve extended error information, call GetLastError.The GetPrivateProfileString function searches the specified initialization file for a key that matches the name specified by the lpKeyName parameter under the section heading specified by the lpAppName parameter. If it finds the key, the function copies the corresponding string to the buffer. If the key does not exist, the function copies the default character string specified by the lpDefault parameter. A section in the initialization file must have the following form:If lpAppName is NULL, GetPrivateProfileString copies all section names in the specified file to the supplied buffer. If lpKeyName is NULL, the function copies all key names in the specified section to the supplied buffer. An application can use this method to enumerate all of the sections and keys in a file. In either case, each string is followed by a null character and the final string is followed by a second null character. If the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two null characters.If the string associated with lpKeyName is enclosed in single or double quotation marks, the marks are discarded when the GetPrivateProfileString function retrieves the string.The GetPrivateProfileString function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.To retrieve a string from the Win.ini file, use the GetProfileString function.The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:The following example demonstrates the use of GetPrivateProfileString.GetProfileStringWritePrivateProfileString</param>
 
@@ -2599,6 +2697,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpAppName">The name of the section containing the key name. If this parameter is NULL, the GetPrivateProfileString function copies all section names in the file to the supplied buffer.</param>
         /// <param name="lpKeyName">The name of the key whose associated string is to be retrieved. If this parameter is NULL, all key names in the section specified by the lpAppName parameter are copied to the buffer specified by the lpReturnedString parameter.</param>
         /// <param name="lpDefault">A default string. If the lpKeyName key cannot be found in the initialization file, GetPrivateProfileString copies the default string to the lpReturnedString buffer.If this parameter is NULL, the default is an empty string, "".Avoid specifying a default string with trailing blank characters. The function inserts a null character in the lpReturnedString buffer to strip any trailing blanks.</param>
+        /// <param name="lpReturnedString"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpReturnedString parameter, in characters.</param>
         /// <param name="lpFileName">The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.The return value is the number of characters copied to the buffer, not including the terminating null character.If neither lpAppName nor lpKeyName is NULL and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a null character, and the return value is equal to nSize minus one.If either lpAppName or lpKeyName is NULL and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two null characters. In this case, the return value is equal to nSize minus two.In the event the initialization file specified by lpFileName is not found, or contains invalid values, this function will set errorno with a value of '0x2' (File Not Found). To retrieve extended error information, call GetLastError.The GetPrivateProfileString function searches the specified initialization file for a key that matches the name specified by the lpKeyName parameter under the section heading specified by the lpAppName parameter. If it finds the key, the function copies the corresponding string to the buffer. If the key does not exist, the function copies the default character string specified by the lpDefault parameter. A section in the initialization file must have the following form:If lpAppName is NULL, GetPrivateProfileString copies all section names in the specified file to the supplied buffer. If lpKeyName is NULL, the function copies all key names in the specified section to the supplied buffer. An application can use this method to enumerate all of the sections and keys in a file. In either case, each string is followed by a null character and the final string is followed by a second null character. If the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two null characters.If the string associated with lpKeyName is enclosed in single or double quotation marks, the marks are discarded when the GetPrivateProfileString function retrieves the string.The GetPrivateProfileString function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.To retrieve a string from the Win.ini file, use the GetProfileString function.The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:The following example demonstrates the use of GetPrivateProfileString.GetProfileStringWritePrivateProfileString</param>
 
@@ -2610,6 +2709,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpszSection">The name of the section in the initialization file.</param>
         /// <param name="lpszKey">The name of the key whose data is to be retrieved.</param>
+        /// <param name="lpStruct"></param>
         /// <param name="uSizeStruct">The size of the buffer pointed to by the lpStruct parameter, in bytes.</param>
         /// <param name="szFile">The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.A section in the initialization file must have the following form:The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:WritePrivateProfileStruct</param>
 
@@ -2621,6 +2721,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpszSection">The name of the section in the initialization file.</param>
         /// <param name="lpszKey">The name of the key whose data is to be retrieved.</param>
+        /// <param name="lpStruct"></param>
         /// <param name="uSizeStruct">The size of the buffer pointed to by the lpStruct parameter, in bytes.</param>
         /// <param name="szFile">The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.A section in the initialization file must have the following form:The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:WritePrivateProfileStruct</param>
 
@@ -2632,6 +2733,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpszSection">The name of the section in the initialization file.</param>
         /// <param name="lpszKey">The name of the key whose data is to be retrieved.</param>
+        /// <param name="lpStruct"></param>
         /// <param name="uSizeStruct">The size of the buffer pointed to by the lpStruct parameter, in bytes.</param>
         /// <param name="szFile">The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.A section in the initialization file must have the following form:The system maps most .ini file references to the registry, using the mapping defined under the following registry key:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\IniFileMappingThis mapping is likely if an application modifies system-component initialization files, such as Control.ini, System.ini, and Winfile.ini. In these cases, the function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:WritePrivateProfileStruct</param>
 
@@ -2642,6 +2744,8 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the process affinity mask for the specified process and the system affinity mask for the system.
         /// </summary>
         /// <param name="hProcess">A handle to the process whose affinity mask is desired.This handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see Process Security and Access Rights.Windows Server 2003 and Windows XP:  The handle must have the PROCESS_QUERY_INFORMATION access right.</param>
+        /// <param name="lpProcessAffinityMask"></param>
+        /// <param name="lpSystemAffinityMask"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2653,6 +2757,8 @@ namespace WindowAPI.Winbase.h
         ///Gets the data execution prevention (DEP) and DEP-ATL thunk emulation settings for the specified 32-bit process.Windows XP with SP3:  Gets the DEP and DEP-ATL thunk emulation settings for the current process.
         /// </summary>
         /// <param name="hProcess">A handle to the process. PROCESS_QUERY_INFORMATION privilege is required to get the DEP policy of a process.Windows XP with SP3:  The hProcess parameter is ignored.</param>
+        /// <param name="lpFlags"></param>
+        /// <param name="lpPermanent"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool GetProcessDEPPolicy(IntPtr hProcess, out uint lpFlags, out bool lpPermanent);
@@ -2661,6 +2767,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves accounting information for all I/O operations performed by the specified process.
         /// </summary>
         /// <param name="hProcess">A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see Process Security and Access Rights.Windows Server 2003 and Windows XP:  The handle must have the PROCESS_QUERY_INFORMATION access right.</param>
+        /// <param name="lpIoCounters"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2692,6 +2799,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves all the keys and values for the specified section of the Win.ini file.
         /// </summary>
         /// <param name="lpAppName">The name of the section in the Win.ini file.</param>
+        /// <param name="lpReturnedString"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpReturnedString parameter, in characters.The maximum profile section size is 32,767 characters.The return value specifies the number of characters copied to the specified buffer, not including the terminating null character. If the buffer is not large enough to contain all the keys and values associated with the named section, the return value is equal to the size specified by nSize minus two.The format of the returned keys and values is one or more null-terminated strings, followed by a final null character. Each string has the following form: key=stringThe GetProfileSection function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.This operation is atomic; no updates to the Win.ini file are allowed while the keys and values for the section are being copied to the buffer.Windows Server 2003 and Windows XP/2000:  Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following key: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMapping.When the operation has been mapped, the GetProfileSection function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:GetPrivateProfileSectionWriteProfileSection</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -2701,6 +2809,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves all the keys and values for the specified section of the Win.ini file.
         /// </summary>
         /// <param name="lpAppName">The name of the section in the Win.ini file.</param>
+        /// <param name="lpReturnedString"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpReturnedString parameter, in characters.The maximum profile section size is 32,767 characters.The return value specifies the number of characters copied to the specified buffer, not including the terminating null character. If the buffer is not large enough to contain all the keys and values associated with the named section, the return value is equal to the size specified by nSize minus two.The format of the returned keys and values is one or more null-terminated strings, followed by a final null character. Each string has the following form: key=stringThe GetProfileSection function is not case-sensitive; the strings can be a combination of uppercase and lowercase letters.This operation is atomic; no updates to the Win.ini file are allowed while the keys and values for the section are being copied to the buffer.Windows Server 2003 and Windows XP/2000:  Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following key: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMapping.When the operation has been mapped, the GetProfileSection function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:GetPrivateProfileSectionWriteProfileSection</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -2712,6 +2821,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpAppName">The name of the section containing the key. If this parameter is NULL, the function copies all section names in the file to the supplied buffer.</param>
         /// <param name="lpKeyName">The name of the key whose associated string is to be retrieved. If this parameter is NULL, the function copies all keys in the given section to the supplied buffer. Each string is followed by a null character, and the final string is followed by a second null character.</param>
         /// <param name="lpDefault">A default string. If the lpKeyName key cannot be found in the initialization file, GetProfileString copies the default string to the lpReturnedString buffer. If this parameter is NULL, the default is an empty string, "".Avoid specifying a default string with trailing blank characters. The function inserts a null character in the lpReturnedString buffer to strip any trailing blanks.</param>
+        /// <param name="lpReturnedString"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpReturnedString parameter, in characters.The return value is the number of characters copied to the buffer, not including the null-terminating character.If neither lpAppName nor lpKeyName is NULL and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a null character, and the return value is equal to nSize minus one.If either lpAppName or lpKeyName is NULL and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two null characters. In this case, the return value is equal to nSize minus two.If the string associated with the lpKeyName parameter is enclosed in single or double quotation marks, the marks are discarded when the GetProfileString function returns the string.The GetProfileString function is not case-sensitive; the strings can contain a combination of uppercase and lowercase letters.A section in the Win.ini file must have the following form:An application can use the GetPrivateProfileString function to retrieve a string from a specified initialization file.The lpDefault parameter must point to a valid string, even if the string is empty (that is, even if its first character is a null character).Windows Server 2003 and Windows XP/2000:  Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following keys:HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMappingWhen the operation has been mapped, the GetProfileString function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:GetPrivateProfileStringWriteProfileString</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -2723,6 +2833,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpAppName">The name of the section containing the key. If this parameter is NULL, the function copies all section names in the file to the supplied buffer.</param>
         /// <param name="lpKeyName">The name of the key whose associated string is to be retrieved. If this parameter is NULL, the function copies all keys in the given section to the supplied buffer. Each string is followed by a null character, and the final string is followed by a second null character.</param>
         /// <param name="lpDefault">A default string. If the lpKeyName key cannot be found in the initialization file, GetProfileString copies the default string to the lpReturnedString buffer. If this parameter is NULL, the default is an empty string, "".Avoid specifying a default string with trailing blank characters. The function inserts a null character in the lpReturnedString buffer to strip any trailing blanks.</param>
+        /// <param name="lpReturnedString"></param>
         /// <param name="nSize">The size of the buffer pointed to by the lpReturnedString parameter, in characters.The return value is the number of characters copied to the buffer, not including the null-terminating character.If neither lpAppName nor lpKeyName is NULL and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a null character, and the return value is equal to nSize minus one.If either lpAppName or lpKeyName is NULL and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two null characters. In this case, the return value is equal to nSize minus two.If the string associated with the lpKeyName parameter is enclosed in single or double quotation marks, the marks are discarded when the GetProfileString function returns the string.The GetProfileString function is not case-sensitive; the strings can contain a combination of uppercase and lowercase letters.A section in the Win.ini file must have the following form:An application can use the GetPrivateProfileString function to retrieve a string from a specified initialization file.The lpDefault parameter must point to a valid string, even if the string is empty (that is, even if its first character is a null character).Windows Server 2003 and Windows XP/2000:  Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following keys:HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMappingWhen the operation has been mapped, the GetProfileString function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.The profile functions use the following steps to locate initialization information:GetPrivateProfileStringWriteProfileString</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -2732,6 +2843,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves the short path form of the specified path.
         /// </summary>
         /// <param name="lpszLongPath">The path string.By default, the name is limited to MAX_PATH characters. To extend this limit to 32,767 wide characters, prepend "\\?\" to the path. For more information, see Naming Files, Paths, and Namespaces.</param>
+        /// <param name="lpszShortPath"></param>
         /// <param name="cchBuffer">The size of the buffer that lpszShortPath points to, in TCHARs.Set this parameter to zero if lpszShortPath is set to NULL.If the function succeeds, the return value is the length, in TCHARs, of the string that is copied to lpszShortPath, not including the terminating null character.If the lpszShortPath buffer is too small to contain the path, the return value is the size of the buffer, in TCHARs, that is required to hold the path and the terminating null character.If the function fails for any other reason, the return value is zero. To get extended error information, call GetLastError.The path that the lpszLongPath parameter specifies does not have to be a full or long path. The short form can be longer than the specified path.If the return value is greater than the value specified in the cchBuffer parameter, you can call the function again with a buffer that is large enough to hold the path. For an example of this case in addition to using zero-length buffer for dynamic allocation, see the Example Code section.You can set the lpszShortPath parameter to the same value as the lpszLongPath parameter; in other words, you can set the output buffer for the short path to the address of the input path string. Always ensure that the cchBuffer parameter accurately represents the total size, in TCHARs, of this buffer.You can obtain the long name of a file from the short name by calling the GetLongPathName function. Alternatively, where GetLongPathName is not available, you can call FindFirstFile on each component of the path to get the corresponding long name.It is possible to have access to a file or directory but not have access to some of the parent directories of that file or directory. As a result, GetShortPathName may fail when it is unable to query the parent directory of a path component to determine the short name for that component. This check can be skipped for directory components that already meet the requirements of a short name. For more information, see the Short vs. Long Names section of Naming Files, Paths, and Namespaces.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB 3.0 does not support short names on shares with continuous availability capability.Resilient File System (ReFS) doesn't support short names. If you call GetShortPathName on a path that doesn't have any short names on-disk, the call will succeed, but will return the long-name path instead. This outcome is also possible with NTFS volumes because there's no guarantee that a short name will exist for a given long name.For an example that uses GetShortPathName, see the Example Code section for GetFullPathName.File Management FunctionsFindFirstFileGetFullPathNameGetLongPathNameNaming Files, Paths, and NamespacesSetFileShortName</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -2772,6 +2884,8 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="hDevice">Handle to the device about which information is sought. This handle is created by using the CreateFile function.</param>
         /// <param name="dwOperation">Type of information requested. This parameter must be one of the following values.</param>
+        /// <param name="lpdwSize"></param>
+        /// <param name="lpTapeInformation"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern uint GetTapeParameters(IntPtr hDevice, uint dwOperation, out uint lpdwSize, out IntPtr lpTapeInformation);
@@ -2781,6 +2895,9 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="hDevice">Handle to the device on which to get the tape position. This handle is created by using CreateFile.</param>
         /// <param name="dwPositionType">Type of address to obtain. This parameter can be one of the following values.</param>
+        /// <param name="lpdwPartition"></param>
+        /// <param name="lpdwOffsetLow"></param>
+        /// <param name="lpdwOffsetHigh"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern uint GetTapePosition(IntPtr hDevice, uint dwPositionType, out uint lpdwPartition, out uint lpdwOffsetLow, out uint lpdwOffsetHigh);
@@ -2799,6 +2916,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpPathName">The directory path for the file name. Applications typically specify a period (.) for the current directory or the result of the GetTempPath function. The string cannot be longer than MAX_PATH–14 characters or GetTempFileName will fail. If this parameter is NULL, the function fails.</param>
         /// <param name="lpPrefixString">The null-terminated prefix string. The function uses up to the first three characters of this string as the prefix of the file name. This string must consist of characters in the OEM-defined character set.</param>
         /// <param name="uUnique">An unsigned integer to be used in creating the temporary file name. For more information, see Remarks.If uUnique is zero, the function attempts to form a unique file name using the current system time. If the file already exists, the number is increased by one and the functions tests if this file already exists. This continues until a unique filename is found; the function creates a file by that name and closes it. Note that the function does not attempt to verify the uniqueness of the file name when uUnique is nonzero.</param>
+        /// <param name="lpTempFileName"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2811,6 +2929,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="hThread">A handle to the thread containing the specified selector. The handle must have THREAD_QUERY_INFORMATION access. For more information, see Thread Security and Access Rights.</param>
         /// <param name="dwSelector">The global or local selector value to look up in the thread's descriptor tables.</param>
+        /// <param name="lpSelectorEntry"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2822,7 +2941,6 @@ namespace WindowAPI.Winbase.h
         ///Retrieves a handle to the event associated with the specified user-mode scheduling (UMS) completion list.
         /// </summary>
         /// <param name="UmsCompletionList">A pointer to a UMS completion list. The CreateUmsCompletionList function provides this pointer.</param>
-        /// <param name="UmsCompletionEvent">A pointer to a HANDLE variable. On output, the UmsCompletionEvent parameter is set to a handle to the event associated with the specified completion list.If the function succeeds, it returns a nonzero value.If the function fails, the return value is zero. To get extended error information, call GetLastError.The system signals a UMS completion list event when the system queues items to an empty completion list. A completion list event handle can be used with any wait function that takes a handle to an event. When the event is signaled, an application typically calls DequeueUmsCompletionListItems to retrieve the contents of the completion list.The event handle remains valid until its completion list is deleted. Do not use the event handle to wait on a completion list that has been deleted or is in the process of being deleted.When the handle is no longer needed, use the CloseHandle function to close the handle.CreateUmsCompletionListDequeueUmsCompletionListItemsWait Functions</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2834,7 +2952,6 @@ namespace WindowAPI.Winbase.h
         ///Queries whether the specified thread is a UMS scheduler thread, a UMS worker thread, or a non-UMS thread.
         /// </summary>
         /// <param name="ThreadHandle">A handle to a thread. The thread handle must have the THREAD_QUERY_INFORMATION access right. For more information, see Thread Security and Access Rights.</param>
-        /// <param name="SystemThreadInfo">A pointer to a UMS_SYSTEM_THREAD_INFORMATION structure that receives information about the specified thread.The caller must initialize the UmsVersion member before calling.If the function fails, the return value is zero.To get extended error information, call GetLastError.The GetUmsSystemThreadInformation function is intended for use in debuggers, troubleshooting tools, and profiling applications. For example, thread-isolated tracing or single-stepping through instructions might involve suspending all other threads in the process. However, if the thread to be traced is a UMS worker thread, suspending UMS scheduler threads might cause a deadlock because a UMS worker thread requires the intervention of a UMS scheduler thread in order to run. A debugger can call GetUmsSystemThreadInformation for each thread that it might suspend to determine the kind of thread, and then suspend it or not as needed for the code being debugged.</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -2868,6 +2985,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves a volume GUID path for the volume that is associated with the specified volume mount point ( drive letter, volume GUID path, or mounted folder).
         /// </summary>
         /// <param name="lpszVolumeMountPoint">A pointer to a string that contains the path of a mounted folder (for example, "Y:\MountX") or a drive letter (for example, "X:\"). The string must end with a trailing backslash ('').</param>
+        /// <param name="lpszVolumeName"></param>
         /// <param name="cchBufferLength">The length of the output buffer, in TCHARs. A reasonable size for the buffer to accommodate the largest possible volume GUID path is 50 characters.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.Use GetVolumeNameForVolumeMountPoint to obtain a volume GUID path for use with functions such as SetVolumeMountPoint and FindFirstVolumeMountPoint that require a volume GUID path as an input parameter. For more information about volume GUID paths, see Naming A Volume.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB does not support volume management functions.Mount points aren't supported by ReFS volumes.DeleteVolumeMountPointGetVolumePathNameMounted FoldersSetVolumeMountPointVolume Management Functions</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -2892,7 +3010,9 @@ namespace WindowAPI.Winbase.h
         ///Retrieves a list of drive letters and mounted folder paths for the specified volume.
         /// </summary>
         /// <param name="lpszVolumeName">A volume GUID path for the volume. A volume GUID path is of the form "\?\Volume{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}".</param>
+        /// <param name="lpszVolumePathNames"></param>
         /// <param name="cchBufferLength">The length of the lpszVolumePathNames buffer, in TCHARs, including all NULL characters.</param>
+        /// <param name="lpcchReturnLength"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError. If the buffer is not large enough to hold the complete list, the error code is ERROR_MORE_DATA and the lpcchReturnLength parameter receives the required buffer size.
         /// </remarks>
@@ -2904,6 +3024,7 @@ namespace WindowAPI.Winbase.h
         ///Returns the mask of XState features set within a CONTEXT structure.
         /// </summary>
         /// <param name="Context">A pointer to a CONTEXT structure that has been initialized with InitializeContext.</param>
+        /// <param name="FeatureMask"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool GetXStateFeaturesMask(int Context, out uint FeatureMask);
@@ -3020,6 +3141,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves a copy of the character string associated with the specified global atom.
         /// </summary>
         /// <param name="nAtom">Type: ATOMThe global atom associated with the character string to be retrieved.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nSize">Type: intThe size, in characters, of the buffer.Type: UINTIf the function succeeds, the return value is the length of the string copied to the buffer, in characters, not including the terminating null character.If the function fails, the return value is zero. To get extended error information, call GetLastError.The string returned for an integer atom (an atom whose value is in the range 0x0001 to 0xBFFF) is a null-terminated string in which the first character is a pound sign (#) and the remaining characters represent the unsigned integer atom value.AddAtomDeleteAtomFindAtomGlobalAddAtomGlobalDeleteAtomGlobalFindAtomMAKEINTATOMReference</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -3032,6 +3154,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves a copy of the character string associated with the specified global atom.
         /// </summary>
         /// <param name="nAtom">Type: ATOMThe global atom associated with the character string to be retrieved.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nSize">Type: intThe size, in characters, of the buffer.Type: UINTIf the function succeeds, the return value is the length of the string copied to the buffer, in characters, not including the terminating null character.If the function fails, the return value is zero. To get extended error information, call GetLastError.The string returned for an integer atom (an atom whose value is in the range 0x0001 to 0xBFFF) is a null-terminated string in which the first character is a pound sign (#) and the remaining characters represent the unsigned integer atom value.AddAtomDeleteAtomFindAtomGlobalAddAtomGlobalDeleteAtomGlobalFindAtomMAKEINTATOMReference</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -3113,7 +3236,6 @@ namespace WindowAPI.Winbase.h
         ///Initializes a CONTEXT structure inside a buffer with the necessary size and alignment.
         /// </summary>
         /// <param name="ContextFlags">A value indicating which portions of the Context structure should be initialized. This parameter influences the size of the initialized Context structure.</param>
-        /// <param name="ContextLength">On input, specifies the length of the buffer pointed to by Buffer, in bytes. If the buffer is not large enough to contain the specified portions of the CONTEXT, the function fails, GetLastError returns ERROR_INSUFFICIENT_BUFFER, and ContextLength is set to the required size of the buffer. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the contents of ContextLength are undefined.This function returns TRUE if successful, otherwise FALSE. To get extended error information, call GetLastError.InitializeContext can be used to initialize a CONTEXT structure within a buffer with the required size and alignment characteristics. This routine is required if the CONTEXT_XSTATE ContextFlag is specified since the required context size and alignment may change depending on which processor features are enabled on the system.First, call this function with the ContextFlags parameter set to the maximum number of features you will be using and the Buffer parameter to NULL. The function returns the required buffer size in bytes in the ContextLength parameter. Allocate enough space for the data in the Buffer and call the function again to initialize the Context. Upon successful completion of this routine, the ContextFlags member of the Context structure is initialized, but the remaining contents of the structure are undefined. Some bits specified in the ContextFlags parameter may not be set in Context->ContextFlags if they are not supported by the system. Applications may subsequently remove, but must never add, bits from the ContextFlags member of CONTEXT.Windows 7 with SP1 and Windows Server 2008 R2 with SP1:  The AVX API is first implemented on Windows 7 with SP1 and Windows Server 2008 R2 with SP1 . Since there is no SDK for SP1, that means there are no available headers and library files to work with. In this situation, a caller must declare the needed functions from this documentation and get pointers to them using GetModuleHandle on "Kernel32.dll", followed by calls to GetProcAddress. See Working with XState Context for details.CONTEXTCopyContextIntel AVXWorking with XState Context</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3243,7 +3365,7 @@ namespace WindowAPI.Winbase.h
         /// </remarks>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LocalFree(int hMem);
+        public static extern IntPtr LocalFree(IntPtr hMem);
 
         /// <summary>
         ///Retrieves the handle associated with the specified pointer to a local memory object.
@@ -3314,6 +3436,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpszUsername">A pointer to a null-terminated string that specifies the name of the user. This is the name of the user account to log on to. If you use the user principal name (UPN) format, User@DNSDomainName, the lpszDomain parameter must be NULL.</param>
         /// <param name="dwLogonType">The type of logon operation to perform. This parameter can be one of the following values, defined in Winbase.h.</param>
         /// <param name="dwLogonProvider">Specifies the logon provider. This parameter can be one of the following values.</param>
+        /// <param name="phToken"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3353,6 +3476,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="lpszUsername">A pointer to a null-terminated string that specifies the name of the user. This is the name of the user account to log on to. If you use the user principal name (UPN) format, User@DNSDomainName, the lpszDomain parameter must be NULL.</param>
         /// <param name="dwLogonType">The type of logon operation to perform. This parameter can be one of the following values, defined in Winbase.h.</param>
         /// <param name="dwLogonProvider">Specifies the logon provider. This parameter can be one of the following values.</param>
+        /// <param name="phToken"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3364,8 +3488,7 @@ namespace WindowAPI.Winbase.h
         ///The LookupAccountName function accepts the name of a system and an account as input. It retrieves a security identifier (SID) for the account and the name of the domain on which the account was found.
         /// </summary>
         /// <param name="lpAccountName">A pointer to a null-terminated string that specifies the account name.Use a fully qualified string in the domain_name\user_name format to ensure that LookupAccountName finds the account in the desired domain.</param>
-        /// <param name="cbSid">A pointer to a variable. On input, this value specifies the size, in bytes, of the Sid buffer. If the function fails because the buffer is too small or if cbSid is zero, this variable receives the required buffer size.</param>
-        /// <param name="cchReferencedDomainName">A pointer to a variable. On input, this value specifies the size, in TCHARs, of the ReferencedDomainName buffer. If the function fails because the buffer is too small, this variable receives the required buffer size, including the terminating null character. If the ReferencedDomainName parameter is NULL, this parameter must be zero.</param>
+        /// <param name="peUse"></param>
 
         [DllImport("Advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool LookupAccountNameA(string lpAccountName, out int peUse);
@@ -3374,8 +3497,7 @@ namespace WindowAPI.Winbase.h
         ///The LookupAccountName function accepts the name of a system and an account as input. It retrieves a security identifier (SID) for the account and the name of the domain on which the account was found.
         /// </summary>
         /// <param name="lpAccountName">A pointer to a null-terminated string that specifies the account name.Use a fully qualified string in the domain_name\user_name format to ensure that LookupAccountName finds the account in the desired domain.</param>
-        /// <param name="cbSid">A pointer to a variable. On input, this value specifies the size, in bytes, of the Sid buffer. If the function fails because the buffer is too small or if cbSid is zero, this variable receives the required buffer size.</param>
-        /// <param name="cchReferencedDomainName">A pointer to a variable. On input, this value specifies the size, in TCHARs, of the ReferencedDomainName buffer. If the function fails because the buffer is too small, this variable receives the required buffer size, including the terminating null character. If the ReferencedDomainName parameter is NULL, this parameter must be zero.</param>
+        /// <param name="peUse"></param>
 
         [DllImport("Advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool LookupAccountNameW(string lpAccountName, out int peUse);
@@ -3384,8 +3506,7 @@ namespace WindowAPI.Winbase.h
         ///The LookupAccountSid function accepts a security identifier (SID) as input. It retrieves the name of the account for this SID and the name of the first domain on which this SID is found.
         /// </summary>
         /// <param name="Sid">A pointer to the SID to look up.</param>
-        /// <param name="cchName">On input, specifies the size, in TCHARs, of the lpName buffer. If the function fails because the buffer is too small or if cchName is zero, cchName receives the required buffer size, including the terminating null character.</param>
-        /// <param name="cchReferencedDomainName">On input, specifies the size, in TCHARs, of the lpReferencedDomainName buffer. If the function fails because the buffer is too small or if cchReferencedDomainName is zero, cchReferencedDomainName receives the required buffer size, including the terminating null character.</param>
+        /// <param name="peUse"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3397,8 +3518,7 @@ namespace WindowAPI.Winbase.h
         ///The LookupAccountSid function accepts a security identifier (SID) as input. It retrieves the name of the account for this SID and the name of the first domain on which this SID is found.
         /// </summary>
         /// <param name="Sid">A pointer to the SID to look up.</param>
-        /// <param name="cchName">On input, specifies the size, in TCHARs, of the lpName buffer. If the function fails because the buffer is too small or if cchName is zero, cchName receives the required buffer size, including the terminating null character.</param>
-        /// <param name="cchReferencedDomainName">On input, specifies the size, in TCHARs, of the lpReferencedDomainName buffer. If the function fails because the buffer is too small or if cchReferencedDomainName is zero, cchReferencedDomainName receives the required buffer size, including the terminating null character.</param>
+        /// <param name="peUse"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3410,7 +3530,7 @@ namespace WindowAPI.Winbase.h
         ///The LookupPrivilegeDisplayName function retrieves the display name that represents a specified privilege.
         /// </summary>
         /// <param name="lpName">A pointer to a null-terminated string that specifies the name of the privilege, as defined in Winnt.h. For example, this parameter could specify the constant, SE_REMOTE_SHUTDOWN_NAME, or its corresponding string, "SeRemoteShutdownPrivilege". For a list of values, see Privilege Constants.</param>
-        /// <param name="cchDisplayName">A pointer to a variable that specifies the size, in TCHARs, of the lpDisplayName buffer. When the function returns, this parameter contains the length of the privilege display name, not including the terminating null character. If the buffer pointed to by the lpDisplayName parameter is too small, this variable contains the required size.</param>
+        /// <param name="lpLanguageId"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3422,7 +3542,7 @@ namespace WindowAPI.Winbase.h
         ///The LookupPrivilegeDisplayName function retrieves the display name that represents a specified privilege.
         /// </summary>
         /// <param name="lpName">A pointer to a null-terminated string that specifies the name of the privilege, as defined in Winnt.h. For example, this parameter could specify the constant, SE_REMOTE_SHUTDOWN_NAME, or its corresponding string, "SeRemoteShutdownPrivilege". For a list of values, see Privilege Constants.</param>
-        /// <param name="cchDisplayName">A pointer to a variable that specifies the size, in TCHARs, of the lpDisplayName buffer. When the function returns, this parameter contains the length of the privilege display name, not including the terminating null character. If the buffer pointed to by the lpDisplayName parameter is too small, this variable contains the required size.</param>
+        /// <param name="lpLanguageId"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3434,7 +3554,6 @@ namespace WindowAPI.Winbase.h
         ///The LookupPrivilegeName function retrieves the name that corresponds to the privilege represented on a specific system by a specified locally unique identifier (LUID).
         /// </summary>
         /// <param name="lpLuid">A pointer to the LUID by which the privilege is known on the target system.</param>
-        /// <param name="cchName">A pointer to a variable that specifies the size, in a TCHAR value, of the lpName buffer. When the function returns, this parameter contains the length of the privilege name, not including the terminating null character. If the buffer pointed to by the lpName parameter is too small, this variable contains the required size.If the function succeeds, the function returns nonzero.If the function fails, it returns zero. To get extended error information, call GetLastError.The LookupPrivilegeName function supports only the privileges specified in the Defined Privileges section of Winnt.h. For a list of values, see Privilege Constants.Access ControlBasic Access Control FunctionsLookupPrivilegeDisplayNameLookupPrivilegeValue</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3446,7 +3565,6 @@ namespace WindowAPI.Winbase.h
         ///The LookupPrivilegeName function retrieves the name that corresponds to the privilege represented on a specific system by a specified locally unique identifier (LUID).
         /// </summary>
         /// <param name="lpLuid">A pointer to the LUID by which the privilege is known on the target system.</param>
-        /// <param name="cchName">A pointer to a variable that specifies the size, in a TCHAR value, of the lpName buffer. When the function returns, this parameter contains the length of the privilege name, not including the terminating null character. If the buffer pointed to by the lpName parameter is too small, this variable contains the required size.If the function succeeds, the function returns nonzero.If the function fails, it returns zero. To get extended error information, call GetLastError.The LookupPrivilegeName function supports only the privileges specified in the Defined Privileges section of Winnt.h. For a list of values, see Privilege Constants.Access ControlBasic Access Control FunctionsLookupPrivilegeDisplayNameLookupPrivilegeValue</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3458,6 +3576,7 @@ namespace WindowAPI.Winbase.h
         ///The LookupPrivilegeValue function retrieves the locally unique identifier (LUID) used on a specified system to locally represent the specified privilege name.
         /// </summary>
         /// <param name="lpName">A pointer to a null-terminated string that specifies the name of the privilege, as defined in the Winnt.h header file. For example, this parameter could specify the constant, SE_SECURITY_NAME, or its corresponding string, "SeSecurityPrivilege".</param>
+        /// <param name="lpLuid"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3469,6 +3588,7 @@ namespace WindowAPI.Winbase.h
         ///The LookupPrivilegeValue function retrieves the locally unique identifier (LUID) used on a specified system to locally represent the specified privilege name.
         /// </summary>
         /// <param name="lpName">A pointer to a null-terminated string that specifies the name of the privilege, as defined in the Winnt.h header file. For example, this parameter could specify the constant, SE_SECURITY_NAME, or its corresponding string, "SeSecurityPrivilege".</param>
+        /// <param name="lpLuid"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3479,7 +3599,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Appends one string to another.
         /// </summary>
-        /// <param name="lpString1">Type: LPTSTRThe first null-terminated string. This buffer must be large enough to contain both strings.</param>
         /// <param name="lpString2">Type: LPTSTRThe null-terminated string to be appended to the string specified in the lpString1 parameter.Type: LPTSTRIf the function succeeds, the return value is a pointer to the buffer.If the function fails, the return value is NULL and lpString1 may not be null-terminated.ConceptualReferenceStringCbCatStringCbCatExStringCbCatNStringCbCatNExStringCchCatStringCchCatExStringCchCatNStringCchCatNExStringslstrcmplstrcmpilstrlen</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -3488,7 +3607,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Appends one string to another.
         /// </summary>
-        /// <param name="lpString1">Type: LPTSTRThe first null-terminated string. This buffer must be large enough to contain both strings.</param>
         /// <param name="lpString2">Type: LPTSTRThe null-terminated string to be appended to the string specified in the lpString1 parameter.Type: LPTSTRIf the function succeeds, the return value is a pointer to the buffer.If the function fails, the return value is NULL and lpString1 may not be null-terminated.ConceptualReferenceStringCbCatStringCbCatExStringCbCatNStringCbCatNExStringCchCatStringCchCatExStringCchCatNStringCchCatNExStringslstrcmplstrcmpilstrlen</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -3533,6 +3651,7 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Copies a string to a buffer.
         /// </summary>
+        /// <param name="lpString1"></param>
         /// <param name="lpString2">Type: LPTSTRThe null-terminated string to be copied.Type: LPTSTRIf the function succeeds, the return value is a pointer to the buffer.If the function fails, the return value is NULL and lpString1 may not be null-terminated.With a double-byte character set (DBCS) version of the system, this function can be used to copy a DBCS string.The lstrcpy function has an undefined behavior if source and destination buffers overlap.lpString1 must be large enough to hold lpString2 and the closing '\0', otherwise a buffer overrun may occur.Buffer overflow situations are the cause of many security problems in applications and can cause a denial of service attack against the application if an access violation occurs. In the worst case, a buffer overrun may allow an attacker to inject executable code into your process, especially if lpString1 is a stack-based buffer.Consider using StringCchCopy instead; use either StringCchCopy(buffer, sizeof(buffer)/sizeof(buffer[0]), src);, being aware that buffer must not be a pointer or use StringCchCopy(buffer, ARRAYSIZE(buffer), src);, being aware that, when copying to a pointer, the caller is responsible for passing in the size of the pointed-to memory in characters.ConceptualReferenceStringCbCopyStringCbCopyExStringCbCopyNStringCbCopyNExStringCchCopyStringCchCopyExStringCchCopyNStringCchCopyNExStringslstrcmplstrcmpilstrlen</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -3541,6 +3660,7 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Copies a specified number of characters from a source string into a buffer.
         /// </summary>
+        /// <param name="lpString1"></param>
         /// <param name="lpString2">Type: LPCTSTRThe source string from which the function is to copy characters.</param>
         /// <param name="iMaxLength">Type: intThe number of TCHAR values to be copied from the string pointed to by lpString2 into the buffer pointed to by lpString1, including a terminating null character.Type: LPTSTRIf the function succeeds, the return value is a pointer to the buffer. The function can succeed even if the source string is greater than iMaxLength characters.If the function fails, the return value is NULL and lpString1 may not be null-terminated.The buffer pointed to by lpString1 must be large enough to include a terminating null character, and the string length value specified by iMaxLength includes room for a terminating null character.The lstrcpyn function has an undefined behavior if source and destination buffers overlap.If the buffer pointed to by lpString1 is not large enough to contain the copied string, a buffer overrun can occur. When copying an entire string, note that sizeof returns the number of bytes. For example, if lpString1 points to a buffer szString1 which is declared as TCHAR szString[100], then sizeof(szString1) gives the size of the buffer in bytes rather than WCHAR, which could lead to a buffer overflow for the Unicode version of the function.Buffer overflow situations are the cause of many security problems in applications and can cause a denial of service attack against the application if an access violation occurs. In the worst case, a buffer overrun may allow an attacker to inject executable code into your process, especially if lpString1 is a stack-based buffer.Using sizeof(szString1)/sizeof(szString1[0]) gives the proper size of the buffer.Consider using StringCchCopy instead; use either StringCchCopy(buffer, sizeof(buffer)/sizeof(buffer[0]), src);, being aware that buffer must not be a pointer or use StringCchCopy(buffer, ARRAYSIZE(buffer), src);, being aware that, when copying to a pointer, the caller is responsible for passing in the size of the pointed-to memory in characters.Review Security Considerations: Windows User Interface before continuing.ConceptualReferenceStringCbCopyStringCbCopyExStringCbCopyNStringCbCopyNExStringCbLengthStringCchCopyStringCchCopyExStringCchCopyNStringCchCopyNExStringCchLengthStringslstrcmplstrcmpilstrlen</param>
 
@@ -3550,6 +3670,7 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Copies a specified number of characters from a source string into a buffer.
         /// </summary>
+        /// <param name="lpString1"></param>
         /// <param name="lpString2">Type: LPCTSTRThe source string from which the function is to copy characters.</param>
         /// <param name="iMaxLength">Type: intThe number of TCHAR values to be copied from the string pointed to by lpString2 into the buffer pointed to by lpString1, including a terminating null character.Type: LPTSTRIf the function succeeds, the return value is a pointer to the buffer. The function can succeed even if the source string is greater than iMaxLength characters.If the function fails, the return value is NULL and lpString1 may not be null-terminated.The buffer pointed to by lpString1 must be large enough to include a terminating null character, and the string length value specified by iMaxLength includes room for a terminating null character.The lstrcpyn function has an undefined behavior if source and destination buffers overlap.If the buffer pointed to by lpString1 is not large enough to contain the copied string, a buffer overrun can occur. When copying an entire string, note that sizeof returns the number of bytes. For example, if lpString1 points to a buffer szString1 which is declared as TCHAR szString[100], then sizeof(szString1) gives the size of the buffer in bytes rather than WCHAR, which could lead to a buffer overflow for the Unicode version of the function.Buffer overflow situations are the cause of many security problems in applications and can cause a denial of service attack against the application if an access violation occurs. In the worst case, a buffer overrun may allow an attacker to inject executable code into your process, especially if lpString1 is a stack-based buffer.Using sizeof(szString1)/sizeof(szString1[0]) gives the proper size of the buffer.Consider using StringCchCopy instead; use either StringCchCopy(buffer, sizeof(buffer)/sizeof(buffer[0]), src);, being aware that buffer must not be a pointer or use StringCchCopy(buffer, ARRAYSIZE(buffer), src);, being aware that, when copying to a pointer, the caller is responsible for passing in the size of the pointed-to memory in characters.Review Security Considerations: Windows User Interface before continuing.ConceptualReferenceStringCbCopyStringCbCopyExStringCbCopyNStringCbCopyNExStringCbLengthStringCchCopyStringCchCopyExStringCchCopyNStringCchCopyNExStringCchLengthStringslstrcmplstrcmpilstrlen</param>
 
@@ -3559,6 +3680,7 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Copies a string to a buffer.
         /// </summary>
+        /// <param name="lpString1"></param>
         /// <param name="lpString2">Type: LPTSTRThe null-terminated string to be copied.Type: LPTSTRIf the function succeeds, the return value is a pointer to the buffer.If the function fails, the return value is NULL and lpString1 may not be null-terminated.With a double-byte character set (DBCS) version of the system, this function can be used to copy a DBCS string.The lstrcpy function has an undefined behavior if source and destination buffers overlap.lpString1 must be large enough to hold lpString2 and the closing '\0', otherwise a buffer overrun may occur.Buffer overflow situations are the cause of many security problems in applications and can cause a denial of service attack against the application if an access violation occurs. In the worst case, a buffer overrun may allow an attacker to inject executable code into your process, especially if lpString1 is a stack-based buffer.Consider using StringCchCopy instead; use either StringCchCopy(buffer, sizeof(buffer)/sizeof(buffer[0]), src);, being aware that buffer must not be a pointer or use StringCchCopy(buffer, ARRAYSIZE(buffer), src);, being aware that, when copying to a pointer, the caller is responsible for passing in the size of the pointed-to memory in characters.ConceptualReferenceStringCbCopyStringCbCopyExStringCbCopyNStringCbCopyNExStringCchCopyStringCchCopyExStringCchCopyNStringCchCopyNExStringslstrcmplstrcmpilstrlen</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -3779,6 +3901,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="GrantedAccess">Specifies an access mask indicating which access rights are granted. This access mask is intended to be the same value set by one of the access-checking functions in its GrantedAccess parameter. Examples of access-checking functions include AccessCheckAndAuditAlarm and AccessCheck.</param>
         /// <param name="ObjectCreation">Specifies a flag that determines whether the application creates a new object when access is granted. When this value is TRUE, the application creates a new object; when it is FALSE, the application opens an existing object.</param>
         /// <param name="AccessGranted">Specifies a flag indicating whether access was granted or denied in a previous call to an access-checking function, such as AccessCheck. If access was granted, this value is TRUE. If not, it is FALSE.</param>
+        /// <param name="GenerateOnClose"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3841,6 +3964,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpFileName">The name of the file to be opened. The string must consist of characters from the Windows character set.</param>
         /// <param name="ulFlags">The operation to be performed. This parameter may be one of the following values.</param>
+        /// <param name="pvContext"></param>
 
         [DllImport("Advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern uint OpenEncryptedFileRawA(string lpFileName, int ulFlags, out IntPtr pvContext);
@@ -3850,6 +3974,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="lpFileName">The name of the file to be opened. The string must consist of characters from the Windows character set.</param>
         /// <param name="ulFlags">The operation to be performed. This parameter may be one of the following values.</param>
+        /// <param name="pvContext"></param>
 
         [DllImport("Advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern uint OpenEncryptedFileRawW(string lpFileName, int ulFlags, out IntPtr pvContext);
@@ -3882,6 +4007,7 @@ namespace WindowAPI.Winbase.h
         ///Creates, opens, reopens, or deletes a file.
         /// </summary>
         /// <param name="lpFileName">The name of the file.The string must consist of characters from the 8-bit Windows character set. The OpenFile function does not support Unicode file names or opening named pipes.</param>
+        /// <param name="lpReOpenBuff"></param>
         /// <param name="uStyle">The action to be taken.This parameter can be one or more of the following values.If the function succeeds, the return value specifies a file handle to use when performing file I/O. To close the file, call the CloseHandle function using this handle.If the function fails, the return value is HFILE_ERROR. To get extended error information, call GetLastError.If the lpFileName parameter specifies a file name and extension only, this function searches for a matching file in the following directories and the order shown:The OpenFile function does not support the OF_SEARCH flag that the 16-bit Windows OpenFile function supports. The OF_SEARCH flag directs the system to search for a matching file even when a file name includes a full path. Use the SearchPath function to search for a file.A sharing violation occurs if an attempt is made to open a file or directory for deletion on a remote machine when the value of the uStyle parameter is the OF_DELETE access flag OR'ed with any other access flag, and the remote file or directory has not been opened with FILE_SHARE_DELETE share access. To avoid the sharing violation in this scenario, open the remote file or directory with OF_DELETE access only, or call DeleteFile without first opening the file or directory for deletion.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.CsvFs will do redirected IO for compressed files.CreateFileFile Management FunctionsGetSystemDirectoryGetWindowsDirectoryOFSTRUCTSearchPath</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -4049,6 +4175,7 @@ namespace WindowAPI.Winbase.h
         ///The QueryActCtxSettingsW function specifies the activation context, and the namespace and name of the attribute that is to be queried.
         /// </summary>
         /// <param name="settingName">The name of the attribute to be queried.</param>
+        /// <param name="pvBuffer"></param>
         /// <param name="dwBuffer">The size of the buffer in characters that receives the query result.</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -4060,6 +4187,7 @@ namespace WindowAPI.Winbase.h
         /// <param name="dwFlags">This parameter should be set to one of the following flag bits.</param>
         /// <param name="hActCtx">Handle to the activation context that is being queried.</param>
         /// <param name="ulInfoClass">This parameter can have only the values shown in the following table.</param>
+        /// <param name="pvBuffer"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool QueryActCtxW(uint dwFlags, IntPtr hActCtx, int ulInfoClass, out IntPtr pvBuffer);
@@ -4067,6 +4195,7 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Retrieves information about MS-DOS device names. The function can obtain the current mapping for a particular MS-DOS device name. The function can also obtain a list of all existing MS-DOS device names.
         /// </summary>
+        /// <param name="lpTargetPath"></param>
         /// <param name="ucchMax">The maximum number of TCHARs that can be stored into the buffer pointed to by lpTargetPath.If the function succeeds, the return value is the number of TCHARs stored into the buffer pointed to by lpTargetPath.If the function fails, the return value is zero. To get extended error information, call GetLastError.If the buffer is too small, the function fails and the last error code is ERROR_INSUFFICIENT_BUFFER.The DefineDosDevice function enables an application to create and modify the junctions used to implement the MS-DOS device namespace.Windows Server 2003 and Windows XP:  QueryDosDevice first searches the Local MS-DOS Device namespace for the specified device name. If the device name is not found, the function will then search the Global MS-DOS Device namespace.When all existing MS-DOS device names are queried, the list of device names that are returned is dependent on whether it is running in the "LocalSystem" context. If so, only the device names included in the Global MS-DOS Device namespace will be returned. If not, a concatenation of the device names in the Global and Local MS-DOS Device namespaces will be returned. If a device name exists in both namespaces, QueryDosDevice will return the entry in the Local MS-DOS Device namespace.For more information on the Global and Local MS-DOS Device namespaces and changes to the accessibility of MS-DOS device names, see Defining an MS DOS Device Name.In Windows 8 and Windows Server 2012, this function is supported by the following technologies.SMB does not support volume management functions.For an example, see Obtaining a File Name From a File Handle or Displaying Volume Paths.DefineDosDeviceVolume Management Functions</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -4080,7 +4209,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="hProcess">A handle to the process. This handle must be created with the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see Process Security and Access Rights.</param>
         /// <param name="dwFlags">This parameter can be one of the following values.</param>
-        /// <param name="lpdwSize">On input, specifies the size of the lpExeName buffer, in characters. On success, receives the number of characters written to the buffer, not including the null-terminating character.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later.GetModuleFileNameExGetProcessImageFileNameProcess and Thread Functions</param>
+        /// <param name="lpExeName"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -4093,7 +4222,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="hProcess">A handle to the process. This handle must be created with the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see Process Security and Access Rights.</param>
         /// <param name="dwFlags">This parameter can be one of the following values.</param>
-        /// <param name="lpdwSize">On input, specifies the size of the lpExeName buffer, in characters. On success, receives the number of characters written to the buffer, not including the null-terminating character.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later.GetModuleFileNameExGetProcessImageFileNameProcess and Thread Functions</param>
+        /// <param name="lpExeName"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -4105,6 +4234,7 @@ namespace WindowAPI.Winbase.h
         ///Determines whether thread profiling is enabled for the specified thread.
         /// </summary>
         /// <param name="ThreadHandle">The handle to the thread of interest.</param>
+        /// <param name="Enabled"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern uint QueryThreadProfiling(IntPtr ThreadHandle, out bool Enabled);
@@ -4114,6 +4244,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="UmsThread">A pointer to a UMS thread context.</param>
         /// <param name="UmsThreadInfoClass">A UMS_THREAD_INFO_CLASS value that specifies the kind of information to retrieve.</param>
+        /// <param name="UmsThreadInformation"></param>
         /// <param name="UmsThreadInformationLength">The size of the UmsThreadInformation buffer, in bytes.</param>
         /// <remarks>
         /// To get extended error information, call GetLastError. Possible error values include the following.
@@ -4126,6 +4257,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves information that describes the changes within the specified directory, which can include extended information if that information type is specified. The function does not report changes to the specified directory itself.
         /// </summary>
         /// <param name="hDirectory">A handle to the directory to be monitored. This directory must be opened with the FILE_LIST_DIRECTORY access right, or an access right such as GENERIC_READ that includes the FILE_LIST_DIRECTORY access right.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nBufferLength">The size of the buffer to which the lpBuffer parameter points, in bytes.</param>
         /// <param name="bWatchSubtree">If this parameter is TRUE, the function monitors the directory tree rooted at the specified directory. If this parameter is FALSE, the function monitors only the directory specified by the hDirectory parameter.</param>
         /// <param name="dwNotifyFilter">The filter criteria that the function checks to determine if the wait operation has completed. This parameter can be one or more of the following values.</param>
@@ -4141,6 +4273,7 @@ namespace WindowAPI.Winbase.h
         ///Retrieves information that describes the changes within the specified directory. The function does not report changes to the specified directory itself.
         /// </summary>
         /// <param name="hDirectory">A handle to the directory to be monitored. This directory must be opened with the FILE_LIST_DIRECTORY access right, or an access right such as GENERIC_READ that includes the FILE_LIST_DIRECTORY access right.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nBufferLength">The size of the buffer that is pointed to by the lpBuffer parameter, in bytes.</param>
         /// <param name="bWatchSubtree">If this parameter is TRUE, the function monitors the directory tree rooted at the specified directory. If this parameter is FALSE, the function monitors only the directory specified by the hDirectory parameter.</param>
         /// <param name="dwNotifyFilter">The filter criteria that the function checks to determine if the wait operation has completed. This parameter can be one or more of the following values.</param>
@@ -4166,7 +4299,10 @@ namespace WindowAPI.Winbase.h
         /// <param name="hEventLog">A handle to the event log to be read. The OpenEventLog function returns this handle.</param>
         /// <param name="dwReadFlags">Use the following flag values to indicate how to read the log file. This parameter must include one of the following values (the flags are mutually exclusive).You must specify one of the following flags to indicate the direction for successive read operations (the flags are mutually exclusive).</param>
         /// <param name="dwRecordOffset">The record number of the log-entry at which the read operation should start. This parameter is ignored unless dwReadFlags includes the EVENTLOG_SEEK_READ flag.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nNumberOfBytesToRead">The size of the lpBuffer buffer, in bytes. This function will read as many log entries as will fit in the buffer; the function will not return partial entries.</param>
+        /// <param name="pnBytesRead"></param>
+        /// <param name="pnMinNumberOfBytesNeeded"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -4180,7 +4316,10 @@ namespace WindowAPI.Winbase.h
         /// <param name="hEventLog">A handle to the event log to be read. The OpenEventLog function returns this handle.</param>
         /// <param name="dwReadFlags">Use the following flag values to indicate how to read the log file. This parameter must include one of the following values (the flags are mutually exclusive).You must specify one of the following flags to indicate the direction for successive read operations (the flags are mutually exclusive).</param>
         /// <param name="dwRecordOffset">The record number of the log-entry at which the read operation should start. This parameter is ignored unless dwReadFlags includes the EVENTLOG_SEEK_READ flag.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="nNumberOfBytesToRead">The size of the lpBuffer buffer, in bytes. This function will read as many log entries as will fit in the buffer; the function will not return partial entries.</param>
+        /// <param name="pnBytesRead"></param>
+        /// <param name="pnMinNumberOfBytesNeeded"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -4193,6 +4332,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="PerformanceDataHandle">The handle that the EnableThreadProfiling function returned.</param>
         /// <param name="Flags">One or more of the following flags that specify the counter data to read. The flags must have been set when you called the EnableThreadProfiling function.</param>
+        /// <param name="PerformanceData"></param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern uint ReadThreadProfilingData(IntPtr PerformanceDataHandle, uint Flags, out int PerformanceData);
@@ -4540,6 +4680,8 @@ namespace WindowAPI.Winbase.h
         /// <param name="nPeriodMilliseconds">The period of the reservation, in milliseconds. The period is the time from which the I/O is issued to the kernel until the time the I/O should be completed. The minimum supported value for the file stream can be determined by looking at the value returned through the lpPeriodMilliseconds parameter to the GetFileBandwidthReservation function, on a handle that has not had a bandwidth reservation set.</param>
         /// <param name="nBytesPerPeriod">The bandwidth to reserve, in bytes per period. The maximum supported value for the file stream can be determined by looking at the value returned through the lpBytesPerPeriod parameter to the GetFileBandwidthReservation function, on a handle that has not had a bandwidth reservation set.</param>
         /// <param name="bDiscardable">Indicates whether I/O should be completed with an error if a driver is unable to satisfy an I/O operation before the period expires. If one of the drivers for the specified file stream does not support this functionality, this function may return success and ignore the flag. To verify whether the setting will be honored, call the GetFileBandwidthReservation function using the same hFile handle and examine the *pDiscardable return value.</param>
+        /// <param name="lpTransferSize"></param>
+        /// <param name="lpNumOutstandingRequests"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -4833,7 +4975,6 @@ namespace WindowAPI.Winbase.h
         /// <summary>
         ///Sets the mask of XState features set within a CONTEXT structure.
         /// </summary>
-        /// <param name="Context">A pointer to a CONTEXT structure that has been initialized with InitializeContext.</param>
         /// <param name="FeatureMask">A mask of XState features to set in the specified CONTEXT structure.This function returns TRUE if successful, otherwise FALSE.The SetXStateFeaturesMask function sets the mask of valid features in the specified context. Before calling GetThreadContext, Wow64GetThreadContext, SetThreadContext, or Wow64SetThreadContext the application must call SetXStateFeaturesMask to specify which set of features to retrieve or set. The system silently ignores any feature specified in the FeatureMask which is not enabled on the processor.Windows 7 with SP1 and Windows Server 2008 R2 with SP1:  The AVX API is first implemented on Windows 7 with SP1 and Windows Server 2008 R2 with SP1 . Since there is no SDK for SP1, that means there are no available headers and library files to work with. In this situation, a caller must declare the needed functions from this documentation and get pointers to them using GetModuleHandle on "Kernel32.dll", followed by calls to GetProcAddress. See Working with XState Context for details.CONTEXTGetThreadContextIntel AVXSetThreadContextWorking with XState ContextWow64GetThreadContextWow64SetThreadContext</param>
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -4949,6 +5090,7 @@ namespace WindowAPI.Winbase.h
         ///Waits for an event to occur for a specified communications device. The set of events that are monitored by this function is contained in the event mask associated with the device handle.
         /// </summary>
         /// <param name="hFile">A handle to the communications device. The CreateFile function returns this handle.</param>
+        /// <param name="lpEvtMask"></param>
         /// <param name="lpOverlapped">A pointer to an OVERLAPPED structure. This structure is required if hFile was opened with FILE_FLAG_OVERLAPPED.If hFile was opened with FILE_FLAG_OVERLAPPED, the lpOverlapped parameter must not be NULL. It must point to a valid OVERLAPPED structure. If hFile was opened with FILE_FLAG_OVERLAPPED and lpOverlapped is NULL, the function can incorrectly report that the operation is complete.If hFile was opened with FILE_FLAG_OVERLAPPED and lpOverlapped is not NULL, WaitCommEvent is performed as an overlapped operation. In this case, the OVERLAPPED structure must contain a handle to a manual-reset event object (created by using the CreateEvent function).If hFile was not opened with FILE_FLAG_OVERLAPPED, WaitCommEvent does not return until one of the specified events or an error occurs.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.The WaitCommEvent function monitors a set of events for a specified communications resource. To set and query the current event mask of a communications resource, use the SetCommMask and GetCommMask functions.If the overlapped operation cannot be completed immediately, the function returns FALSE and the GetLastError function returns ERROR_IO_PENDING, indicating that the operation is executing in the background. When this happens, the system sets the hEvent member of the OVERLAPPED structure to the not-signaled state before WaitCommEvent returns, and then it sets it to the signaled state when one of the specified events or an error occurs. The calling process can use one of the wait functions to determine the event object's state and then use the GetOverlappedResult function to determine the results of the WaitCommEvent operation. GetOverlappedResult reports the success or failure of the operation, and the variable pointed to by the lpEvtMask parameter is set to indicate the event that occurred.If a process attempts to change the device handle's event mask by using the SetCommMask function while an overlapped WaitCommEvent operation is in progress, WaitCommEvent returns immediately. The variable pointed to by the lpEvtMask parameter is set to zero.For an example, see Monitoring Communications Events.Communications FunctionsCommunications ResourcesCreateFileDCBGetCommMaskGetOverlappedResultOVERLAPPEDSetCommMaskSetCommState</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -4983,6 +5125,7 @@ namespace WindowAPI.Winbase.h
         /// </summary>
         /// <param name="hThread">A handle to the thread containing the specified selector. The handle must have been created with THREAD_QUERY_INFORMATION access to the thread. For more information, see Thread Security and Access Rights.</param>
         /// <param name="dwSelector">The global or local selector value to look up in the thread's descriptor tables.</param>
+        /// <param name="lpSelectorEntry"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>

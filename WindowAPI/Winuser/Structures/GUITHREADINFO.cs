@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -18,7 +13,7 @@ namespace WindowAPI.Winuser.Structures
         public IntPtr hwndMenuOwner;
         public IntPtr hwndMoveSize;
         public IntPtr hwndCaret;
-        public IntPtr rcCaret;
+        public RECT rcCaret;
     }
 
 

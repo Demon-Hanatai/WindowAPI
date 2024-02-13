@@ -1,31 +1,26 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct NONCLIENTMETRICSA
     {
-        public IntPtr cbSize;
-        public IntPtr iBorderWidth;
-        public IntPtr iScrollWidth;
-        public IntPtr iScrollHeight;
-        public IntPtr iCaptionWidth;
-        public IntPtr iCaptionHeight;
-        public IntPtr lfCaptionFont;
-        public IntPtr iSmCaptionWidth;
-        public IntPtr iSmCaptionHeight;
-        public IntPtr lfSmCaptionFont;
-        public IntPtr iMenuWidth;
-        public IntPtr iMenuHeight;
-        public IntPtr lfMenuFont;
-        public IntPtr lfStatusFont;
-        public IntPtr lfMessageFont;
-        public IntPtr iPaddedBorderWidth;
+        public uint cbSize;
+        public int iBorderWidth;
+        public int iScrollWidth;
+        public int iScrollHeight;
+        public int iCaptionWidth;
+        public int iCaptionHeight;
+        public LOGFONTA lfCaptionFont;
+        public int iSmCaptionWidth;
+        public int iSmCaptionHeight;
+        public LOGFONTA lfSmCaptionFont;
+        public int iMenuWidth;
+        public int iMenuHeight;
+        public LOGFONTA lfMenuFont;
+        public LOGFONTA lfStatusFont;
+        public LOGFONTA lfMessageFont;
+        public int iPaddedBorderWidth;
     }
 
 

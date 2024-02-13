@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 namespace WindowAPI.Prnasnot.h
 {
     public static class Function
@@ -12,6 +11,7 @@ namespace WindowAPI.Prnasnot.h
         /// <param name="eUserFilter">A value specifying whether notifications will be sent to:</param>
         /// <param name="eConversationStyle">A value specifying whether communication is bidirectional or unidirectional.</param>
         /// <param name="pCallback">A pointer to an object that the listening application will use to call back the Print Spooler-hosted component. This should be NULL if directionality is kUniDirectional.</param>
+        /// <param name="ppIAsynchNotification"></param>
 
         [DllImport("Spoolss.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr /*UKNOW:NEED_FIX*/ CreatePrintAsyncNotifyChannel(string pszName, IntPtr /*UKNOW:NEED_FIX*/ pNotificationType, IntPtr /*UKNOW:NEED_FIX*/ eUserFilter, IntPtr /*UKNOW:NEED_FIX*/ eConversationStyle, IntPtr /*UKNOW:NEED_FIX*/ pCallback, out IntPtr /*UKNOW:NEED_FIX*/ ppIAsynchNotification);
@@ -24,6 +24,7 @@ namespace WindowAPI.Prnasnot.h
         /// <param name="eUserFilter">A value specifying whether notifications will be sent to:</param>
         /// <param name="eConversationStyle">A value specifying whether communication is bidirectional or unidirectional.</param>
         /// <param name="pCallback">A pointer to an object that the Print Spooler-hosted component will use to call back the application. This should never be NULL.</param>
+        /// <param name="phNotify"></param>
 
         [DllImport("Spoolss.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr /*UKNOW:NEED_FIX*/ RegisterForPrintAsyncNotifications(string pszName, IntPtr /*UKNOW:NEED_FIX*/ pNotificationType, IntPtr /*UKNOW:NEED_FIX*/ eUserFilter, IntPtr /*UKNOW:NEED_FIX*/ eConversationStyle, IntPtr /*UKNOW:NEED_FIX*/ pCallback, out IntPtr phNotify);

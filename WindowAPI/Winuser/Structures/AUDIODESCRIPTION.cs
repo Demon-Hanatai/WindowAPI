@@ -1,18 +1,13 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct AUDIODESCRIPTION
     {
-        public IntPtr cbSize;
+        public uint cbSize;
         public bool Enabled;
-        public IntPtr Locale;
+        public int Locale;
     }
 
 

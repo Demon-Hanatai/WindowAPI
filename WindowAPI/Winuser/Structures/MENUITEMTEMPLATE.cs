@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -12,6 +7,7 @@ namespace WindowAPI.Winuser.Structures
     {
         public short mtOption;
         public short mtID;
+        public StringBuilder mtString;
     }
 
 

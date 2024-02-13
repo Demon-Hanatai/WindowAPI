@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -12,11 +7,11 @@ namespace WindowAPI.Winuser.Structures
     {
         public IntPtr hwnd;
         public IntPtr hwndInsertAfter;
-        public IntPtr x;
-        public IntPtr y;
-        public IntPtr cx;
-        public IntPtr cy;
-        public IntPtr flags;
+        public int x;
+        public int y;
+        public int cx;
+        public int cy;
+        public uint flags;
     }
 
 

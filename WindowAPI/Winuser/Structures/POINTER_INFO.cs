@@ -1,31 +1,26 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct POINTER_INFO
     {
-        public IntPtr pointerType;
-        public IntPtr pointerId;
-        public IntPtr frameId;
-        public IntPtr pointerFlags;
+        public POINTER_INPUT_TYPE pointerType;
+        public int pointerId;
+        public int frameId;
+        public int pointerFlags;
         public IntPtr sourceDevice;
         public IntPtr hwndTarget;
-        public IntPtr ptPixelLocation;
-        public IntPtr ptHimetricLocation;
-        public IntPtr ptPixelLocationRaw;
-        public IntPtr ptHimetricLocationRaw;
+        public POINT ptPixelLocation;
+        public POINT ptHimetricLocation;
+        public POINT ptPixelLocationRaw;
+        public POINT ptHimetricLocationRaw;
         public uint dwTime;
-        public IntPtr historyCount;
-        public IntPtr InputData;
+        public int historyCount;
+        public int InputData;
         public uint dwKeyStates;
-        public IntPtr PerformanceCount;
-        public IntPtr ButtonChangeType;
+        public int PerformanceCount;
+        public POINTER_BUTTON_CHANGE_TYPE ButtonChangeType;
     }
 
 

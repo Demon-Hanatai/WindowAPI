@@ -1,21 +1,17 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct HELPWININFOW
     {
-        public IntPtr wStructSize;
-        public IntPtr x;
-        public IntPtr y;
-        public IntPtr dx;
-        public IntPtr dy;
-        public IntPtr wMax;
+        public int wStructSize;
+        public int x;
+        public int y;
+        public int dx;
+        public int dy;
+        public int wMax;
+        public StringBuilder rgchMember;
     }
 
 

@@ -1,22 +1,17 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct SCROLLINFO
     {
-        public IntPtr cbSize;
-        public IntPtr fMask;
-        public IntPtr nMin;
-        public IntPtr nMax;
-        public IntPtr nPage;
-        public IntPtr nPos;
-        public IntPtr nTrackPos;
+        public uint cbSize;
+        public uint fMask;
+        public int nMin;
+        public int nMax;
+        public uint nPage;
+        public int nPos;
+        public int nTrackPos;
     }
 
 

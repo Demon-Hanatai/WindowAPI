@@ -1,19 +1,14 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct BSMINFO
     {
-        public IntPtr cbSize;
+        public uint cbSize;
         public IntPtr hdesk;
         public IntPtr hwnd;
-        public IntPtr luid;
+        public LUID luid;
     }
 
 

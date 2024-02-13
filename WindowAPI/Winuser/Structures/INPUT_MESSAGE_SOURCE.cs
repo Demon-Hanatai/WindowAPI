@@ -1,17 +1,12 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct INPUT_MESSAGE_SOURCE
     {
-        public IntPtr deviceType;
-        public IntPtr originId;
+        public INPUT_MESSAGE_DEVICE_TYPE deviceType;
+        public INPUT_MESSAGE_ORIGIN_ID originId;
     }
 
 

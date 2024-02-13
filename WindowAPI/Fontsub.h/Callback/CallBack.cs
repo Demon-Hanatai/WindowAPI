@@ -1,5 +1,5 @@
 //Auto Create-#=
-namespace WindowAPI.Fontsub
+namespace WindowAPI.Fontsub.h.Callback
 {
     public static class CallBack
     {
@@ -14,13 +14,13 @@ namespace WindowAPI.Fontsub
         ///Client-provided callback function, used by CreateFontPackage and MergeFontPackage to free memory.
         /// </summary>
 
-        public delegate void CFP_FREEPROC(IntPtr unnamedParam1);
+        public delegate void CFP_FREEPROC(nint unnamedParam1);
 
         /// <summary>
         ///Client-provided callback function, used by CreateFontPackage and MergeFontPackage to reallocate memory when the size of an allocated buffer needs to change.
         /// </summary>
 
-        public delegate void CFP_REALLOCPROC(IntPtr unnamedParam1, int unnamedParam2);
+        public delegate void CFP_REALLOCPROC(nint unnamedParam1, int unnamedParam2);
 
 
     }

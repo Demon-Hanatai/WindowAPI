@@ -1,24 +1,19 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct GESTUREINFO
     {
-        public IntPtr cbSize;
+        public uint cbSize;
         public uint dwFlags;
         public uint dwID;
         public IntPtr hwndTarget;
-        public IntPtr ptsLocation;
+        public POINTS ptsLocation;
         public uint dwInstanceID;
         public uint dwSequenceID;
-        public IntPtr ullArguments;
-        public IntPtr cbExtraArgs;
+        public int ullArguments;
+        public uint cbExtraArgs;
     }
 
 

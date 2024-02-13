@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -13,13 +8,13 @@ namespace WindowAPI.Winuser.Structures
         public ushort level;
         public ushort page;
         public ushort usage;
-        public IntPtr logicalMinimum;
-        public IntPtr logicalMaximum;
+        public int logicalMinimum;
+        public int logicalMaximum;
         public ushort unit;
         public ushort exponent;
-        public IntPtr count;
-        public IntPtr physicalMinimum;
-        public IntPtr physicalMaximum;
+        public byte count;
+        public int physicalMinimum;
+        public int physicalMaximum;
     }
 
 

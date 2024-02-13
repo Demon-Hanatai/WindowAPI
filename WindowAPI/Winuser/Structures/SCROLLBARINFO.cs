@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -11,11 +6,12 @@ namespace WindowAPI.Winuser.Structures
     public struct SCROLLBARINFO
     {
         public uint cbSize;
-        public IntPtr rcScrollBar;
-        public IntPtr dxyLineButton;
-        public IntPtr xyThumbTop;
-        public IntPtr xyThumbBottom;
-        public IntPtr reserved;
+        public RECT rcScrollBar;
+        public int dxyLineButton;
+        public int xyThumbTop;
+        public int xyThumbBottom;
+        public int reserved;
+        public uint rgstate;
     }
 
 

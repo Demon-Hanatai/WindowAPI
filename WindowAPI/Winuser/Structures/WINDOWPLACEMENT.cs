@@ -1,22 +1,17 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct WINDOWPLACEMENT
     {
-        public IntPtr length;
-        public IntPtr flags;
-        public IntPtr showCmd;
-        public IntPtr ptMinPosition;
-        public IntPtr ptMaxPosition;
-        public IntPtr rcNormalPosition;
-        public IntPtr rcDevice;
+        public uint length;
+        public uint flags;
+        public uint showCmd;
+        public POINT ptMinPosition;
+        public POINT ptMaxPosition;
+        public RECT rcNormalPosition;
+        public RECT rcDevice;
     }
 
 

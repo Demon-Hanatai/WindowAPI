@@ -1,9 +1,4 @@
-
-//Auto Create-#=
-using System.Runtime.InteropServices;
-
-
-namespace WindowAPI.Winuser.Structures
+namespace WindowAPI.winuser.h.Structures
 {
 
 
@@ -11,7 +6,7 @@ namespace WindowAPI.Winuser.Structures
     public struct MENUBARINFO
     {
         public uint cbSize;
-        public IntPtr rcBar;
+        public RECT rcBar;
         public IntPtr hMenu;
         public IntPtr hwndMenu;
     }
