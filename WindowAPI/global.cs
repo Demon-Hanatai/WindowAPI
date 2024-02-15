@@ -12,3 +12,5 @@ global using WindowAPI.winnt.Enums;
 global using WindowAPI.winnt.Structures;
 global using static WindowAPI.wingdi.CallBacks.CallBacks;
 global using static WindowAPI.winuser.CallBacks.CallBacks;
+global using WindowAPI.mstcpip.Enums;
+global using static WindowAPI.Winbase.h.CallBacks.CallBack;

@@ -1,3 +1,4 @@
+
 namespace WindowAPI.minwinbase.Structures
 {
 

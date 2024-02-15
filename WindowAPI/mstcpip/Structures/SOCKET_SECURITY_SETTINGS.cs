@@ -1,3 +1,5 @@
+using WindowAPI.mstcpip.Enums;
+
 namespace WindowAPI.mstcpip.Structures
 {
 

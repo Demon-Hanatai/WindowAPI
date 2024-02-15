@@ -1,3 +1,5 @@
+using WindowAPI.winsvc.Enums;
+
 namespace WindowAPI.winsvc.Structures
 {
 

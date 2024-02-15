@@ -1,3 +1,5 @@
+using static WindowAPI.Winbase.h.CallBacks.CallBack;
+
 namespace WindowAPI.minwinbase.Structures
 {
 
