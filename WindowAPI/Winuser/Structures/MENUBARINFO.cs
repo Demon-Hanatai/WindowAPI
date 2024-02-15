@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -7,8 +7,8 @@ namespace WindowAPI.winuser.h.Structures
     {
         public uint cbSize;
         public RECT rcBar;
-        public IntPtr hMenu;
-        public IntPtr hwndMenu;
+        public nint hMenu;
+        public nint hwndMenu;
     }
 
 

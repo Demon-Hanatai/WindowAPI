@@ -1,12 +1,12 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct WINDOWPOS
     {
-        public IntPtr hwnd;
-        public IntPtr hwndInsertAfter;
+        public nint hwnd;
+        public nint hwndInsertAfter;
         public int x;
         public int y;
         public int cx;

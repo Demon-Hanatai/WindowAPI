@@ -1,11 +1,11 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct CLIENTCREATESTRUCT
     {
-        public IntPtr hWindowMenu;
+        public nint hWindowMenu;
         public uint idFirstChild;
     }
 

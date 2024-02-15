@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Enums
+namespace WindowAPI.winuser.Enums
 {
 
 

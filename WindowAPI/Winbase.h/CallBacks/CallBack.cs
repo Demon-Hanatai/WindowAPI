@@ -1,6 +1,6 @@
 namespace WindowAPI.Winbase.h.CallBacks
 {
-    internal class CallBack
+    public class CallBack
     {
         /// <summary>
         ///An application-defined callback function used with the CopyFileEx, MoveFileTransacted, and MoveFileWithProgress functions. It is called when a portion of a copy or move operation is completed. The LPPROGRESS_ROUTINE type defines a pointer to this callback function. CopyProgressRoutine is a placeholder for the application-defined function name.

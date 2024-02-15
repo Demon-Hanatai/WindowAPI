@@ -1,6 +1,4 @@
-
-
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -8,8 +6,8 @@ namespace WindowAPI.winuser.h.Structures
     public struct MSGBOXPARAMSA
     {
         public uint cbSize;
-        public IntPtr hwndOwner;
-        public IntPtr hInstance;
+        public nint hwndOwner;
+        public nint hInstance;
         public string lpszText;
         public string lpszCaption;
         public uint dwStyle;

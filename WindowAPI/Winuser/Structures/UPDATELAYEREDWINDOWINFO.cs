@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -6,8 +6,8 @@ namespace WindowAPI.winuser.h.Structures
     public struct UPDATELAYEREDWINDOWINFO
     {
         public uint cbSize;
-        public IntPtr hdcDst;
-        public IntPtr hdcSrc;
+        public nint hdcDst;
+        public nint hdcSrc;
         public int crKey;
         public uint dwFlags;
     }

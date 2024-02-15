@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -8,7 +8,7 @@ namespace WindowAPI.winuser.h.Structures
         public uint cbSize;
         public uint dwFlags;
         public uint dwID;
-        public IntPtr hwndTarget;
+        public nint hwndTarget;
         public POINTS ptsLocation;
         public uint dwInstanceID;
         public uint dwSequenceID;

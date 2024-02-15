@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -7,8 +7,8 @@ namespace WindowAPI.winuser.h.Structures
     {
         public uint idThread;
         public uint idThreadInstaller;
-        public IntPtr lParam;
-        public IntPtr wParam;
+        public nint lParam;
+        public nint wParam;
         public int code;
     }
 

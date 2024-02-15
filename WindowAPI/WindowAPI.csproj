@@ -9,14 +9,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="minwinbase\Enums\" />
+    <Folder Include="minwinbase\CallBacks\" />
+    <Folder Include="minwinbase\Structures\" />
+    <Folder Include="mstcpip\Enums\" />
+    <Folder Include="mstcpip\Structures\" />
     <Folder Include="Prnasnot.h\Enums\" />
     <Folder Include="Winbase.h\Enums\" />
     <Folder Include="Winbase.h\CallBacks\" />
-    <Folder Include="Winbase.h\Structures\" />
     <Folder Include="windef\Enums\" />
     <Folder Include="windef\Structures\" />
     <Folder Include="wingdi\Enums\" />
     <Folder Include="wingdi\CallBacks\" />
+    <Folder Include="winnls\Enums\" />
+    <Folder Include="winnls\CallBacks\" />
+    <Folder Include="winnls\Structures\" />
+    <Folder Include="winreg\Structures\" />
+    <Folder Include="winsock2\Enums\" />
+    <Folder Include="winsock2\CallBacks\" />
+    <Folder Include="winsock2\Structures\" />
+    <Folder Include="winsvc\Enums\" />
+    <Folder Include="winsvc\CallBacks\" />
+    <Folder Include="winsvc\Structures\" />
     <Folder Include="winuser\Enums\" />
     <Folder Include="winuser\CallBacks\" />
     <Folder Include="winuser\Structures\" />

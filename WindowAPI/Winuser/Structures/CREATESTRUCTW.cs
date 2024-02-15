@@ -1,14 +1,14 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct CREATESTRUCTW
     {
-        public IntPtr lpCreateParams;
-        public IntPtr hInstance;
-        public IntPtr hMenu;
-        public IntPtr hwndParent;
+        public nint lpCreateParams;
+        public nint hInstance;
+        public nint hMenu;
+        public nint hwndParent;
         public int cy;
         public int cx;
         public int y;

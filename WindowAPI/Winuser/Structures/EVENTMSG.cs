@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -9,7 +9,7 @@ namespace WindowAPI.winuser.h.Structures
         public uint paramL;
         public uint paramH;
         public uint time;
-        public IntPtr hwnd;
+        public nint hwnd;
     }
 
 

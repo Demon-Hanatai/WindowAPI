@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -7,13 +7,13 @@ namespace WindowAPI.winuser.h.Structures
     {
         public string szClass;
         public string szTitle;
-        public IntPtr hOwner;
+        public nint hOwner;
         public int x;
         public int y;
         public int cx;
         public int cy;
         public uint style;
-        public IntPtr lParam;
+        public nint lParam;
     }
 
 

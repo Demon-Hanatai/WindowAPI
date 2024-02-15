@@ -1,4 +1,7 @@
-namespace WindowAPI.winuser.h
+using WindowAPI.winuser.Enums;
+using WindowAPI.winuser.Structures;
+
+namespace WindowAPI.winuser
 {
     public static class Functions
     {
@@ -13,7 +16,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr ActivateKeyboardLayout(IntPtr hkl, uint Flags);
+        public static extern nint ActivateKeyboardLayout(nint hkl, uint Flags);
 
         /// <summary>
         ///Places the given window in the system-maintained clipboard format listener list.
@@ -21,7 +24,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hwnd">Type: HWNDA handle to the window to be placed in the clipboard format listener list.Type: BOOL</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool AddClipboardFormatListener(IntPtr hwnd);
+        public static extern bool AddClipboardFormatListener(nint hwnd);
 
         /// <summary>
         ///Calculates the required size of the window rectangle, based on the desired client-rectangle size. The window rectangle can then be passed to the CreateWindow function to create a window whose client area is the desired size.
@@ -84,7 +87,7 @@ namespace WindowAPI.winuser.h
         /// <param name="dwFlags">Type: DWORDThe type of animation. This parameter can be one or more of the following values. Note that, by default, these flags take effect when showing a window. To take effect when hiding a window, use AW_HIDE and a logical OR operator with the appropriate flags.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. The function will fail in the following situations:To show or hide a window without special effects, use ShowWindow.When using slide or roll animation, you must specify the direction. It can be either AW_HOR_POSITIVE, AW_HOR_NEGATIVE, AW_VER_POSITIVE, or AW_VER_NEGATIVE.You can combine AW_HOR_POSITIVE or AW_HOR_NEGATIVE with AW_VER_POSITIVE or AW_VER_NEGATIVE to animate a window diagonally.The window procedures for the window and its child windows should handle any WM_PRINT or WM_PRINTCLIENT messages. Dialog boxes, controls, and common controls already handle WM_PRINTCLIENT. The default window procedure already handles WM_PRINT.If a child window is displayed partially clipped, when it is animated it will have holes where it is clipped.AnimateWindow supports RTL windows.Avoid animating a window that has a drop shadow because it produces visually distracting, jerky animations.ConceptualOther ResourcesReferenceShowWindowWM_PRINTWM_PRINTCLIENTWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool AnimateWindow(IntPtr hWnd, uint dwTime, uint dwFlags);
+        public static extern bool AnimateWindow(nint hWnd, uint dwTime, uint dwFlags);
 
         /// <summary>
         ///Indicates whether an owned, visible, top-level pop-up, or overlapped window exists on the screen. The function searches the entire screen, not just the calling application's client area.
@@ -99,12 +102,13 @@ namespace WindowAPI.winuser.h
         /// <param name="hMenu">Type: HMENUA handle to the menu bar, drop-down menu, submenu, or shortcut menu to be changed.</param>
         /// <param name="uFlags">Type: UINTControls the appearance and behavior of the new menu item. This parameter can be a combination of the following values.</param>
         /// <param name="uIDNewItem">Type: UINT_PTRThe identifier of the new menu item or, if the uFlags parameter is set to MF_POPUP, a handle to the drop-down menu or submenu.</param>
+        /// <param name="lpNewItem"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool AppendMenuA(IntPtr hMenu, uint uFlags, IntPtr uIDNewItem, string lpNewItem);
+        public static extern bool AppendMenuA(nint hMenu, uint uFlags, nint uIDNewItem, string lpNewItem);
 
         /// <summary>
         ///Appends a new item to the end of the specified menu bar, drop-down menu, submenu, or shortcut menu. You can use this function to specify the content, appearance, and behavior of the menu item.
@@ -112,12 +116,13 @@ namespace WindowAPI.winuser.h
         /// <param name="hMenu">Type: HMENUA handle to the menu bar, drop-down menu, submenu, or shortcut menu to be changed.</param>
         /// <param name="uFlags">Type: UINTControls the appearance and behavior of the new menu item. This parameter can be a combination of the following values.</param>
         /// <param name="uIDNewItem">Type: UINT_PTRThe identifier of the new menu item or, if the uFlags parameter is set to MF_POPUP, a handle to the drop-down menu or submenu.</param>
+        /// <param name="lpNewItem"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool AppendMenuW(IntPtr hMenu, uint uFlags, IntPtr uIDNewItem, string lpNewItem);
+        public static extern bool AppendMenuW(nint hMenu, uint uFlags, nint uIDNewItem, string lpNewItem);
 
         /// <summary>
         ///Determines whether two DPI_AWARENESS_CONTEXT values are identical.
@@ -137,7 +142,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint ArrangeIconicWindows(IntPtr hWnd);
+        public static extern uint ArrangeIconicWindows(nint hWnd);
 
         /// <summary>
         ///Attaches or detaches the input processing mechanism of one thread to that of another thread.
@@ -161,15 +166,16 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr BeginDeferWindowPos(int nNumWindows);
+        public static extern nint BeginDeferWindowPos(int nNumWindows);
 
         /// <summary>
         ///The BeginPaint function prepares the specified window for painting and fills a PAINTSTRUCT structure with information about the painting.
         /// </summary>
         /// <param name="hWnd">Handle to the window to be repainted.</param>
+        /// <param name="lpPaint"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr BeginPaint(IntPtr hWnd, out PAINTSTRUCT lpPaint);
+        public static extern nint BeginPaint(nint hWnd, out PAINTSTRUCT lpPaint);
 
         /// <summary>
         ///Blocks keyboard and mouse input events from reaching applications.
@@ -191,12 +197,13 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool BringWindowToTop(IntPtr hWnd);
+        public static extern bool BringWindowToTop(nint hWnd);
 
         /// <summary>
         ///Sends a message to the specified recipients. The recipients can be applications, installable drivers, network drivers, system-level device drivers, or any combination of these system components.
         /// </summary>
         /// <param name="flags">Type: DWORDThe broadcast option. This parameter can be one or more of the following values.</param>
+        /// <param name="lpInfo"></param>
         /// <param name="Msg">Type: UINTThe message to be sent.For lists of the system-provided messages, see System-Defined Messages.</param>
         /// <param name="wParam">Type: WPARAMAdditional message-specific information.</param>
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: longIf the function succeeds, the return value is a positive value.If the function is unable to broadcast the message, the return value is –1.If the dwFlags parameter is BSF_QUERY and at least one recipient returned BROADCAST_QUERY_DENY to the corresponding message, the return value is zero. To get extended error information, call GetLastError.If BSF_QUERY is not specified, the function sends the specified message to all requested recipients, ignoring values returned by those recipients.The system only does marshalling for system messages (those in the range 0 to (WM_USER-1)). To send other messages (those >= WM_USER) to another process, you must do custom marshalling.For an example, see Terminating a Process.BroadcastSystemMessageExConceptualMessages and Message QueuesReferenceSendNotifyMessage</param>
@@ -205,12 +212,13 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int BroadcastSystemMessage(uint flags, out uint lpInfo, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern int BroadcastSystemMessage(uint flags, out uint lpInfo, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Sends a message to the specified recipients. The recipients can be applications, installable drivers, network drivers, system-level device drivers, or any combination of these system components.
         /// </summary>
         /// <param name="flags">Type: DWORDThe broadcast option. This parameter can be one or more of the following values.</param>
+        /// <param name="lpInfo"></param>
         /// <param name="Msg">Type: UINTThe message to be sent.For lists of the system-provided messages, see System-Defined Messages.</param>
         /// <param name="wParam">Type: WPARAMAdditional message-specific information.</param>
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: longIf the function succeeds, the return value is a positive value.If the function is unable to broadcast the message, the return value is –1.If the dwFlags parameter is BSF_QUERY and at least one recipient returned BROADCAST_QUERY_DENY to the corresponding message, the return value is zero. To get extended error information, call GetLastError.If BSF_QUERY is not specified, the function sends the specified message to all requested recipients, ignoring values returned by those recipients.The system only does marshalling for system messages (those in the range 0 to (WM_USER-1)). To send other messages (those >= WM_USER) to another process, you must do custom marshalling.For an example, see Terminating a Process.BroadcastSystemMessageExConceptualMessages and Message QueuesReferenceSendNotifyMessage</param>
@@ -219,40 +227,45 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int BroadcastSystemMessageA(uint flags, out uint lpInfo, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern int BroadcastSystemMessageA(uint flags, out uint lpInfo, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Sends a message to the specified recipients. The recipients can be applications, installable drivers, network drivers, system-level device drivers, or any combination of these system components.
         /// </summary>
         /// <param name="flags">Type: DWORDThe broadcast option. This parameter can be one or more of the following values.</param>
+        /// <param name="lpInfo"></param>
         /// <param name="Msg">Type: UINTThe message to be sent.For lists of the system-provided messages, see System-Defined Messages.</param>
         /// <param name="wParam">Type: WPARAMAdditional message-specific information.</param>
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.</param>
+        /// <param name="pbsmInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int BroadcastSystemMessageExA(uint flags, out uint lpInfo, uint Msg, IntPtr wParam, IntPtr lParam, out BSMINFO pbsmInfo);
+        public static extern int BroadcastSystemMessageExA(uint flags, out uint lpInfo, uint Msg, nint wParam, nint lParam, out BSMINFO pbsmInfo);
 
         /// <summary>
         ///Sends a message to the specified recipients. The recipients can be applications, installable drivers, network drivers, system-level device drivers, or any combination of these system components.
         /// </summary>
         /// <param name="flags">Type: DWORDThe broadcast option. This parameter can be one or more of the following values.</param>
+        /// <param name="lpInfo"></param>
         /// <param name="Msg">Type: UINTThe message to be sent.For lists of the system-provided messages, see System-Defined Messages.</param>
         /// <param name="wParam">Type: WPARAMAdditional message-specific information.</param>
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.</param>
+        /// <param name="pbsmInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int BroadcastSystemMessageExW(uint flags, out uint lpInfo, uint Msg, IntPtr wParam, IntPtr lParam, out BSMINFO pbsmInfo);
+        public static extern int BroadcastSystemMessageExW(uint flags, out uint lpInfo, uint Msg, nint wParam, nint lParam, out BSMINFO pbsmInfo);
 
         /// <summary>
         ///Sends a message to the specified recipients. The recipients can be applications, installable drivers, network drivers, system-level device drivers, or any combination of these system components.
         /// </summary>
         /// <param name="flags">Type: DWORDThe broadcast option. This parameter can be one or more of the following values.</param>
+        /// <param name="lpInfo"></param>
         /// <param name="Msg">Type: UINTThe message to be sent.For lists of the system-provided messages, see System-Defined Messages.</param>
         /// <param name="wParam">Type: WPARAMAdditional message-specific information.</param>
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: longIf the function succeeds, the return value is a positive value.If the function is unable to broadcast the message, the return value is –1.If the dwFlags parameter is BSF_QUERY and at least one recipient returned BROADCAST_QUERY_DENY to the corresponding message, the return value is zero. To get extended error information, call GetLastError.If BSF_QUERY is not specified, the function sends the specified message to all requested recipients, ignoring values returned by those recipients.The system only does marshalling for system messages (those in the range 0 to (WM_USER-1)). To send other messages (those >= WM_USER) to another process, you must do custom marshalling.For an example, see Terminating a Process.BroadcastSystemMessageExConceptualMessages and Message QueuesReferenceSendNotifyMessage</param>
@@ -261,7 +274,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int BroadcastSystemMessageW(uint flags, out uint lpInfo, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern int BroadcastSystemMessageW(uint flags, out uint lpInfo, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Calculates an appropriate pop-up window position using the specified anchor point, pop-up window size, flags, and the optional exclude rectangle. When the specified pop-up window size is smaller than the desktop window size, use the CalculatePopupWindowPosition function to ensure that the pop-up window is fully visible on the desktop window, regardless of the specified anchor point.
@@ -269,6 +282,8 @@ namespace WindowAPI.winuser.h
         /// <param name="anchorPoint">Type: const POINT*The specified anchor point.</param>
         /// <param name="windowSize">Type: const SIZE*The specified window size.</param>
         /// <param name="flags">Type: UINTUse one of the following flags to specify how the function positions the pop-up window horizontally and vertically. The flags are the same as the vertical and horizontal positioning flags of the TrackPopupMenuEx function.Use one of the following flags to specify how the function positions the pop-up window horizontally.Uses one of the following flags to specify how the function positions the pop-up window vertically.Use one of the following flags to specify whether to accommodate horizontal or vertical alignment.The following flag is available starting with Windows 7.</param>
+        /// <param name="excludeRect"></param>
+        /// <param name="popupWindowPosition"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -297,12 +312,13 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Passes the hook information to the next hook procedure in the current hook chain. A hook procedure can call this function either before or after processing the hook information.
         /// </summary>
+        /// <param name="hhk"></param>
         /// <param name="nCode">Type: intThe hook code passed to the current hook procedure. The next hook procedure uses this code to determine how to process the hook information.</param>
         /// <param name="wParam">Type: WPARAMThe wParam value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain.</param>
         /// <param name="lParam">Type: LPARAMThe lParam value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain.Type: LRESULTThis value is returned by the next hook procedure in the chain. The current hook procedure must also return this value. The meaning of the return value depends on the hook type. For more information, see the descriptions of the individual hook procedures.Hook procedures are installed in chains for particular hook types. CallNextHookEx calls the next hook in the chain.Calling CallNextHookEx is optional, but it is highly recommended; otherwise, other applications that have installed hooks will not receive hook notifications and may behave incorrectly as a result. You should call CallNextHookEx unless you absolutely need to prevent the notification from being seen by other applications.ConceptualHooksReferenceSetWindowsHookExUnhookWindowsHookEx function</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CallNextHookEx(short hhk, int nCode, IntPtr wParam, IntPtr lParam);
+        public static extern nint CallNextHookEx(short hhk, int nCode, nint wParam, nint lParam);
 
         /// <summary>
         ///Passes message information to the specified window procedure.
@@ -314,7 +330,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information. The contents of this parameter depend on the value of the Msg parameter.Type: LRESULTThe return value specifies the result of the message processing and depends on the message sent.Use the CallWindowProc function for window subclassing. Usually, all windows with the same class share one window procedure. A subclass is a window or set of windows with the same class whose messages are intercepted and processed by another window procedure (or procedures) before being passed to the window procedure of the class.The SetWindowLong function creates the subclass by changing the window procedure associated with a particular window, causing the system to call the new window procedure instead of the previous one. An application must pass any messages not processed by the new window procedure to the previous window procedure by calling CallWindowProc. This allows the application to create a chain of window procedures.If STRICT is defined, the lpPrevWndFunc parameter has the data type WNDPROC. The WNDPROC type is declared as follows:If STRICT is not defined, the lpPrevWndFunc parameter has the data type FARPROC. The FARPROC type is declared as follows:In C, the FARPROC declaration indicates a callback function that has an unspecified parameter list. In C++, however, the empty parameter list in the declaration indicates that a function has no parameters. This subtle distinction can break careless code. Following is one way to handle this situation:For further information about functions declared with empty argument lists, refer to The C++ Programming Language, Second Edition, by Bjarne Stroustrup.The CallWindowProc function handles Unicode-to-ANSI conversion. You cannot take advantage of this conversion if you call the window procedure directly.For an example, see Subclassing a WindowConceptualGetWindowLongReferenceSetClassLongSetWindowLongWindow Procedures</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CallWindowProcA(WNDPROC lpPrevWndFunc, IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern nint CallWindowProcA(WNDPROC lpPrevWndFunc, nint hWnd, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Passes message information to the specified window procedure.
@@ -326,19 +342,22 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information. The contents of this parameter depend on the value of the Msg parameter.Type: LRESULTThe return value specifies the result of the message processing and depends on the message sent.Use the CallWindowProc function for window subclassing. Usually, all windows with the same class share one window procedure. A subclass is a window or set of windows with the same class whose messages are intercepted and processed by another window procedure (or procedures) before being passed to the window procedure of the class.The SetWindowLong function creates the subclass by changing the window procedure associated with a particular window, causing the system to call the new window procedure instead of the previous one. An application must pass any messages not processed by the new window procedure to the previous window procedure by calling CallWindowProc. This allows the application to create a chain of window procedures.If STRICT is defined, the lpPrevWndFunc parameter has the data type WNDPROC. The WNDPROC type is declared as follows:If STRICT is not defined, the lpPrevWndFunc parameter has the data type FARPROC. The FARPROC type is declared as follows:In C, the FARPROC declaration indicates a callback function that has an unspecified parameter list. In C++, however, the empty parameter list in the declaration indicates that a function has no parameters. This subtle distinction can break careless code. Following is one way to handle this situation:For further information about functions declared with empty argument lists, refer to The C++ Programming Language, Second Edition, by Bjarne Stroustrup.The CallWindowProc function handles Unicode-to-ANSI conversion. You cannot take advantage of this conversion if you call the window procedure directly.For an example, see Subclassing a WindowConceptualGetWindowLongReferenceSetClassLongSetWindowLongWindow Procedures</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CallWindowProcW(WNDPROC lpPrevWndFunc, IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern nint CallWindowProcW(WNDPROC lpPrevWndFunc, nint hWnd, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Cascades the specified child windows of the specified parent window.
         /// </summary>
+        /// <param name="hwndParent"></param>
         /// <param name="wHow">Type: UINTA cascade flag. This parameter can be one or more of the following values.</param>
+        /// <param name="lpRect"></param>
         /// <param name="cKids">Type: UINTThe number of elements in the array specified by the lpKids parameter. This parameter is ignored if lpKids is NULL.</param>
+        /// <param name="lpKids"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern short CascadeWindows(IntPtr hwndParent, uint wHow, RECT lpRect, uint cKids, IntPtr lpKids);
+        public static extern short CascadeWindows(nint hwndParent, uint wHow, RECT lpRect, uint cKids, nint lpKids);
 
         /// <summary>
         ///Removes a specified window from the chain of clipboard viewers.
@@ -347,7 +366,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWndNewNext">Type: HWNDA handle to the window that follows the hWndRemove window in the clipboard viewer chain. (This is the handle returned by SetClipboardViewer, unless the sequence was changed in response to a WM_CHANGECBCHAIN message.)Type: BOOLThe return value indicates the result of passing the WM_CHANGECBCHAIN message to the windows in the clipboard viewer chain. Because a window in the chain typically returns FALSE when it processes WM_CHANGECBCHAIN, the return value from ChangeClipboardChain is typically FALSE. If there is only one window in the chain, the return value is typically TRUE.The window identified by hWndNewNext replaces the hWndRemove window in the chain. The SetClipboardViewer function sends a WM_CHANGECBCHAIN message to the first window in the clipboard viewer chain.For an example, see Removing a Window from the Clipboard Viewer Chain.ChangeClipboardChainClipboardConceptualReferenceSetClipboardViewerWM_CHANGECBCHAIN</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ChangeClipboardChain(IntPtr hWndRemove, IntPtr hWndNewNext);
+        public static extern bool ChangeClipboardChain(nint hWndRemove, nint hWndNewNext);
 
         /// <summary>
         ///The ChangeDisplaySettings function changes the settings of the default display device to the specified graphics mode.
@@ -363,22 +382,24 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="lpszDeviceName">A pointer to a null-terminated string that specifies the display device whose graphics mode will change. Only display device names as returned by EnumDisplayDevices are valid. See EnumDisplayDevices for further information on the names associated with these display devices.The lpszDeviceName parameter can be NULL. A NULL value specifies the default display device. The default device can be determined by calling EnumDisplayDevices and checking for the DISPLAY_DEVICE_PRIMARY_DEVICE flag.</param>
         /// <param name="lpDevMode">A pointer to a DEVMODE structure that describes the new graphics mode. If lpDevMode is NULL, all the values currently in the registry will be used for the display setting. Passing NULL for the lpDevMode parameter and 0 for the dwFlags parameter is the easiest way to return to the default mode after a dynamic mode change.The dmSize member must be initialized to the size, in bytes, of the DEVMODE structure. The dmDriverExtra member must be initialized to indicate the number of bytes of private driver data following the DEVMODE structure. In addition, you can use any of the following members of the DEVMODE structure.In addition to using one or more of the preceding DEVMODE members, you must also set one or more of the following values in the dmFields member to change the display settings.hwndReserved; must be NULL.</param>
+        /// <param name="hwnd"></param>
         /// <param name="dwflags">Indicates how the graphics mode should be changed. This parameter can be one of the following values.Specifying CDS_TEST allows an application to determine which graphics modes are actually valid, without causing the system to change to them.If CDS_UPDATEREGISTRY is specified and it is possible to change the graphics mode dynamically, the information is stored in the registry and DISP_CHANGE_SUCCESSFUL is returned. If it is not possible to change the graphics mode dynamically, the information is stored in the registry and DISP_CHANGE_RESTART is returned.If CDS_UPDATEREGISTRY is specified and the information could not be stored in the registry, the graphics mode is not changed and DISP_CHANGE_NOTUPDATED is returned.</param>
         /// <param name="lParam">If dwFlags is CDS_VIDEOPARAMETERS, lParam is a pointer to a VIDEOPARAMETERS structure. Otherwise lParam must be NULL.The ChangeDisplaySettingsEx function returns one of the following values.To ensure that the DEVMODE structure passed to ChangeDisplaySettingsEx is valid and contains only values supported by the display driver, use the DEVMODE returned by the EnumDisplaySettings function.When adding a display monitor to a multiple-monitor system programmatically, set DEVMODE.dmFields to DM_POSITION and specify a position (in DEVMODE.dmPosition) for the monitor you are adding that is adjacent to at least one pixel of the display area of an existing monitor. To detach the monitor, set DEVMODE.dmFields to DM_POSITION but set DEVMODE.dmPelsWidth and DEVMODE.dmPelsHeight to zero. For more information, see Multiple Display Monitors.When the display mode is changed dynamically, the WM_DISPLAYCHANGE message is sent to all running applications with the following message parameters.To change the settings for more than one display at the same time, first call ChangeDisplaySettingsEx for each device individually to update the registry without applying the changes. Then call ChangeDisplaySettingsEx once more, with a NULL device, to apply the changes. For example, to change the settings for two displays, do the following:CreateDCDEVMODEDevice Context FunctionsDevice Contexts OverviewEnumDisplayDevicesEnumDisplaySettingsVIDEOPARAMETERSWM_DISPLAYCHANGE</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int ChangeDisplaySettingsExA(string lpszDeviceName, uint lpDevMode, IntPtr hwnd, uint dwflags, IntPtr lParam);
+        public static extern int ChangeDisplaySettingsExA(string lpszDeviceName, uint lpDevMode, nint hwnd, uint dwflags, nint lParam);
 
         /// <summary>
         ///The ChangeDisplaySettingsEx function changes the settings of the specified display device to the specified graphics mode.
         /// </summary>
         /// <param name="lpszDeviceName">A pointer to a null-terminated string that specifies the display device whose graphics mode will change. Only display device names as returned by EnumDisplayDevices are valid. See EnumDisplayDevices for further information on the names associated with these display devices.The lpszDeviceName parameter can be NULL. A NULL value specifies the default display device. The default device can be determined by calling EnumDisplayDevices and checking for the DISPLAY_DEVICE_PRIMARY_DEVICE flag.</param>
         /// <param name="lpDevMode">A pointer to a DEVMODE structure that describes the new graphics mode. If lpDevMode is NULL, all the values currently in the registry will be used for the display setting. Passing NULL for the lpDevMode parameter and 0 for the dwFlags parameter is the easiest way to return to the default mode after a dynamic mode change.The dmSize member must be initialized to the size, in bytes, of the DEVMODE structure. The dmDriverExtra member must be initialized to indicate the number of bytes of private driver data following the DEVMODE structure. In addition, you can use any of the following members of the DEVMODE structure.In addition to using one or more of the preceding DEVMODE members, you must also set one or more of the following values in the dmFields member to change the display settings.hwndReserved; must be NULL.</param>
+        /// <param name="hwnd"></param>
         /// <param name="dwflags">Indicates how the graphics mode should be changed. This parameter can be one of the following values.Specifying CDS_TEST allows an application to determine which graphics modes are actually valid, without causing the system to change to them.If CDS_UPDATEREGISTRY is specified and it is possible to change the graphics mode dynamically, the information is stored in the registry and DISP_CHANGE_SUCCESSFUL is returned. If it is not possible to change the graphics mode dynamically, the information is stored in the registry and DISP_CHANGE_RESTART is returned.If CDS_UPDATEREGISTRY is specified and the information could not be stored in the registry, the graphics mode is not changed and DISP_CHANGE_NOTUPDATED is returned.</param>
         /// <param name="lParam">If dwFlags is CDS_VIDEOPARAMETERS, lParam is a pointer to a VIDEOPARAMETERS structure. Otherwise lParam must be NULL.The ChangeDisplaySettingsEx function returns one of the following values.To ensure that the DEVMODE structure passed to ChangeDisplaySettingsEx is valid and contains only values supported by the display driver, use the DEVMODE returned by the EnumDisplaySettings function.When adding a display monitor to a multiple-monitor system programmatically, set DEVMODE.dmFields to DM_POSITION and specify a position (in DEVMODE.dmPosition) for the monitor you are adding that is adjacent to at least one pixel of the display area of an existing monitor. To detach the monitor, set DEVMODE.dmFields to DM_POSITION but set DEVMODE.dmPelsWidth and DEVMODE.dmPelsHeight to zero. For more information, see Multiple Display Monitors.When the display mode is changed dynamically, the WM_DISPLAYCHANGE message is sent to all running applications with the following message parameters.To change the settings for more than one display at the same time, first call ChangeDisplaySettingsEx for each device individually to update the registry without applying the changes. Then call ChangeDisplaySettingsEx once more, with a NULL device, to apply the changes. For example, to change the settings for two displays, do the following:CreateDCDEVMODEDevice Context FunctionsDevice Contexts OverviewEnumDisplayDevicesEnumDisplaySettingsVIDEOPARAMETERSWM_DISPLAYCHANGE</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int ChangeDisplaySettingsExW(string lpszDeviceName, uint lpDevMode, IntPtr hwnd, uint dwflags, IntPtr lParam);
+        public static extern int ChangeDisplaySettingsExW(string lpszDeviceName, uint lpDevMode, nint hwnd, uint dwflags, nint lParam);
 
         /// <summary>
         ///The ChangeDisplaySettings function changes the settings of the default display device to the specified graphics mode.
@@ -407,12 +428,13 @@ namespace WindowAPI.winuser.h
         /// <param name="hwnd">Type: HWNDA handle to the window whose UIPI message filter is to be modified.</param>
         /// <param name="message">Type: UINTThe message that the message filter allows through or blocks.</param>
         /// <param name="action">Type: DWORDThe action to be performed, and can take one of the following values:</param>
+        /// <param name="pChangeFilterStruct"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ChangeWindowMessageFilterEx(IntPtr hwnd, uint message, uint action, out CHANGEFILTERSTRUCT pChangeFilterStruct);
+        public static extern bool ChangeWindowMessageFilterEx(nint hwnd, uint message, uint action, out CHANGEFILTERSTRUCT pChangeFilterStruct);
 
         /// <summary>
         ///Converts a character string or a single character to lowercase. If the operand is a character string, the function converts the characters in place.
@@ -507,6 +529,7 @@ namespace WindowAPI.winuser.h
         ///Translates a string into the OEM-defined character set.
         /// </summary>
         /// <param name="pSrc">Type: LPCTSTRThe null-terminated string to be translated.</param>
+        /// <param name="pDst"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool CharToOemA(string pSrc, out string pDst);
@@ -515,6 +538,7 @@ namespace WindowAPI.winuser.h
         ///Translates a specified number of characters in a string into the OEM-defined character set.
         /// </summary>
         /// <param name="lpszSrc">Type: LPCTSTRThe null-terminated string to be translated.</param>
+        /// <param name="lpszDst"></param>
         /// <param name="cchDstLength">Type: DWORDThe number of characters to translate in the string identified by the lpszSrc parameter.Type: BOOLThe return value is always nonzero except when you pass the same address to lpszSrc and lpszDst in the wide-character version of the function. In this case the function returns zero and GetLastError returns ERROR_INVALID_ADDRESS.Unlike the CharToOem function, the CharToOemBuff function does not stop converting characters when it encounters a null character in the buffer pointed to by lpszSrc. The CharToOemBuff function converts all cchDstLength characters.CharToOemConceptualOemToCharOemToCharBuffReferenceStrings</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -524,6 +548,7 @@ namespace WindowAPI.winuser.h
         ///Translates a specified number of characters in a string into the OEM-defined character set.
         /// </summary>
         /// <param name="lpszSrc">Type: LPCTSTRThe null-terminated string to be translated.</param>
+        /// <param name="lpszDst"></param>
         /// <param name="cchDstLength">Type: DWORDThe number of characters to translate in the string identified by the lpszSrc parameter.Type: BOOLThe return value is always nonzero except when you pass the same address to lpszSrc and lpszDst in the wide-character version of the function. In this case the function returns zero and GetLastError returns ERROR_INVALID_ADDRESS.Unlike the CharToOem function, the CharToOemBuff function does not stop converting characters when it encounters a null character in the buffer pointed to by lpszSrc. The CharToOemBuff function converts all cchDstLength characters.CharToOemConceptualOemToCharOemToCharBuffReferenceStrings</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -533,6 +558,7 @@ namespace WindowAPI.winuser.h
         ///Translates a string into the OEM-defined character set.
         /// </summary>
         /// <param name="pSrc">Type: LPCTSTRThe null-terminated string to be translated.</param>
+        /// <param name="pDst"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool CharToOemW(string pSrc, out string pDst);
@@ -582,7 +608,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool CheckDlgButton(IntPtr hDlg, int nIDButton, uint uCheck);
+        public static extern bool CheckDlgButton(nint hDlg, int nIDButton, uint uCheck);
 
         /// <summary>
         ///[CheckMenuItem is available for use in the operating systems specified in the Requirements section. It may be altered or unavailable in subsequent versions. Instead, use SetMenuItemInfo. ]
@@ -592,7 +618,7 @@ namespace WindowAPI.winuser.h
         /// <param name="uCheck">Type: UINTThe flags that control the interpretation of the uIDCheckItem parameter and the state of the menu item's check-mark attribute. This parameter can be a combination of either MF_BYCOMMAND, or MF_BYPOSITION and MF_CHECKED or MF_UNCHECKED.Type: DWORDThe return value specifies the previous state of the menu item (either MF_CHECKED or MF_UNCHECKED). If the menu item does not exist, the return value is –1.An item in a menu bar cannot have a check mark.The uIDCheckItem parameter identifies a item that opens a submenu or a command item. For a item that opens a submenu, the uIDCheckItem parameter must specify the position of the item. For a command item, the uIDCheckItem parameter can specify either the item's position or its identifier.For an example, see Simulating Check Boxes in a Menu.ConceptualEnableMenuItemGetMenuItemIDMenusReferenceSetMenuItemBitmapsSetMenuItemInfo</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint CheckMenuItem(IntPtr hMenu, uint uIDCheckItem, uint uCheck);
+        public static extern uint CheckMenuItem(nint hMenu, uint uIDCheckItem, uint uCheck);
 
         /// <summary>
         ///Checks a specified menu item and makes it a radio item. At the same time, the function clears all other menu items in the associated group and clears the radio-item type flag for those items.
@@ -607,7 +633,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool CheckMenuRadioItem(IntPtr hmenu, uint first, uint last, uint check, uint flags);
+        public static extern bool CheckMenuRadioItem(nint hmenu, uint first, uint last, uint check, uint flags);
 
         /// <summary>
         ///Adds a check mark to (checks) a specified radio button in a group and removes a check mark from (clears) all other radio buttons in the group.
@@ -621,7 +647,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool CheckRadioButton(IntPtr hDlg, int nIDFirstButton, int nIDLastButton, int nIDCheckButton);
+        public static extern bool CheckRadioButton(nint hDlg, int nIDFirstButton, int nIDLastButton, int nIDCheckButton);
 
         /// <summary>
         ///Determines which, if any, of the child windows belonging to a parent window contains the specified point. The search is restricted to immediate child windows. Grandchildren, and deeper descendant windows are not searched.
@@ -630,7 +656,7 @@ namespace WindowAPI.winuser.h
         /// <param name="Point">Type: POINTA structure that defines the client coordinates, relative to hWndParent, of the point to be checked.Type: HWNDThe return value is a handle to the child window that contains the point, even if the child window is hidden or disabled. If the point lies outside the parent window, the return value is NULL. If the point is within the parent window but not within any child window, the return value is a handle to the parent window.The system maintains an internal list, containing the handles of the child windows associated with a parent window. The order of the handles in the list depends on the Z order of the child windows. If more than one child window contains the specified point, the system returns a handle to the first window in the list that contains the point.ChildWindowFromPoint treats an HTTRANSPARENT area of a standard control the same as other parts of the control. In contrast, RealChildWindowFromPoint treats an HTTRANSPARENT area differently; it returns the child window behind a transparent area of a control. For example, if the point is in a transparent area of a groupbox, ChildWindowFromPoint returns the groupbox while RealChildWindowFromPoint returns the child window behind the groupbox. However, both APIs return a static field, even though it, too, returns HTTRANSPARENT.For an example, see "Creating a Combo Box Toolbar" in Using Combo Boxes.ChildWindowFromPointExConceptualOther ResourcesPOINTRealChildWindowFromPointReferenceWindowFromPointWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr ChildWindowFromPoint(IntPtr hWndParent, POINT Point);
+        public static extern nint ChildWindowFromPoint(nint hWndParent, POINT Point);
 
         /// <summary>
         ///Determines which, if any, of the child windows belonging to the specified parent window contains the specified point. The function can ignore invisible, disabled, and transparent child windows. The search is restricted to immediate child windows. Grandchildren and deeper descendants are not searched.
@@ -640,7 +666,7 @@ namespace WindowAPI.winuser.h
         /// <param name="flags">Type: UINTThe child windows to be skipped. This parameter can be one or more of the following values.Type: HWNDThe return value is a handle to the first child window that contains the point and meets the criteria specified by uFlags. If the point is within the parent window but not within any child window that meets the criteria, the return value is a handle to the parent window. If the point lies outside the parent window or if the function fails, the return value is NULL.The system maintains an internal list that contains the handles of the child windows associated with a parent window. The order of the handles in the list depends on the Z order of the child windows. If more than one child window contains the specified point, the system returns a handle to the first window in the list that contains the point and meets the criteria specified by uFlags.ConceptualOther ResourcesPOINTReferenceWindowFromPointWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr ChildWindowFromPointEx(IntPtr hwnd, POINT pt, uint flags);
+        public static extern nint ChildWindowFromPointEx(nint hwnd, POINT pt, uint flags);
 
         /// <summary>
         ///The ClientToScreen function converts the client-area coordinates of a specified point to screen coordinates.
@@ -649,7 +675,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpPoint">A pointer to a POINT structure that contains the client coordinates to be converted. The new screen coordinates are copied into this structure if the function succeeds.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.The ClientToScreen function replaces the client-area coordinates in the POINT structure with the screen coordinates. The screen coordinates are relative to the upper-left corner of the screen. Note, a screen-coordinate point that is above the window's client area has a negative y-coordinate. Similarly, a screen coordinate to the left of a client area has a negative x-coordinate.All coordinates are device coordinates.For an example, see "Drawing Lines with the Mouse" in Using Mouse Input.Coordinate Space and Transformation FunctionsCoordinate Spaces and Transformations OverviewMapWindowPointsPOINTScreenToClient</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ClientToScreen(IntPtr hWnd, out POINT lpPoint);
+        public static extern bool ClientToScreen(nint hWnd, out POINT lpPoint);
 
         /// <summary>
         ///Confines the cursor to a rectangular area on the screen. If a subsequent cursor position (set by the SetCursorPos function or the mouse) lies outside the rectangle, the system automatically adjusts the position to keep the cursor inside the rectangular area.
@@ -680,7 +706,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool CloseDesktop(IntPtr hDesktop);
+        public static extern bool CloseDesktop(nint hDesktop);
 
         /// <summary>
         ///Closes resources associated with a gesture information handle.
@@ -712,7 +738,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool CloseWindow(IntPtr hWnd);
+        public static extern bool CloseWindow(nint hWnd);
 
         /// <summary>
         ///Closes an open window station handle.
@@ -729,6 +755,7 @@ namespace WindowAPI.winuser.h
         ///Copies the specified accelerator table. This function is used to obtain the accelerator-table data that corresponds to an accelerator-table handle, or to determine the size of the accelerator-table data.
         /// </summary>
         /// <param name="hAccelSrc">Type: HACCELA handle to the accelerator table to copy.</param>
+        /// <param name="lpAccelDst"></param>
         /// <param name="cAccelEntries">Type: intThe number of ACCEL structures to copy to the buffer pointed to by the lpAccelDst parameter.Type: intIf lpAccelDst is NULL, the return value specifies the number of accelerator-table entries in the original table. Otherwise, it specifies the number of accelerator-table entries that were copied.ACCELConceptualCreateAcceleratorTableDestroyAcceleratorTableKeyboard AcceleratorsLoadAcceleratorsReferenceTranslateAccelerator</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -738,6 +765,7 @@ namespace WindowAPI.winuser.h
         ///Copies the specified accelerator table. This function is used to obtain the accelerator-table data that corresponds to an accelerator-table handle, or to determine the size of the accelerator-table data.
         /// </summary>
         /// <param name="hAccelSrc">Type: HACCELA handle to the accelerator table to copy.</param>
+        /// <param name="lpAccelDst"></param>
         /// <param name="cAccelEntries">Type: intThe number of ACCEL structures to copy to the buffer pointed to by the lpAccelDst parameter.Type: intIf lpAccelDst is NULL, the return value specifies the number of accelerator-table entries in the original table. Otherwise, it specifies the number of accelerator-table entries that were copied.ACCELConceptualCreateAcceleratorTableDestroyAcceleratorTableKeyboard AcceleratorsLoadAcceleratorsReferenceTranslateAccelerator</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -752,7 +780,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CopyIcon(IntPtr hIcon);
+        public static extern nint CopyIcon(nint hIcon);
 
         /// <summary>
         ///Creates a new image (icon, cursor, or bitmap) and copies the attributes of the specified image to the new one. If necessary, the function stretches the bits to fit the desired size of the new image.
@@ -767,11 +795,12 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CopyImage(IntPtr h, uint type, int cx, int cy, uint flags);
+        public static extern nint CopyImage(nint h, uint type, int cx, int cy, uint flags);
 
         /// <summary>
         ///The CopyRect function copies the coordinates of one rectangle to another.
         /// </summary>
+        /// <param name="lprcDst"></param>
         /// <param name="lprcSrc">Pointer to the RECT structure whose coordinates are to be copied in logical units.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.For an example, see Using Rectangles.RECTRectangle FunctionsRectangles OverviewSetRectSetRectEmpty</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -815,6 +844,7 @@ namespace WindowAPI.winuser.h
         ///Creates a new shape for the system caret and assigns ownership of the caret to the specified window. The caret shape can be a line, a block, or a bitmap.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window that owns the caret.</param>
+        /// <param name="hBitmap"></param>
         /// <param name="nWidth">Type: intThe width of the caret, in logical units. If this parameter is zero, the width is set to the system-defined window border width. If hBitmap is a bitmap handle, CreateCaret ignores this parameter.</param>
         /// <param name="nHeight">Type: intThe height of the caret, in logical units. If this parameter is zero, the height is set to the system-defined window border height. If hBitmap is a bitmap handle, CreateCaret ignores this parameter.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.The nWidth and nHeight parameters specify the caret's width and height, in logical units; the exact width and height, in pixels, depend on the window's mapping mode.CreateCaret automatically destroys the previous caret shape, if any, regardless of the window that owns the caret. The caret is hidden until the application calls the ShowCaret function to make the caret visible.The system provides one caret per queue. A window should create a caret only when it has the keyboard focus or is active. The window should destroy the caret before losing the keyboard focus or becoming inactive.CaretsConceptualCreateBitmapCreateDIBitmapDestroyCaretGetSystemMetricsHideCaretLoadBitmapOther ResourcesReferenceShowCaret</param>
         /// <remarks>
@@ -822,11 +852,12 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool CreateCaret(IntPtr hWnd, IntPtr hBitmap, int nWidth, int nHeight);
+        public static extern bool CreateCaret(nint hWnd, nint hBitmap, int nWidth, int nHeight);
 
         /// <summary>
         ///Creates a monochrome cursor having the specified size, bit patterns, and hot spot.
         /// </summary>
+        /// <param name="hInst"></param>
         /// <param name="xHotSpot">Type: intThe horizontal position of the cursor's hot spot.</param>
         /// <param name="yHotSpot">Type: intThe vertical position of the cursor's hot spot.</param>
         /// <param name="nWidth">Type: intThe width of the cursor, in pixels.</param>
@@ -838,66 +869,79 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateCursor(IntPtr hInst, int xHotSpot, int yHotSpot, int nWidth, int nHeight, IntPtr pvANDPlane, IntPtr pvXORPlane);
+        public static extern nint CreateCursor(nint hInst, int xHotSpot, int yHotSpot, int nWidth, int nHeight, nint pvANDPlane, nint pvXORPlane);
 
         /// <summary>
         ///Creates a new desktop, associates it with the current window station of the calling process, and assigns it to the calling thread. The calling process must have an associated window station, either assigned by the system at process creation time or set by the SetProcessWindowStation function.
         /// </summary>
         /// <param name="lpszDesktop">The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\).lpszDeviceReserved; must be NULL.pDevmodeReserved; must be NULL.</param>
+        /// <param name="lpszDevice"></param>
+        /// <param name="pDevmode"></param>
         /// <param name="dwFlags">This parameter can be zero or the following value.</param>
         /// <param name="dwDesiredAccess">The access to the desktop. For a list of values, see Desktop Security and Access Rights.This parameter must include the DESKTOP_CREATEWINDOW access right, because internally CreateDesktop uses the handle to create a window.</param>
+        /// <param name="lpsa"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateDesktopA(string lpszDesktop, string lpszDevice, uint pDevmode, uint dwFlags, ACCESSTIMEOUT dwDesiredAccess, LUID_AND_ATTRIBUTES lpsa);
+        public static extern nint CreateDesktopA(string lpszDesktop, string lpszDevice, uint pDevmode, uint dwFlags, ACCESSTIMEOUT dwDesiredAccess, LUID_AND_ATTRIBUTES lpsa);
 
         /// <summary>
         ///Creates a new desktop with the specified heap, associates it with the current window station of the calling process, and assigns it to the calling thread. The calling process must have an associated window station, either assigned by the system at process creation time or set by the SetProcessWindowStation function.
         /// </summary>
         /// <param name="lpszDesktop">The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\).lpszDeviceThis parameter is reserved and must be NULL.pDevmodeThis parameter is reserved and must be NULL.</param>
+        /// <param name="lpszDevice"></param>
+        /// <param name="pDevmode"></param>
         /// <param name="dwFlags">This parameter can be zero or the following value.</param>
         /// <param name="dwDesiredAccess">The requested access to the desktop. For a list of values, see Desktop Security and Access Rights.This parameter must include the DESKTOP_CREATEWINDOW access right, because internally CreateDesktop uses the handle to create a window.</param>
+        /// <param name="lpsa"></param>
         /// <param name="ulHeapSize">The size of the desktop heap, in kilobytes.pvoidThis parameter is reserved and must be NULL.If the function succeeds, the return value is a handle to the newly created desktop. If the specified desktop already exists, the function succeeds and returns a handle to the existing desktop. When you are finished using the handle, call the CloseDesktop function to close it.If the function fails, the return value is NULL. To get extended error information, call GetLastError.If the dwDesiredAccess parameter specifies the READ_CONTROL, WRITE_DAC, or WRITE_OWNER standard access rights, you must also request the DESKTOP_READOBJECTS and DESKTOP_WRITEOBJECTS access rights.The number of desktops that can be created is limited by the size of the system desktop heap. Desktop objects use the heap to store resources. You can increase the number of desktops that can be created by increasing the size of the desktop heap or by reducing the default heap reserved for each desktop in the interactive window station. This value is specified in the SharedSection substring of the following registry value: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\SubSystems\Windows. The default data for this registry value is as follows:%SystemRoot%\system32\csrss.exe ObjectDirectory=\Windows SharedSection=1024,3072,512 Windows=On SubSystemType=Windows ServerDll=basesrv,1 ServerDll=winsrv:UserServerDllInitialization,3 ServerDll=winsrv:ConServerDllInitialization,2 ProfileControl=Off MaxRequestThreads=16The values for the SharedSection substring are described as follows:The default size of the desktop heap depends on factors such as hardware architecture. To retrieve the size of the desktop heap, call the GetUserObjectInformation function with UOI_HEAPSIZE.CloseDesktopDesktopsSECURITY_ATTRIBUTESSetProcessWindowStationSwitchDesktopWindow Station and Desktop Functions</param>
+        /// <param name="pvoid"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateDesktopExA(string lpszDesktop, string lpszDevice, uint pDevmode, uint dwFlags, ACCESSTIMEOUT dwDesiredAccess, LUID_AND_ATTRIBUTES lpsa, uint ulHeapSize, IntPtr pvoid);
+        public static extern nint CreateDesktopExA(string lpszDesktop, string lpszDevice, uint pDevmode, uint dwFlags, ACCESSTIMEOUT dwDesiredAccess, LUID_AND_ATTRIBUTES lpsa, uint ulHeapSize, nint pvoid);
 
         /// <summary>
         ///Creates a new desktop with the specified heap, associates it with the current window station of the calling process, and assigns it to the calling thread. The calling process must have an associated window station, either assigned by the system at process creation time or set by the SetProcessWindowStation function.
         /// </summary>
         /// <param name="lpszDesktop">The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\).lpszDeviceThis parameter is reserved and must be NULL.pDevmodeThis parameter is reserved and must be NULL.</param>
+        /// <param name="lpszDevice"></param>
+        /// <param name="pDevmode"></param>
         /// <param name="dwFlags">This parameter can be zero or the following value.</param>
         /// <param name="dwDesiredAccess">The requested access to the desktop. For a list of values, see Desktop Security and Access Rights.This parameter must include the DESKTOP_CREATEWINDOW access right, because internally CreateDesktop uses the handle to create a window.</param>
+        /// <param name="lpsa"></param>
         /// <param name="ulHeapSize">The size of the desktop heap, in kilobytes.pvoidThis parameter is reserved and must be NULL.If the function succeeds, the return value is a handle to the newly created desktop. If the specified desktop already exists, the function succeeds and returns a handle to the existing desktop. When you are finished using the handle, call the CloseDesktop function to close it.If the function fails, the return value is NULL. To get extended error information, call GetLastError.If the dwDesiredAccess parameter specifies the READ_CONTROL, WRITE_DAC, or WRITE_OWNER standard access rights, you must also request the DESKTOP_READOBJECTS and DESKTOP_WRITEOBJECTS access rights.The number of desktops that can be created is limited by the size of the system desktop heap. Desktop objects use the heap to store resources. You can increase the number of desktops that can be created by increasing the size of the desktop heap or by reducing the default heap reserved for each desktop in the interactive window station. This value is specified in the SharedSection substring of the following registry value: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\SubSystems\Windows. The default data for this registry value is as follows:%SystemRoot%\system32\csrss.exe ObjectDirectory=\Windows SharedSection=1024,3072,512 Windows=On SubSystemType=Windows ServerDll=basesrv,1 ServerDll=winsrv:UserServerDllInitialization,3 ServerDll=winsrv:ConServerDllInitialization,2 ProfileControl=Off MaxRequestThreads=16The values for the SharedSection substring are described as follows:The default size of the desktop heap depends on factors such as hardware architecture. To retrieve the size of the desktop heap, call the GetUserObjectInformation function with UOI_HEAPSIZE.CloseDesktopDesktopsSECURITY_ATTRIBUTESSetProcessWindowStationSwitchDesktopWindow Station and Desktop Functions</param>
+        /// <param name="pvoid"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateDesktopExW(string lpszDesktop, string lpszDevice, uint pDevmode, uint dwFlags, ACCESSTIMEOUT dwDesiredAccess, LUID_AND_ATTRIBUTES lpsa, uint ulHeapSize, IntPtr pvoid);
+        public static extern nint CreateDesktopExW(string lpszDesktop, string lpszDevice, uint pDevmode, uint dwFlags, ACCESSTIMEOUT dwDesiredAccess, LUID_AND_ATTRIBUTES lpsa, uint ulHeapSize, nint pvoid);
 
         /// <summary>
         ///Creates a new desktop, associates it with the current window station of the calling process, and assigns it to the calling thread. The calling process must have an associated window station, either assigned by the system at process creation time or set by the SetProcessWindowStation function.
         /// </summary>
         /// <param name="lpszDesktop">The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\).lpszDeviceReserved; must be NULL.pDevmodeReserved; must be NULL.</param>
+        /// <param name="lpszDevice"></param>
+        /// <param name="pDevmode"></param>
         /// <param name="dwFlags">This parameter can be zero or the following value.</param>
         /// <param name="dwDesiredAccess">The access to the desktop. For a list of values, see Desktop Security and Access Rights.This parameter must include the DESKTOP_CREATEWINDOW access right, because internally CreateDesktop uses the handle to create a window.</param>
+        /// <param name="lpsa"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateDesktopW(string lpszDesktop, string lpszDevice, uint pDevmode, uint dwFlags, ACCESSTIMEOUT dwDesiredAccess, LUID_AND_ATTRIBUTES lpsa);
+        public static extern nint CreateDesktopW(string lpszDesktop, string lpszDevice, uint pDevmode, uint dwFlags, ACCESSTIMEOUT dwDesiredAccess, LUID_AND_ATTRIBUTES lpsa);
 
         /// <summary>
         ///Creates a modeless dialog box from a dialog box template resource. The CreateDialog macro uses the CreateDialogParam function.
         /// </summary>
-        /// <param name="lpName">Type: LPCTSTRThe dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the MAKEINTRESOURCE macro to create this value.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern void CreateDialogA();
@@ -905,7 +949,6 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Creates a modeless dialog box from a dialog box template in memory. The CreateDialogIndirect macro uses the CreateDialogIndirectParam function.
         /// </summary>
-        /// <param name="lpTemplate">Type: LPCDLGTEMPLATEA template that CreateDialogIndirect uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format.In a standard template, the header is a DLGTEMPLATE structure followed by additional variable-length arrays. The data for each control consists of a DLGITEMTEMPLATE structure followed by additional variable-length arrays.In an extended dialog box template, the header uses the DLGTEMPLATEEX format and the control definitions use the DLGITEMTEMPLATEEX format.After CreateDialogIndirect returns, you can free the template, which is only used to get the dialog box started.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern void CreateDialogIndirectA();
@@ -913,31 +956,36 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Creates a modeless dialog box from a dialog box template in memory. Before displaying the dialog box, the function passes an application-defined value to the dialog box procedure as the lParam parameter of the WM_INITDIALOG message. An application can use this value to initialize dialog box controls.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpTemplate">Type: LPCDLGTEMPLATEThe template CreateDialogIndirectParam uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format.In a standard template, the header is a DLGTEMPLATE structure followed by additional variable-length arrays. The data for each control consists of a DLGITEMTEMPLATE structure followed by additional variable-length arrays.In an extended dialog box template, the header uses the DLGTEMPLATEEX format and the control definitions use the DLGITEMTEMPLATEEX format.After CreateDialogIndirectParam returns, you can free the template, which is only used to get the dialog box started.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="lpDialogFunc"></param>
         /// <param name="dwInitParam">Type: LPARAMThe value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.Type: HWNDIf the function succeeds, the return value is the window handle to the dialog box.If the function fails, the return value is NULL. To get extended error information, call GetLastError.The CreateDialogIndirectParam function uses the CreateWindowEx function to create the dialog box. CreateDialogIndirectParam then sends a WM_INITDIALOG message to the dialog box procedure. If the template specifies the DS_SETFONT or DS_SHELLFONT style, the function also sends a WM_SETFONT message to the dialog box procedure. The function displays the dialog box if the template specifies the WS_VISIBLE style. Finally, CreateDialogIndirectParam returns the window handle to the dialog box.After CreateDialogIndirectParam returns, you can use the ShowWindow function to display the dialog box (if it is not already visible). To destroy the dialog box, use the DestroyWindow function. To support keyboard navigation and other dialog box functionality, the message loop for the dialog box must call the IsDialogMessage function.In a standard dialog box template, the DLGTEMPLATE structure and each of the DLGITEMTEMPLATE structures must be aligned on DWORD boundaries. The creation data array that follows a DLGITEMTEMPLATE structure must also be aligned on a DWORD boundary. All of the other variable-length arrays in the template must be aligned on WORD boundaries.In an extended dialog box template, the DLGTEMPLATEEX header and each of the DLGITEMTEMPLATEEX control definitions must be aligned on DWORD boundaries. The creation data array, if any, that follows a DLGITEMTEMPLATEEX structure must also be aligned on a DWORD boundary. All of the other variable-length arrays in the template must be aligned on WORD boundaries.All character strings in the dialog box template, such as titles for the dialog box and buttons, must be Unicode strings.ConceptualCreateDialogCreateDialogIndirectCreateDialogParamCreateWindowExDLGITEMTEMPLATEDLGITEMTEMPLATEEXDLGTEMPLATEDLGTEMPLATEEXDestroyWindowDialog BoxesDialogProcMultiByteToWideCharOther ResourcesReferenceShowWindowWM_INITDIALOGWM_SETFONT</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateDialogIndirectParamA(IntPtr hInstance, DLGTEMPLATE lpTemplate, IntPtr hWndParent, DLGPROC lpDialogFunc, IntPtr dwInitParam);
+        public static extern nint CreateDialogIndirectParamA(nint hInstance, DLGTEMPLATE lpTemplate, nint hWndParent, DLGPROC lpDialogFunc, nint dwInitParam);
 
         /// <summary>
         ///Creates a modeless dialog box from a dialog box template in memory. Before displaying the dialog box, the function passes an application-defined value to the dialog box procedure as the lParam parameter of the WM_INITDIALOG message. An application can use this value to initialize dialog box controls.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpTemplate">Type: LPCDLGTEMPLATEThe template CreateDialogIndirectParam uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format.In a standard template, the header is a DLGTEMPLATE structure followed by additional variable-length arrays. The data for each control consists of a DLGITEMTEMPLATE structure followed by additional variable-length arrays.In an extended dialog box template, the header uses the DLGTEMPLATEEX format and the control definitions use the DLGITEMTEMPLATEEX format.After CreateDialogIndirectParam returns, you can free the template, which is only used to get the dialog box started.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="lpDialogFunc"></param>
         /// <param name="dwInitParam">Type: LPARAMThe value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.Type: HWNDIf the function succeeds, the return value is the window handle to the dialog box.If the function fails, the return value is NULL. To get extended error information, call GetLastError.The CreateDialogIndirectParam function uses the CreateWindowEx function to create the dialog box. CreateDialogIndirectParam then sends a WM_INITDIALOG message to the dialog box procedure. If the template specifies the DS_SETFONT or DS_SHELLFONT style, the function also sends a WM_SETFONT message to the dialog box procedure. The function displays the dialog box if the template specifies the WS_VISIBLE style. Finally, CreateDialogIndirectParam returns the window handle to the dialog box.After CreateDialogIndirectParam returns, you can use the ShowWindow function to display the dialog box (if it is not already visible). To destroy the dialog box, use the DestroyWindow function. To support keyboard navigation and other dialog box functionality, the message loop for the dialog box must call the IsDialogMessage function.In a standard dialog box template, the DLGTEMPLATE structure and each of the DLGITEMTEMPLATE structures must be aligned on DWORD boundaries. The creation data array that follows a DLGITEMTEMPLATE structure must also be aligned on a DWORD boundary. All of the other variable-length arrays in the template must be aligned on WORD boundaries.In an extended dialog box template, the DLGTEMPLATEEX header and each of the DLGITEMTEMPLATEEX control definitions must be aligned on DWORD boundaries. The creation data array, if any, that follows a DLGITEMTEMPLATEEX structure must also be aligned on a DWORD boundary. All of the other variable-length arrays in the template must be aligned on WORD boundaries.All character strings in the dialog box template, such as titles for the dialog box and buttons, must be Unicode strings.ConceptualCreateDialogCreateDialogIndirectCreateDialogParamCreateWindowExDLGITEMTEMPLATEDLGITEMTEMPLATEEXDLGTEMPLATEDLGTEMPLATEEXDestroyWindowDialog BoxesDialogProcMultiByteToWideCharOther ResourcesReferenceShowWindowWM_INITDIALOGWM_SETFONT</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateDialogIndirectParamW(IntPtr hInstance, DLGTEMPLATE lpTemplate, IntPtr hWndParent, DLGPROC lpDialogFunc, IntPtr dwInitParam);
+        public static extern nint CreateDialogIndirectParamW(nint hInstance, DLGTEMPLATE lpTemplate, nint hWndParent, DLGPROC lpDialogFunc, nint dwInitParam);
 
         /// <summary>
         ///Creates a modeless dialog box from a dialog box template in memory. The CreateDialogIndirect macro uses the CreateDialogIndirectParam function.
         /// </summary>
-        /// <param name="lpTemplate">Type: LPCDLGTEMPLATEA template that CreateDialogIndirect uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format.In a standard template, the header is a DLGTEMPLATE structure followed by additional variable-length arrays. The data for each control consists of a DLGITEMTEMPLATE structure followed by additional variable-length arrays.In an extended dialog box template, the header uses the DLGTEMPLATEEX format and the control definitions use the DLGITEMTEMPLATEEX format.After CreateDialogIndirect returns, you can free the template, which is only used to get the dialog box started.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern void CreateDialogIndirectW();
@@ -945,31 +993,36 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Creates a modeless dialog box from a dialog box template resource. Before displaying the dialog box, the function passes an application-defined value to the dialog box procedure as the lParam parameter of the WM_INITDIALOG message. An application can use this value to initialize dialog box controls.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpTemplateName">Type: LPCTSTRThe dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and low-order word must contain the identifier. You can use the MAKEINTRESOURCE macro to create this value.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="lpDialogFunc"></param>
         /// <param name="dwInitParam">Type: LPARAMThe value to be passed to the dialog box procedure in the lParam parameter in the WM_INITDIALOG message.Type: HWNDIf the function succeeds, the return value is the window handle to the dialog box.If the function fails, the return value is NULL. To get extended error information, call GetLastError.The CreateDialogParam function uses the CreateWindowEx function to create the dialog box. CreateDialogParam then sends a WM_INITDIALOG message (and a WM_SETFONT message if the template specifies the DS_SETFONT or DS_SHELLFONT style) to the dialog box procedure. The function displays the dialog box if the template specifies the WS_VISIBLE style. Finally, CreateDialogParam returns the window handle of the dialog box.After CreateDialogParam returns, the application displays the dialog box (if it is not already displayed) using the ShowWindow function. The application destroys the dialog box by using the DestroyWindow function. To support keyboard navigation and other dialog box functionality, the message loop for the dialog box must call the IsDialogMessage function.ConceptualCreateDialogCreateDialogIndirectCreateDialogIndirectParamCreateWindowExDestroyWindowDialog BoxesDialogProcIsDialogMessageMAKEINTRESOURCEReferenceShowWindowWM_INITDIALOGWM_SETFONT</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateDialogParamA(IntPtr hInstance, string lpTemplateName, IntPtr hWndParent, DLGPROC lpDialogFunc, IntPtr dwInitParam);
+        public static extern nint CreateDialogParamA(nint hInstance, string lpTemplateName, nint hWndParent, DLGPROC lpDialogFunc, nint dwInitParam);
 
         /// <summary>
         ///Creates a modeless dialog box from a dialog box template resource. Before displaying the dialog box, the function passes an application-defined value to the dialog box procedure as the lParam parameter of the WM_INITDIALOG message. An application can use this value to initialize dialog box controls.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpTemplateName">Type: LPCTSTRThe dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and low-order word must contain the identifier. You can use the MAKEINTRESOURCE macro to create this value.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="lpDialogFunc"></param>
         /// <param name="dwInitParam">Type: LPARAMThe value to be passed to the dialog box procedure in the lParam parameter in the WM_INITDIALOG message.Type: HWNDIf the function succeeds, the return value is the window handle to the dialog box.If the function fails, the return value is NULL. To get extended error information, call GetLastError.The CreateDialogParam function uses the CreateWindowEx function to create the dialog box. CreateDialogParam then sends a WM_INITDIALOG message (and a WM_SETFONT message if the template specifies the DS_SETFONT or DS_SHELLFONT style) to the dialog box procedure. The function displays the dialog box if the template specifies the WS_VISIBLE style. Finally, CreateDialogParam returns the window handle of the dialog box.After CreateDialogParam returns, the application displays the dialog box (if it is not already displayed) using the ShowWindow function. The application destroys the dialog box by using the DestroyWindow function. To support keyboard navigation and other dialog box functionality, the message loop for the dialog box must call the IsDialogMessage function.ConceptualCreateDialogCreateDialogIndirectCreateDialogIndirectParamCreateWindowExDestroyWindowDialog BoxesDialogProcIsDialogMessageMAKEINTRESOURCEReferenceShowWindowWM_INITDIALOGWM_SETFONT</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateDialogParamW(IntPtr hInstance, string lpTemplateName, IntPtr hWndParent, DLGPROC lpDialogFunc, IntPtr dwInitParam);
+        public static extern nint CreateDialogParamW(nint hInstance, string lpTemplateName, nint hWndParent, DLGPROC lpDialogFunc, nint dwInitParam);
 
         /// <summary>
         ///Creates a modeless dialog box from a dialog box template resource. The CreateDialog macro uses the CreateDialogParam function.
         /// </summary>
-        /// <param name="lpName">Type: LPCTSTRThe dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the MAKEINTRESOURCE macro to create this value.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern void CreateDialogW();
@@ -977,6 +1030,7 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Creates an icon that has the specified size, colors, and bit patterns.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="nWidth">Type: intThe width, in pixels, of the icon. See remarks.</param>
         /// <param name="nHeight">Type: intThe height, in pixels, of the icon. See remarks.</param>
         /// <param name="cPlanes">Type: BYTEThe number of planes in the XOR bitmask of the icon. See remarks.</param>
@@ -988,7 +1042,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateIcon(IntPtr hInstance, int nWidth, int nHeight, byte cPlanes, byte cBitsPixel, byte lpbANDbits, byte lpbXORbits);
+        public static extern nint CreateIcon(nint hInstance, int nWidth, int nHeight, byte cPlanes, byte cBitsPixel, byte lpbANDbits, byte lpbXORbits);
 
         /// <summary>
         ///Creates an icon or cursor from resource bits describing the icon.
@@ -1002,7 +1056,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateIconFromResource(byte presbits, uint dwResSize, bool fIcon, uint dwVer);
+        public static extern nint CreateIconFromResource(byte presbits, uint dwResSize, bool fIcon, uint dwVer);
 
         /// <summary>
         ///Creates an icon or cursor from resource bits describing the icon.
@@ -1019,7 +1073,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateIconFromResourceEx(byte presbits, uint dwResSize, bool fIcon, uint dwVer, int cxDesired, int cyDesired, uint Flags);
+        public static extern nint CreateIconFromResourceEx(byte presbits, uint dwResSize, bool fIcon, uint dwVer, int cxDesired, int cyDesired, uint Flags);
 
         /// <summary>
         ///Creates an icon or cursor from an ICONINFO structure.
@@ -1030,7 +1084,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateIconIndirect(ICONINFO piconinfo);
+        public static extern nint CreateIconIndirect(ICONINFO piconinfo);
 
         /// <summary>
         ///Creates a multiple-document interface (MDI) child window.
@@ -1042,13 +1096,15 @@ namespace WindowAPI.winuser.h
         /// <param name="Y">Type: intThe initial vertical position, in client coordinates, of the MDI child window. If this parameter is CW_USEDEFAULT, the MDI child window is assigned the default vertical position.</param>
         /// <param name="nWidth">Type: intThe initial width, in device units, of the MDI child window. If this parameter is CW_USEDEFAULT, the MDI child window is assigned the default width.</param>
         /// <param name="nHeight">Type: intThe initial height, in device units, of the MDI child window. If this parameter is set to CW_USEDEFAULT, the MDI child window is assigned the default height.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="hInstance"></param>
         /// <param name="lParam">Type: LPARAMAn application-defined value.Type: HWNDIf the function succeeds, the return value is the handle to the created window.If the function fails, the return value is NULL. To get extended error information, call GetLastError.ConceptualCreateWindowMultiple Document InterfaceReferenceRegisterClassExWM_MDICREATE</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateMDIWindowA(string lpClassName, string lpWindowName, uint dwStyle, int X, int Y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hInstance, IntPtr lParam);
+        public static extern nint CreateMDIWindowA(string lpClassName, string lpWindowName, uint dwStyle, int X, int Y, int nWidth, int nHeight, nint hWndParent, nint hInstance, nint lParam);
 
         /// <summary>
         ///Creates a multiple-document interface (MDI) child window.
@@ -1060,13 +1116,15 @@ namespace WindowAPI.winuser.h
         /// <param name="Y">Type: intThe initial vertical position, in client coordinates, of the MDI child window. If this parameter is CW_USEDEFAULT, the MDI child window is assigned the default vertical position.</param>
         /// <param name="nWidth">Type: intThe initial width, in device units, of the MDI child window. If this parameter is CW_USEDEFAULT, the MDI child window is assigned the default width.</param>
         /// <param name="nHeight">Type: intThe initial height, in device units, of the MDI child window. If this parameter is set to CW_USEDEFAULT, the MDI child window is assigned the default height.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="hInstance"></param>
         /// <param name="lParam">Type: LPARAMAn application-defined value.Type: HWNDIf the function succeeds, the return value is the handle to the created window.If the function fails, the return value is NULL. To get extended error information, call GetLastError.ConceptualCreateWindowMultiple Document InterfaceReferenceRegisterClassExWM_MDICREATE</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateMDIWindowW(string lpClassName, string lpWindowName, uint dwStyle, int X, int Y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hInstance, IntPtr lParam);
+        public static extern nint CreateMDIWindowW(string lpClassName, string lpWindowName, uint dwStyle, int X, int Y, int nWidth, int nHeight, nint hWndParent, nint hInstance, nint lParam);
 
         /// <summary>
         ///Creates a menu. The menu is initially empty, but it can be filled with menu items by using the InsertMenuItem, AppendMenu, and InsertMenu functions.
@@ -1076,7 +1134,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateMenu();
+        public static extern nint CreateMenu();
 
         /// <summary>
         ///Creates a drop-down menu, submenu, or shortcut menu. The menu is initially empty. You can insert or append menu items by using the InsertMenuItem function. You can also use the InsertMenu function to insert menu items and the AppendMenu function to append menu items.
@@ -1086,7 +1144,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreatePopupMenu();
+        public static extern nint CreatePopupMenu();
 
         /// <summary>
         ///Configures the pointer injection device for the calling application, and initializes the maximum number of simultaneous pointers that the app can inject.
@@ -1102,38 +1160,53 @@ namespace WindowAPI.winuser.h
         ///Creates an overlapped, pop-up, or child window with an extended window style; otherwise, this function is identical to the CreateWindow function. For more information about creating a window and for full descriptions of the other parameters of CreateWindowEx, see CreateWindow.
         /// </summary>
         /// <param name="dwExStyle">Type: DWORDThe extended window style of the window being created. For a list of possible values, see Extended Window Styles.</param>
+        /// <param name="lpClassName"></param>
+        /// <param name="lpWindowName"></param>
         /// <param name="dwStyle">Type: DWORDThe style of the window being created. This parameter can be a combination of the window style values, plus the control styles indicated in the Remarks section.</param>
         /// <param name="X">Type: intThe initial horizontal position of the window. For an overlapped or pop-up window, the x parameter is the initial x-coordinate of the window's upper-left corner, in screen coordinates. For a child window, x is the x-coordinate of the upper-left corner of the window relative to the upper-left corner of the parent window's client area. If x is set to CW_USEDEFAULT, the system selects the default position for the window's upper-left corner and ignores the y parameter. CW_USEDEFAULT is valid only for overlapped windows; if it is specified for a pop-up or child window, the x and y parameters are set to zero.</param>
         /// <param name="Y">Type: intThe initial vertical position of the window. For an overlapped or pop-up window, the y parameter is the initial y-coordinate of the window's upper-left corner, in screen coordinates. For a child window, y is the initial y-coordinate of the upper-left corner of the child window relative to the upper-left corner of the parent window's client area. For a list box y is the initial y-coordinate of the upper-left corner of the list box's client area relative to the upper-left corner of the parent window's client area.If an overlapped window is created with the WS_VISIBLE style bit set and the x parameter is set to CW_USEDEFAULT, then the y parameter determines how the window is shown. If the y parameter is CW_USEDEFAULT, then the window manager calls ShowWindow with the SW_SHOW flag after the window has been created. If the y parameter is some other value, then the window manager calls ShowWindow with that value as the nCmdShow parameter.</param>
         /// <param name="nWidth">Type: intThe width, in device units, of the window. For overlapped windows, nWidth is the window's width, in screen coordinates, or CW_USEDEFAULT. If nWidth is CW_USEDEFAULT, the system selects a default width and height for the window; the default width extends from the initial x-coordinates to the right edge of the screen; the default height extends from the initial y-coordinate to the top of the icon area. CW_USEDEFAULT is valid only for overlapped windows; if CW_USEDEFAULT is specified for a pop-up or child window, the nWidth and nHeight parameter are set to zero.</param>
         /// <param name="nHeight">Type: intThe height, in device units, of the window. For overlapped windows, nHeight is the window's height, in screen coordinates. If the nWidth parameter is set to CW_USEDEFAULT, the system ignores nHeight.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="hMenu"></param>
+        /// <param name="hInstance"></param>
+        /// <param name="lpParam"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateWindowExA(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle, int X, int Y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam);
+        public static extern nint CreateWindowExA(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle, int X, int Y, int nWidth, int nHeight, nint hWndParent, nint hMenu, nint hInstance, nint lpParam);
 
         /// <summary>
         ///Creates an overlapped, pop-up, or child window with an extended window style; otherwise, this function is identical to the CreateWindow function. For more information about creating a window and for full descriptions of the other parameters of CreateWindowEx, see CreateWindow.
         /// </summary>
         /// <param name="dwExStyle">Type: DWORDThe extended window style of the window being created. For a list of possible values, see Extended Window Styles.</param>
+        /// <param name="lpClassName"></param>
+        /// <param name="lpWindowName"></param>
         /// <param name="dwStyle">Type: DWORDThe style of the window being created. This parameter can be a combination of the window style values, plus the control styles indicated in the Remarks section.</param>
         /// <param name="X">Type: intThe initial horizontal position of the window. For an overlapped or pop-up window, the x parameter is the initial x-coordinate of the window's upper-left corner, in screen coordinates. For a child window, x is the x-coordinate of the upper-left corner of the window relative to the upper-left corner of the parent window's client area. If x is set to CW_USEDEFAULT, the system selects the default position for the window's upper-left corner and ignores the y parameter. CW_USEDEFAULT is valid only for overlapped windows; if it is specified for a pop-up or child window, the x and y parameters are set to zero.</param>
         /// <param name="Y">Type: intThe initial vertical position of the window. For an overlapped or pop-up window, the y parameter is the initial y-coordinate of the window's upper-left corner, in screen coordinates. For a child window, y is the initial y-coordinate of the upper-left corner of the child window relative to the upper-left corner of the parent window's client area. For a list box y is the initial y-coordinate of the upper-left corner of the list box's client area relative to the upper-left corner of the parent window's client area.If an overlapped window is created with the WS_VISIBLE style bit set and the x parameter is set to CW_USEDEFAULT, then the y parameter determines how the window is shown. If the y parameter is CW_USEDEFAULT, then the window manager calls ShowWindow with the SW_SHOW flag after the window has been created. If the y parameter is some other value, then the window manager calls ShowWindow with that value as the nCmdShow parameter.</param>
         /// <param name="nWidth">Type: intThe width, in device units, of the window. For overlapped windows, nWidth is the window's width, in screen coordinates, or CW_USEDEFAULT. If nWidth is CW_USEDEFAULT, the system selects a default width and height for the window; the default width extends from the initial x-coordinates to the right edge of the screen; the default height extends from the initial y-coordinate to the top of the icon area. CW_USEDEFAULT is valid only for overlapped windows; if CW_USEDEFAULT is specified for a pop-up or child window, the nWidth and nHeight parameter are set to zero.</param>
         /// <param name="nHeight">Type: intThe height, in device units, of the window. For overlapped windows, nHeight is the window's height, in screen coordinates. If the nWidth parameter is set to CW_USEDEFAULT, the system ignores nHeight.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="hMenu"></param>
+        /// <param name="hInstance"></param>
+        /// <param name="lpParam"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateWindowExW(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle, int X, int Y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam);
+        public static extern nint CreateWindowExW(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle, int X, int Y, int nWidth, int nHeight, nint hWndParent, nint hMenu, nint hInstance, nint lpParam);
 
         /// <summary>
         ///Creates a window station object, associates it with the calling process, and assigns it to the current session.
         /// </summary>
+        /// <param name="lpwinsta"></param>
+        /// <param name="dwFlags"></param>
         /// <param name="dwDesiredAccess">The type of access the returned handle has to the window station. In addition, you can specify any of the standard access rights, such as READ_CONTROL or WRITE_DAC, and a combination of the window station-specific access rights. For more information, see Window Station Security and Access Rights.</param>
+        /// <param name="lpsa"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1144,7 +1217,10 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Creates a window station object, associates it with the calling process, and assigns it to the current session.
         /// </summary>
+        /// <param name="lpwinsta"></param>
+        /// <param name="dwFlags"></param>
         /// <param name="dwDesiredAccess">The type of access the returned handle has to the window station. In addition, you can specify any of the standard access rights, such as READ_CONTROL or WRITE_DAC, and a combination of the window station-specific access rights. For more information, see Window Station Security and Access Rights.</param>
+        /// <param name="lpsa"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -1161,7 +1237,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: LRESULTThe return value specifies the result of the message processing and depends on the message sent.The DefDlgProc function is the window procedure for the predefined class of dialog box. This procedure provides internal processing for the dialog box by forwarding messages to the dialog box procedure and carrying out default processing for any messages that the dialog box procedure returns as FALSE. Applications that create custom window procedures for their custom dialog boxes often use DefDlgProc instead of the DefWindowProc function to carry out default message processing.Applications create custom dialog box classes by filling a WNDCLASS structure with appropriate information and registering the class with the RegisterClass function. Some applications fill the structure by using the GetClassInfo function, specifying the name of the predefined dialog box. In such cases, the applications modify at least the lpszClassName member before registering. In all cases, the cbWndExtra member of WNDCLASS for a custom dialog box class must be set to at least DLGWINDOWEXTRA.The DefDlgProc function must not be called by a dialog box procedure; doing so results in recursive execution.ConceptualDefWindowProc Dialog Boxes GetClassInfoReferenceRegisterClass WNDCLASS</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DefDlgProcA(IntPtr hDlg, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern nint DefDlgProcA(nint hDlg, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Calls the default dialog box window procedure to provide default processing for any window messages that a dialog box with a private window class does not process.
@@ -1172,13 +1248,14 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: LRESULTThe return value specifies the result of the message processing and depends on the message sent.The DefDlgProc function is the window procedure for the predefined class of dialog box. This procedure provides internal processing for the dialog box by forwarding messages to the dialog box procedure and carrying out default processing for any messages that the dialog box procedure returns as FALSE. Applications that create custom window procedures for their custom dialog boxes often use DefDlgProc instead of the DefWindowProc function to carry out default message processing.Applications create custom dialog box classes by filling a WNDCLASS structure with appropriate information and registering the class with the RegisterClass function. Some applications fill the structure by using the GetClassInfo function, specifying the name of the predefined dialog box. In such cases, the applications modify at least the lpszClassName member before registering. In all cases, the cbWndExtra member of WNDCLASS for a custom dialog box class must be set to at least DLGWINDOWEXTRA.The DefDlgProc function must not be called by a dialog box procedure; doing so results in recursive execution.ConceptualDefWindowProcDialog BoxesGetClassInfoReferenceRegisterClassWNDCLASS</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DefDlgProcW(IntPtr hDlg, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern nint DefDlgProcW(nint hDlg, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Updates the specified multiple-window – position structure for the specified window. The function then returns a handle to the updated structure. The EndDeferWindowPos function uses the information in this structure to change the position and size of a number of windows simultaneously. The BeginDeferWindowPos function creates the structure.
         /// </summary>
         /// <param name="hWinPosInfo">Type: HDWPA handle to a multiple-window – position structure that contains size and position information for one or more windows. This structure is returned by BeginDeferWindowPos or by the most recent call to DeferWindowPos.</param>
         /// <param name="hWnd">Type: HWNDA handle to the window for which update information is stored in the structure. All windows in a multiple-window – position structure must have the same parent.</param>
+        /// <param name="hWndInsertAfter"></param>
         /// <param name="x">Type: intThe x-coordinate of the window's upper-left corner.</param>
         /// <param name="y">Type: intThe y-coordinate of the window's upper-left corner.</param>
         /// <param name="cx">Type: intThe window's new width, in pixels.</param>
@@ -1189,7 +1266,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DeferWindowPos(IntPtr hWinPosInfo, IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
+        public static extern nint DeferWindowPos(nint hWinPosInfo, nint hWnd, nint hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 
         /// <summary>
         ///Provides default processing for any window messages that the window procedure of a multiple-document interface (MDI) frame window does not process. All window messages that are not explicitly processed by the window procedure must be passed to the DefFrameProc function, not the DefWindowProc function.
@@ -1201,7 +1278,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: LRESULTThe return value specifies the result of the message processing and depends on the message. If the hWndMDIClient parameter is NULL, the return value is the same as for the DefWindowProc function.When an application's window procedure does not handle a message, it typically passes the message to the DefWindowProc function to process the message. MDI applications use the DefFrameProc and DefMDIChildProc functions instead of DefWindowProc to provide default message processing. All messages that an application would usually pass to DefWindowProc (such as nonclient messages and the WM_SETTEXT message) should be passed to DefFrameProc instead. The DefFrameProc function also handles the following messages.ConceptualDefMDIChildProcDefWindowProcMultiple Document InterfaceReferenceWM_SETTEXT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DefFrameProcA(IntPtr hWnd, IntPtr hWndMDIClient, uint uMsg, IntPtr wParam, IntPtr lParam);
+        public static extern nint DefFrameProcA(nint hWnd, nint hWndMDIClient, uint uMsg, nint wParam, nint lParam);
 
         /// <summary>
         ///Provides default processing for any window messages that the window procedure of a multiple-document interface (MDI) frame window does not process. All window messages that are not explicitly processed by the window procedure must be passed to the DefFrameProc function, not the DefWindowProc function.
@@ -1213,7 +1290,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: LRESULTThe return value specifies the result of the message processing and depends on the message. If the hWndMDIClient parameter is NULL, the return value is the same as for the DefWindowProc function.When an application's window procedure does not handle a message, it typically passes the message to the DefWindowProc function to process the message. MDI applications use the DefFrameProc and DefMDIChildProc functions instead of DefWindowProc to provide default message processing. All messages that an application would usually pass to DefWindowProc (such as nonclient messages and the WM_SETTEXT message) should be passed to DefFrameProc instead. The DefFrameProc function also handles the following messages.ConceptualDefMDIChildProcDefWindowProcMultiple Document InterfaceReferenceWM_SETTEXT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DefFrameProcW(IntPtr hWnd, IntPtr hWndMDIClient, uint uMsg, IntPtr wParam, IntPtr lParam);
+        public static extern nint DefFrameProcW(nint hWnd, nint hWndMDIClient, uint uMsg, nint wParam, nint lParam);
 
         /// <summary>
         ///Provides default processing for any window message that the window procedure of a multiple-document interface (MDI) child window does not process. A window message not processed by the window procedure must be passed to the DefMDIChildProc function, not to the DefWindowProc function.
@@ -1224,7 +1301,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: LRESULTThe return value specifies the result of the message processing and depends on the message.The DefMDIChildProc function assumes that the parent window of the MDI child window identified by the hWnd parameter was created with the MDICLIENT class.When an application's window procedure does not handle a message, it typically passes the message to the DefWindowProc function to process the message. MDI applications use the DefFrameProc and DefMDIChildProc functions instead of DefWindowProc to provide default message processing. All messages that an application would usually pass to DefWindowProc (such as nonclient messages and the WM_SETTEXT message) should be passed to DefMDIChildProc instead. In addition, DefMDIChildProc also handles the following messages.ConceptualDefFrameProcDefWindowProcMultiple Document InterfaceReferenceWM_CHILDACTIVATEWM_GETMINMAXINFOWM_MENUCHARWM_MOVEWM_SETFOCUSWM_SETTEXTWM_SIZEWM_SYSCOMMAND</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DefMDIChildProcA(IntPtr hWnd, uint uMsg, IntPtr wParam, IntPtr lParam);
+        public static extern nint DefMDIChildProcA(nint hWnd, uint uMsg, nint wParam, nint lParam);
 
         /// <summary>
         ///Provides default processing for any window message that the window procedure of a multiple-document interface (MDI) child window does not process. A window message not processed by the window procedure must be passed to the DefMDIChildProc function, not to the DefWindowProc function.
@@ -1235,7 +1312,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: LRESULTThe return value specifies the result of the message processing and depends on the message.The DefMDIChildProc function assumes that the parent window of the MDI child window identified by the hWnd parameter was created with the MDICLIENT class.When an application's window procedure does not handle a message, it typically passes the message to the DefWindowProc function to process the message. MDI applications use the DefFrameProc and DefMDIChildProc functions instead of DefWindowProc to provide default message processing. All messages that an application would usually pass to DefWindowProc (such as nonclient messages and the WM_SETTEXT message) should be passed to DefMDIChildProc instead. In addition, DefMDIChildProc also handles the following messages.ConceptualDefFrameProcDefWindowProcMultiple Document InterfaceReferenceWM_CHILDACTIVATEWM_GETMINMAXINFOWM_MENUCHARWM_MOVEWM_SETFOCUSWM_SETTEXTWM_SIZEWM_SYSCOMMAND</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DefMDIChildProcW(IntPtr hWnd, uint uMsg, IntPtr wParam, IntPtr lParam);
+        public static extern nint DefMDIChildProcW(nint hWnd, uint uMsg, nint wParam, nint lParam);
 
         /// <summary>
         ///Unlike DefWindowProcA and DefWindowProcW, this function doesn't do any processing.
@@ -1245,7 +1322,7 @@ namespace WindowAPI.winuser.h
         /// <param name="cbSizeHeader">Type: UINTThe size, in bytes, of the RAWINPUTHEADER structure.Type: LRESULTIf successful, the function returns 0. Otherwise it returns -1.ConceptualRAWINPUTRAWINPUTHEADERRaw Input</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DefRawInputProc(POINT paRawInput, int nInput, uint cbSizeHeader);
+        public static extern nint DefRawInputProc(POINT paRawInput, int nInput, uint cbSizeHeader);
 
         /// <summary>
         ///Calls the default window procedure to provide default processing for any window messages that an application does not process. This function ensures that every message is processed. DefWindowProc is called with the same parameters received by the window procedure.
@@ -1256,7 +1333,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message information. The content of this parameter depends on the value of the Msg parameter.Type: LRESULTThe return value is the result of the message processing and depends on the message.CallWindowProcConceptualDefDlgProcReferenceWindow ProceduresWindowProc</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DefWindowProcA(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern nint DefWindowProcA(nint hWnd, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Calls the default window procedure to provide default processing for any window messages that an application does not process. This function ensures that every message is processed. DefWindowProc is called with the same parameters received by the window procedure.
@@ -1267,7 +1344,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message information. The content of this parameter depends on the value of the Msg parameter.Type: LRESULTThe return value is the result of the message processing and depends on the message.CallWindowProcConceptualDefDlgProcReferenceWindow ProceduresWindowProc</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DefWindowProcW(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern nint DefWindowProcW(nint hWnd, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Deletes an item from the specified menu. If the menu item opens a menu or submenu, this function destroys the handle to the menu or submenu and frees the memory used by the menu or submenu.
@@ -1280,7 +1357,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DeleteMenu(IntPtr hMenu, uint uPosition, uint uFlags);
+        public static extern bool DeleteMenu(nint hMenu, uint uPosition, uint uFlags);
 
         /// <summary>
         ///[This function is not intended for general use. It may be altered or unavailable in subsequent versions of Windows.]
@@ -1288,7 +1365,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hwnd">Type: HWNDA handle to the window to be unregistered. The window was registered with a call to the RegisterShellHookWindow function.Type: BOOLTRUE if the function succeeds; FALSE if the function fails.This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using LoadLibrary and GetProcAddress.ConceptualReferenceRegisterShellHookWindowWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DeregisterShellHookWindow(IntPtr hwnd);
+        public static extern bool DeregisterShellHookWindow(nint hwnd);
 
         /// <summary>
         ///Destroys an accelerator table.
@@ -1317,7 +1394,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DestroyCursor(IntPtr hCursor);
+        public static extern bool DestroyCursor(nint hCursor);
 
         /// <summary>
         ///Destroys an icon and frees any memory the icon occupied.
@@ -1328,7 +1405,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DestroyIcon(IntPtr hIcon);
+        public static extern bool DestroyIcon(nint hIcon);
 
         /// <summary>
         ///Destroys the specified menu and frees any memory that the menu occupies.
@@ -1339,7 +1416,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DestroyMenu(IntPtr hMenu);
+        public static extern bool DestroyMenu(nint hMenu);
 
         /// <summary>
         ///Destroys the specified pointer injection device.
@@ -1358,12 +1435,11 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DestroyWindow(IntPtr hWnd);
+        public static extern bool DestroyWindow(nint hWnd);
 
         /// <summary>
         ///Creates a modal dialog box from a dialog box template resource. DialogBox does not return control until the specified callback function terminates the modal dialog box by calling the EndDialog function.
         /// </summary>
-        /// <param name="lpTemplate">Type: LPCTSTRThe dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the MAKEINTRESOURCE macro to create this value.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern void DialogBoxA();
@@ -1371,7 +1447,6 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Creates a modal dialog box from a dialog box template in memory. DialogBoxIndirect does not return control until the specified callback function terminates the modal dialog box by calling the EndDialog function.
         /// </summary>
-        /// <param name="lpTemplate">Type: LPCDLGTEMPLATEThe template that DialogBoxIndirect uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format.In a standard template for a dialog box, the header is a DLGTEMPLATE structure followed by additional variable-length arrays. The data for each control consists of a DLGITEMTEMPLATE structure followed by additional variable-length arrays.In an extended template for a dialog box, the header uses the DLGTEMPLATEEX format and the control definitions use the DLGITEMTEMPLATEEX format.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern void DialogBoxIndirectA();
@@ -1379,31 +1454,36 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Creates a modal dialog box from a dialog box template in memory. Before displaying the dialog box, the function passes an application-defined value to the dialog box procedure as the lParam parameter of the WM_INITDIALOG message. An application can use this value to initialize dialog box controls.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="hDialogTemplate">Type: LPCDLGTEMPLATEThe template that DialogBoxIndirectParam uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format.In a standard template for a dialog box, the header is a DLGTEMPLATE structure followed by additional variable-length arrays. The data for each control consists of a DLGITEMTEMPLATE structure followed by additional variable-length arrays.In an extended template for a dialog box, the header uses the DLGTEMPLATEEX format and the control definitions use the DLGITEMTEMPLATEEX format.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="lpDialogFunc"></param>
         /// <param name="dwInitParam">Type: LPARAMThe value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.Type: INT_PTRIf the function succeeds, the return value is the nResult parameter specified in the call to the EndDialog function that was used to terminate the dialog box.If the function fails because the hWndParent parameter is invalid, the return value is zero. The function returns zero in this case for compatibility with previous versions of Windows. If the function fails for any other reason, the return value is –1. To get extended error information, call GetLastError.The DialogBoxIndirectParam function uses the CreateWindowEx function to create the dialog box. DialogBoxIndirectParam then sends a WM_INITDIALOG message to the dialog box procedure. If the template specifies the DS_SETFONT or DS_SHELLFONT style, the function also sends a WM_SETFONT message to the dialog box procedure. The function displays the dialog box (regardless of whether the template specifies the WS_VISIBLE style), disables the owner window, and starts its own message loop to retrieve and dispatch messages for the dialog box.When the dialog box procedure calls the EndDialog function, DialogBoxIndirectParam destroys the dialog box, ends the message loop, enables the owner window (if previously enabled), and returns the nResult parameter specified by the dialog box procedure when it called EndDialog.In a standard dialog box template, the DLGTEMPLATE structure and each of the DLGITEMTEMPLATE structures must be aligned on DWORD boundaries. The creation data array that follows a DLGITEMTEMPLATE structure must also be aligned on a DWORD boundary. All of the other variable-length arrays in the template must be aligned on WORD boundaries.In an extended dialog box template, the DLGTEMPLATEEX header and each of the DLGITEMTEMPLATEEX control definitions must be aligned on DWORD boundaries. The creation data array, if any, that follows a DLGITEMTEMPLATEEX structure must also be aligned on a DWORD boundary. All of the other variable-length arrays in the template must be aligned on WORD boundaries.All character strings in the dialog box template, such as titles for the dialog box and buttons, must be Unicode strings.ConceptualCreateWindowExDLGITEMTEMPLATEDLGITEMTEMPLATEEXDLGTEMPLATEDLGTEMPLATEEXDialog BoxesDialogBoxDialogBoxIndirectDialogBoxParamDialogProcEndDialogReferenceWM_INITDIALOGWM_SETFONT</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DialogBoxIndirectParamA(IntPtr hInstance, DLGTEMPLATE hDialogTemplate, IntPtr hWndParent, DLGPROC lpDialogFunc, IntPtr dwInitParam);
+        public static extern nint DialogBoxIndirectParamA(nint hInstance, DLGTEMPLATE hDialogTemplate, nint hWndParent, DLGPROC lpDialogFunc, nint dwInitParam);
 
         /// <summary>
         ///Creates a modal dialog box from a dialog box template in memory. Before displaying the dialog box, the function passes an application-defined value to the dialog box procedure as the lParam parameter of the WM_INITDIALOG message. An application can use this value to initialize dialog box controls.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="hDialogTemplate">Type: LPCDLGTEMPLATEThe template that DialogBoxIndirectParam uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format.In a standard template for a dialog box, the header is a DLGTEMPLATE structure followed by additional variable-length arrays. The data for each control consists of a DLGITEMTEMPLATE structure followed by additional variable-length arrays.In an extended template for a dialog box, the header uses the DLGTEMPLATEEX format and the control definitions use the DLGITEMTEMPLATEEX format.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="lpDialogFunc"></param>
         /// <param name="dwInitParam">Type: LPARAMThe value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.Type: INT_PTRIf the function succeeds, the return value is the nResult parameter specified in the call to the EndDialog function that was used to terminate the dialog box.If the function fails because the hWndParent parameter is invalid, the return value is zero. The function returns zero in this case for compatibility with previous versions of Windows. If the function fails for any other reason, the return value is –1. To get extended error information, call GetLastError.The DialogBoxIndirectParam function uses the CreateWindowEx function to create the dialog box. DialogBoxIndirectParam then sends a WM_INITDIALOG message to the dialog box procedure. If the template specifies the DS_SETFONT or DS_SHELLFONT style, the function also sends a WM_SETFONT message to the dialog box procedure. The function displays the dialog box (regardless of whether the template specifies the WS_VISIBLE style), disables the owner window, and starts its own message loop to retrieve and dispatch messages for the dialog box.When the dialog box procedure calls the EndDialog function, DialogBoxIndirectParam destroys the dialog box, ends the message loop, enables the owner window (if previously enabled), and returns the nResult parameter specified by the dialog box procedure when it called EndDialog.In a standard dialog box template, the DLGTEMPLATE structure and each of the DLGITEMTEMPLATE structures must be aligned on DWORD boundaries. The creation data array that follows a DLGITEMTEMPLATE structure must also be aligned on a DWORD boundary. All of the other variable-length arrays in the template must be aligned on WORD boundaries.In an extended dialog box template, the DLGTEMPLATEEX header and each of the DLGITEMTEMPLATEEX control definitions must be aligned on DWORD boundaries. The creation data array, if any, that follows a DLGITEMTEMPLATEEX structure must also be aligned on a DWORD boundary. All of the other variable-length arrays in the template must be aligned on WORD boundaries.All character strings in the dialog box template, such as titles for the dialog box and buttons, must be Unicode strings.ConceptualCreateWindowExDLGITEMTEMPLATEDLGITEMTEMPLATEEXDLGTEMPLATEDLGTEMPLATEEXDialog BoxesDialogBoxDialogBoxIndirectDialogBoxParamDialogProcEndDialogReferenceWM_INITDIALOGWM_SETFONT</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DialogBoxIndirectParamW(IntPtr hInstance, DLGTEMPLATE hDialogTemplate, IntPtr hWndParent, DLGPROC lpDialogFunc, IntPtr dwInitParam);
+        public static extern nint DialogBoxIndirectParamW(nint hInstance, DLGTEMPLATE hDialogTemplate, nint hWndParent, DLGPROC lpDialogFunc, nint dwInitParam);
 
         /// <summary>
         ///Creates a modal dialog box from a dialog box template in memory. DialogBoxIndirect does not return control until the specified callback function terminates the modal dialog box by calling the EndDialog function.
         /// </summary>
-        /// <param name="lpTemplate">Type: LPCDLGTEMPLATEThe template that DialogBoxIndirect uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format.In a standard template for a dialog box, the header is a DLGTEMPLATE structure followed by additional variable-length arrays. The data for each control consists of a DLGITEMTEMPLATE structure followed by additional variable-length arrays.In an extended template for a dialog box, the header uses the DLGTEMPLATEEX format and the control definitions use the DLGITEMTEMPLATEEX format.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern void DialogBoxIndirectW();
@@ -1411,31 +1491,36 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Creates a modal dialog box from a dialog box template resource. Before displaying the dialog box, the function passes an application-defined value to the dialog box procedure as the lParam parameter of the WM_INITDIALOG message. An application can use this value to initialize dialog box controls.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpTemplateName">Type: LPCTSTRThe dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the MAKEINTRESOURCE macro to create this value.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="lpDialogFunc"></param>
         /// <param name="dwInitParam">Type: LPARAMThe value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.Type: INT_PTRIf the function succeeds, the return value is the value of the nResult parameter specified in the call to the EndDialog function used to terminate the dialog box.If the function fails because the hWndParent parameter is invalid, the return value is zero. The function returns zero in this case for compatibility with previous versions of Windows. If the function fails for any other reason, the return value is –1. To get extended error information, call GetLastError.The DialogBoxParam function uses the CreateWindowEx function to create the dialog box. DialogBoxParam then sends a WM_INITDIALOG message (and a WM_SETFONT message if the template specifies the DS_SETFONT or DS_SHELLFONT style) to the dialog box procedure. The function displays the dialog box (regardless of whether the template specifies the WS_VISIBLE style), disables the owner window, and starts its own message loop to retrieve and dispatch messages for the dialog box.When the dialog box procedure calls the EndDialog function, DialogBoxParam destroys the dialog box, ends the message loop, enables the owner window (if previously enabled), and returns the nResult parameter specified by the dialog box procedure when it called EndDialog.ConceptualCreateWindowExDialog BoxesDialogBoxDialogBoxIndirectDialogBoxIndirectParamDialogProcEndDialogMAKEINTRESOURCEReferenceWM_INITDIALOGWM_SETFONT</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DialogBoxParamA(IntPtr hInstance, string lpTemplateName, IntPtr hWndParent, DLGPROC lpDialogFunc, IntPtr dwInitParam);
+        public static extern nint DialogBoxParamA(nint hInstance, string lpTemplateName, nint hWndParent, DLGPROC lpDialogFunc, nint dwInitParam);
 
         /// <summary>
         ///Creates a modal dialog box from a dialog box template resource. Before displaying the dialog box, the function passes an application-defined value to the dialog box procedure as the lParam parameter of the WM_INITDIALOG message. An application can use this value to initialize dialog box controls.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpTemplateName">Type: LPCTSTRThe dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the MAKEINTRESOURCE macro to create this value.</param>
+        /// <param name="hWndParent"></param>
+        /// <param name="lpDialogFunc"></param>
         /// <param name="dwInitParam">Type: LPARAMThe value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.Type: INT_PTRIf the function succeeds, the return value is the value of the nResult parameter specified in the call to the EndDialog function used to terminate the dialog box.If the function fails because the hWndParent parameter is invalid, the return value is zero. The function returns zero in this case for compatibility with previous versions of Windows. If the function fails for any other reason, the return value is –1. To get extended error information, call GetLastError.The DialogBoxParam function uses the CreateWindowEx function to create the dialog box. DialogBoxParam then sends a WM_INITDIALOG message (and a WM_SETFONT message if the template specifies the DS_SETFONT or DS_SHELLFONT style) to the dialog box procedure. The function displays the dialog box (regardless of whether the template specifies the WS_VISIBLE style), disables the owner window, and starts its own message loop to retrieve and dispatch messages for the dialog box.When the dialog box procedure calls the EndDialog function, DialogBoxParam destroys the dialog box, ends the message loop, enables the owner window (if previously enabled), and returns the nResult parameter specified by the dialog box procedure when it called EndDialog.ConceptualCreateWindowExDialog BoxesDialogBoxDialogBoxIndirectDialogBoxIndirectParamDialogProcEndDialogMAKEINTRESOURCEReferenceWM_INITDIALOGWM_SETFONT</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DialogBoxParamW(IntPtr hInstance, string lpTemplateName, IntPtr hWndParent, DLGPROC lpDialogFunc, IntPtr dwInitParam);
+        public static extern nint DialogBoxParamW(nint hInstance, string lpTemplateName, nint hWndParent, DLGPROC lpDialogFunc, nint dwInitParam);
 
         /// <summary>
         ///Creates a modal dialog box from a dialog box template resource. DialogBox does not return control until the specified callback function terminates the modal dialog box by calling the EndDialog function.
         /// </summary>
-        /// <param name="lpTemplate">Type: LPCTSTRThe dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the MAKEINTRESOURCE macro to create this value.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern void DialogBoxW();
@@ -1453,7 +1538,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpMsg">Type: const MSG*A pointer to a structure that contains the message.Type: LRESULTThe return value specifies the value returned by the window procedure. Although its meaning depends on the message being dispatched, the return value generally is ignored.The MSG structure must contain valid message values. If the lpmsg parameter points to a WM_TIMER message and the lParam parameter of the WM_TIMER message is not NULL, lParam points to a function that is called instead of the window procedure.Note that the application is responsible for retrieving and dispatching input messages to the dialog box. Most applications use the main message loop for this. However, to permit the user to move to and to select controls by using the keyboard, the application must call IsDialogMessage. For more information, see Dialog Box Keyboard Interface.For an example, see Creating a Message Loop.ConceptualGetMessageIsDialogMessageMSGMessages and Message QueuesPeekMessageReferenceTranslateMessageWM_TIMER</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DispatchMessage(MSG lpMsg);
+        public static extern nint DispatchMessage(MSG lpMsg);
 
         /// <summary>
         ///Dispatches a message to a window procedure. It is typically used to dispatch a message retrieved by the GetMessage function.
@@ -1461,7 +1546,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpMsg">Type: const MSG*A pointer to a structure that contains the message.Type: LRESULTThe return value specifies the value returned by the window procedure. Although its meaning depends on the message being dispatched, the return value generally is ignored.The MSG structure must contain valid message values. If the lpmsg parameter points to a WM_TIMER message and the lParam parameter of the WM_TIMER message is not NULL, lParam points to a function that is called instead of the window procedure.Note that the application is responsible for retrieving and dispatching input messages to the dialog box. Most applications use the main message loop for this. However, to permit the user to move to and to select controls by using the keyboard, the application must call IsDialogMessage. For more information, see Dialog Box Keyboard Interface.For an example, see Creating a Message Loop.ConceptualGetMessageIsDialogMessageMSGMessages and Message QueuesPeekMessageReferenceTranslateMessageWM_TIMER</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DispatchMessageA(MSG lpMsg);
+        public static extern nint DispatchMessageA(MSG lpMsg);
 
         /// <summary>
         ///Dispatches a message to a window procedure. It is typically used to dispatch a message retrieved by the GetMessage function.
@@ -1469,7 +1554,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpMsg">Type: const MSG*A pointer to a structure that contains the message.Type: LRESULTThe return value specifies the value returned by the window procedure. Although its meaning depends on the message being dispatched, the return value generally is ignored.The MSG structure must contain valid message values. If the lpmsg parameter points to a WM_TIMER message and the lParam parameter of the WM_TIMER message is not NULL, lParam points to a function that is called instead of the window procedure.Note that the application is responsible for retrieving and dispatching input messages to the dialog box. Most applications use the main message loop for this. However, to permit the user to move to and to select controls by using the keyboard, the application must call IsDialogMessage. For more information, see Dialog Box Keyboard Interface.For an example, see Creating a Message Loop.ConceptualGetMessageIsDialogMessageMSGMessages and Message QueuesPeekMessageReferenceTranslateMessageWM_TIMER</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr DispatchMessageW(MSG lpMsg);
+        public static extern nint DispatchMessageW(MSG lpMsg);
 
         /// <summary>
         ///The DisplayConfigGetDeviceInfo function retrieves display configuration information about the device.
@@ -1500,7 +1585,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int DlgDirListA(IntPtr hDlg, out string lpPathSpec, int nIDListBox, int nIDStaticPath, uint uFileType);
+        public static extern int DlgDirListA(nint hDlg, out string lpPathSpec, int nIDListBox, int nIDStaticPath, uint uFileType);
 
         /// <summary>
         ///Replaces the contents of a combo box with the names of the subdirectories and files in a specified directory. You can filter the list of names by specifying a set of file attributes. The list of names can include mapped drive letters.
@@ -1515,7 +1600,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int DlgDirListComboBoxA(IntPtr hDlg, out string lpPathSpec, int nIDComboBox, int nIDStaticPath, uint uFiletype);
+        public static extern int DlgDirListComboBoxA(nint hDlg, out string lpPathSpec, int nIDComboBox, int nIDStaticPath, uint uFiletype);
 
         /// <summary>
         ///Replaces the contents of a combo box with the names of the subdirectories and files in a specified directory. You can filter the list of names by specifying a set of file attributes. The list of names can include mapped drive letters.
@@ -1530,7 +1615,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int DlgDirListComboBoxW(IntPtr hDlg, out string lpPathSpec, int nIDComboBox, int nIDStaticPath, uint uFiletype);
+        public static extern int DlgDirListComboBoxW(nint hDlg, out string lpPathSpec, int nIDComboBox, int nIDStaticPath, uint uFiletype);
 
         /// <summary>
         ///Replaces the contents of a list box with the names of the subdirectories and files in a specified directory. You can filter the list of names by specifying a set of file attributes. The list can optionally include mapped drives.
@@ -1545,12 +1630,13 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int DlgDirListW(IntPtr hDlg, out string lpPathSpec, int nIDListBox, int nIDStaticPath, uint uFileType);
+        public static extern int DlgDirListW(nint hDlg, out string lpPathSpec, int nIDListBox, int nIDStaticPath, uint uFileType);
 
         /// <summary>
         ///Retrieves the current selection from a combo box filled by using the DlgDirListComboBox function. The selection is interpreted as a drive letter, a file, or a directory name.
         /// </summary>
         /// <param name="hwndDlg">Type: HWNDA handle to the dialog box that contains the combo box.</param>
+        /// <param name="lpString"></param>
         /// <param name="cchOut">Type: intThe length, in characters, of the buffer pointed to by the lpString parameter.</param>
         /// <param name="idComboBox">Type: intThe integer identifier of the combo box control in the dialog box.Type: BOOLIf the current selection is a directory name, the return value is nonzero.If the current selection is not a directory name, the return value is zero. To get extended error information, call GetLastError.If the current selection specifies a directory name or drive letter, the DlgDirSelectComboBoxEx function removes the enclosing square brackets (and hyphens for drive letters) so the name or letter is ready to be inserted into a new path or file name. If there is no selection, the contents of the buffer pointed to by lpString do not change.The DlgDirSelectComboBoxEx function does not allow more than one file name to be returned from a combo box.If the string is as long or longer than the buffer, the buffer contains the truncated string with a terminating null character.DlgDirSelectComboBoxEx sends CB_GETCURSEL and CB_GETLBTEXT messages to the combo box.You can use this function with all three types of combo boxes (CBS_SIMPLE, CBS_DROPDOWN, and CBS_DROPDOWNLIST).Security Warning:  Improper use of this function can cause problems for your application. For instance, the nCount parameter should be set properly for both ANSI and Unicode versions. Failure to do so could lead to a buffer overflow. You should review Security Considerations: Microsoft Windows Controls before continuing.Windows 95 or later: DlgDirSelectComboBoxExW is supported by the Microsoft Layer for Unicode (MSLU). To use this, you must add certain files to your application, as outlined in Microsoft Layer for Unicode on Windows Me/98/95 Systems.CB_GETCURSELCB_GETLBTEXTDlgDirListComboBoxReference</param>
         /// <remarks>
@@ -1558,12 +1644,13 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DlgDirSelectComboBoxExA(IntPtr hwndDlg, out string lpString, int cchOut, int idComboBox);
+        public static extern bool DlgDirSelectComboBoxExA(nint hwndDlg, out string lpString, int cchOut, int idComboBox);
 
         /// <summary>
         ///Retrieves the current selection from a combo box filled by using the DlgDirListComboBox function. The selection is interpreted as a drive letter, a file, or a directory name.
         /// </summary>
         /// <param name="hwndDlg">Type: HWNDA handle to the dialog box that contains the combo box.</param>
+        /// <param name="lpString"></param>
         /// <param name="cchOut">Type: intThe length, in characters, of the buffer pointed to by the lpString parameter.</param>
         /// <param name="idComboBox">Type: intThe integer identifier of the combo box control in the dialog box.Type: BOOLIf the current selection is a directory name, the return value is nonzero.If the current selection is not a directory name, the return value is zero. To get extended error information, call GetLastError.If the current selection specifies a directory name or drive letter, the DlgDirSelectComboBoxEx function removes the enclosing square brackets (and hyphens for drive letters) so the name or letter is ready to be inserted into a new path or file name. If there is no selection, the contents of the buffer pointed to by lpString do not change.The DlgDirSelectComboBoxEx function does not allow more than one file name to be returned from a combo box.If the string is as long or longer than the buffer, the buffer contains the truncated string with a terminating null character.DlgDirSelectComboBoxEx sends CB_GETCURSEL and CB_GETLBTEXT messages to the combo box.You can use this function with all three types of combo boxes (CBS_SIMPLE, CBS_DROPDOWN, and CBS_DROPDOWNLIST).Security Warning:  Improper use of this function can cause problems for your application. For instance, the nCount parameter should be set properly for both ANSI and Unicode versions. Failure to do so could lead to a buffer overflow. You should review Security Considerations: Microsoft Windows Controls before continuing.Windows 95 or later: DlgDirSelectComboBoxExW is supported by the Microsoft Layer for Unicode (MSLU). To use this, you must add certain files to your application, as outlined in Microsoft Layer for Unicode on Windows Me/98/95 Systems.CB_GETCURSELCB_GETLBTEXTDlgDirListComboBoxReference</param>
         /// <remarks>
@@ -1571,12 +1658,13 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DlgDirSelectComboBoxExW(IntPtr hwndDlg, out string lpString, int cchOut, int idComboBox);
+        public static extern bool DlgDirSelectComboBoxExW(nint hwndDlg, out string lpString, int cchOut, int idComboBox);
 
         /// <summary>
         ///Retrieves the current selection from a single-selection list box. It assumes that the list box has been filled by the DlgDirList function and that the selection is a drive letter, filename, or directory name.
         /// </summary>
         /// <param name="hwndDlg">Type: HWNDA handle to the dialog box that contains the list box.</param>
+        /// <param name="lpString"></param>
         /// <param name="chCount">Type: intThe length, in TCHARs, of the buffer pointed to by lpString.</param>
         /// <param name="idListBox">Type: intThe identifier of a list box in the dialog box.Type: BOOLIf the current selection is a directory name, the return value is nonzero.If the current selection is not a directory name, the return value is zero. To get extended error information, call GetLastError.The DlgDirSelectEx function copies the selection to the buffer pointed to by the lpString parameter. If the current selection is a directory name or drive letter, DlgDirSelectEx removes the enclosing square brackets (and hyphens, for drive letters), so that the name or letter is ready to be inserted into a new path. If there is no selection, lpString does not change.If the string is as long or longer than the buffer, the buffer will contain the truncated string with a terminating null character.DlgDirSelectEx sends LB_GETCURSEL and LB_GETTEXT messages to the list box. The function does not allow more than one filename to be returned from a list box. The list box must not be a multiple-selection list box. If it is, this function does not return a zero value and lpString remains unchanged.Windows 95 or later: DlgDirSelectExW is supported by the Microsoft Layer for Unicode. To use this, you must add certain files to your application, as outlined in Microsoft Layer for Unicode on Windows Me/98/95 Systems.For an example, see Creating a Directory Listing in a Single-selection List Box.DlgDirListDlgDirListComboBoxDlgDirSelectComboBoxExLB_GETCURSELLB_GETTEXTReference</param>
         /// <remarks>
@@ -1584,12 +1672,13 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DlgDirSelectExA(IntPtr hwndDlg, out string lpString, int chCount, int idListBox);
+        public static extern bool DlgDirSelectExA(nint hwndDlg, out string lpString, int chCount, int idListBox);
 
         /// <summary>
         ///Retrieves the current selection from a single-selection list box. It assumes that the list box has been filled by the DlgDirList function and that the selection is a drive letter, filename, or directory name.
         /// </summary>
         /// <param name="hwndDlg">Type: HWNDA handle to the dialog box that contains the list box.</param>
+        /// <param name="lpString"></param>
         /// <param name="chCount">Type: intThe length, in TCHARs, of the buffer pointed to by lpString.</param>
         /// <param name="idListBox">Type: intThe identifier of a list box in the dialog box.Type: BOOLIf the current selection is a directory name, the return value is nonzero.If the current selection is not a directory name, the return value is zero. To get extended error information, call GetLastError.The DlgDirSelectEx function copies the selection to the buffer pointed to by the lpString parameter. If the current selection is a directory name or drive letter, DlgDirSelectEx removes the enclosing square brackets (and hyphens, for drive letters), so that the name or letter is ready to be inserted into a new path. If there is no selection, lpString does not change. If the string is as long or longer than the buffer, the buffer will contain the truncated string with a terminating null character.DlgDirSelectEx sends LB_GETCURSEL and LB_GETTEXT messages to the list box. The function does not allow more than one filename to be returned from a list box. The list box must not be a multiple-selection list box. If it is, this function does not return a zero value and lpString remains unchanged.Windows 95 or later: DlgDirSelectExW is supported by the Microsoft Layer for Unicode. To use this, you must add certain files to your application, as outlined in Microsoft Layer for Unicode on Windows Me/98/95 Systems.For an example, see Creating a Directory Listing in a Single-selection List Box.DlgDirListDlgDirListComboBoxDlgDirSelectComboBoxExLB_GETCURSELLB_GETTEXTReference</param>
         /// <remarks>
@@ -1597,7 +1686,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DlgDirSelectExW(IntPtr hwndDlg, out string lpString, int chCount, int idListBox);
+        public static extern bool DlgDirSelectExW(nint hwndDlg, out string lpString, int chCount, int idListBox);
 
         /// <summary>
         ///Captures the mouse and tracks its movement until the user releases the left button, presses the ESC key, or moves the mouse outside the drag rectangle around the specified point. The width and height of the drag rectangle are specified by the SM_CXDRAG and SM_CYDRAG values returned by the GetSystemMetrics function.
@@ -1606,16 +1695,18 @@ namespace WindowAPI.winuser.h
         /// <param name="pt">Type: POINTInitial position of the mouse, in screen coordinates. The function determines the coordinates of the drag rectangle by using this point.Type: BOOLIf the user moved the mouse outside of the drag rectangle while holding down the left button, the return value is nonzero.If the user did not move the mouse outside of the drag rectangle while holding down the left button, the return value is zero.The system metrics for the drag rectangle are configurable, allowing for larger or smaller drag rectangles.ConceptualGetSystemMetricsMouse InputPOINTReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DragDetect(IntPtr hwnd, POINT pt);
+        public static extern bool DragDetect(nint hwnd, POINT pt);
 
         /// <summary>
         ///Animates the caption of a window to indicate the opening of an icon or the minimizing or maximizing of a window.
         /// </summary>
         /// <param name="hwnd">A handle to the window whose caption should be animated on the screen. The animation will be clipped to the parent of this window.</param>
         /// <param name="idAni">The type of animation. This must be IDANI_CAPTION. With the IDANI_CAPTION animation type, the window caption will animate from the position specified by lprcFrom to the position specified by lprcTo. The effect is similar to minimizing or maximizing a window.lprcFromA pointer to a RECT structure specifying the location and size of the icon or minimized window. Coordinates are relative to the clipping window hwnd.lprcToA pointer to a RECT structure specifying the location and size of the restored window. Coordinates are relative to the clipping window hwnd.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.Painting and Drawing FunctionsPainting and Drawing OverviewRECT</param>
+        /// <param name="lprcFrom"></param>
+        /// <param name="lprcTo"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DrawAnimatedRects(IntPtr hwnd, int idAni, RECT lprcFrom, RECT lprcTo);
+        public static extern bool DrawAnimatedRects(nint hwnd, int idAni, RECT lprcFrom, RECT lprcTo);
 
         /// <summary>
         ///The DrawCaption function draws a window caption.
@@ -1626,7 +1717,7 @@ namespace WindowAPI.winuser.h
         /// <param name="flags">The drawing options. This parameter can be zero or more of the following values.If DC_SMALLCAP is specified, the function draws a normal window caption.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.Painting and Drawing FunctionsPainting and Drawing OverviewRECT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DrawCaption(IntPtr hwnd, IntPtr hdc, RECT lprect, uint flags);
+        public static extern bool DrawCaption(nint hwnd, nint hdc, RECT lprect, uint flags);
 
         /// <summary>
         ///The DrawEdge function draws one or more edges of rectangle.
@@ -1637,7 +1728,7 @@ namespace WindowAPI.winuser.h
         /// <param name="grfFlags">The type of border. This parameter can be a combination of the following values.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.Painting and Drawing FunctionsPainting and Drawing OverviewRECT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DrawEdge(IntPtr hdc, out RECT qrc, uint edge, uint grfFlags);
+        public static extern bool DrawEdge(nint hdc, out RECT qrc, uint edge, uint grfFlags);
 
         /// <summary>
         ///The DrawFocusRect function draws a rectangle in the style used to indicate that the rectangle has the focus.
@@ -1646,14 +1737,14 @@ namespace WindowAPI.winuser.h
         /// <param name="lprc">A pointer to a RECT structure that specifies the logical coordinates of the rectangle.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.DrawFocusRect works only in MM_TEXT mode.Because DrawFocusRect is an XOR function, calling it a second time with the same rectangle removes the rectangle from the screen.This function draws a rectangle that cannot be scrolled. To scroll an area containing a rectangle drawn by this function, call DrawFocusRect to remove the rectangle from the screen, scroll the area, and then call DrawFocusRect again to draw the rectangle in the new position.Windows XP: The focus rectangle can now be thicker than 1 pixel, so it is more visible for high-resolution, high-density displays and accessibility needs. This is handled by the SPI_SETFOCUSBORDERWIDTH and SPI_SETFOCUSBORDERHEIGHT in SystemParametersInfo.For an example, see "Creating an Owner-Drawn List Box" in Using List Boxes.FrameRectPainting and Drawing FunctionsPainting and Drawing OverviewRECT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DrawFocusRect(IntPtr hDC, RECT lprc);
+        public static extern bool DrawFocusRect(nint hDC, RECT lprc);
 
         /// <summary>
         ///The DrawFrameControl function draws a frame control of the specified type and style.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DrawFrameControl(IntPtr hdc, RECT lprc, uint uType, uint uState);
+        public static extern bool DrawFrameControl(nint hdc, RECT lprc, uint uType, uint uState);
 
         /// <summary>
         ///Draws an icon or cursor into the specified device context.
@@ -1667,7 +1758,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DrawIcon(IntPtr hDC, int X, int Y, IntPtr hIcon);
+        public static extern bool DrawIcon(nint hDC, int X, int Y, nint hIcon);
 
         /// <summary>
         ///Draws an icon or cursor into the specified device context, performing the specified raster operations, and stretching or compressing the icon or cursor as specified.
@@ -1679,13 +1770,14 @@ namespace WindowAPI.winuser.h
         /// <param name="cxWidth">Type: intThe logical width of the icon or cursor. If this parameter is zero and the diFlags parameter is DI_DEFAULTSIZE, the function uses the SM_CXICON system metric value to set the width. If this parameter is zero and DI_DEFAULTSIZE is not used, the function uses the actual resource width.</param>
         /// <param name="cyWidth">Type: intThe logical height of the icon or cursor. If this parameter is zero and the diFlags parameter is DI_DEFAULTSIZE, the function uses the SM_CYICON system metric value to set the width. If this parameter is zero and DI_DEFAULTSIZE is not used, the function uses the actual resource height.</param>
         /// <param name="istepIfAniCur">Type: UINTThe index of the frame to draw, if hIcon identifies an animated cursor. This parameter is ignored if hIcon does not identify an animated cursor.</param>
+        /// <param name="hbrFlickerFreeDraw"></param>
         /// <param name="diFlags">Type: UINTThe drawing flags. This parameter can be one of the following values.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.The DrawIconEx function places the icon's upper-left corner at the location specified by the xLeft and yTop parameters. The location is subject to the current mapping mode of the device context.If only one of the DI_IMAGE and DI_MASK flags is set, then the corresponding bitmap is drawn with the SRCCOPY raster operation code.If both the DI_IMAGE and DI_MASK flags are set:To duplicate DrawIcon (hDC, X, Y, hIcon), call DrawIconEx as follows:ConceptualCopyImageDrawIconIconsLoadImageReferenceBitBltAlphaBlendBLENDFUNCTION</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DrawIconEx(IntPtr hdc, int xLeft, int yTop, IntPtr hIcon, int cxWidth, int cyWidth, uint istepIfAniCur, IntPtr hbrFlickerFreeDraw, uint diFlags);
+        public static extern bool DrawIconEx(nint hdc, int xLeft, int yTop, nint hIcon, int cxWidth, int cyWidth, uint istepIfAniCur, nint hbrFlickerFreeDraw, uint diFlags);
 
         /// <summary>
         ///Redraws the menu bar of the specified window. If the menu bar changes after the system has created the window, this function must be called to draw the changed menu bar.
@@ -1696,7 +1788,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DrawMenuBar(IntPtr hWnd);
+        public static extern bool DrawMenuBar(nint hWnd);
 
         /// <summary>
         ///The DrawState function displays an image and applies a visual effect to indicate a state, such as a disabled or default state.
@@ -1713,7 +1805,7 @@ namespace WindowAPI.winuser.h
         /// <param name="uFlags">The image type and state. This parameter can be one of the following type values.This parameter can also be one of the following state values.For all states except DSS_NORMAL, the image is converted to monochrome before the visual effect is applied.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.DrawStateProcPainting and Drawing FunctionsPainting and Drawing Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DrawStateA(IntPtr hdc, IntPtr hbrFore, DRAWSTATEPROC qfnCallBack, IntPtr lData, IntPtr wData, int x, int y, int cx, int cy, uint uFlags);
+        public static extern bool DrawStateA(nint hdc, nint hbrFore, DRAWSTATEPROC qfnCallBack, nint lData, nint wData, int x, int y, int cx, int cy, uint uFlags);
 
         /// <summary>
         ///The DrawState function displays an image and applies a visual effect to indicate a state, such as a disabled or default state.
@@ -1730,7 +1822,7 @@ namespace WindowAPI.winuser.h
         /// <param name="uFlags">The image type and state. This parameter can be one of the following type values.This parameter can also be one of the following state values.For all states except DSS_NORMAL, the image is converted to monochrome before the visual effect is applied.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.DrawStateProcPainting and Drawing FunctionsPainting and Drawing Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool DrawStateW(IntPtr hdc, IntPtr hbrFore, DRAWSTATEPROC qfnCallBack, IntPtr lData, IntPtr wData, int x, int y, int cx, int cy, uint uFlags);
+        public static extern bool DrawStateW(nint hdc, nint hbrFore, DRAWSTATEPROC qfnCallBack, nint lData, nint wData, int x, int y, int cx, int cy, uint uFlags);
 
         /// <summary>
         ///The DrawText function draws formatted text in the specified rectangle. It formats the text according to the specified method (expanding tabs, justifying characters, breaking lines, and so forth).
@@ -1742,7 +1834,7 @@ namespace WindowAPI.winuser.h
         /// <param name="format">The method of formatting the text. This parameter can be one or more of the following values.If the function succeeds, the return value is the height of the text in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from lpRect->top to the bottom of the drawn text.If the function fails, the return value is zero.The DrawText function uses the device context's selected font, text color, and background color to draw the text. Unless the DT_NOCLIP format is used, DrawText clips the text so that it does not appear outside the specified rectangle. Note that text with significant overhang may be clipped, for example, an initial "W" in the text string or text that is in italics. All formatting is assumed to have multiple lines unless the DT_SINGLELINE format is specified.If the selected font is too large for the specified rectangle, the DrawText function does not attempt to substitute a smaller font.The text alignment mode for the device context must include the TA_LEFT, TA_TOP, and TA_NOUPDATECP flags.DrawTextExFont and Text FunctionsFonts and Text OverviewGrayStringRECTTabbedTextOutTextOut</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int DrawText(IntPtr hdc, out string lpchText, int cchText, out RECT lprc, uint format);
+        public static extern int DrawText(nint hdc, out string lpchText, int cchText, out RECT lprc, uint format);
 
         /// <summary>
         ///The DrawText function draws formatted text in the specified rectangle. It formats the text according to the specified method (expanding tabs, justifying characters, breaking lines, and so forth).
@@ -1754,7 +1846,7 @@ namespace WindowAPI.winuser.h
         /// <param name="format">The method of formatting the text. This parameter can be one or more of the following values.If the function succeeds, the return value is the height of the text in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from lpRect->top to the bottom of the drawn textIf the function fails, the return value is zero.The DrawText function uses the device context's selected font, text color, and background color to draw the text. Unless the DT_NOCLIP format is used, DrawText clips the text so that it does not appear outside the specified rectangle. Note that text with significant overhang may be clipped, for example, an initial "W" in the text string or text that is in italics. All formatting is assumed to have multiple lines unless the DT_SINGLELINE format is specified.If the selected font is too large for the specified rectangle, the DrawText function does not attempt to substitute a smaller font.The text alignment mode for the device context must include the TA_LEFT, TA_TOP, and TA_NOUPDATECP flags.DrawTextExFont and Text FunctionsFonts and Text OverviewGrayStringRECTTabbedTextOutTextOut</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int DrawTextA(IntPtr hdc, out string lpchText, int cchText, out RECT lprc, uint format);
+        public static extern int DrawTextA(nint hdc, out string lpchText, int cchText, out RECT lprc, uint format);
 
         /// <summary>
         ///The DrawTextEx function draws formatted text in the specified rectangle.
@@ -1767,7 +1859,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpdtp">A pointer to a DRAWTEXTPARAMS structure that specifies additional formatting options. This parameter can be NULL.If the function succeeds, the return value is the text height in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from lprc->top to the bottom of the drawn textIf the function fails, the return value is zero.The DrawTextEx function supports only fonts whose escapement and orientation are both zero.The text alignment mode for the device context must include the TA_LEFT, TA_TOP, and TA_NOUPDATECP flags.DRAWTEXTPARAMSDrawTextFont and Text FunctionsFonts and Text Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int DrawTextExA(IntPtr hdc, out string lpchText, int cchText, out RECT lprc, uint format, DRAWTEXTPARAMS lpdtp);
+        public static extern int DrawTextExA(nint hdc, out string lpchText, int cchText, out RECT lprc, uint format, DRAWTEXTPARAMS lpdtp);
 
         /// <summary>
         ///The DrawTextEx function draws formatted text in the specified rectangle.
@@ -1780,7 +1872,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpdtp">A pointer to a DRAWTEXTPARAMS structure that specifies additional formatting options. This parameter can be NULL.If the function succeeds, the return value is the text height in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from lprc->top to the bottom of the drawn text.If the function fails, the return value is zero.The DrawTextEx function supports only fonts whose escapement and orientation are both zero.The text alignment mode for the device context must include the TA_LEFT, TA_TOP, and TA_NOUPDATECP flags.DRAWTEXTPARAMSDrawTextFont and Text FunctionsFonts and Text Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int DrawTextExW(IntPtr hdc, out string lpchText, int cchText, out RECT lprc, uint format, DRAWTEXTPARAMS lpdtp);
+        public static extern int DrawTextExW(nint hdc, out string lpchText, int cchText, out RECT lprc, uint format, DRAWTEXTPARAMS lpdtp);
 
         /// <summary>
         ///The DrawText function draws formatted text in the specified rectangle. It formats the text according to the specified method (expanding tabs, justifying characters, breaking lines, and so forth).
@@ -1792,7 +1884,7 @@ namespace WindowAPI.winuser.h
         /// <param name="format">The method of formatting the text. This parameter can be one or more of the following values.If the function succeeds, the return value is the height of the text in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from lpRect->top to the bottom of the drawn textIf the function fails, the return value is zero.The DrawText function uses the device context's selected font, text color, and background color to draw the text. Unless the DT_NOCLIP format is used, DrawText clips the text so that it does not appear outside the specified rectangle. Note that text with significant overhang may be clipped, for example, an initial "W" in the text string or text that is in italics. All formatting is assumed to have multiple lines unless the DT_SINGLELINE format is specified.If the selected font is too large for the specified rectangle, the DrawText function does not attempt to substitute a smaller font.The text alignment mode for the device context must include the TA_LEFT, TA_TOP, and TA_NOUPDATECP flags.DrawTextExFont and Text FunctionsFonts and Text OverviewGrayStringRECTTabbedTextOutTextOut</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int DrawTextW(IntPtr hdc, out string lpchText, int cchText, out RECT lprc, uint format);
+        public static extern int DrawTextW(nint hdc, out string lpchText, int cchText, out RECT lprc, uint format);
 
         /// <summary>
         ///Empties the clipboard and frees handles to data in the clipboard. The function then assigns ownership of the clipboard to the window that currently has the clipboard open.
@@ -1812,7 +1904,7 @@ namespace WindowAPI.winuser.h
         /// <param name="uEnable">Type: UINTControls the interpretation of the uIDEnableItem parameter and indicate whether the menu item is enabled, disabled, or grayed. This parameter must be a combination of the following values.Type: BOOLThe return value specifies the previous state of the menu item (it is either MF_DISABLED, MF_ENABLED, or MF_GRAYED). If the menu item does not exist, the return value is -1.An application must use the MF_BYPOSITION flag to specify the correct menu handle. If the menu handle to the menu bar is specified, the top-level menu item (an item in the menu bar) is affected. To set the state of an item in a drop-down menu or submenu by position, an application must specify a handle to the drop-down menu or submenu.When an application specifies the MF_BYCOMMAND flag, the system checks all items that open submenus in the menu identified by the specified menu handle. Therefore, unless duplicate menu items are present, specifying the menu handle to the menu bar is sufficient.The InsertMenu, InsertMenuItem, LoadMenuIndirect, ModifyMenu, and SetMenuItemInfo functions can also set the state (enabled, disabled, or grayed) of a menu item.When you change a window menu, the menu bar is not immediately updated. To force the update, call DrawMenuBar.ConceptualDrawMenuBarGetMenuItemIDInsertMenuInsertMenuItemLoadMenuIndirectMenusModifyMenuReferenceSetMenuItemInfoWM_SYSCOMMAND</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, uint uEnable);
+        public static extern bool EnableMenuItem(nint hMenu, uint uIDEnableItem, uint uEnable);
 
         /// <summary>
         ///Enables the mouse to act as a pointer input device and send WM_POINTER messages.
@@ -1834,7 +1926,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnableNonClientDpiScaling(IntPtr hwnd);
+        public static extern bool EnableNonClientDpiScaling(nint hwnd);
 
         /// <summary>
         ///The EnableScrollBar function enables or disables one or both scroll bar arrows.
@@ -1847,7 +1939,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnableScrollBar(IntPtr hWnd, uint wSBflags, uint wArrows);
+        public static extern bool EnableScrollBar(nint hWnd, uint wSBflags, uint wArrows);
 
         /// <summary>
         ///Enables or disables mouse and keyboard input to the specified window or control. When input is disabled, the window does not receive input such as mouse clicks and key presses. When input is enabled, the window receives all input.
@@ -1856,7 +1948,7 @@ namespace WindowAPI.winuser.h
         /// <param name="bEnable">Type: BOOLIndicates whether to enable or disable the window. If this parameter is TRUE, the window is enabled. If the parameter is FALSE, the window is disabled.Type: BOOLIf the window was previously disabled, the return value is nonzero.If the window was not previously disabled, the return value is zero.If the window is being disabled, the system sends a WM_CANCELMODE message. If the enabled state of a window is changing, the system sends a WM_ENABLE message after the WM_CANCELMODE message. (These messages are sent before EnableWindow returns.) If a window is already disabled, its child windows are implicitly disabled, although they are not sent a WM_ENABLE message.A window must be enabled before it can be activated. For example, if an application is displaying a modeless dialog box and has disabled its main window, the application must enable the main window before destroying the dialog box. Otherwise, another window will receive the keyboard focus and be activated. If a child window is disabled, it is ignored when the system tries to determine which window should receive mouse messages.By default, a window is enabled when it is created. To create a window that is initially disabled, an application can specify the WS_DISABLED style in the CreateWindow or CreateWindowEx function. After a window has been created, an application can use EnableWindow to enable or disable the window.An application can use this function to enable or disable a control in a dialog box. A disabled control cannot receive the keyboard focus, nor can a user gain access to it.ConceptualCreateWindowCreateWindowExIsWindowEnabledKeyboard InputReferenceWM_ENABLE</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnableWindow(IntPtr hWnd, bool bEnable);
+        public static extern bool EnableWindow(nint hWnd, bool bEnable);
 
         /// <summary>
         ///Simultaneously updates the position and size of one or more windows in a single screen-refreshing cycle.
@@ -1867,7 +1959,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EndDeferWindowPos(IntPtr hWinPosInfo);
+        public static extern bool EndDeferWindowPos(nint hWinPosInfo);
 
         /// <summary>
         ///Destroys a modal dialog box, causing the system to end any processing for the dialog box.
@@ -1879,7 +1971,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EndDialog(IntPtr hDlg, IntPtr nResult);
+        public static extern bool EndDialog(nint hDlg, nint nResult);
 
         /// <summary>
         ///Ends the calling thread's active menu.
@@ -1898,7 +1990,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpPaint">Pointer to a PAINTSTRUCT structure that contains the painting information retrieved by BeginPaint.The return value is always nonzero.If the caret was hidden by BeginPaint, EndPaint restores the caret to the screen.EndPaint releases the display device context that BeginPaint retrieved.For an example, see Drawing in the Client Area.BeginPaintPAINTSTRUCTPainting and Drawing FunctionsPainting and Drawing Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EndPaint(IntPtr hWnd, PAINTSTRUCT lpPaint);
+        public static extern bool EndPaint(nint hWnd, PAINTSTRUCT lpPaint);
 
         /// <summary>
         ///[This function is not intended for general use. It may be altered or unavailable in subsequent versions of Windows.]
@@ -1911,16 +2003,17 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EndTask(IntPtr hWnd, bool fShutDown, bool fForce);
+        public static extern bool EndTask(nint hWnd, bool fShutDown, bool fForce);
 
         /// <summary>
         ///Enumerates the child windows that belong to the specified parent window by passing the handle to each child window, in turn, to an application-defined callback function. EnumChildWindows continues until the last child window is enumerated or the callback function returns FALSE.
         /// </summary>
+        /// <param name="hWndParent"></param>
         /// <param name="lpEnumFunc">Type: WNDENUMPROCA pointer to an application-defined callback function. For more information, see EnumChildProc.</param>
         /// <param name="lParam">Type: LPARAMAn application-defined value to be passed to the callback function.Type: BOOLThe return value is not used.If a child window has created child windows of its own, EnumChildWindows enumerates those windows as well.A child window that is moved or repositioned in the Z order during the enumeration process will be properly enumerated. The function does not enumerate a child window that is destroyed before being enumerated or that is created during the enumeration process.ConceptualEnumChildProcEnumThreadWindowsEnumWindowsGetWindowReferenceWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnumChildWindows(IntPtr hWndParent, MFENUMPROC lpEnumFunc, IntPtr lParam);
+        public static extern bool EnumChildWindows(nint hWndParent, MFENUMPROC lpEnumFunc, nint lParam);
 
         /// <summary>
         ///Enumerates the data formats currently available on the clipboard.
@@ -1936,24 +2029,27 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Enumerates all desktops associated with the specified window station of the calling process. The function passes the name of each desktop, in turn, to an application-defined callback function.
         /// </summary>
+        /// <param name="hwinsta"></param>
         /// <param name="lpEnumFunc">A pointer to an application-defined EnumDesktopProc callback function.</param>
         /// <param name="lParam">An application-defined value to be passed to the callback function.If the function succeeds, it returns the nonzero value returned by the callback function that was pointed to by lpEnumFunc.If the function is unable to perform the enumeration, the return value is zero. Call GetLastError to get extended error information.If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.The EnumDesktops function enumerates only those desktops for which the calling process has the DESKTOP_ENUMERATE access right. For more information, see Desktop Security and Access Rights.The EnumDesktops function repeatedly invokes the lpEnumFunc callback function until the last desktop is enumerated or the callback function returns FALSE.CreateWindowStationDesktopsEnumDesktopProcGetProcessWindowStationOpenWindowStationWindow Station and Desktop Functions</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnumDesktopsA(int hwinsta, PROPENUMPROCA lpEnumFunc, IntPtr lParam);
+        public static extern bool EnumDesktopsA(int hwinsta, PROPENUMPROCA lpEnumFunc, nint lParam);
 
         /// <summary>
         ///Enumerates all desktops associated with the specified window station of the calling process. The function passes the name of each desktop, in turn, to an application-defined callback function.
         /// </summary>
+        /// <param name="hwinsta"></param>
         /// <param name="lpEnumFunc">A pointer to an application-defined EnumDesktopProc callback function.</param>
         /// <param name="lParam">An application-defined value to be passed to the callback function.If the function succeeds, it returns the nonzero value returned by the callback function that was pointed to by lpEnumFunc.If the function is unable to perform the enumeration, the return value is zero. Call GetLastError to get extended error information.If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.The EnumDesktops function enumerates only those desktops for which the calling process has the DESKTOP_ENUMERATE access right. For more information, see Desktop Security and Access Rights.The EnumDesktops function repeatedly invokes the lpEnumFunc callback function until the last desktop is enumerated or the callback function returns FALSE.CreateWindowStationDesktopsEnumDesktopProcGetProcessWindowStationOpenWindowStationWindow Station and Desktop Functions</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnumDesktopsW(int hwinsta, PROPENUMPROCW lpEnumFunc, IntPtr lParam);
+        public static extern bool EnumDesktopsW(int hwinsta, PROPENUMPROCW lpEnumFunc, nint lParam);
 
         /// <summary>
         ///Enumerates all top-level windows associated with the specified desktop. It passes the handle to each window, in turn, to an application-defined callback function.
         /// </summary>
+        /// <param name="hDesktop"></param>
         /// <param name="lpfn">A pointer to an application-defined EnumWindowsProc callback function.</param>
         /// <param name="lParam">An application-defined value to be passed to the callback function.If the function fails or is unable to perform the enumeration, the return value is zero.To get extended error information, call GetLastError.You must ensure that the callback function sets SetLastError if it fails.Windows Server 2003 and Windows XP/2000:  If there are no windows on the desktop, GetLastError returns ERROR_INVALID_HANDLE.The EnumDesktopWindows function repeatedly invokes the lpfn callback function until the last top-level window is enumerated or the callback function returns FALSE.CreateDesktopDesktopsEnumWindowsProcGetThreadDesktopOpenDesktopWindow Station and Desktop Functions</param>
         /// <remarks>
@@ -1961,13 +2057,14 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnumDesktopWindows(IntPtr hDesktop, MFENUMPROC lpfn, IntPtr lParam);
+        public static extern bool EnumDesktopWindows(nint hDesktop, MFENUMPROC lpfn, nint lParam);
 
         /// <summary>
         ///The EnumDisplayDevices function lets you obtain information about the display devices in the current session.
         /// </summary>
         /// <param name="lpDevice">A pointer to the device name. If NULL, function returns information for the display adapter(s) on the machine, based on iDevNum.For more information, see Remarks.</param>
         /// <param name="iDevNum">An index value that specifies the display device of interest.The operating system identifies each display device in the current session with an index value. The index values are consecutive integers, starting at 0. If the current session has three display devices, for example, they are specified by the index values 0, 1, and 2.</param>
+        /// <param name="lpDisplayDevice"></param>
         /// <param name="dwFlags">Set this flag to EDD_GET_DEVICE_INTERFACE_NAME (0x00000001) to retrieve the device interface name for GUID_DEVINTERFACE_MONITOR, which is registered by the operating system on a per monitor basis. The value is placed in the DeviceID member of the DISPLAY_DEVICE structure returned in lpDisplayDevice. The resulting device interface name can be used with SetupAPI functions and serves as a link between GDI monitor devices and SetupAPI monitor devices.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. The function fails if iDevNum is greater than the largest device index.To query all display devices in the current session, call this function in a loop, starting with iDevNum set to 0, and incrementing iDevNum until the function fails. To select all display devices in the desktop, use only the display devices that have the DISPLAY_DEVICE_ATTACHED_TO_DESKTOP flag in the DISPLAY_DEVICE structure.To get information on the display adapter, call EnumDisplayDevices with lpDevice set to NULL. For example, DISPLAY_DEVICE.DeviceString contains the adapter name.To obtain information on a display monitor, first call EnumDisplayDevices with lpDevice set to NULL. Then call EnumDisplayDevices with lpDevice set to DISPLAY_DEVICE.DeviceName from the first call to EnumDisplayDevices and with iDevNum set to zero. Then DISPLAY_DEVICE.DeviceString is the monitor name.To query all monitor devices associated with an adapter, call EnumDisplayDevices in a loop with lpDevice set to the adapter name, iDevNum set to start at 0, and iDevNum set to increment until the function fails. Note that DISPLAY_DEVICE.DeviceName changes with each call for monitor information, so you must save the adapter name. The function fails when there are no more monitors for the adapter.ChangeDisplaySettingsChangeDisplaySettingsExCreateDCDEVMODEDISPLAY_DEVICEDevice Context FunctionsDevice Contexts OverviewEnumDisplaySettings</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -1978,6 +2075,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="lpDevice">A pointer to the device name. If NULL, function returns information for the display adapter(s) on the machine, based on iDevNum.For more information, see Remarks.</param>
         /// <param name="iDevNum">An index value that specifies the display device of interest.The operating system identifies each display device in the current session with an index value. The index values are consecutive integers, starting at 0. If the current session has three display devices, for example, they are specified by the index values 0, 1, and 2.</param>
+        /// <param name="lpDisplayDevice"></param>
         /// <param name="dwFlags">Set this flag to EDD_GET_DEVICE_INTERFACE_NAME (0x00000001) to retrieve the device interface name for GUID_DEVINTERFACE_MONITOR, which is registered by the operating system on a per monitor basis. The value is placed in the DeviceID member of the DISPLAY_DEVICE structure returned in lpDisplayDevice. The resulting device interface name can be used with SetupAPI functions and serves as a link between GDI monitor devices and SetupAPI monitor devices.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero. The function fails if iDevNum is greater than the largest device index.To query all display devices in the current session, call this function in a loop, starting with iDevNum set to 0, and incrementing iDevNum until the function fails. To select all display devices in the desktop, use only the display devices that have the DISPLAY_DEVICE_ATTACHED_TO_DESKTOP flag in the DISPLAY_DEVICE structure.To get information on the display adapter, call EnumDisplayDevices with lpDevice set to NULL. For example, DISPLAY_DEVICE.DeviceString contains the adapter name.To obtain information on a display monitor, first call EnumDisplayDevices with lpDevice set to NULL. Then call EnumDisplayDevices with lpDevice set to DISPLAY_DEVICE.DeviceName from the first call to EnumDisplayDevices and with iDevNum set to zero. Then DISPLAY_DEVICE.DeviceString is the monitor name.To query all monitor devices associated with an adapter, call EnumDisplayDevices in a loop with lpDevice set to the adapter name, iDevNum set to start at 0, and iDevNum set to increment until the function fails. Note that DISPLAY_DEVICE.DeviceName changes with each call for monitor information, so you must save the adapter name. The function fails when there are no more monitors for the adapter.ChangeDisplaySettingsChangeDisplaySettingsExCreateDCDEVMODEDISPLAY_DEVICEDevice Context FunctionsDevice Contexts OverviewEnumDisplaySettings</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -1992,13 +2090,14 @@ namespace WindowAPI.winuser.h
         /// <param name="dwData">Application-defined data that EnumDisplayMonitors passes directly to the MonitorEnumProc function.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.There are two reasons to call the EnumDisplayMonitors function:You do not need to use the EnumDisplayMonitors function when a window spans display monitors that have different color formats. You can continue to paint under the assumption that the entire screen has the color properties of the primary monitor. Your windows will look fine. EnumDisplayMonitors just lets you make them look better.Setting the hdc parameter to NULL lets you use the EnumDisplayMonitors function to obtain a handle and position rectangle for one or more display monitors. The following table shows how the four combinations of NULL and non-NULLhdc and lprcClip values affect the behavior of the EnumDisplayMonitors function.To paint in response to a WM_PAINT message, using the capabilities of each monitor, you can use code like this in a window procedure:To paint the top half of a window using the capabilities of each monitor, you can use code like this:To paint the entire virtual screen optimally for each display monitor, you can use code like this:To retrieve information about all of the display monitors, use code like this:GetSystemMetricsMonitorEnumProcMultiple Display Monitors FunctionsMultiple Display Monitors Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnumDisplayMonitors(IntPtr hdc, RECT lprcClip, MONITORENUMPROC lpfnEnum, IntPtr dwData);
+        public static extern bool EnumDisplayMonitors(nint hdc, RECT lprcClip, MONITORENUMPROC lpfnEnum, nint dwData);
 
         /// <summary>
         ///The EnumDisplaySettings function retrieves information about one of the graphics modes for a display device. To retrieve information for all the graphics modes of a display device, make a series of calls to this function.
         /// </summary>
         /// <param name="lpszDeviceName">A pointer to a null-terminated string that specifies the display device about whose graphics mode the function will obtain information.This parameter is either NULL or a DISPLAY_DEVICE.DeviceName returned from EnumDisplayDevices. A NULL value specifies the current display device on the computer on which the calling thread is running.</param>
         /// <param name="iModeNum">The type of information to be retrieved. This value can be a graphics mode index or one of the following values.Graphics mode indexes start at zero. To obtain information for all of a display device's graphics modes, make a series of calls to EnumDisplaySettings, as follows: Set iModeNum to zero for the first call, and increment iModeNum by one for each subsequent call. Continue calling the function until the return value is zero.When you call EnumDisplaySettings with iModeNum set to zero, the operating system initializes and caches information about the display device. When you call EnumDisplaySettings with iModeNum set to a nonzero value, the function returns the information that was cached the last time the function was called with iModeNum set to zero.</param>
+        /// <param name="lpDevMode"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool EnumDisplaySettingsA(string lpszDeviceName, uint iModeNum, out uint lpDevMode);
@@ -2008,6 +2107,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="lpszDeviceName">A pointer to a null-terminated string that specifies the display device about which graphics mode the function will obtain information.This parameter is either NULL or a DISPLAY_DEVICE.DeviceName returned from EnumDisplayDevices. A NULL value specifies the current display device on the computer that the calling thread is running on.</param>
         /// <param name="iModeNum">Indicates the type of information to be retrieved. This value can be a graphics mode index or one of the following values.Graphics mode indexes start at zero. To obtain information for all of a display device's graphics modes, make a series of calls to EnumDisplaySettingsEx, as follows: Set iModeNum to zero for the first call, and increment iModeNum by one for each subsequent call. Continue calling the function until the return value is zero.When you call EnumDisplaySettingsEx with iModeNum set to zero, the operating system initializes and caches information about the display device. When you call EnumDisplaySettingsEx with iModeNum set to a nonzero value, the function returns the information that was cached the last time the function was called with iModeNum set to zero.</param>
+        /// <param name="lpDevMode"></param>
         /// <param name="dwFlags">This parameter can be the following value.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.The function fails if iModeNum is greater than the index of the display device's last graphics mode. As noted in the description of the iModeNum parameter, you can use this behavior to enumerate all of a display device's graphics modes.ChangeDisplaySettingsChangeDisplaySettingsExCreateDCCreateDesktopDEVMODEDISPLAY_DEVICEDevice Context FunctionsDevice Contexts OverviewEnumDisplayDevicesEnumDisplaySettings</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -2018,6 +2118,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="lpszDeviceName">A pointer to a null-terminated string that specifies the display device about which graphics mode the function will obtain information.This parameter is either NULL or a DISPLAY_DEVICE. DeviceName returned from EnumDisplayDevices. A NULL value specifies the current display device on the computer that the calling thread is running on.</param>
         /// <param name="iModeNum">Indicates the type of information to be retrieved. This value can be a graphics mode index or one of the following values.Graphics mode indexes start at zero. To obtain information for all of a display device's graphics modes, make a series of calls to EnumDisplaySettingsEx, as follows: Set iModeNum to zero for the first call, and increment iModeNum by one for each subsequent call. Continue calling the function until the return value is zero.When you call EnumDisplaySettingsEx with iModeNum set to zero, the operating system initializes and caches information about the display device. When you call EnumDisplaySettingsEx with iModeNum set to a nonzero value, the function returns the information that was cached the last time the function was called with iModeNum set to zero.</param>
+        /// <param name="lpDevMode"></param>
         /// <param name="dwFlags">This parameter can be the following value.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.The function fails if iModeNum is greater than the index of the display device's last graphics mode. As noted in the description of the iModeNum parameter, you can use this behavior to enumerate all of a display device's graphics modes.ChangeDisplaySettingsChangeDisplaySettingsExCreateDCCreateDesktopDEVMODEDISPLAY_DEVICEDevice Context FunctionsDevice Contexts OverviewEnumDisplayDevicesEnumDisplaySettings</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -2028,6 +2129,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="lpszDeviceName">A pointer to a null-terminated string that specifies the display device about whose graphics mode the function will obtain information.This parameter is either NULL or a DISPLAY_DEVICE.DeviceName returned from EnumDisplayDevices. A NULL value specifies the current display device on the computer on which the calling thread is running.</param>
         /// <param name="iModeNum">The type of information to be retrieved. This value can be a graphics mode index or one of the following values.Graphics mode indexes start at zero. To obtain information for all of a display device's graphics modes, make a series of calls to EnumDisplaySettings, as follows: Set iModeNum to zero for the first call, and increment iModeNum by one for each subsequent call. Continue calling the function until the return value is zero.When you call EnumDisplaySettings with iModeNum set to zero, the operating system initializes and caches information about the display device. When you call EnumDisplaySettings with iModeNum set to a nonzero value, the function returns the information that was cached the last time the function was called with iModeNum set to zero.</param>
+        /// <param name="lpDevMode"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool EnumDisplaySettingsW(string lpszDeviceName, uint iModeNum, out uint lpDevMode);
@@ -2039,7 +2141,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpEnumFunc">Type: PROPENUMPROCA pointer to the callback function. For more information about the callback function, see the PropEnumProc function.Type: intThe return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.An application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.ConceptualEnumPropsExPropEnumProcReferenceWindow Properties</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int EnumPropsA(IntPtr hWnd, PROPENUMPROCA lpEnumFunc);
+        public static extern int EnumPropsA(nint hWnd, PROPENUMPROCA lpEnumFunc);
 
         /// <summary>
         ///Enumerates all entries in the property list of a window by passing them, one by one, to the specified callback function. EnumPropsEx continues until the last entry is enumerated or the callback function returns FALSE.
@@ -2049,7 +2151,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMApplication-defined data to be passed to the callback function.Type: intThe return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.An application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.For an example, see Listing Window Properties for a Given Window.ConceptualPropEnumProcExReferenceWindow Properties</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int EnumPropsExA(IntPtr hWnd, PROPENUMPROCEXA lpEnumFunc, IntPtr lParam);
+        public static extern int EnumPropsExA(nint hWnd, PROPENUMPROCEXA lpEnumFunc, nint lParam);
 
         /// <summary>
         ///Enumerates all entries in the property list of a window by passing them, one by one, to the specified callback function. EnumPropsEx continues until the last entry is enumerated or the callback function returns FALSE.
@@ -2059,7 +2161,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMApplication-defined data to be passed to the callback function.Type: intThe return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.An application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.For an example, see Listing Window Properties for a Given Window.ConceptualPropEnumProcExReferenceWindow Properties</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int EnumPropsExW(IntPtr hWnd, PROPENUMPROCEXW lpEnumFunc, IntPtr lParam);
+        public static extern int EnumPropsExW(nint hWnd, PROPENUMPROCEXW lpEnumFunc, nint lParam);
 
         /// <summary>
         ///Enumerates all entries in the property list of a window by passing them, one by one, to the specified callback function. EnumProps continues until the last entry is enumerated or the callback function returns FALSE.
@@ -2068,7 +2170,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpEnumFunc">Type: PROPENUMPROCA pointer to the callback function. For more information about the callback function, see the PropEnumProc function.Type: intThe return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.An application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.ConceptualEnumPropsExPropEnumProcReferenceWindow Properties</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int EnumPropsW(IntPtr hWnd, PROPENUMPROCW lpEnumFunc);
+        public static extern int EnumPropsW(nint hWnd, PROPENUMPROCW lpEnumFunc);
 
         /// <summary>
         ///Enumerates all nonchild windows associated with a thread by passing the handle to each window, in turn, to an application-defined callback function. EnumThreadWindows continues until the last window is enumerated or the callback function returns FALSE. To enumerate child windows of a particular window, use the EnumChildWindows function.
@@ -2078,7 +2180,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAn application-defined value to be passed to the callback function.Type: BOOLIf the callback function returns TRUE for all windows in the thread specified by dwThreadId, the return value is TRUE. If the callback function returns FALSE on any enumerated window, or if there are no windows found in the thread specified by dwThreadId, the return value is FALSE.ConceptualEnumChildWindowsEnumThreadWndProcEnumWindowsReferenceWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnumThreadWindows(uint dwThreadId, MFENUMPROC lpfn, IntPtr lParam);
+        public static extern bool EnumThreadWindows(uint dwThreadId, MFENUMPROC lpfn, nint lParam);
 
         /// <summary>
         ///Enumerates all top-level windows on the screen by passing the handle to each window, in turn, to an application-defined callback function. EnumWindows continues until the last top-level window is enumerated or the callback function returns FALSE.
@@ -2090,7 +2192,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnumWindows(MFENUMPROC lpEnumFunc, IntPtr lParam);
+        public static extern bool EnumWindows(MFENUMPROC lpEnumFunc, nint lParam);
 
         /// <summary>
         ///Enumerates all window stations in the current session. The function passes the name of each window station, in turn, to an application-defined callback function.
@@ -2099,7 +2201,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">An application-defined value to be passed to the callback function.If the function succeeds, it returns the nonzero value returned by the callback function that was pointed to by lpEnumFunc.If the function is unable to perform the enumeration, the return value is zero. Call GetLastError to get extended error information.If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.The EnumWindowStations function enumerates only those window stations for which the calling process has the WINSTA_ENUMERATE access right. For more information, see Window Station Security and Access Rights.EnumWindowStations repeatedly invokes the lpEnumFunc callback function until the last window station is enumerated or the callback function returns FALSE.EnumWindowStationProcWindow Station and Desktop FunctionsWindow Stations</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnumWindowStationsA(ICMENUMPROCA lpEnumFunc, IntPtr lParam);
+        public static extern bool EnumWindowStationsA(ICMENUMPROCA lpEnumFunc, nint lParam);
 
         /// <summary>
         ///Enumerates all window stations in the current session. The function passes the name of each window station, in turn, to an application-defined callback function.
@@ -2108,7 +2210,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">An application-defined value to be passed to the callback function.If the function succeeds, it returns the nonzero value returned by the callback function that was pointed to by lpEnumFunc.If the function is unable to perform the enumeration, the return value is zero. Call GetLastError to get extended error information.If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.The EnumWindowStations function enumerates only those window stations for which the calling process has the WINSTA_ENUMERATE access right. For more information, see Window Station Security and Access Rights.EnumWindowStations repeatedly invokes the lpEnumFunc callback function until the last window station is enumerated or the callback function returns FALSE.EnumWindowStationProcWindow Station and Desktop FunctionsWindow Stations</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool EnumWindowStationsW(ICMENUMPROCW lpEnumFunc, IntPtr lParam);
+        public static extern bool EnumWindowStationsW(ICMENUMPROCW lpEnumFunc, nint lParam);
 
         /// <summary>
         ///The EqualRect function determines whether the two specified rectangles are equal by comparing the coordinates of their upper-left and lower-right corners.
@@ -2122,8 +2224,10 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Returns the score of a polygon as the probable touch target (compared to all other polygons that intersect the touch contact area) and an adjusted touch point within the polygon.
         /// </summary>
+        /// <param name="numVertices"></param>
         /// <param name="controlPolygon">The array of x-y screen coordinates that define the shape of the UI element.The numVertices parameter specifies the number of coordinates.</param>
         /// <param name="pHitTestingInput">The TOUCH_HIT_TESTING_INPUT structure that holds the data for the touch contact area.</param>
+        /// <param name="pProximityEval"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool EvaluateProximityToPolygon(int numVertices, POINT controlPolygon, TOUCH_HIT_TESTING_INPUT pHitTestingInput, out TOUCH_HIT_TESTING_PROXIMITY_EVALUATION pProximityEval);
@@ -2133,6 +2237,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="controlBoundingBox">The RECT structure that defines the bounding box of the UI element.</param>
         /// <param name="pHitTestingInput">The TOUCH_HIT_TESTING_INPUT structure that holds the data for the touch contact area.</param>
+        /// <param name="pProximityEval"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool EvaluateProximityToRect(RECT controlBoundingBox, TOUCH_HIT_TESTING_INPUT pHitTestingInput, out TOUCH_HIT_TESTING_PROXIMITY_EVALUATION pProximityEval);
@@ -2144,7 +2249,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Handle to the window to update.The return value specifies the complexity of the excluded region; it can be any one of the following values.BeginPaintGetUpdateRectGetUpdateRgnPainting and Drawing FunctionsPainting and Drawing OverviewUpdateWindow</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int ExcludeUpdateRgn(IntPtr hDC, IntPtr hWnd);
+        public static extern int ExcludeUpdateRgn(nint hDC, nint hWnd);
 
         /// <summary>
         ///Logs off the interactive user, shuts down the system, or shuts down and restarts the system. It sends the WM_QUERYENDSESSION message to all applications to determine if they can be terminated.
@@ -2166,7 +2271,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hbr">A handle to the brush used to fill the rectangle.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.The brush identified by the hbr parameter may be either a handle to a logical brush or a color value. If specifying a handle to a logical brush, call one of the following functions to obtain the handle: CreateHatchBrush, CreatePatternBrush, or CreateSolidBrush. Additionally, you may retrieve a handle to one of the stock brushes by using the GetStockObject function. If specifying a color value for the hbr parameter, it must be one of the standard system colors (the value 1 must be added to the chosen color). For example:For a list of all the standard system colors, see GetSysColor.When filling the specified rectangle, FillRect does not include the rectangle's right and bottom sides. GDI fills a rectangle up to, but not including, the right column and bottom row, regardless of the current mapping mode.For an example, see Using Rectangles.CreateHatchBrushCreatePatternBrushCreateSolidBrushFilled Shape FunctionsFilled Shapes OverviewGetStockObjectRECT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int FillRect(IntPtr hDC, RECT lprc, IntPtr hbr);
+        public static extern int FillRect(nint hDC, RECT lprc, nint hbr);
 
         /// <summary>
         ///Retrieves a handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows. This function does not perform a case-sensitive search.
@@ -2176,7 +2281,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindowA(string lpClassName, string lpWindowName);
+        public static extern nint FindWindowA(string lpClassName, string lpWindowName);
 
         /// <summary>
         ///Retrieves a handle to a window whose class name and window name match the specified strings. The function searches child windows, beginning with the one following the specified child window. This function does not perform a case-sensitive search.
@@ -2186,7 +2291,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindowExA(IntPtr hWndParent, IntPtr hWndChildAfter, string lpszClass, string lpszWindow);
+        public static extern nint FindWindowExA(nint hWndParent, nint hWndChildAfter, string lpszClass, string lpszWindow);
 
         /// <summary>
         ///Retrieves a handle to a window whose class name and window name match the specified strings. The function searches child windows, beginning with the one following the specified child window. This function does not perform a case-sensitive search.
@@ -2196,7 +2301,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindowExW(IntPtr hWndParent, IntPtr hWndChildAfter, string lpszClass, string lpszWindow);
+        public static extern nint FindWindowExW(nint hWndParent, nint hWndChildAfter, string lpszClass, string lpszWindow);
 
         /// <summary>
         ///Retrieves a handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows. This function does not perform a case-sensitive search.
@@ -2206,7 +2311,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindowW(string lpClassName, string lpWindowName);
+        public static extern nint FindWindowW(string lpClassName, string lpWindowName);
 
         /// <summary>
         ///Flashes the specified window one time. It does not change the active state of the window.
@@ -2215,7 +2320,7 @@ namespace WindowAPI.winuser.h
         /// <param name="bInvert">If this parameter is TRUE, the window is flashed from one state to the other. If it is FALSE, the window is returned to its original state (either active or inactive).When an application is minimized and this parameter is TRUE, the taskbar window button flashes active/inactive. If it is FALSE, the taskbar window button flashes inactive, meaning that it does not change colors. It flashes, as if it were being redrawn, but it does not provide the visual invert clue to the user.The return value specifies the window's state before the call to the FlashWindow function. If the window caption was drawn as active before the call, the return value is nonzero. Otherwise, the return value is zero.Flashing a window means changing the appearance of its caption bar as if the window were changing from inactive to active status, or vice versa. (An inactive caption bar changes to an active caption bar; an active caption bar changes to an inactive caption bar.)Typically, a window is flashed to inform the user that the window requires attention but that it does not currently have the keyboard focus.The FlashWindow function flashes the window only once; for repeated flashing, the application should create a system timer.Error Handling FunctionsNotifying the User</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool FlashWindow(IntPtr hWnd, bool bInvert);
+        public static extern bool FlashWindow(nint hWnd, bool bInvert);
 
         /// <summary>
         ///Flashes the specified window. It does not change the active state of the window.
@@ -2233,40 +2338,44 @@ namespace WindowAPI.winuser.h
         /// <param name="hbr">A handle to the brush used to draw the border.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.The brush identified by the hbr parameter must have been created by using the CreateHatchBrush, CreatePatternBrush, or CreateSolidBrush function, or retrieved by using the GetStockObject function.If the bottom member of the RECT structure is less than the top member, or if the right member is less than the left member, the function does not draw the rectangle.CreateHatchBrushCreatePatternBrushCreateSolidBrushFilled Shape FunctionsFilled Shapes OverviewGetStockObjectRECT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int FrameRect(IntPtr hDC, RECT lprc, IntPtr hbr);
+        public static extern int FrameRect(nint hDC, RECT lprc, nint hbr);
 
         /// <summary>
         ///Retrieves the window handle to the active window attached to the calling thread's message queue.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetActiveWindow();
+        public static extern nint GetActiveWindow();
 
         /// <summary>
         ///Retrieves status information for the specified window if it is the application-switching (ALT+TAB) window.
         /// </summary>
+        /// <param name="hwnd"></param>
         /// <param name="iItem">Type: intThe index of the icon in the application-switching window. If the pszItemText parameter is not NULL, the name of the item is copied to the pszItemText string. If this parameter is –1, the name of the item is not copied.</param>
         /// <param name="pati">Type: PALTTABINFOA pointer to an ALTTABINFO structure to receive the status information. Note that you must set the csSize member to sizeof(ALTTABINFO) before calling this function.</param>
+        /// <param name="pszItemText"></param>
         /// <param name="cchItemText">Type: UINTThe size, in characters, of the pszItemText buffer.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.The application-switching window enables you to switch to the most recently used application window. To display the application-switching window, press ALT+TAB. To select an application from the list, continue to hold ALT down and press TAB to move through the list. Add SHIFT to reverse direction through the list.ALTTABINFOConceptualReferenceWindows</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetAltTabInfoA(IntPtr hwnd, int iItem, out ALTTABINFO pati, out string pszItemText, uint cchItemText);
+        public static extern bool GetAltTabInfoA(nint hwnd, int iItem, out ALTTABINFO pati, out string pszItemText, uint cchItemText);
 
         /// <summary>
         ///Retrieves status information for the specified window if it is the application-switching (ALT+TAB) window.
         /// </summary>
+        /// <param name="hwnd"></param>
         /// <param name="iItem">Type: intThe index of the icon in the application-switching window. If the pszItemText parameter is not NULL, the name of the item is copied to the pszItemText string. If this parameter is –1, the name of the item is not copied.</param>
         /// <param name="pati">Type: PALTTABINFOA pointer to an ALTTABINFO structure to receive the status information. Note that you must set the csSize member to sizeof(ALTTABINFO) before calling this function.</param>
+        /// <param name="pszItemText"></param>
         /// <param name="cchItemText">Type: UINTThe size, in characters, of the pszItemText buffer.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.The application-switching window enables you to switch to the most recently used application window. To display the application-switching window, press ALT+TAB. To select an application from the list, continue to hold ALT down and press TAB to move through the list. Add SHIFT to reverse direction through the list.ALTTABINFOConceptualReferenceWindows</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetAltTabInfoW(IntPtr hwnd, int iItem, out ALTTABINFO pati, out string pszItemText, uint cchItemText);
+        public static extern bool GetAltTabInfoW(nint hwnd, int iItem, out ALTTABINFO pati, out string pszItemText, uint cchItemText);
 
         /// <summary>
         ///Retrieves the handle to the ancestor of the specified window.
@@ -2275,7 +2384,7 @@ namespace WindowAPI.winuser.h
         /// <param name="gaFlags">Type: UINTThe ancestor to be retrieved. This parameter can be one of the following values.Type: HWNDThe return value is the handle to the ancestor window.ConceptualGetParentReferenceWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetAncestor(IntPtr hwnd, uint gaFlags);
+        public static extern nint GetAncestor(nint hwnd, uint gaFlags);
 
         /// <summary>
         ///Determines whether a key is up or down at the time the function is called, and whether the key was pressed after a previous call to GetAsyncKeyState.
@@ -2305,7 +2414,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetCapture();
+        public static extern nint GetCapture();
 
         /// <summary>
         ///Retrieves the time required to invert the caret's pixels. The user can set this value.
@@ -2337,46 +2446,54 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Retrieves information about a window class.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpClassName">Type: LPCTSTRThe class name. The name must be that of a preregistered class or a class registered by a previous call to the RegisterClass or RegisterClassEx function.Alternatively, this parameter can be an atom. If so, it must be a class atom created by a previous call to RegisterClass or RegisterClassEx. The atom must be in the low-order word of lpClassName; the high-order word must be zero.</param>
+        /// <param name="lpWndClass"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetClassInfoA(IntPtr hInstance, string lpClassName, out WNDCLASSA lpWndClass);
+        public static extern bool GetClassInfoA(nint hInstance, string lpClassName, out WNDCLASSA lpWndClass);
 
         /// <summary>
         ///Retrieves information about a window class, including a handle to the small icon associated with the window class. The GetClassInfo function does not retrieve a handle to the small icon.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpszClass">Type: LPCTSTRThe class name. The name must be that of a preregistered class or a class registered by a previous call to the RegisterClass or RegisterClassEx function. Alternatively, this parameter can be a class atom created by a previous call to RegisterClass or RegisterClassEx. The atom must be in the low-order word of lpszClass; the high-order word must be zero.</param>
+        /// <param name="lpwcx"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetClassInfoExA(IntPtr hInstance, string lpszClass, out WNDCLASSEXA lpwcx);
+        public static extern bool GetClassInfoExA(nint hInstance, string lpszClass, out WNDCLASSEXA lpwcx);
 
         /// <summary>
         ///Retrieves information about a window class, including a handle to the small icon associated with the window class. The GetClassInfo function does not retrieve a handle to the small icon.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpszClass">Type: LPCTSTRThe class name. The name must be that of a preregistered class or a class registered by a previous call to the RegisterClass or RegisterClassEx function. Alternatively, this parameter can be a class atom created by a previous call to RegisterClass or RegisterClassEx. The atom must be in the low-order word of lpszClass; the high-order word must be zero.</param>
+        /// <param name="lpwcx"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetClassInfoExW(IntPtr hInstance, string lpszClass, out WNDCLASSEXW lpwcx);
+        public static extern bool GetClassInfoExW(nint hInstance, string lpszClass, out WNDCLASSEXW lpwcx);
 
         /// <summary>
         ///Retrieves information about a window class.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpClassName">Type: LPCTSTRThe class name. The name must be that of a preregistered class or a class registered by a previous call to the RegisterClass or RegisterClassEx function.Alternatively, this parameter can be an atom. If so, it must be a class atom created by a previous call to RegisterClass or RegisterClassEx. The atom must be in the low-order word of lpClassName; the high-order word must be zero.</param>
+        /// <param name="lpWndClass"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetClassInfoW(IntPtr hInstance, string lpClassName, out WNDCLASSW lpWndClass);
+        public static extern bool GetClassInfoW(nint hInstance, string lpClassName, out WNDCLASSW lpWndClass);
 
         /// <summary>
         ///Retrieves the specified 32-bit (DWORD) value from the WNDCLASSEX structure associated with the specified window.
@@ -2388,7 +2505,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetClassLongA(IntPtr hWnd, int nIndex);
+        public static extern uint GetClassLongA(nint hWnd, int nIndex);
 
         /// <summary>
         ///Retrieves the specified value from the WNDCLASSEX structure associated with the specified window.
@@ -2400,7 +2517,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetClassLongPtrA(IntPtr hWnd, int nIndex);
+        public static extern uint GetClassLongPtrA(nint hWnd, int nIndex);
 
         /// <summary>
         ///Retrieves the specified value from the WNDCLASSEX structure associated with the specified window.
@@ -2412,7 +2529,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetClassLongPtrW(IntPtr hWnd, int nIndex);
+        public static extern uint GetClassLongPtrW(nint hWnd, int nIndex);
 
         /// <summary>
         ///Retrieves the specified 32-bit (DWORD) value from the WNDCLASSEX structure associated with the specified window.
@@ -2424,43 +2541,46 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetClassLongW(IntPtr hWnd, int nIndex);
+        public static extern uint GetClassLongW(nint hWnd, int nIndex);
 
         /// <summary>
         ///Retrieves the name of the class to which the specified window belongs.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window and, indirectly, the class to which the window belongs.</param>
+        /// <param name="lpClassName"></param>
         /// <param name="nMaxCount">Type: intThe length of the lpClassName buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the class name string is truncated to nMaxCount-1 characters.Type: intIf the function succeeds, the return value is the number of characters copied to the buffer, not including the terminating null character.If the function fails, the return value is zero. To get extended error information, call GetLastError function.FindWindowA function, GetClassInfoA function, GetClassLongA function, GetClassWord function, Window Classes</param>
         /// <remarks>
         /// To get extended error information, call GetLastError function.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetClassName(IntPtr hWnd, out string lpClassName, int nMaxCount);
+        public static extern int GetClassName(nint hWnd, out string lpClassName, int nMaxCount);
 
         /// <summary>
         ///Retrieves the name of the class to which the specified window belongs.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window and, indirectly, the class to which the window belongs.</param>
+        /// <param name="lpClassName"></param>
         /// <param name="nMaxCount">Type: intThe length of the lpClassName buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the class name string is truncated to nMaxCount-1 characters.Type: intIf the function succeeds, the return value is the number of characters copied to the buffer, not including the terminating null character.If the function fails, the return value is zero. To get extended error information, call GetLastError.ConceptualFindWindowGetClassInfoGetClassLongGetClassWordReferenceWindow Classes</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetClassNameA(IntPtr hWnd, out string lpClassName, int nMaxCount);
+        public static extern int GetClassNameA(nint hWnd, out string lpClassName, int nMaxCount);
 
         /// <summary>
         ///Retrieves the name of the class to which the specified window belongs.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window and, indirectly, the class to which the window belongs.</param>
+        /// <param name="lpClassName"></param>
         /// <param name="nMaxCount">Type: intThe length of the lpClassName buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the class name string is truncated to nMaxCount-1 characters.Type: intIf the function succeeds, the return value is the number of characters copied to the buffer, not including the terminating null character.If the function fails, the return value is zero. To get extended error information, call GetLastError.ConceptualFindWindowGetClassInfoGetClassLongGetClassWordReferenceWindow Classes</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetClassNameW(IntPtr hWnd, out string lpClassName, int nMaxCount);
+        public static extern int GetClassNameW(nint hWnd, out string lpClassName, int nMaxCount);
 
         /// <summary>
         ///Retrieves the 16-bit (WORD) value at the specified offset into the extra class memory for the window class to which the specified window belongs.
@@ -2472,18 +2592,19 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern short GetClassWord(IntPtr hWnd, int nIndex);
+        public static extern short GetClassWord(nint hWnd, int nIndex);
 
         /// <summary>
         ///Retrieves the coordinates of a window's client area. The client coordinates specify the upper-left and lower-right corners of the client area. Because client coordinates are relative to the upper-left corner of a window's client area, the coordinates of the upper-left corner are (0,0).
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window whose client coordinates are to be retrieved.</param>
+        /// <param name="lpRect"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+        public static extern bool GetClientRect(nint hWnd, out RECT lpRect);
 
         /// <summary>
         ///Retrieves data from the clipboard in a specified format. The clipboard must have been opened previously.
@@ -2494,12 +2615,13 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetClipboardData(uint uFormat);
+        public static extern nint GetClipboardData(uint uFormat);
 
         /// <summary>
         ///Retrieves from the clipboard the name of the specified registered format. The function copies the name to the specified buffer.
         /// </summary>
         /// <param name="format">Type: UINTThe type of format to be retrieved. This parameter must not specify any of the predefined clipboard formats.</param>
+        /// <param name="lpszFormatName"></param>
         /// <param name="cchMaxCount">Type: intThe maximum length, in characters, of the string to be copied to the buffer. If the name exceeds this limit, it is truncated.Type: intIf the function succeeds, the return value is the length, in characters, of the string copied to the buffer.If the function fails, the return value is zero, indicating that the requested format does not exist or is predefined. To get extended error information, call GetLastError.For an example, see Example of a Clipboard Viewer.ClipboardConceptualEnumClipboardFormatsReferenceRegisterClipboardFormat</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -2512,6 +2634,7 @@ namespace WindowAPI.winuser.h
         ///Retrieves from the clipboard the name of the specified registered format. The function copies the name to the specified buffer.
         /// </summary>
         /// <param name="format">Type: UINTThe type of format to be retrieved. This parameter must not specify any of the predefined clipboard formats.</param>
+        /// <param name="lpszFormatName"></param>
         /// <param name="cchMaxCount">Type: intThe maximum length, in characters, of the string to be copied to the buffer. If the name exceeds this limit, it is truncated.Type: intIf the function succeeds, the return value is the length, in characters, of the string copied to the buffer.If the function fails, the return value is zero, indicating that the requested format does not exist or is predefined. To get extended error information, call GetLastError.For an example, see Example of a Clipboard Viewer.ClipboardConceptualEnumClipboardFormatsReferenceRegisterClipboardFormat</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -2528,7 +2651,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetClipboardOwner();
+        public static extern nint GetClipboardOwner();
 
         /// <summary>
         ///Retrieves the clipboard sequence number for the current window station.
@@ -2545,7 +2668,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetClipboardViewer();
+        public static extern nint GetClipboardViewer();
 
         /// <summary>
         ///Retrieves the screen coordinates of the rectangular area to which the cursor is confined.
@@ -2561,12 +2684,13 @@ namespace WindowAPI.winuser.h
         ///Retrieves information about the specified combo box.
         /// </summary>
         /// <param name="hwndCombo">Type: HWNDA handle to the combo box.</param>
+        /// <param name="pcbi"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetComboBoxInfo(IntPtr hwndCombo, out COMBOBOXINFO pcbi);
+        public static extern bool GetComboBoxInfo(nint hwndCombo, out COMBOBOXINFO pcbi);
 
         /// <summary>
         ///Retrieves the source of the input message.
@@ -2580,7 +2704,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetCursor();
+        public static extern nint GetCursor();
 
         /// <summary>
         ///Retrieves information about the global cursor.
@@ -2609,7 +2733,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">A handle to the window whose DC is to be retrieved. If this value is NULL, GetDC retrieves the DC for the entire screen.If the function succeeds, the return value is a handle to the DC for the specified window's client area.If the function fails, the return value is NULL.The GetDC function retrieves a common, class, or private DC depending on the class style of the specified window. For class and private DCs, GetDC leaves the previously assigned attributes unchanged. However, for common DCs, GetDC assigns default attributes to the DC each time it is retrieved. For example, the default font is System, which is a bitmap font. Because of this, the handle to a common DC returned by GetDC does not tell you what font, color, or brush was used when the window was drawn. To determine the font, call GetTextFace.Note that the handle to the DC can only be used by a single thread at any one time.After painting with a common DC, the ReleaseDC function must be called to release the DC. Class and private DCs do not have to be released. ReleaseDC must be called from the same thread that called GetDC. The number of DCs is limited only by available memory.For an example, see Drawing with the Mouse.Device Context FunctionsDevice Contexts OverviewGetDCExGetTextFaceGetWindowDCReleaseDCWindowFromDC</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetDC(IntPtr hWnd);
+        public static extern nint GetDC(nint hWnd);
 
         /// <summary>
         ///The GetDCEx function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
@@ -2619,14 +2743,14 @@ namespace WindowAPI.winuser.h
         /// <param name="flags">Specifies how the DC is created. This parameter can be one or more of the following values.If the function succeeds, the return value is the handle to the DC for the specified window.If the function fails, the return value is NULL. An invalid value for the hWnd parameter will cause the function to fail.Unless the display DC belongs to a window class, the ReleaseDC function must be called to release the DC after painting. Also, ReleaseDC must be called from the same thread that called GetDCEx. The number of DCs is limited only by available memory.The function returns a handle to a DC that belongs to the window's class if CS_CLASSDC, CS_OWNDC or CS_PARENTDC was specified as a style in the WNDCLASS structure when the class was registered.BeginPaintDevice Context FunctionsDevice Contexts OverviewGetWindowDCReleaseDCWNDCLASS</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetDCEx(IntPtr hWnd, IntPtr hrgnClip, uint flags);
+        public static extern nint GetDCEx(nint hWnd, nint hrgnClip, uint flags);
 
         /// <summary>
         ///Retrieves a handle to the desktop window. The desktop window covers the entire screen. The desktop window is the area on top of which other windows are painted.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetDesktopWindow();
+        public static extern nint GetDesktopWindow();
 
         /// <summary>
         ///Retrieves the system's dialog base units, which are the average width and height of characters in the system font. For dialog boxes that use the system font, you can use these values to convert between dialog template units, as specified in dialog box templates, and pixels. For dialog boxes that do not use the system font, the conversion from dialog template units to pixels depends on the font used by the dialog box.
@@ -2640,14 +2764,14 @@ namespace WindowAPI.winuser.h
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS GetDialogControlDpiChangeBehavior(IntPtr hWnd);
+        public static extern DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS GetDialogControlDpiChangeBehavior(nint hWnd);
 
         /// <summary>
         ///Returns the flags that might have been set on a given dialog by an earlier call to SetDialogDpiChangeBehavior.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern DIALOG_DPI_CHANGE_BEHAVIORS GetDialogDpiChangeBehavior(IntPtr hDlg);
+        public static extern DIALOG_DPI_CHANGE_BEHAVIORS GetDialogDpiChangeBehavior(nint hDlg);
 
         /// <summary>
         ///Retrieves the screen auto-rotation preferences for the current process.
@@ -2660,6 +2784,8 @@ namespace WindowAPI.winuser.h
         ///Retrieves the screen auto-rotation preferences for the process indicated by the dwProcessId parameter.
         /// </summary>
         /// <param name="dwProcessId">The process to get preference settings for.</param>
+        /// <param name="pOrientation"></param>
+        /// <param name="fRotateScreen"></param>
 
         [DllImport("Kernel.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool GetDisplayAutoRotationPreferencesByProcessId(uint dwProcessId, out ORIENTATION_PREFERENCE pOrientation, out bool fRotateScreen);
@@ -2668,6 +2794,8 @@ namespace WindowAPI.winuser.h
         ///The GetDisplayConfigBufferSizes function retrieves the size of the buffers that are required to call the QueryDisplayConfig function.
         /// </summary>
         /// <param name="flags">The type of information to retrieve. The value for the Flags parameter must be one of the following values.The caller requests the table sizes to hold all the possible path combinations.The caller requests the table sizes to hold only active paths.The caller requests the table sizes to hold the active paths as defined in the persistence database for the currently connected monitors.</param>
+        /// <param name="numPathArrayElements"></param>
+        /// <param name="numModeInfoArrayElements"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern int GetDisplayConfigBufferSizes(int flags, out int numPathArrayElements, out int numModeInfoArrayElements);
@@ -2681,57 +2809,61 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetDlgCtrlID(IntPtr hWnd);
+        public static extern int GetDlgCtrlID(nint hWnd);
 
         /// <summary>
         ///Retrieves a handle to a control in the specified dialog box.
         /// </summary>
+        /// <param name="hDlg"></param>
         /// <param name="nIDDlgItem">Type: intThe identifier of the control to be retrieved.Type: HWNDIf the function succeeds, the return value is the window handle of the specified control.If the function fails, the return value is NULL, indicating an invalid dialog box handle or a nonexistent control. To get extended error information, call GetLastError.You can use the GetDlgItem function with any parent-child window pair, not just with dialog boxes. As long as the hDlg parameter specifies a parent window and the child window has a unique identifier (as specified by the hMenu parameter in the CreateWindow or CreateWindowEx function that created the child window), GetDlgItem returns a valid handle to the child window.For an example, see Initializing a Dialog Box.ConceptualCreateWindowCreateWindowExDialog BoxesGetDlgItemIntGetDlgItemTextReference</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetDlgItem(IntPtr hDlg, int nIDDlgItem);
+        public static extern nint GetDlgItem(nint hDlg, int nIDDlgItem);
 
         /// <summary>
         ///Translates the text of a specified control in a dialog box into an integer value.
         /// </summary>
         /// <param name="hDlg">Type: HWNDA handle to the dialog box that contains the control of interest.</param>
         /// <param name="nIDDlgItem">Type: intThe identifier of the control whose text is to be translated.</param>
+        /// <param name="lpTranslated"></param>
         /// <param name="bSigned">Type: BOOLIndicates whether the function should examine the text for a minus sign at the beginning and return a signed integer value if it finds one (TRUE specifies this should be done, FALSE that it should not).Type: UINTIf the function succeeds, the variable pointed to by lpTranslated is set to TRUE, and the return value is the translated value of the control text.If the function fails, the variable pointed to by lpTranslated is set to FALSE, and the return value is zero. Note that, because zero is a possible translated value, a return value of zero does not by itself indicate failure.If lpTranslated is NULL, the function returns no information about success or failure.Note that, if the bSigned parameter is TRUE and there is a minus sign (–) at the beginning of the text, GetDlgItemInt translates the text into a signed integer value. Otherwise, the function creates an unsigned integer value. To obtain the proper value in this case, cast the return value to an int type.To get extended error information, call GetLastError.The GetDlgItemInt function retrieves the text of the specified control by sending the control a WM_GETTEXT message. The function translates the retrieved text by stripping any extra spaces at the beginning of the text and then converting the decimal digits. The function stops translating when it reaches the end of the text or encounters a nonnumeric character.The GetDlgItemInt function returns zero if the translated value is greater than INT_MAX (for signed numbers) or UINT_MAX (for unsigned numbers).For an example, see Creating a Modeless Dialog Box.ConceptualDialog BoxesGetDlgCtrlIDGetDlgItemGetDlgItemTextReferenceSetDlgItemInt</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetDlgItemInt(IntPtr hDlg, int nIDDlgItem, out bool lpTranslated, bool bSigned);
+        public static extern uint GetDlgItemInt(nint hDlg, int nIDDlgItem, out bool lpTranslated, bool bSigned);
 
         /// <summary>
         ///Retrieves the title or text associated with a control in a dialog box.
         /// </summary>
         /// <param name="hDlg">Type: HWNDA handle to the dialog box that contains the control.</param>
         /// <param name="nIDDlgItem">Type: intThe identifier of the control whose title or text is to be retrieved.</param>
+        /// <param name="lpString"></param>
         /// <param name="cchMax">Type: intThe maximum length, in characters, of the string to be copied to the buffer pointed to by lpString. If the length of the string, including the null character, exceeds the limit, the string is truncated.Type: UINTIf the function succeeds, the return value specifies the number of characters copied to the buffer, not including the terminating null character.If the function fails, the return value is zero. To get extended error information, call GetLastError.If the string is as long or longer than the buffer, the buffer will contain the truncated string with a terminating null character.The GetDlgItemText function sends a WM_GETTEXT message to the control.For an example, see Creating a Modal Dialog Box.ConceptualDialog BoxesGetDlgItemIntReferenceSetDlgItemIntSetDlgItemTextWM_GETTEXT</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetDlgItemTextA(IntPtr hDlg, int nIDDlgItem, out string lpString, int cchMax);
+        public static extern uint GetDlgItemTextA(nint hDlg, int nIDDlgItem, out string lpString, int cchMax);
 
         /// <summary>
         ///Retrieves the title or text associated with a control in a dialog box.
         /// </summary>
         /// <param name="hDlg">Type: HWNDA handle to the dialog box that contains the control.</param>
         /// <param name="nIDDlgItem">Type: intThe identifier of the control whose title or text is to be retrieved.</param>
+        /// <param name="lpString"></param>
         /// <param name="cchMax">Type: intThe maximum length, in characters, of the string to be copied to the buffer pointed to by lpString. If the length of the string, including the null character, exceeds the limit, the string is truncated.Type: UINTIf the function succeeds, the return value specifies the number of characters copied to the buffer, not including the terminating null character.If the function fails, the return value is zero. To get extended error information, call GetLastError.If the string is as long or longer than the buffer, the buffer will contain the truncated string with a terminating null character.The GetDlgItemText function sends a WM_GETTEXT message to the control.For an example, see Creating a Modal Dialog Box.ConceptualDialog BoxesGetDlgItemIntReferenceSetDlgItemIntSetDlgItemTextWM_GETTEXT</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetDlgItemTextW(IntPtr hDlg, int nIDDlgItem, out string lpString, int cchMax);
+        public static extern uint GetDlgItemTextW(nint hDlg, int nIDDlgItem, out string lpString, int cchMax);
 
         /// <summary>
         ///Retrieves the current double-click time for the mouse. A double-click is a series of two clicks of the mouse button, the second occurring within a specified time after the first. The double-click time is the maximum number of milliseconds that may occur between the first and second click of a double-click. The maximum double-click time is 5000 milliseconds.
@@ -2745,7 +2877,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern DPI_AWARENESS GetDpiAwarenessContextForProcess(IntPtr hProcess);
+        public static extern DPI_AWARENESS GetDpiAwarenessContextForProcess(nint hProcess);
 
         /// <summary>
         ///Returns the system DPI.
@@ -2760,7 +2892,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hwnd">The window that you want to get information about.The DPI for the window, which depends on the DPI_AWARENESS of the window. See the Remarks section for more information. An invalid hwnd value will result in a return value of 0.The following table indicates the return value of GetDpiForWindow based on the DPI_AWARENESS of the provided hwnd.See Create a simple Direct2D application.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetDpiForWindow(IntPtr hwnd);
+        public static extern uint GetDpiForWindow(nint hwnd);
 
         /// <summary>
         ///Retrieves the DPI from a given DPI_AWARENESS_CONTEXT handle. This enables you to determine the DPI of a thread without needed to examine a window created within that thread.
@@ -2774,14 +2906,14 @@ namespace WindowAPI.winuser.h
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetFocus();
+        public static extern nint GetFocus();
 
         /// <summary>
         ///Retrieves a handle to the foreground window (the window with which the user is currently working). The system assigns a slightly higher priority to the thread that creates the foreground window than it does to other threads.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetForegroundWindow();
+        public static extern nint GetForegroundWindow();
 
         /// <summary>
         ///Retrieves the configuration for which Windows Touch gesture messages are sent from a window.
@@ -2797,13 +2929,14 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetGestureConfig(IntPtr hwnd, uint dwReserved, uint dwFlags, uint pcIDs, out GESTURECONFIG pGestureConfig, uint cbSize);
+        public static extern bool GetGestureConfig(nint hwnd, uint dwReserved, uint dwFlags, uint pcIDs, out GESTURECONFIG pGestureConfig, uint cbSize);
 
         /// <summary>
         ///Retrieves additional information about a gesture from its GESTUREINFO handle.
         /// </summary>
         /// <param name="hGestureInfo">The handle to the gesture information that is passed in the lParam of a WM_GESTURE message.</param>
         /// <param name="cbExtraArgs">A count of the bytes of data stored in the extra arguments.</param>
+        /// <param name="pExtraArgs"></param>
         /// <remarks>
         /// To get extended error information, use the GetLastError function.
         /// </remarks>
@@ -2815,6 +2948,7 @@ namespace WindowAPI.winuser.h
         ///Retrieves a GESTUREINFO structure given a handle to the gesture information.
         /// </summary>
         /// <param name="hGestureInfo">The gesture information handle.</param>
+        /// <param name="pGestureInfo"></param>
         /// <remarks>
         /// To get extended error information, use the GetLastError function.
         /// </remarks>
@@ -2832,7 +2966,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetGuiResources(IntPtr hProcess, uint uiFlags);
+        public static extern uint GetGuiResources(nint hProcess, uint uiFlags);
 
         /// <summary>
         ///Retrieves information about the active window or a specified GUI thread.
@@ -2850,12 +2984,13 @@ namespace WindowAPI.winuser.h
         ///Retrieves information about the specified icon or cursor.
         /// </summary>
         /// <param name="hIcon">Type: HICONA handle to the icon or cursor.To retrieve information about a standard icon or cursor, specify the identifier beginning with the IDI_ prefix or the identifier beginning with the IDC_ prefix in this parameter.</param>
+        /// <param name="piconinfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
+        public static extern bool GetIconInfo(nint hIcon, out ICONINFO piconinfo);
 
         /// <summary>
         ///Retrieves information about the specified icon or cursor. GetIconInfoEx extends GetIconInfo by using the newer ICONINFOEX structure.
@@ -2864,7 +2999,7 @@ namespace WindowAPI.winuser.h
         /// <param name="piconinfo">Type: PICONINFOEXWhen this method returns, contains a pointer to an ICONINFOEX structure. The function fills in the structure's members.Type: BOOLTRUE indicates success, FALSE indicates failure.GetIconInfoEx creates bitmaps for the hbmMask and hbmColor or members of ICONINFOEX. The calling application must manage these bitmaps and delete them with DeleteObject call when they are no longer necessary.ConceptualBitmapsIconsDeleteObjectGetObjectBITMAPCreateIconCreateIconFromResourceCreateIconIndirectDestroyIconDrawIconDrawIconExLoadIconLookupIconIdFromDirectoryICONINFO</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetIconInfoExA(IntPtr hicon, out ICONINFOEXA piconinfo);
+        public static extern bool GetIconInfoExA(nint hicon, out ICONINFOEXA piconinfo);
 
         /// <summary>
         ///Retrieves information about the specified icon or cursor. GetIconInfoEx extends GetIconInfo by using the newer ICONINFOEX structure.
@@ -2873,7 +3008,7 @@ namespace WindowAPI.winuser.h
         /// <param name="piconinfo">Type: PICONINFOEXWhen this method returns, contains a pointer to an ICONINFOEX structure. The function fills in the structure's members.Type: BOOLTRUE indicates success, FALSE indicates failure.GetIconInfoEx creates bitmaps for the hbmMask and hbmColor or members of ICONINFOEX. The calling application must manage these bitmaps and delete them with DeleteObject call when they are no longer necessary.ConceptualBitmapsIconsDeleteObjectGetObjectBITMAPCreateIconCreateIconFromResourceCreateIconIndirectDestroyIconDrawIconDrawIconExLoadIconLookupIconIdFromDirectoryICONINFO</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetIconInfoExW(IntPtr hicon, out ICONINFOEXW piconinfo);
+        public static extern bool GetIconInfoExW(nint hicon, out ICONINFOEXW piconinfo);
 
         /// <summary>
         ///Determines whether there are mouse-button or keyboard messages in the calling thread's message queue.
@@ -2895,18 +3030,19 @@ namespace WindowAPI.winuser.h
         /// <param name="idThread">Type: DWORDThe identifier of the thread to query, or 0 for the current thread.Type: HKLThe return value is the input locale identifier for the thread. The low word contains a Language Identifier for the input language and the high word contains a device handle to the physical layout of the keyboard.The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input.Since the keyboard layout can be dynamically changed, applications that cache information about the current keyboard layout should process the WM_INPUTLANGCHANGE message to be informed of changes in the input language.To get the KLID (keyboard layout ID) of the currently active HKL, call the GetKeyboardLayoutName.Beginning in Windows 8: The preferred method to retrieve the language associated with the current keyboard layout or input method is a call to Windows.Globalization.Language.CurrentInputMethodLanguageTag. If your app passes language tags from CurrentInputMethodLanguageTag to any National Language Support functions, it must first convert the tags by calling ResolveLocaleName.ActivateKeyboardLayoutConceptualCreateThreadKeyboard InputLoadKeyboardLayoutOther ResourcesReferenceWM_INPUTLANGCHANGE</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetKeyboardLayout(uint idThread);
+        public static extern nint GetKeyboardLayout(uint idThread);
 
         /// <summary>
         ///Retrieves the input locale identifiers (formerly called keyboard layout handles) corresponding to the current set of input locales in the system. The function copies the identifiers to the specified buffer.
         /// </summary>
         /// <param name="nBuff">Type: intThe maximum number of handles that the buffer can hold.</param>
+        /// <param name="lpList"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetKeyboardLayoutList(int nBuff, out IntPtr lpList);
+        public static extern int GetKeyboardLayoutList(int nBuff, out nint lpList);
 
         /// <summary>
         ///Retrieves the name of the active input locale identifier (formerly called the keyboard layout) for the calling thread.
@@ -2953,6 +3089,7 @@ namespace WindowAPI.winuser.h
         ///Retrieves a string that represents the name of a key.
         /// </summary>
         /// <param name="lParam">Type: LONGThe second parameter of the keyboard message (such as WM_KEYDOWN) to be processed. The function interprets the following bit positions in the lParam.For more detail, see Keystroke Message Flags.</param>
+        /// <param name="lpString"></param>
         /// <param name="cchSize">Type: intThe maximum length, in characters, of the key name, including the terminating null character. (This parameter should be equal to the size of the buffer pointed to by the lpString parameter.)Type: intIf the function succeeds, a null-terminated string is copied into the specified buffer, and the return value is the length of the string, in characters, not counting the terminating null character.If the function fails, the return value is zero. To get extended error information, call GetLastError.The format of the key-name string depends on the current keyboard layout.The keyboard layout maintains a list of names in the form of character strings for keys with names longer than a single character. The key name is translated according to the currently active keyboard layout, therefore the function might return different results for different keyboard layouts.The name of a character key is the character itself. The names of dead keys are spelled out in full.This method might not work properly with some keyboard layouts that produce multiple characters (i.e. ligatures) and/or supplementary Unicode characters that are printed on a single key press. Also, keys that are mapped to the 'A'..'Z' virtual-key codes are translated to upper-case 'A'..'Z' characters regardless of current keyboard layout. Use the ToUnicode or ToUnicodeEx methods in such cases.The winuser.h header defines GetKeyNameText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see Conventions for Function Prototypes.Keyboard InputKeyboard LayoutsKeyboard Layout SamplesToUnicodeToUnicodeEx</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -2965,6 +3102,7 @@ namespace WindowAPI.winuser.h
         ///Retrieves a string that represents the name of a key.
         /// </summary>
         /// <param name="lParam">Type: LONGThe second parameter of the keyboard message (such as WM_KEYDOWN) to be processed. The function interprets the following bit positions in the lParam.For more detail, see Keystroke Message Flags.</param>
+        /// <param name="lpString"></param>
         /// <param name="cchSize">Type: intThe maximum length, in characters, of the key name, including the terminating null character. (This parameter should be equal to the size of the buffer pointed to by the lpString parameter.)Type: intIf the function succeeds, a null-terminated string is copied into the specified buffer, and the return value is the length of the string, in characters, not counting the terminating null character.If the function fails, the return value is zero. To get extended error information, call GetLastError.The format of the key-name string depends on the current keyboard layout.The keyboard layout maintains a list of names in the form of character strings for keys with names longer than a single character. The key name is translated according to the currently active keyboard layout, therefore the function might return different results for different keyboard layouts.The name of a character key is the character itself. The names of dead keys are spelled out in full.This method might not work properly with some keyboard layouts that produce multiple characters (i.e. ligatures) and/or supplementary Unicode characters that are printed on a single key press. Also, keys that are mapped to the 'A'..'Z' virtual-key codes are translated to upper-case 'A'..'Z' characters regardless of current keyboard layout. Use the ToUnicode or ToUnicodeEx methods in such cases.The winuser.h header defines GetKeyNameText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see Conventions for Function Prototypes.Keyboard InputKeyboard LayoutsKeyboard Layout SamplesToUnicodeToUnicodeEx</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -2987,7 +3125,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the owner window.Type: HWNDThe return value identifies the most recently active pop-up window. The return value is the same as the hWnd parameter, if any of the following conditions are met:AnyPopupConceptualReferenceShowOwnedPopupsWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetLastActivePopup(IntPtr hWnd);
+        public static extern nint GetLastActivePopup(nint hWnd);
 
         /// <summary>
         ///Retrieves the time of the last input event.
@@ -3000,12 +3138,15 @@ namespace WindowAPI.winuser.h
         ///Retrieves the opacity and transparency color key of a layered window.
         /// </summary>
         /// <param name="hwnd">Type: HWNDA handle to the layered window. A layered window is created by specifying WS_EX_LAYERED when creating the window with the CreateWindowEx function or by setting WS_EX_LAYERED using SetWindowLong after the window has been created.</param>
+        /// <param name="pcrKey"></param>
+        /// <param name="pbAlpha"></param>
+        /// <param name="pdwFlags"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetLayeredWindowAttributes(IntPtr hwnd, out COORD pcrKey, out byte pbAlpha, out uint pdwFlags);
+        public static extern bool GetLayeredWindowAttributes(nint hwnd, out COORD pcrKey, out byte pbAlpha, out uint pdwFlags);
 
         /// <summary>
         ///Retrieves the number of items per column in a specified list box.
@@ -3013,7 +3154,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hwnd">Type: HWNDA handle to the list box whose number of items per column is to be retrieved.Type: DWORDThe return value is the number of items per column.GetComboBoxInfo</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetListBoxInfo(IntPtr hwnd);
+        public static extern uint GetListBoxInfo(nint hwnd);
 
         /// <summary>
         ///Retrieves a handle to the menu assigned to the specified window.
@@ -3021,7 +3162,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the window whose menu handle is to be retrieved.Type: HMENUThe return value is a handle to the menu. If the specified window has no menu, the return value is NULL. If the window is a child window, the return value is undefined.GetMenu does not work on floating menu bars. Floating menu bars are custom controls that mimic standard menus; they are not menus. To get the handle on a floating menu bar, use the Active Accessibility APIs.For an example, see Adding Lines and Graphs to a Menu.ConceptualGetSubMenuMenusReferenceSetMenu</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetMenu(IntPtr hWnd);
+        public static extern nint GetMenu(nint hWnd);
 
         /// <summary>
         ///Retrieves information about the specified menu bar.
@@ -3035,7 +3176,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetMenuBarInfo(IntPtr hwnd, int idObject, int idItem, out MENUBARINFO pmbi);
+        public static extern bool GetMenuBarInfo(nint hwnd, int idObject, int idItem, out MENUBARINFO pmbi);
 
         /// <summary>
         ///Retrieves the dimensions of the default check-mark bitmap. The system displays this bitmap next to selected menu items. Before calling the SetMenuItemBitmaps function to replace the default check-mark bitmap for a menu item, an application must determine the correct bitmap size by calling GetMenuCheckMarkDimensions.
@@ -3049,7 +3190,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetMenuContextHelpId(IntPtr unnamedParam1);
+        public static extern uint GetMenuContextHelpId(nint unnamedParam1);
 
         /// <summary>
         ///Determines the default menu item on the specified menu.
@@ -3062,7 +3203,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetMenuDefaultItem(IntPtr hMenu, uint fByPos, uint gmdiFlags);
+        public static extern uint GetMenuDefaultItem(nint hMenu, uint fByPos, uint gmdiFlags);
 
         /// <summary>
         ///Retrieves information about a specified menu.
@@ -3074,7 +3215,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetMenuInfo(IntPtr unnamedParam1, out MENUINFO unnamedParam2);
+        public static extern bool GetMenuInfo(nint unnamedParam1, out MENUINFO unnamedParam2);
 
         /// <summary>
         ///Determines the number of items in the specified menu.
@@ -3084,7 +3225,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetMenuItemCount(IntPtr hMenu);
+        public static extern int GetMenuItemCount(nint hMenu);
 
         /// <summary>
         ///Retrieves the menu item identifier of a menu item located at the specified position in a menu.
@@ -3093,7 +3234,7 @@ namespace WindowAPI.winuser.h
         /// <param name="nPos">Type: intThe zero-based relative position of the menu item whose identifier is to be retrieved.Type: UINTThe return value is the identifier of the specified menu item. If the menu item identifier is NULL or if the specified item opens a submenu, the return value is -1.ConceptualGetMenuItemCountMenusReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetMenuItemID(IntPtr hMenu, int nPos);
+        public static extern uint GetMenuItemID(nint hMenu, int nPos);
 
         /// <summary>
         ///Retrieves information about a menu item.
@@ -3107,7 +3248,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetMenuItemInfoA(IntPtr hmenu, uint item, bool fByPosition, out MENUITEMINFOA lpmii);
+        public static extern bool GetMenuItemInfoA(nint hmenu, uint item, bool fByPosition, out MENUITEMINFOA lpmii);
 
         /// <summary>
         ///Retrieves information about a menu item.
@@ -3121,19 +3262,21 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetMenuItemInfoW(IntPtr hmenu, uint item, bool fByPosition, out MENUITEMINFOW lpmii);
+        public static extern bool GetMenuItemInfoW(nint hmenu, uint item, bool fByPosition, out MENUITEMINFOW lpmii);
 
         /// <summary>
         ///Retrieves the bounding rectangle for the specified menu item.
         /// </summary>
+        /// <param name="hWnd"></param>
         /// <param name="hMenu">Type: HMENUA handle to a menu.</param>
         /// <param name="uItem">Type: UINTThe zero-based position of the menu item.</param>
+        /// <param name="lprcItem"></param>
         /// <remarks>
         /// To get extended error information, use the GetLastError function.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetMenuItemRect(IntPtr hWnd, IntPtr hMenu, uint uItem, out RECT lprcItem);
+        public static extern bool GetMenuItemRect(nint hWnd, nint hMenu, uint uItem, out RECT lprcItem);
 
         /// <summary>
         ///Retrieves the menu flags associated with the specified menu item. If the menu item opens a submenu, this function also returns the number of items in the submenu.
@@ -3143,33 +3286,37 @@ namespace WindowAPI.winuser.h
         /// <param name="uFlags">Type: UINTIndicates how the uId parameter is interpreted. This parameter can be one of the following values.Type: UINTIf the specified item does not exist, the return value is -1.If the menu item opens a submenu, the low-order byte of the return value contains the menu flags associated with the item, and the high-order byte contains the number of items in the submenu opened by the item.Otherwise, the return value is a mask (Bitwise OR) of the menu flags. Following are the menu flags associated with the menu item.It is possible to test an item for a flag value of MF_ENABLED, MF_STRING, MF_UNCHECKED, or MF_UNHILITE. However, since these values equate to zero you must use an expression to test for them.For an example, see Simulating Check Boxes in a Menu.ConceptualGetMenuGetMenuItemCountGetMenuItemIDGetMenuItemInfoMenusReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetMenuState(IntPtr hMenu, uint uId, uint uFlags);
+        public static extern uint GetMenuState(nint hMenu, uint uId, uint uFlags);
 
         /// <summary>
         ///Copies the text string of the specified menu item into the specified buffer.
         /// </summary>
         /// <param name="hMenu">Type: HMENUA handle to the menu.</param>
         /// <param name="uIDItem">Type: UINTThe menu item to be changed, as determined by the uFlag parameter.</param>
+        /// <param name="lpString"></param>
         /// <param name="cchMax">Type: intThe maximum length, in characters, of the string to be copied. If the string is longer than the maximum specified in the nMaxCount parameter, the extra characters are truncated. If nMaxCount is 0, the function returns the length of the menu string.</param>
         /// <param name="flags">Type: UINTIndicates how the uIDItem parameter is interpreted. This parameter must be one of the following values.Type: intIf the function succeeds, the return value specifies the number of characters copied to the buffer, not including the terminating null character.If the function fails, the return value is zero.If the specified item is not of type MIIM_STRING or MFT_STRING, then the return value is zero.The nMaxCount parameter must be one larger than the number of characters in the text string to accommodate the terminating null character.If nMaxCount is 0, the function returns the length of the menu string.For an example, see Creating User Editable Accelerators.ConceptualGetMenuItemIDMenusReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetMenuStringA(IntPtr hMenu, uint uIDItem, out string lpString, int cchMax, uint flags);
+        public static extern int GetMenuStringA(nint hMenu, uint uIDItem, out string lpString, int cchMax, uint flags);
 
         /// <summary>
         ///Copies the text string of the specified menu item into the specified buffer.
         /// </summary>
         /// <param name="hMenu">Type: HMENUA handle to the menu.</param>
         /// <param name="uIDItem">Type: UINTThe menu item to be changed, as determined by the uFlag parameter.</param>
+        /// <param name="lpString"></param>
         /// <param name="cchMax">Type: intThe maximum length, in characters, of the string to be copied. If the string is longer than the maximum specified in the nMaxCount parameter, the extra characters are truncated. If nMaxCount is 0, the function returns the length of the menu string.</param>
         /// <param name="flags">Type: UINTIndicates how the uIDItem parameter is interpreted. This parameter must be one of the following values.Type: intIf the function succeeds, the return value specifies the number of characters copied to the buffer, not including the terminating null character.If the function fails, the return value is zero.If the specified item is not of type MIIM_STRING or MFT_STRING, then the return value is zero.The nMaxCount parameter must be one larger than the number of characters in the text string to accommodate the terminating null character.If nMaxCount is 0, the function returns the length of the menu string.For an example, see Creating User Editable Accelerators.ConceptualGetMenuItemIDMenusReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetMenuStringW(IntPtr hMenu, uint uIDItem, out string lpString, int cchMax, uint flags);
+        public static extern int GetMenuStringW(nint hMenu, uint uIDItem, out string lpString, int cchMax, uint flags);
 
         /// <summary>
         ///Retrieves a message from the calling thread's message queue. The function dispatches incoming sent messages until a posted message is available for retrieval.
         /// </summary>
+        /// <param name="lpMsg"></param>
+        /// <param name="hWnd"></param>
         /// <param name="wMsgFilterMin">Type: UINTThe integer value of the lowest message value to be retrieved. Use WM_KEYFIRST (0x0100) to specify the first keyboard message or WM_MOUSEFIRST (0x0200) to specify the first mouse message.Use WM_INPUT here and in wMsgFilterMax to specify only the WM_INPUT messages.If wMsgFilterMin and wMsgFilterMax are both zero, GetMessage returns all available messages (that is, no range filtering is performed).</param>
         /// <param name="wMsgFilterMax">Type: UINTThe integer value of the highest message value to be retrieved. Use WM_KEYLAST to specify the last keyboard message or WM_MOUSELAST to specify the last mouse message.Use WM_INPUT here and in wMsgFilterMin to specify only the WM_INPUT messages.If wMsgFilterMin and wMsgFilterMax are both zero, GetMessage returns all available messages (that is, no range filtering is performed).Type: BOOLIf the function retrieves a message other than WM_QUIT, the return value is nonzero.If the function retrieves the WM_QUIT message, the return value is zero.If there is an error, the return value is -1. For example, the function fails if hWnd is an invalid window handle or lpMsg is an invalid pointer. To get extended error information, call GetLastError.Because the return value can be nonzero, zero, or -1, avoid code like this:The possibility of a -1 return value in the case that hWnd is an invalid parameter (such as referring to a window that has already been destroyed) means that such code can lead to fatal application errors. Instead, use code like this:An application typically uses the return value to determine whether to end the main message loop and exit the program.The GetMessage function retrieves messages associated with the window identified by the hWnd parameter or any of its children, as specified by the IsChild function, and within the range of message values given by the wMsgFilterMin and wMsgFilterMax parameters. Note that an application can only use the low word in the wMsgFilterMin and wMsgFilterMax parameters; the high word is reserved for the system.Note that GetMessage always retrieves WM_QUIT messages, no matter which values you specify for wMsgFilterMin and wMsgFilterMax.During this call, the system delivers pending, nonqueued messages, that is, messages sent to windows owned by the calling thread using the SendMessage, SendMessageCallback, SendMessageTimeout, or SendNotifyMessage function. Then the first queued message that matches the specified filter is retrieved. The system may also process internal events. If no filter is specified, messages are processed in the following order:GetMessage does not remove WM_PAINT messages from the queue. The messages remain in the queue until processed.If a top-level window stops responding to messages for more than several seconds, the system considers the window to be not responding and replaces it with a ghost window that has the same z-order, location, size, and visual attributes. This allows the user to move it, resize it, or even close the application. However, these are the only actions available because the application is actually not responding. When in the debugger mode, the system does not generate a ghost window.For an example, see Creating a Message Loop.ConceptualIsChildMSGMessages and Message QueuesPeekMessagePostMessagePostThreadMessageReferenceWaitMessage</param>
         /// <remarks>
@@ -3177,11 +3324,13 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
+        public static extern bool GetMessage(out MSG lpMsg, nint hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
 
         /// <summary>
         ///Retrieves a message from the calling thread's message queue. The function dispatches incoming sent messages until a posted message is available for retrieval.
         /// </summary>
+        /// <param name="lpMsg"></param>
+        /// <param name="hWnd"></param>
         /// <param name="wMsgFilterMin">Type: UINTThe integer value of the lowest message value to be retrieved. Use WM_KEYFIRST (0x0100) to specify the first keyboard message or WM_MOUSEFIRST (0x0200) to specify the first mouse message.Use WM_INPUT here and in wMsgFilterMax to specify only the WM_INPUT messages.If wMsgFilterMin and wMsgFilterMax are both zero, GetMessage returns all available messages (that is, no range filtering is performed).</param>
         /// <param name="wMsgFilterMax">Type: UINTThe integer value of the highest message value to be retrieved. Use WM_KEYLAST to specify the last keyboard message or WM_MOUSELAST to specify the last mouse message.Use WM_INPUT here and in wMsgFilterMin to specify only the WM_INPUT messages.If wMsgFilterMin and wMsgFilterMax are both zero, GetMessage returns all available messages (that is, no range filtering is performed).Type: BOOLIf the function retrieves a message other than WM_QUIT, the return value is nonzero.If the function retrieves the WM_QUIT message, the return value is zero.If there is an error, the return value is -1. For example, the function fails if hWnd is an invalid window handle or lpMsg is an invalid pointer. To get extended error information, call GetLastError.Because the return value can be nonzero, zero, or -1, avoid code like this:The possibility of a -1 return value in the case that hWnd is an invalid parameter (such as referring to a window that has already been destroyed) means that such code can lead to fatal application errors. Instead, use code like this:An application typically uses the return value to determine whether to end the main message loop and exit the program.The GetMessage function retrieves messages associated with the window identified by the hWnd parameter or any of its children, as specified by the IsChild function, and within the range of message values given by the wMsgFilterMin and wMsgFilterMax parameters. Note that an application can only use the low word in the wMsgFilterMin and wMsgFilterMax parameters; the high word is reserved for the system.Note that GetMessage always retrieves WM_QUIT messages, no matter which values you specify for wMsgFilterMin and wMsgFilterMax.During this call, the system delivers pending, nonqueued messages, that is, messages sent to windows owned by the calling thread using the SendMessage, SendMessageCallback, SendMessageTimeout, or SendNotifyMessage function. Then the first queued message that matches the specified filter is retrieved. The system may also process internal events. If no filter is specified, messages are processed in the following order:GetMessage does not remove WM_PAINT messages from the queue. The messages remain in the queue until processed.If a top-level window stops responding to messages for more than several seconds, the system considers the window to be not responding and replaces it with a ghost window that has the same z-order, location, size, and visual attributes. This allows the user to move it, resize it, or even close the application. However, these are the only actions available because the application is actually not responding. When in the debugger mode, the system does not generate a ghost window.For an example, see Creating a Message Loop.ConceptualIsChildMSGMessages and Message QueuesPeekMessagePostMessagePostThreadMessageReferenceWaitMessage</param>
         /// <remarks>
@@ -3189,14 +3338,14 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetMessageA(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
+        public static extern bool GetMessageA(out MSG lpMsg, nint hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
 
         /// <summary>
         ///Retrieves the extra message information for the current thread. Extra message information is an application- or driver-defined value associated with the current thread's message queue.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetMessageExtraInfo();
+        public static extern nint GetMessageExtraInfo();
 
         /// <summary>
         ///Retrieves the cursor position for the last message retrieved by the GetMessage function.
@@ -3215,6 +3364,8 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Retrieves a message from the calling thread's message queue. The function dispatches incoming sent messages until a posted message is available for retrieval.
         /// </summary>
+        /// <param name="lpMsg"></param>
+        /// <param name="hWnd"></param>
         /// <param name="wMsgFilterMin">Type: UINTThe integer value of the lowest message value to be retrieved. Use WM_KEYFIRST (0x0100) to specify the first keyboard message or WM_MOUSEFIRST (0x0200) to specify the first mouse message.Use WM_INPUT here and in wMsgFilterMax to specify only the WM_INPUT messages.If wMsgFilterMin and wMsgFilterMax are both zero, GetMessage returns all available messages (that is, no range filtering is performed).</param>
         /// <param name="wMsgFilterMax">Type: UINTThe integer value of the highest message value to be retrieved. Use WM_KEYLAST to specify the last keyboard message or WM_MOUSELAST to specify the last mouse message.Use WM_INPUT here and in wMsgFilterMin to specify only the WM_INPUT messages.If wMsgFilterMin and wMsgFilterMax are both zero, GetMessage returns all available messages (that is, no range filtering is performed).Type: BOOLIf the function retrieves a message other than WM_QUIT, the return value is nonzero.If the function retrieves the WM_QUIT message, the return value is zero.If there is an error, the return value is -1. For example, the function fails if hWnd is an invalid window handle or lpMsg is an invalid pointer. To get extended error information, call GetLastError.Because the return value can be nonzero, zero, or -1, avoid code like this:The possibility of a -1 return value in the case that hWnd is an invalid parameter (such as referring to a window that has already been destroyed) means that such code can lead to fatal application errors. Instead, use code like this:An application typically uses the return value to determine whether to end the main message loop and exit the program.The GetMessage function retrieves messages associated with the window identified by the hWnd parameter or any of its children, as specified by the IsChild function, and within the range of message values given by the wMsgFilterMin and wMsgFilterMax parameters. Note that an application can only use the low word in the wMsgFilterMin and wMsgFilterMax parameters; the high word is reserved for the system.Note that GetMessage always retrieves WM_QUIT messages, no matter which values you specify for wMsgFilterMin and wMsgFilterMax.During this call, the system delivers pending, nonqueued messages, that is, messages sent to windows owned by the calling thread using the SendMessage, SendMessageCallback, SendMessageTimeout, or SendNotifyMessage function. Then the first queued message that matches the specified filter is retrieved. The system may also process internal events. If no filter is specified, messages are processed in the following order:GetMessage does not remove WM_PAINT messages from the queue. The messages remain in the queue until processed.If a top-level window stops responding to messages for more than several seconds, the system considers the window to be not responding and replaces it with a ghost window that has the same z-order, location, size, and visual attributes. This allows the user to move it, resize it, or even close the application. However, these are the only actions available because the application is actually not responding. When in the debugger mode, the system does not generate a ghost window.For an example, see Creating a Message Loop.ConceptualIsChildMSGMessages and Message QueuesPeekMessagePostMessagePostThreadMessageReferenceWaitMessage</param>
         /// <remarks>
@@ -3222,29 +3373,32 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetMessageW(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
+        public static extern bool GetMessageW(out MSG lpMsg, nint hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
 
         /// <summary>
         ///The GetMonitorInfo function retrieves information about a display monitor.
         /// </summary>
         /// <param name="hMonitor">A handle to the display monitor of interest.</param>
+        /// <param name="lpmi"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetMonitorInfoA(IntPtr hMonitor, out MONITORINFO lpmi);
+        public static extern bool GetMonitorInfoA(nint hMonitor, out MONITORINFO lpmi);
 
         /// <summary>
         ///The GetMonitorInfo function retrieves information about a display monitor.
         /// </summary>
         /// <param name="hMonitor">A handle to the display monitor of interest.</param>
+        /// <param name="lpmi"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetMonitorInfoW(IntPtr hMonitor, out MONITORINFO lpmi);
+        public static extern bool GetMonitorInfoW(nint hMonitor, out MONITORINFO lpmi);
 
         /// <summary>
         ///Retrieves a history of up to 64 previous coordinates of the mouse or pen.
         /// </summary>
         /// <param name="cbSize">Type: UINTThe size, in bytes, of the MOUSEMOVEPOINT structure.</param>
         /// <param name="lppt">Type: LPMOUSEMOVEPOINTA pointer to a MOUSEMOVEPOINT structure containing valid mouse coordinates (in screen coordinates). It may also contain a time stamp.The GetMouseMovePointsEx function searches for the point in the mouse coordinates history. If the function finds the point, it returns the last nBufPoints prior to and including the supplied point.If your application supplies a time stamp, the GetMouseMovePointsEx function will use it to differentiate between two equal points that were recorded at different times.An application should call this function using the mouse coordinates received from the WM_MOUSEMOVE message and convert them to screen coordinates.</param>
+        /// <param name="lpptBuf"></param>
         /// <param name="nBufPoints">Type: intThe number of points to be retrieved.</param>
         /// <param name="resolution">Type: DWORDThe resolution desired. This parameter can be one of the following values.Type: intIf the function succeeds, the return value is the number of points in the buffer. Otherwise, the function returns –1. For extended error information, your application can call GetLastError.The system retains the last 64 mouse coordinates and their time stamps. If your application supplies a mouse coordinate to GetMouseMovePointsEx and the coordinate exists in the system's mouse coordinate history, the function retrieves the specified number of coordinates from the systems' history. You can also supply a time stamp, which will be used to differentiate between identical points in the history.The GetMouseMovePointsEx function will return points that eventually were dispatched not only to the calling thread but also to other threads.GetMouseMovePointsEx may fail or return erroneous values in the following cases:ConceptualMOUSEMOVEPOINTMouse InputReference</param>
 
@@ -3255,25 +3409,27 @@ namespace WindowAPI.winuser.h
         ///Retrieves a handle to the first control in a group of controls that precedes (or follows) the specified control in a dialog box.
         /// </summary>
         /// <param name="hDlg">Type: HWNDA handle to the dialog box to be searched.</param>
+        /// <param name="hCtl"></param>
         /// <param name="bPrevious">Type: BOOLIndicates how the function is to search the group of controls in the dialog box. If this parameter is TRUE, the function searches for the previous control in the group. If it is FALSE, the function searches for the next control in the group.Type: HWNDIf the function succeeds, the return value is a handle to the previous (or next) control in the group of controls.If the function fails, the return value is NULL. To get extended error information, call GetLastError.The GetNextDlgGroupItem function searches controls in the order (or reverse order) they were created in the dialog box template. The first control in the group must have the WS_GROUP style; all other controls in the group must have been consecutively created and must not have the WS_GROUP style.When searching for the previous control, the function returns the first control it locates that is visible and not disabled. If the control specified by hCtl has the WS_GROUP style, the function temporarily reverses the search to locate the first control having the WS_GROUP style, then resumes the search in the original direction, returning the first control it locates that is visible and not disabled, or returning hCtl if no such control is found.When searching for the next control, the function returns the first control it locates that is visible, not disabled, and does not have the WS_GROUP style. If it encounters a control having the WS_GROUP style, the function reverses the search, locates the first control having the WS_GROUP style, and returns this control if it is visible and not disabled. Otherwise, the function resumes the search in the original direction and returns the first control it locates that is visible and not disabled, or returns hCtl if no such control is found.If the search for the next control in the group encounters a window with the WS_EX_CONTROLPARENT style, the system recursively searches the window's children.ConceptualDialog BoxesGetNextDlgTabItemReference</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetNextDlgGroupItem(IntPtr hDlg, IntPtr hCtl, bool bPrevious);
+        public static extern nint GetNextDlgGroupItem(nint hDlg, nint hCtl, bool bPrevious);
 
         /// <summary>
         ///Retrieves a handle to the first control that has the WS_TABSTOP style that precedes (or follows) the specified control.
         /// </summary>
         /// <param name="hDlg">Type: HWNDA handle to the dialog box to be searched.</param>
+        /// <param name="hCtl"></param>
         /// <param name="bPrevious">Type: BOOLIndicates how the function is to search the dialog box. If this parameter is TRUE, the function searches for the previous control in the dialog box. If this parameter is FALSE, the function searches for the next control in the dialog box.Type: HWNDIf the function succeeds, the return value is the window handle of the previous (or next) control that has the WS_TABSTOP style set.If the function fails, the return value is NULL. To get extended error information, call GetLastError.The GetNextDlgTabItem function searches controls in the order (or reverse order) they were created in the dialog box template. The function returns the first control it locates that is visible, not disabled, and has the WS_TABSTOP style. If no such control exists, the function returns hCtl.If the search for the next control with the WS_TABSTOP style encounters a window with the WS_EX_CONTROLPARENT style, the system recursively searches the window's children.ConceptualDialog BoxesGetDlgItemGetNextDlgGroupItemReference</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetNextDlgTabItem(IntPtr hDlg, IntPtr hCtl, bool bPrevious);
+        public static extern nint GetNextDlgTabItem(nint hDlg, nint hCtl, bool bPrevious);
 
         /// <summary>
         ///Retrieves the handle to the window that currently has the clipboard open.
@@ -3283,7 +3439,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetOpenClipboardWindow();
+        public static extern nint GetOpenClipboardWindow();
 
         /// <summary>
         ///Retrieves a handle to the specified window's parent or owner.
@@ -3294,7 +3450,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetParent(IntPtr hWnd);
+        public static extern nint GetParent(nint hWnd);
 
         /// <summary>
         ///Retrieves the position of the cursor in physical coordinates.
@@ -3307,6 +3463,7 @@ namespace WindowAPI.winuser.h
         ///Retrieves the cursor identifier associated with the specified pointer.
         /// </summary>
         /// <param name="pointerId">An identifier of the pointer for which to retrieve the cursor identifier.</param>
+        /// <param name="cursorId"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3318,40 +3475,46 @@ namespace WindowAPI.winuser.h
         ///Gets information about the pointer device.
         /// </summary>
         /// <param name="device">The handle to the device.</param>
+        /// <param name="pointerDevice"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetPointerDevice(IntPtr device, out POINTER_DEVICE_INFO pointerDevice);
+        public static extern bool GetPointerDevice(nint device, out POINTER_DEVICE_INFO pointerDevice);
 
         /// <summary>
         ///Gets the cursor IDs that are mapped to the cursors associated with a pointer device.
         /// </summary>
         /// <param name="device">The device handle.</param>
         /// <param name="cursorCount">The number of cursors associated with the pointer device.</param>
+        /// <param name="deviceCursors"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetPointerDeviceCursors(IntPtr device, out int cursorCount, out POINTER_DEVICE_CURSOR_INFO deviceCursors);
+        public static extern bool GetPointerDeviceCursors(nint device, out int cursorCount, out POINTER_DEVICE_CURSOR_INFO deviceCursors);
 
         /// <summary>
         ///Gets device properties that aren't included in the POINTER_DEVICE_INFO structure.
         /// </summary>
         /// <param name="device">The pointer device to query properties from.A call to the GetPointerDevices function returns this handle in the POINTER_DEVICE_INFO structure.</param>
         /// <param name="propertyCount">The number of properties.</param>
+        /// <param name="pointerProperties"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetPointerDeviceProperties(IntPtr device, out int propertyCount, out POINTER_DEVICE_PROPERTY pointerProperties);
+        public static extern bool GetPointerDeviceProperties(nint device, out int propertyCount, out POINTER_DEVICE_PROPERTY pointerProperties);
 
         /// <summary>
         ///Gets the x and y range for the pointer device (in himetric) and the x and y range (current resolution) for the display that the pointer device is mapped to.
         /// </summary>
         /// <param name="device">The handle to the pointer device.</param>
+        /// <param name="pointerDeviceRect"></param>
+        /// <param name="displayRect"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetPointerDeviceRects(IntPtr device, out RECT pointerDeviceRect, out RECT displayRect);
+        public static extern bool GetPointerDeviceRects(nint device, out RECT pointerDeviceRect, out RECT displayRect);
 
         /// <summary>
         ///Gets information about the pointer devices attached to the system.
         /// </summary>
         /// <param name="deviceCount">If pointerDevices is NULL, deviceCount returns the total number of attached pointer devices. Otherwise, deviceCount specifies the number of POINTER_DEVICE_INFO structures pointed to by pointerDevices.</param>
+        /// <param name="pointerDevices"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool GetPointerDevices(out int deviceCount, out POINTER_DEVICE_INFO pointerDevices);
@@ -3361,6 +3524,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="pointerId">An identifier of the pointer for which to retrieve frame information.</param>
         /// <param name="pointerCount">A pointer to a variable that specifies the count of structures in the buffer to which pointerInfo points. If GetPointerFrameInfo succeeds, pointerCount is updated with the total count of pointers in the frame.</param>
+        /// <param name="pointerInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3374,6 +3538,7 @@ namespace WindowAPI.winuser.h
         /// <param name="pointerId">An identifier of the pointer for which to retrieve frame information.</param>
         /// <param name="entriesCount">A pointer to a variable that specifies the count of rows in the two-dimensional array to which pointerInfo points. If GetPointerFrameInfoHistory succeeds, entriesCount is updated with the total count of frames available in the history.</param>
         /// <param name="pointerCount">A pointer to a variable that specifies the count of columns in the two-dimensional array to which pointerInfo points. If GetPointerFrameInfoHistory succeeds, pointerCount is updated with the total count of pointers in each frame.</param>
+        /// <param name="pointerInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3386,6 +3551,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="pointerId">An identifier of the pointer for which to retrieve frame information.</param>
         /// <param name="pointerCount">A pointer to a variable that specifies the count of structures in the buffer to which penInfo points. If GetPointerFramePenInfo succeeds, pointerCount is updated with the total count of pointers in the frame.</param>
+        /// <param name="penInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3399,6 +3565,7 @@ namespace WindowAPI.winuser.h
         /// <param name="pointerId">The identifier of the pointer for which to retrieve frame information.</param>
         /// <param name="entriesCount">A pointer to a variable that specifies the count of rows in the two-dimensional array to which penInfo points. If GetPointerFramePenInfoHistory succeeds, entriesCount is updated with the total count of frames available in the history.</param>
         /// <param name="pointerCount">A pointer to a variable that specifies the count of columns in the two-dimensional array to which penInfo points. If GetPointerFramePenInfoHistory succeeds, pointerCount is updated with the total count of pointers in each frame.</param>
+        /// <param name="penInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3411,6 +3578,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="pointerId">An identifier of the pointer for which to retrieve frame information.</param>
         /// <param name="pointerCount">A pointer to a variable that specifies the count of structures in the buffer to which touchInfo points. If GetPointerFrameTouchInfo succeeds, pointerCount is updated with the total count of pointers in the frame.</param>
+        /// <param name="touchInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3424,6 +3592,7 @@ namespace WindowAPI.winuser.h
         /// <param name="pointerId">An identifier of the pointer for which to retrieve frame information.</param>
         /// <param name="entriesCount">A pointer to variable that specifies the count of rows in the two-dimensional array to which touchInfo points. If GetPointerFrameTouchInfoHistory succeeds, entriesCount is updated with the total count of frames available in the history.</param>
         /// <param name="pointerCount">A pointer to a variable that specifies the count of columns in the two-dimensional array to which touchInfo points. If GetPointerFrameTouchInfoHistory succeeds, pointerCount is updated with the total count of pointers in each frame.</param>
+        /// <param name="touchInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3435,6 +3604,7 @@ namespace WindowAPI.winuser.h
         ///Gets the information for the specified pointer associated with the current message.
         /// </summary>
         /// <param name="pointerId">The pointer identifier.</param>
+        /// <param name="pointerInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3447,6 +3617,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="pointerId">An identifier of the pointer for which to retrieve information.</param>
         /// <param name="entriesCount">A pointer to a variable that specifies the count of structures in the buffer to which pointerInfo points. If GetPointerInfoHistory succeeds, entriesCount is updated with the total count of structures available. The total count of structures available is the same as the historyCount field of the POINTER_INFO structure returned by a call to GetPointerInfo.</param>
+        /// <param name="pointerInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3459,6 +3630,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="pointerId">An identifier of the pointer for which to retrieve information.</param>
         /// <param name="historyCount">The number of INPUT_TRANSFORM structures that inputTransform can point to.This value must be no less than 1 and no greater than the value specified in historyCount of the POINTER_INFO structure returned by GetPointerInfo, GetPointerTouchInfo, or GetPointerPenInfo (for a single input transform) or GetPointerInfoHistory, GetPointerTouchInfoHistory, or GetPointerPenInfoHistory (for an array of input transforms).If GetPointerInputTransform succeeds, inputTransform is updated with the total count of structures available. The total count of structures available is the same as the historyCount field of the POINTER_INFO structure.</param>
+        /// <param name="inputTransform"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3470,6 +3642,7 @@ namespace WindowAPI.winuser.h
         ///Gets the pen-based information for the specified pointer (of type PT_PEN) associated with the current message.
         /// </summary>
         /// <param name="pointerId">An identifier of the pointer for which to retrieve information.</param>
+        /// <param name="penInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3482,6 +3655,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="pointerId">An identifier of the pointer for which to retrieve information.</param>
         /// <param name="entriesCount">A pointer to a variable that specifies the count of structures in the buffer to which penInfo points. If GetPointerPenInfoHistory succeeds, entriesCount is updated with the total count of structures available. The total count of structures available is the same as the historyCount field in the POINTER_PEN_INFO structure returned by a call to GetPointerPenInfo.</param>
+        /// <param name="penInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3493,6 +3667,7 @@ namespace WindowAPI.winuser.h
         ///Gets the touch-based information for the specified pointer (of type PT_TOUCH) associated with the current message.
         /// </summary>
         /// <param name="pointerId">An identifier of the pointer for which to retrieve information.</param>
+        /// <param name="touchInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3505,6 +3680,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="pointerId">An identifier of the pointer for which to retrieve information.</param>
         /// <param name="entriesCount">A pointer to a variable that specifies the count of structures in the buffer to which touchInfo points. If GetPointerTouchInfoHistory succeeds, entriesCount is updated with the total count of structures available. The total count of structures available is the same as the historyCount field in the POINTER_INFO structure returned by a call to GetPointerInfo or GetPointerTouchInfo.</param>
+        /// <param name="touchInfo"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3516,6 +3692,7 @@ namespace WindowAPI.winuser.h
         ///Retrieves the pointer type for a specified pointer.
         /// </summary>
         /// <param name="pointerId">An identifier of the pointer for which to retrieve pointer type.</param>
+        /// <param name="pointerType"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
@@ -3562,7 +3739,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpString">Type: LPCTSTRAn atom that identifies a string. If this parameter is an atom, it must have been created by using the GlobalAddAtom function. The atom, a 16-bit value, must be placed in the low-order word of the lpString parameter; the high-order word must be zero.Type: HANDLEIf the property list contains the string, the return value is the associated data handle. Otherwise, the return value is NULL.ConceptualGlobalAddAtomReferenceSetPropWindow PropertiesITaskbarList2::MarkFullscreenWindow</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetPropA(IntPtr hWnd, string lpString);
+        public static extern nint GetPropA(nint hWnd, string lpString);
 
         /// <summary>
         ///Retrieves a data handle from the property list of the specified window. The character string identifies the handle to be retrieved. The string and handle must have been added to the property list by a previous call to the SetProp function.
@@ -3571,7 +3748,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpString">Type: LPCTSTRAn atom that identifies a string. If this parameter is an atom, it must have been created by using the GlobalAddAtom function. The atom, a 16-bit value, must be placed in the low-order word of the lpString parameter; the high-order word must be zero.Type: HANDLEIf the property list contains the string, the return value is the associated data handle. Otherwise, the return value is NULL.ConceptualGlobalAddAtomReferenceSetPropWindow PropertiesITaskbarList2::MarkFullscreenWindow</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetPropW(IntPtr hWnd, string lpString);
+        public static extern nint GetPropW(nint hWnd, string lpString);
 
         /// <summary>
         ///Retrieves the type of messages found in the calling thread's message queue.
@@ -3584,6 +3761,7 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Performs a buffered read of the raw input messages data found in the calling thread's message queue.
         /// </summary>
+        /// <param name="pData"></param>
         /// <param name="pcbSize">Type: PUINTThe size, in bytes, of the provided RAWINPUT buffer.</param>
         /// <param name="cbSizeHeader">Type: UINTThe size, in bytes, of the RAWINPUTHEADER structure.Type: UINTIf pData is NULL and the function is successful, the return value is zero. If pData is not NULL and the function is successful, the return value is the number of RAWINPUT structures written to pData.If an error occurs, the return value is (UINT)-1. Call GetLastError for the error code.When an application receives raw input, its message queue gets a WM_INPUT message and the queue status flag QS_RAWINPUT is set.Using GetRawInputBuffer, the raw input data is read in the array of variable size RAWINPUT structures and corresponding WM_INPUT messages are removed from the calling thread's message queue. You can call this method several times with buffer that cannot fit all message's data until all raw input messages have been read.The NEXTRAWINPUTBLOCK macro allows an application to traverse an array of RAWINPUT structures.If all raw input messages have been successfully read from message queue then QS_RAWINPUT flag is cleared from the calling thread's message queue status.ConceptualGetMessageNEXTRAWINPUTBLOCKRAWINPUTRAWINPUTHEADERRaw InputReferenceRaw Input Overview</param>
 
@@ -3595,33 +3773,39 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="hRawInput">Type: HRAWINPUTA handle to the RAWINPUT structure. This comes from the lParam in WM_INPUT.</param>
         /// <param name="uiCommand">Type: UINTThe command flag. This parameter can be one of the following values.</param>
+        /// <param name="pData"></param>
         /// <param name="pcbSize">Type: PUINTThe size, in bytes, of the data in pData.</param>
         /// <param name="cbSizeHeader">Type: UINTThe size, in bytes, of the RAWINPUTHEADER structure.Type: UINTIf pData is NULL and the function is successful, the return value is 0. If pData is not NULL and the function is successful, the return value is the number of bytes copied into pData.If there is an error, the return value is (UINT)-1.GetRawInputData gets the raw input one RAWINPUT structure at a time. In contrast, GetRawInputBuffer gets an array of RAWINPUT structures.ConceptualGetRawInputBufferRAWINPUTRAWINPUTHEADERRaw InputReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetRawInputData(HARDWAREINPUT hRawInput, uint uiCommand, out IntPtr pData, out uint pcbSize, uint cbSizeHeader);
+        public static extern uint GetRawInputData(HARDWAREINPUT hRawInput, uint uiCommand, out nint pData, out uint pcbSize, uint cbSizeHeader);
 
         /// <summary>
         ///Retrieves information about the raw input device.
         /// </summary>
+        /// <param name="hDevice"></param>
         /// <param name="uiCommand">Type: UINTSpecifies what data will be returned in pData. This parameter can be one of the following values.</param>
+        /// <param name="pData"></param>
         /// <param name="pcbSize">Type: PUINTThe size, in bytes, of the data in pData.Type: UINTIf successful, this function returns a non-negative number indicating the number of bytes copied to pData.If pData is not large enough for the data, the function returns -1. If pData is NULL, the function returns a value of zero. In both of these cases, pcbSize is set to the minimum size required for the pData buffer.Call GetLastError to identify any other errors.ConceptualRAWINPUTHEADERRID_DEVICE_INFORaw InputReferenceWM_INPUTTop-Level CollectionsPreparsed DataPHIDP_PREPARSED_DATAOpening HID collectionsHandling HID Reports</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetRawInputDeviceInfoA(IntPtr hDevice, uint uiCommand, out IntPtr pData, out uint pcbSize);
+        public static extern uint GetRawInputDeviceInfoA(nint hDevice, uint uiCommand, out nint pData, out uint pcbSize);
 
         /// <summary>
         ///Retrieves information about the raw input device.
         /// </summary>
+        /// <param name="hDevice"></param>
         /// <param name="uiCommand">Type: UINTSpecifies what data will be returned in pData. This parameter can be one of the following values.</param>
+        /// <param name="pData"></param>
         /// <param name="pcbSize">Type: PUINTThe size, in bytes, of the data in pData.Type: UINTIf successful, this function returns a non-negative number indicating the number of bytes copied to pData.If pData is not large enough for the data, the function returns -1. If pData is NULL, the function returns a value of zero. In both of these cases, pcbSize is set to the minimum size required for the pData buffer.Call GetLastError to identify any other errors.ConceptualRAWINPUTHEADERRID_DEVICE_INFORaw InputReferenceWM_INPUTTop-Level CollectionsPreparsed DataPHIDP_PREPARSED_DATAOpening HID collectionsHandling HID Reports</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetRawInputDeviceInfoW(IntPtr hDevice, uint uiCommand, out IntPtr pData, out uint pcbSize);
+        public static extern uint GetRawInputDeviceInfoW(nint hDevice, uint uiCommand, out nint pData, out uint pcbSize);
 
         /// <summary>
         ///Enumerates the raw input devices attached to the system.
         /// </summary>
+        /// <param name="pRawInputDeviceList"></param>
         /// <param name="puiNumDevices">Type: PUINTIf pRawInputDeviceList is NULL, the function populates this variable with the number of devices attached to the system; otherwise, this variable specifies the number of RAWINPUTDEVICELIST structures that can be contained in the buffer to which pRawInputDeviceList points. If this value is less than the number of devices attached to the system, the function returns the actual number of devices in this variable and fails with ERROR_INSUFFICIENT_BUFFER. If this value is greater than or equal to the number of devices attached to the system, then the value is unchanged, and the number of devices is reported as the return value.</param>
         /// <param name="cbSize">Type: UINTThe size of a RAWINPUTDEVICELIST structure, in bytes.Type: UINTIf the function is successful, the return value is the number of devices stored in the buffer pointed to by pRawInputDeviceList.On any other error, the function returns (UINT) -1 and GetLastError returns the error indication.The devices returned from this function are the mouse, the keyboard, and other Human Interface Device (HID) devices.To get more detailed information about the attached devices, call GetRawInputDeviceInfo using the hDevice from RAWINPUTDEVICELIST.The following sample code shows a typical call to GetRawInputDeviceList:ConceptualGetRawInputDeviceInfoRAWINPUTDEVICELISTRaw InputReference</param>
 
@@ -3635,6 +3819,7 @@ namespace WindowAPI.winuser.h
         /// <param name="historyCount">The pointer history.</param>
         /// <param name="propertiesCount">Number of properties to retrieve.</param>
         /// <param name="pProperties">Array of POINTER_DEVICE_PROPERTY structures that contain raw data reported by the device.</param>
+        /// <param name="pValues"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool GetRawPointerDeviceData(int pointerId, int historyCount, int propertiesCount, POINTER_DEVICE_PROPERTY pProperties, out int pValues);
@@ -3642,6 +3827,7 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Retrieves the information about the raw input devices for the current application.
         /// </summary>
+        /// <param name="pRawInputDevices"></param>
         /// <param name="puiNumDevices">Type: PUINTThe number of RAWINPUTDEVICE structures in *pRawInputDevices.</param>
         /// <param name="cbSize">Type: UINTThe size, in bytes, of a RAWINPUTDEVICE structure.Type: UINTIf successful, the function returns a non-negative number that is the number of RAWINPUTDEVICE structures written to the buffer.If the pRawInputDevices buffer is too small or NULL, the function sets the last error as ERROR_INSUFFICIENT_BUFFER, returns -1, and sets puiNumDevices to the required number of devices. If the function fails for any other reason, it returns -1. For more details, call GetLastError.To receive raw input from a device, an application must register it by using RegisterRawInputDevices.ConceptualRAWINPUTDEVICERaw InputReferenceRegisterRawInputDevices</param>
 
@@ -3653,12 +3839,13 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="hwnd">Type: HWNDHandle to a window associated with the scroll bar whose information is to be retrieved. If the idObject parameter is OBJID_CLIENT, hwnd is a handle to a scroll bar control. Otherwise, hwnd is a handle to a window created with WS_VSCROLL and/or WS_HSCROLL style.</param>
         /// <param name="idObject">Type: LONGSpecifies the scroll bar object. This parameter can be one of the following values.</param>
+        /// <param name="psbi"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetScrollBarInfo(IntPtr hwnd, int idObject, out SCROLLBARINFO psbi);
+        public static extern bool GetScrollBarInfo(nint hwnd, int idObject, out SCROLLBARINFO psbi);
 
         /// <summary>
         ///The GetScrollInfo function retrieves the parameters of a scroll bar, including the minimum and maximum scrolling positions, the page size, and the position of the scroll box (thumb).
@@ -3671,7 +3858,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetScrollInfo(IntPtr hwnd, int nBar, out SCROLLINFO lpsi);
+        public static extern bool GetScrollInfo(nint hwnd, int nBar, out SCROLLINFO lpsi);
 
         /// <summary>
         ///The GetScrollPos function retrieves the current position of the scroll box (thumb) in the specified scroll bar. The current position is a relative value that depends on the current scrolling range. For example, if the scrolling range is 0 through 100 and the scroll box is in the middle of the bar, the current position is 50.
@@ -3683,26 +3870,28 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetScrollPos(IntPtr hWnd, int nBar);
+        public static extern int GetScrollPos(nint hWnd, int nBar);
 
         /// <summary>
         ///The GetScrollRange function retrieves the current minimum and maximum scroll box (thumb) positions for the specified scroll bar.
         /// </summary>
         /// <param name="hWnd">Type: HWNDHandle to a scroll bar control or a window with a standard scroll bar, depending on the value of the nBar parameter.</param>
         /// <param name="nBar">Type: intSpecifies the scroll bar from which the positions are retrieved. This parameter can be one of the following values.</param>
+        /// <param name="lpMinPos"></param>
+        /// <param name="lpMaxPos"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetScrollRange(IntPtr hWnd, int nBar, out int lpMinPos, out int lpMaxPos);
+        public static extern bool GetScrollRange(nint hWnd, int nBar, out int lpMinPos, out int lpMaxPos);
 
         /// <summary>
         ///Retrieves a handle to the Shell's desktop window.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetShellWindow();
+        public static extern nint GetShellWindow();
 
         /// <summary>
         ///Retrieves a handle to the drop-down menu or submenu activated by the specified menu item.
@@ -3711,7 +3900,7 @@ namespace WindowAPI.winuser.h
         /// <param name="nPos">Type: intThe zero-based relative position in the specified menu of an item that activates a drop-down menu or submenu.Type: HMENUIf the function succeeds, the return value is a handle to the drop-down menu or submenu activated by the menu item. If the menu item does not activate a drop-down menu or submenu, the return value is NULL.ConceptualCreatePopupMenuGetMenuMenusReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetSubMenu(IntPtr hMenu, int nPos);
+        public static extern nint GetSubMenu(nint hMenu, int nPos);
 
         /// <summary>
         ///Retrieves the current color of the specified display element. Display elements are the parts of a window and the display that appear on the system display screen.
@@ -3727,14 +3916,14 @@ namespace WindowAPI.winuser.h
         /// <param name="nIndex">A color index. This value corresponds to the color used to paint one of the window elements. See GetSysColor for system color index values.The return value identifies a logical brush if the nIndex parameter is supported by the current platform. Otherwise, it returns NULL.A brush is a bitmap that the system uses to paint the interiors of filled shapes. An application can retrieve the current system colors by calling the GetSysColor function. An application can set the current system colors by calling the SetSysColors function.An application must not register a window class for a window using a system brush. To register a window class with a system color, see the documentation of the hbrBackground member of the WNDCLASS or WNDCLASSEX structures.System color brushes track changes in system colors. In other words, when the user changes a system color, the associated system color brush automatically changes to the new color.To paint with a system color brush, an application should use GetSysColorBrush (nIndex) instead of CreateSolidBrush ( GetSysColor (nIndex)), because GetSysColorBrush returns a cached brush instead of allocating a new one.System color brushes are owned by the system so you don't need to destroy them. Although you don't need to delete the logical brush that GetSysColorBrush returns, no harm occurs by calling DeleteObject.Brush FunctionsBrushes OverviewCreateSolidBrushGetSysColorSetSysColorsWNDCLASSWNDCLASSEX</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetSysColorBrush(int nIndex);
+        public static extern nint GetSysColorBrush(int nIndex);
 
         /// <summary>
         ///Retrieves the system DPI associated with a given process. This is useful for avoiding compatibility issues that arise from sharing DPI-sensitive information between multiple system-aware processes with different system DPI values.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetSystemDpiForProcess(IntPtr hProcess);
+        public static extern uint GetSystemDpiForProcess(nint hProcess);
 
         /// <summary>
         ///Enables the application to access the window menu (also known as the system menu or the control menu) for copying and modifying.
@@ -3743,7 +3932,7 @@ namespace WindowAPI.winuser.h
         /// <param name="bRevert">Type: BOOLThe action to be taken. If this parameter is FALSE, GetSystemMenu returns a handle to the copy of the window menu currently in use. The copy is initially identical to the window menu, but it can be modified. If this parameter is TRUE, GetSystemMenu resets the window menu back to the default state. The previous window menu, if any, is destroyed.Type: HMENUIf the bRevert parameter is FALSE, the return value is a handle to a copy of the window menu. If the bRevert parameter is TRUE, the return value is NULL.Any window that does not use the GetSystemMenu function to make its own copy of the window menu receives the standard window menu.The window menu initially contains items with various identifier values, such as SC_CLOSE, SC_MOVE, and SC_SIZE.Menu items on the window menu send WM_SYSCOMMAND messages.All predefined window menu items have identifier numbers greater than 0xF000. If an application adds commands to the window menu, it should use identifier numbers less than 0xF000.The system automatically grays items on the standard window menu, depending on the situation. The application can perform its own checking or graying by responding to the WM_INITMENU message that is sent before any menu is displayed.ConceptualGetMenuInsertMenuItemMenusReferenceSetMenuItemInfoWM_INITMENUWM_SYSCOMMAND</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+        public static extern nint GetSystemMenu(nint hWnd, bool bRevert);
 
         /// <summary>
         ///Retrieves the specified system metric or system configuration setting.
@@ -3775,7 +3964,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpnTabStopPositions">A pointer to an array containing the tab-stop positions, in device units. The tab stops must be sorted in increasing order; the smallest x-value should be the first item in the array.If the function succeeds, the return value is the dimensions of the string in logical units. The height is in the high-order word and the width is in the low-order word.If the function fails, the return value is 0. GetTabbedTextExtent will fail if hDC is invalid and if nTabPositions is less than 0.The current clipping region does not affect the width and height returned by the GetTabbedTextExtent function.Because some devices do not place characters in regular cell arrays (that is, they kern the characters), the sum of the extents of the characters in a string may not be equal to the extent of the string.If the nTabPositions parameter is zero and the lpnTabStopPositions parameter is NULL, tabs are expanded to eight times the average character width.If nTabPositions is 1, the tab stops are separated by the distance specified by the first value in the array to which lpnTabStopPositions points.Font and Text FunctionsFonts and Text OverviewGetTextExtentPoint32TabbedTextOut</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetTabbedTextExtentA(IntPtr hdc, string lpString, int chCount, int nTabPositions, int lpnTabStopPositions);
+        public static extern uint GetTabbedTextExtentA(nint hdc, string lpString, int chCount, int nTabPositions, int lpnTabStopPositions);
 
         /// <summary>
         ///The GetTabbedTextExtent function computes the width and height of a character string. If the string contains one or more tab characters, the width of the string is based upon the specified tab stops. The GetTabbedTextExtent function uses the currently selected font to compute the dimensions of the string.
@@ -3787,7 +3976,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpnTabStopPositions">A pointer to an array containing the tab-stop positions, in device units. The tab stops must be sorted in increasing order; the smallest x-value should be the first item in the array.If the function succeeds, the return value is the dimensions of the string in logical units. The height is in the high-order word and the width is in the low-order word.If the function fails, the return value is 0. GetTabbedTextExtent will fail if hDC is invalid and if nTabPositions is less than 0.The current clipping region does not affect the width and height returned by the GetTabbedTextExtent function.Because some devices do not place characters in regular cell arrays (that is, they kern the characters), the sum of the extents of the characters in a string may not be equal to the extent of the string.If the nTabPositions parameter is zero and the lpnTabStopPositions parameter is NULL, tabs are expanded to eight times the average character width.If nTabPositions is 1, the tab stops are separated by the distance specified by the first value in the array to which lpnTabStopPositions points.Font and Text FunctionsFonts and Text OverviewGetTextExtentPoint32TabbedTextOut</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetTabbedTextExtentW(IntPtr hdc, string lpString, int chCount, int nTabPositions, int lpnTabStopPositions);
+        public static extern uint GetTabbedTextExtentW(nint hdc, string lpString, int chCount, int nTabPositions, int lpnTabStopPositions);
 
         /// <summary>
         ///Retrieves a handle to the desktop assigned to the specified thread.
@@ -3798,7 +3987,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetThreadDesktop(uint dwThreadId);
+        public static extern nint GetThreadDesktop(uint dwThreadId);
 
         /// <summary>
         ///Gets the DPI_AWARENESS_CONTEXT for the current thread.
@@ -3824,7 +4013,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetTitleBarInfo(IntPtr hwnd, out TITLEBARINFO pti);
+        public static extern bool GetTitleBarInfo(nint hwnd, out TITLEBARINFO pti);
 
         /// <summary>
         ///Examines the Z order of the child windows associated with the specified parent window and retrieves a handle to the child window at the top of the Z order.
@@ -3834,13 +4023,14 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetTopWindow(IntPtr hWnd);
+        public static extern nint GetTopWindow(nint hWnd);
 
         /// <summary>
         ///Retrieves detailed information about touch inputs associated with a particular touch input handle.
         /// </summary>
         /// <param name="hTouchInput">The touch input handle received in the LPARAM of a touch message. The function fails with ERROR_INVALID_HANDLE if this handle is not valid. Note that the handle is not valid after it has been used in a successful call to CloseTouchInputHandle or after it has been passed to DefWindowProc, PostMessage, SendMessage or one of their variants.</param>
         /// <param name="cInputs">The number of structures in the pInputs array. This should ideally be at least equal to the number of touch points associated with the message as indicated in the message WPARAM. If cInputs is less than the number of touch points, the function will still succeed and populate the pInputs buffer with information about cInputs touch points.</param>
+        /// <param name="pInputs"></param>
         /// <param name="cbSize">The size, in bytes, of a single TOUCHINPUT structure. If cbSize is not the size of a single TOUCHINPUT structure, the function fails with ERROR_INVALID_PARAMETER.If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, use the GetLastError function.Calling CloseTouchInputHandle will not free memory associated with values retrieved in a call to GetTouchInputInfo. Values in structures passed to GetTouchInputInfo will be valid until you delete them.CloseTouchInputHandleFunctionsTOUCHINPUT</param>
         /// <remarks>
         /// To get extended error information, use the GetLastError function.
@@ -3859,7 +4049,9 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Retrieves the currently supported clipboard formats.
         /// </summary>
+        /// <param name="lpuiFormats"></param>
         /// <param name="cFormats">Type: UINTThe number of entries in the array pointed to by lpuiFormats.</param>
+        /// <param name="pcFormatsOut"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool GetUpdatedClipboardFormats(out uint lpuiFormats, uint cFormats, out uint pcFormatsOut);
@@ -3868,10 +4060,11 @@ namespace WindowAPI.winuser.h
         ///The GetUpdateRect function retrieves the coordinates of the smallest rectangle that completely encloses the update region of the specified window. GetUpdateRect retrieves the rectangle in logical coordinates. If there is no update region, GetUpdateRect retrieves an empty rectangle (sets all coordinates to zero).
         /// </summary>
         /// <param name="hWnd">Handle to the window whose update region is to be retrieved.</param>
+        /// <param name="lpRect"></param>
         /// <param name="bErase">Specifies whether the background in the update region is to be erased. If this parameter is TRUE and the update region is not empty, GetUpdateRect sends a WM_ERASEBKGND message to the specified window to erase the background.If the update region is not empty, the return value is nonzero.If there is no update region, the return value is zero.The update rectangle retrieved by the BeginPaint function is identical to that retrieved by GetUpdateRect.BeginPaint automatically validates the update region, so any call to GetUpdateRect made immediately after the call to BeginPaint retrieves an empty update region.BeginPaintGetUpdateRgnInvalidateRectPainting and Drawing FunctionsPainting and Drawing OverviewRECTUpdateWindowValidateRect</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetUpdateRect(IntPtr hWnd, out RECT lpRect, bool bErase);
+        public static extern bool GetUpdateRect(nint hWnd, out RECT lpRect, bool bErase);
 
         /// <summary>
         ///The GetUpdateRgn function retrieves the update region of a window by copying it into the specified region. The coordinates of the update region are relative to the upper-left corner of the window (that is, they are client coordinates).
@@ -3881,46 +4074,52 @@ namespace WindowAPI.winuser.h
         /// <param name="bErase">Specifies whether the window background should be erased and whether nonclient areas of child windows should be drawn. If this parameter is FALSE, no drawing is done.The return value indicates the complexity of the resulting region; it can be one of the following values.The BeginPaint function automatically validates the update region, so any call to GetUpdateRgn made immediately after the call to BeginPaint retrieves an empty update region.Painting and Drawing FunctionsPainting and Drawing Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetUpdateRgn(IntPtr hWnd, IntPtr hRgn, bool bErase);
+        public static extern int GetUpdateRgn(nint hWnd, nint hRgn, bool bErase);
 
         /// <summary>
         ///Retrieves information about the specified window station or desktop object.
         /// </summary>
         /// <param name="hObj">A handle to the window station or desktop object. This handle is returned by the CreateWindowStation, OpenWindowStation, CreateDesktop, or OpenDesktop function.</param>
         /// <param name="nIndex">The information to be retrieved. The parameter can be one of the following values.</param>
+        /// <param name="pvInfo"></param>
         /// <param name="nLength">The size of the buffer pointed to by the pvInfo parameter, in bytes.</param>
+        /// <param name="lpnLengthNeeded"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetUserObjectInformationA(IntPtr hObj, int nIndex, out IntPtr pvInfo, uint nLength, out uint lpnLengthNeeded);
+        public static extern bool GetUserObjectInformationA(nint hObj, int nIndex, out nint pvInfo, uint nLength, out uint lpnLengthNeeded);
 
         /// <summary>
         ///Retrieves information about the specified window station or desktop object.
         /// </summary>
         /// <param name="hObj">A handle to the window station or desktop object. This handle is returned by the CreateWindowStation, OpenWindowStation, CreateDesktop, or OpenDesktop function.</param>
         /// <param name="nIndex">The information to be retrieved. The parameter can be one of the following values.</param>
+        /// <param name="pvInfo"></param>
         /// <param name="nLength">The size of the buffer pointed to by the pvInfo parameter, in bytes.</param>
+        /// <param name="lpnLengthNeeded"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetUserObjectInformationW(IntPtr hObj, int nIndex, out IntPtr pvInfo, uint nLength, out uint lpnLengthNeeded);
+        public static extern bool GetUserObjectInformationW(nint hObj, int nIndex, out nint pvInfo, uint nLength, out uint lpnLengthNeeded);
 
         /// <summary>
         ///The GetUserObjectSecurity function retrieves security information for the specified user object.
         /// </summary>
         /// <param name="hObj">A handle to the user object for which to return security information.</param>
         /// <param name="pSIRequested">A pointer to a SECURITY_INFORMATION value that specifies the security information being requested.</param>
+        /// <param name="pSID"></param>
         /// <param name="nLength">The length, in bytes, of the buffer pointed to by the pSD parameter.</param>
+        /// <param name="lpnLengthNeeded"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetUserObjectSecurity(IntPtr hObj, ACL_SIZE_INFORMATION pSIRequested, out SECURITY_DESCRIPTOR pSID, uint nLength, out uint lpnLengthNeeded);
+        public static extern bool GetUserObjectSecurity(nint hObj, ACL_SIZE_INFORMATION pSIRequested, out SECURITY_DESCRIPTOR pSID, uint nLength, out uint lpnLengthNeeded);
 
         /// <summary>
         ///Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
@@ -3932,14 +4131,14 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetWindow(IntPtr hWnd, uint uCmd);
+        public static extern nint GetWindow(nint hWnd, uint uCmd);
 
         /// <summary>
         ///Retrieves the Help context identifier, if any, associated with the specified window.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetWindowContextHelpId(IntPtr unnamedParam1);
+        public static extern uint GetWindowContextHelpId(nint unnamedParam1);
 
         /// <summary>
         ///The GetWindowDC function retrieves the device context (DC) for the entire window, including title bar, menus, and scroll bars. A window device context permits painting anywhere in a window, because the origin of the device context is the upper-left corner of the window instead of the client area.
@@ -3947,18 +4146,19 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">A handle to the window with a device context that is to be retrieved. If this value is NULL, GetWindowDC retrieves the device context for the entire screen.If this parameter is NULL, GetWindowDC retrieves the device context for the primary display monitor. To get the device context for other display monitors, use the EnumDisplayMonitors and CreateDC functions.If the function succeeds, the return value is a handle to a device context for the specified window.If the function fails, the return value is NULL, indicating an error or an invalid hWnd parameter.GetWindowDC is intended for special painting effects within a window's nonclient area. Painting in nonclient areas of any window is not recommended.The GetSystemMetrics function can be used to retrieve the dimensions of various parts of the nonclient area, such as the title bar, menu, and scroll bars.The GetDC function can be used to retrieve a device context for the entire screen.After painting is complete, the ReleaseDC function must be called to release the device context. Not releasing the window device context has serious effects on painting requested by applications.BeginPaintGetDCGetSystemMetricsPainting and Drawing FunctionsPainting and Drawing OverviewReleaseDC</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetWindowDC(IntPtr hWnd);
+        public static extern nint GetWindowDC(nint hWnd);
 
         /// <summary>
         ///Retrieves the current display affinity setting, from any process, for a given window.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window.</param>
+        /// <param name="pdwAffinity"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetWindowDisplayAffinity(IntPtr hWnd, out uint pdwAffinity);
+        public static extern bool GetWindowDisplayAffinity(nint hWnd, out uint pdwAffinity);
 
         /// <summary>
         ///Returns the DPI_AWARENESS_CONTEXT associated with a window.
@@ -3966,14 +4166,14 @@ namespace WindowAPI.winuser.h
         /// <param name="hwnd">The window to query.The DPI_AWARENESS_CONTEXT for the provided window. If the window is not valid, the return value is NULL.DPI_AWARENESSGetAwarenessFromDpiAwarenessContext</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern DPI_AWARENESS GetWindowDpiAwarenessContext(IntPtr hwnd);
+        public static extern DPI_AWARENESS GetWindowDpiAwarenessContext(nint hwnd);
 
         /// <summary>
         ///Returns the DPI_HOSTING_BEHAVIOR of the specified window.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern DPI_HOSTING_BEHAVIOR GetWindowDpiHostingBehavior(IntPtr hwnd);
+        public static extern DPI_HOSTING_BEHAVIOR GetWindowDpiHostingBehavior(nint hwnd);
 
         /// <summary>
         ///Retrieves the feedback configuration for a window.
@@ -3982,9 +4182,10 @@ namespace WindowAPI.winuser.h
         /// <param name="feedback">One of the values from the FEEDBACK_TYPE enumeration.</param>
         /// <param name="dwFlags">Specify GWFS_INCLUDE_ANCESTORS to check the parent window chain until a value is found. The default is 0 and indicates that only the specified window will be checked.</param>
         /// <param name="pSize">The size of memory region that the config parameter points to.The pSize parameter specifies the size of the configuration data for the feedback type in feedback and must be sizeof(BOOL).</param>
+        /// <param name="config"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetWindowFeedbackSetting(IntPtr hwnd, FEEDBACK_TYPE feedback, uint dwFlags, out int pSize, out IntPtr config);
+        public static extern bool GetWindowFeedbackSetting(nint hwnd, FEEDBACK_TYPE feedback, uint dwFlags, out int pSize, out nint config);
 
         /// <summary>
         ///Retrieves information about the specified window.
@@ -3996,7 +4197,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetWindowInfo(IntPtr hwnd, out WINDOWINFO pwi);
+        public static extern bool GetWindowInfo(nint hwnd, out WINDOWINFO pwi);
 
         /// <summary>
         ///Retrieves information about the specified window. The function also retrieves the 32-bit (DWORD) value at the specified offset into the extra window memory.
@@ -4008,7 +4209,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetWindowLongA(IntPtr hWnd, int nIndex);
+        public static extern int GetWindowLongA(nint hWnd, int nIndex);
 
         /// <summary>
         ///Retrieves information about the specified window. The function also retrieves the value at a specified offset into the extra window memory.
@@ -4020,7 +4221,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetWindowLongPtrA(IntPtr hWnd, int nIndex);
+        public static extern int GetWindowLongPtrA(nint hWnd, int nIndex);
 
         /// <summary>
         ///Retrieves information about the specified window. The function also retrieves the value at a specified offset into the extra window memory.
@@ -4032,7 +4233,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetWindowLongPtrW(IntPtr hWnd, int nIndex);
+        public static extern int GetWindowLongPtrW(nint hWnd, int nIndex);
 
         /// <summary>
         ///Retrieves information about the specified window. The function also retrieves the 32-bit (DWORD) value at the specified offset into the extra window memory.
@@ -4044,25 +4245,27 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetWindowLongW(IntPtr hWnd, int nIndex);
+        public static extern int GetWindowLongW(nint hWnd, int nIndex);
 
         /// <summary>
         ///Retrieves the full path and file name of the module associated with the specified window handle.
         /// </summary>
         /// <param name="hwnd">Type: HWNDA handle to the window whose module file name is to be retrieved.</param>
+        /// <param name="pszFileName"></param>
         /// <param name="cchFileNameMax">Type: UINTThe maximum number of characters that can be copied into the lpszFileName buffer.Type: UINTThe return value is the total number of characters copied into the buffer.Windows Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetWindowModuleFileNameA(IntPtr hwnd, out string pszFileName, uint cchFileNameMax);
+        public static extern uint GetWindowModuleFileNameA(nint hwnd, out string pszFileName, uint cchFileNameMax);
 
         /// <summary>
         ///Retrieves the full path and file name of the module associated with the specified window handle.
         /// </summary>
         /// <param name="hwnd">Type: HWNDA handle to the window whose module file name is to be retrieved.</param>
+        /// <param name="pszFileName"></param>
         /// <param name="cchFileNameMax">Type: UINTThe maximum number of characters that can be copied into the lpszFileName buffer.Type: UINTThe return value is the total number of characters copied into the buffer.Windows Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetWindowModuleFileNameW(IntPtr hwnd, out string pszFileName, uint cchFileNameMax);
+        public static extern uint GetWindowModuleFileNameW(nint hwnd, out string pszFileName, uint cchFileNameMax);
 
         /// <summary>
         ///Retrieves the show state and the restored, minimized, and maximized positions of the specified window.
@@ -4074,18 +4277,19 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetWindowPlacement(IntPtr hWnd, out WINDOWPLACEMENT lpwndpl);
+        public static extern bool GetWindowPlacement(nint hWnd, out WINDOWPLACEMENT lpwndpl);
 
         /// <summary>
         ///Retrieves the dimensions of the bounding rectangle of the specified window. The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window.</param>
+        /// <param name="lpRect"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+        public static extern bool GetWindowRect(nint hWnd, out RECT lpRect);
 
         /// <summary>
         ///The GetWindowRgn function obtains a copy of the window region of a window. The window region of a window is set by calling the SetWindowRgn function. The window region determines the area within the window where the system permits drawing. The system does not display any portion of a window that lies outside of the window region
@@ -4094,27 +4298,29 @@ namespace WindowAPI.winuser.h
         /// <param name="hRgn">Handle to the region which will be modified to represent the window region.The return value specifies the type of the region that the function obtains. It can be one of the following values.The coordinates of a window's window region are relative to the upper-left corner of the window, not the client area of the window.To set the window region of a window, call the SetWindowRgn function.The following code shows how you pass in the handle of an existing region.Painting and Drawing FunctionsPainting and Drawing OverviewSetWindowRgn</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetWindowRgn(IntPtr hWnd, IntPtr hRgn);
+        public static extern int GetWindowRgn(nint hWnd, nint hRgn);
 
         /// <summary>
         ///The GetWindowRgnBox function retrieves the dimensions of the tightest bounding rectangle for the window region of a window.
         /// </summary>
         /// <param name="hWnd">Handle to the window.</param>
+        /// <param name="lprc"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetWindowRgnBox(IntPtr hWnd, out RECT lprc);
+        public static extern int GetWindowRgnBox(nint hWnd, out RECT lprc);
 
         /// <summary>
         ///Copies the text of the specified window's title bar (if it has one) into a buffer. If the specified window is a control, the text of the control is copied. However, GetWindowText cannot retrieve the text of a control in another application.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window or control containing the text.</param>
+        /// <param name="lpString"></param>
         /// <param name="nMaxCount">Type: intThe maximum number of characters to copy to the buffer, including the null character. If the text exceeds this limit, it is truncated.Type: intIf the function succeeds, the return value is the length, in characters, of the copied string, not including the terminating null character. If the window has no title bar or text, if the title bar is empty, or if the window or control handle is invalid, the return value is zero. To get extended error information, call GetLastError.This function cannot retrieve the text of an edit control in another application.If the target window is owned by the current process, GetWindowText causes a WM_GETTEXT message to be sent to the specified window or control. If the target window is owned by another process and has a caption, GetWindowText retrieves the window caption text. If the window does not have a caption, the return value is a null string. This behavior is by design. It allows applications to call GetWindowText without becoming unresponsive if the process that owns the target window is not responding. However, if the target window is not responding and it belongs to the calling application, GetWindowText will cause the calling application to become unresponsive.To retrieve the text of a control in another process, send a WM_GETTEXT message directly instead of calling GetWindowText.The following example code demonstrates a call to GetWindowTextA.To see this example in context, see Sending a Message.ConceptualGetWindowTextLengthReferenceSetWindowTextWM_GETTEXTWindows</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetWindowTextA(IntPtr hWnd, out string lpString, int nMaxCount);
+        public static extern int GetWindowTextA(nint hWnd, out string lpString, int nMaxCount);
 
         /// <summary>
         ///Retrieves the length, in characters, of the specified window's title bar text (if the window has a title bar). If the specified window is a control, the function retrieves the length of the text within the control. However, GetWindowTextLength cannot retrieve the length of the text of an edit control in another application.
@@ -4122,7 +4328,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the window or control.Type: intIf the function succeeds, the return value is the length, in characters, of the text. Under certain conditions, this value might be greater than the length of the text (see Remarks).If the window has no text, the return value is zero.Function failure is indicated by a return value of zero and a GetLastError result that is nonzero.If the target window is owned by the current process, GetWindowTextLength causes a WM_GETTEXTLENGTH message to be sent to the specified window or control.Under certain conditions, the GetWindowTextLength function may return a value that is larger than the actual length of the text. This occurs with certain mixtures of ANSI and Unicode, and is due to the system allowing for the possible existence of double-byte character set (DBCS) characters within the text. The return value, however, will always be at least as large as the actual length of the text; you can thus always use it to guide buffer allocation. This behavior can occur when an application uses both ANSI functions and common dialogs, which use Unicode. It can also occur when an application uses the ANSI version of GetWindowTextLength with a window whose window procedure is Unicode, or the Unicode version of GetWindowTextLength with a window whose window procedure is ANSI. For more information on ANSI and ANSI functions, see Conventions for Function Prototypes.To obtain the exact length of the text, use the WM_GETTEXT, LB_GETTEXT, or CB_GETLBTEXT messages, or the GetWindowText function.CB_GETLBTEXTConceptualGetWindowTextLB_GETTEXTOther ResourcesReferenceSetWindowTextWM_GETTEXTWM_GETTEXTLENGTHWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetWindowTextLengthA(IntPtr hWnd);
+        public static extern int GetWindowTextLengthA(nint hWnd);
 
         /// <summary>
         ///Retrieves the length, in characters, of the specified window's title bar text (if the window has a title bar). If the specified window is a control, the function retrieves the length of the text within the control. However, GetWindowTextLength cannot retrieve the length of the text of an edit control in another application.
@@ -4130,30 +4336,32 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the window or control.Type: intIf the function succeeds, the return value is the length, in characters, of the text. Under certain conditions, this value might be greater than the length of the text (see Remarks).If the window has no text, the return value is zero.Function failure is indicated by a return value of zero and a GetLastError result that is nonzero.If the target window is owned by the current process, GetWindowTextLength causes a WM_GETTEXTLENGTH message to be sent to the specified window or control.Under certain conditions, the GetWindowTextLength function may return a value that is larger than the actual length of the text. This occurs with certain mixtures of ANSI and Unicode, and is due to the system allowing for the possible existence of double-byte character set (DBCS) characters within the text. The return value, however, will always be at least as large as the actual length of the text; you can thus always use it to guide buffer allocation. This behavior can occur when an application uses both ANSI functions and common dialogs, which use Unicode. It can also occur when an application uses the ANSI version of GetWindowTextLength with a window whose window procedure is Unicode, or the Unicode version of GetWindowTextLength with a window whose window procedure is ANSI. For more information on ANSI and ANSI functions, see Conventions for Function Prototypes.To obtain the exact length of the text, use the WM_GETTEXT, LB_GETTEXT, or CB_GETLBTEXT messages, or the GetWindowText function.CB_GETLBTEXTConceptualGetWindowTextLB_GETTEXTOther ResourcesReferenceSetWindowTextWM_GETTEXTWM_GETTEXTLENGTHWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetWindowTextLengthW(IntPtr hWnd);
+        public static extern int GetWindowTextLengthW(nint hWnd);
 
         /// <summary>
         ///Copies the text of the specified window's title bar (if it has one) into a buffer. If the specified window is a control, the text of the control is copied. However, GetWindowText cannot retrieve the text of a control in another application.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window or control containing the text.</param>
+        /// <param name="lpString"></param>
         /// <param name="nMaxCount">Type: intThe maximum number of characters to copy to the buffer, including the null character. If the text exceeds this limit, it is truncated.Type: intIf the function succeeds, the return value is the length, in characters, of the copied string, not including the terminating null character. If the window has no title bar or text, if the title bar is empty, or if the window or control handle is invalid, the return value is zero. To get extended error information, call GetLastError.This function cannot retrieve the text of an edit control in another application.If the target window is owned by the current process, GetWindowText causes a WM_GETTEXT message to be sent to the specified window or control. If the target window is owned by another process and has a caption, GetWindowText retrieves the window caption text. If the window does not have a caption, the return value is a null string. This behavior is by design. It allows applications to call GetWindowText without becoming unresponsive if the process that owns the target window is not responding. However, if the target window is not responding and it belongs to the calling application, GetWindowText will cause the calling application to become unresponsive.To retrieve the text of a control in another process, send a WM_GETTEXT message directly instead of calling GetWindowText.For an example, see Sending a Message.ConceptualGetWindowTextLengthReferenceSetWindowTextWM_GETTEXTWindows</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int GetWindowTextW(IntPtr hWnd, out string lpString, int nMaxCount);
+        public static extern int GetWindowTextW(nint hWnd, out string lpString, int nMaxCount);
 
         /// <summary>
         ///Retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the process that created the window.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window.</param>
+        /// <param name="lpdwProcessId"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+        public static extern uint GetWindowThreadProcessId(nint hWnd, out uint lpdwProcessId);
 
         /// <summary>
         ///The GrayString function draws gray text at the specified location. The function draws the text by copying it into a memory bitmap, graying the bitmap, and then copying the bitmap to the screen. The function grays the text regardless of the selected brush and background. GrayString uses the font currently selected for the specified device context.
@@ -4169,7 +4377,7 @@ namespace WindowAPI.winuser.h
         /// <param name="nHeight">The height, in device units, of the rectangle that encloses the string. If this parameter is zero, GrayString calculates the height of the area, assuming lpData is a pointer to the string.If the string is drawn, the return value is nonzero.If either the TextOut function or the application-defined output function returned zero, or there was insufficient memory to create a memory bitmap for graying, the return value is zero.Without calling GrayString, an application can draw grayed strings on devices that support a solid gray color. The system color COLOR_GRAYTEXT is the solid-gray system color used to draw disabled text. The application can call the GetSysColor function to retrieve the color value of COLOR_GRAYTEXT. If the color is other than zero (black), the application can call the SetTextColor function to set the text color to the color value and then draw the string directly. If the retrieved color is black, the application must call GrayString to gray the text.DrawTextGetSysColorOutputProcPainting and Drawing FunctionsPainting and Drawing OverviewSetTextColorTabbedTextOutTextOut</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GrayStringA(IntPtr hDC, IntPtr hBrush, GRAYSTRINGPROC lpOutputFunc, IntPtr lpData, int nCount, int X, int Y, int nWidth, int nHeight);
+        public static extern bool GrayStringA(nint hDC, nint hBrush, GRAYSTRINGPROC lpOutputFunc, nint lpData, int nCount, int X, int Y, int nWidth, int nHeight);
 
         /// <summary>
         ///The GrayString function draws gray text at the specified location. The function draws the text by copying it into a memory bitmap, graying the bitmap, and then copying the bitmap to the screen. The function grays the text regardless of the selected brush and background. GrayString uses the font currently selected for the specified device context.
@@ -4185,7 +4393,7 @@ namespace WindowAPI.winuser.h
         /// <param name="nHeight">The height, in device units, of the rectangle that encloses the string. If this parameter is zero, GrayString calculates the height of the area, assuming lpData is a pointer to the string.If the string is drawn, the return value is nonzero.If either the TextOut function or the application-defined output function returned zero, or there was insufficient memory to create a memory bitmap for graying, the return value is zero.Without calling GrayString, an application can draw grayed strings on devices that support a solid gray color. The system color COLOR_GRAYTEXT is the solid-gray system color used to draw disabled text. The application can call the GetSysColor function to retrieve the color value of COLOR_GRAYTEXT. If the color is other than zero (black), the application can call the SetTextColor function to set the text color to the color value and then draw the string directly. If the retrieved color is black, the application must call GrayString to gray the text.DrawTextGetSysColorOutputProcPainting and Drawing FunctionsPainting and Drawing OverviewSetTextColorTabbedTextOutTextOut</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GrayStringW(IntPtr hDC, IntPtr hBrush, GRAYSTRINGPROC lpOutputFunc, IntPtr lpData, int nCount, int X, int Y, int nWidth, int nHeight);
+        public static extern bool GrayStringW(nint hDC, nint hBrush, GRAYSTRINGPROC lpOutputFunc, nint lpData, int nCount, int X, int Y, int nWidth, int nHeight);
 
         /// <summary>
         ///Removes the caret from the screen. Hiding a caret does not destroy its current shape or invalidate the insertion point.
@@ -4195,7 +4403,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool HideCaret(IntPtr hWnd);
+        public static extern bool HideCaret(nint hWnd);
 
         /// <summary>
         ///Adds or removes highlighting from an item in a menu bar.
@@ -4206,7 +4414,7 @@ namespace WindowAPI.winuser.h
         /// <param name="uHilite">Type: UINTControls the interpretation of the uItemHilite parameter and indicates whether the menu item is highlighted. This parameter must be a combination of either MF_BYCOMMAND or MF_BYPOSITION and MF_HILITE or MF_UNHILITE.Type: BOOLIf the menu item is set to the specified highlight state, the return value is nonzero.If the menu item is not set to the specified highlight state, the return value is zero.The MF_HILITE and MF_UNHILITE flags can be used only with the HiliteMenuItem function; they cannot be used with the ModifyMenu function.ConceptualMenusModifyMenuReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool HiliteMenuItem(IntPtr hWnd, IntPtr hMenu, uint uIDHiliteItem, uint uHilite);
+        public static extern bool HiliteMenuItem(nint hWnd, nint hMenu, uint uIDHiliteItem, uint uHilite);
 
         /// <summary>
         ///The InflateRect function increases or decreases the width and height of the specified rectangle. The InflateRect function adds -dx units to the left end and dx to the right end of the rectangle and -dy units to the top and dy to the bottom. The dx and dy parameters are signed values; positive values increase the width and height, and negative values decrease them.
@@ -4223,7 +4431,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool InheritWindowMonitor(IntPtr hwnd, IntPtr hwndInherit);
+        public static extern bool InheritWindowMonitor(nint hwnd, nint hwndInherit);
 
         /// <summary>
         ///Configures the touch injection context for the calling application and initializes the maximum number of simultaneous contacts that the app can inject.
@@ -4240,6 +4448,7 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Simulates pointer input (pen or touch).
         /// </summary>
+        /// <param name="device"></param>
         /// <param name="pointerInfo">An array of POINTER_TYPE_INFO structures represneting the injected pointers.The type must match the pointerType parameter of the CreateSyntheticPointerDevice call that created the injection device.The ptPixelLocation for each POINTER_TYPE_INFO is specified relative to top left of the virtual screen:</param>
         /// <param name="count">The number of contacts.For PT_TOUCH this value must be greater than 0 and less than or equal to MAX_TOUCH_COUNT.For PT_PEN this value must be 1.If this function succeeds, it returns TRUE.Otherwise, it returns FALSE. To retrieve extended error information, call the GetLastError function.</param>
 
@@ -4270,7 +4479,7 @@ namespace WindowAPI.winuser.h
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint InSendMessageEx(IntPtr lpReserved);
+        public static extern uint InSendMessageEx(nint lpReserved);
 
         /// <summary>
         ///Inserts a new menu item into a menu, moving other items down the menu.
@@ -4279,12 +4488,13 @@ namespace WindowAPI.winuser.h
         /// <param name="uPosition">Type: UINTThe menu item before which the new menu item is to be inserted, as determined by the uFlags parameter.</param>
         /// <param name="uFlags">Type: UINTControls the interpretation of the uPosition parameter and the content, appearance, and behavior of the new menu item. This parameter must include one of the following required values.The parameter must also include at least one of the following values.</param>
         /// <param name="uIDNewItem">Type: UINT_PTRThe identifier of the new menu item or, if the uFlags parameter has the MF_POPUP flag set, a handle to the drop-down menu or submenu.</param>
+        /// <param name="lpNewItem"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool InsertMenuA(IntPtr hMenu, uint uPosition, uint uFlags, IntPtr uIDNewItem, string lpNewItem);
+        public static extern bool InsertMenuA(nint hMenu, uint uPosition, uint uFlags, nint uIDNewItem, string lpNewItem);
 
         /// <summary>
         ///Inserts a new menu item at the specified position in a menu.
@@ -4298,7 +4508,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool InsertMenuItemA(IntPtr hmenu, uint item, bool fByPosition, MENUITEMINFOA lpmi);
+        public static extern bool InsertMenuItemA(nint hmenu, uint item, bool fByPosition, MENUITEMINFOA lpmi);
 
         /// <summary>
         ///Inserts a new menu item at the specified position in a menu.
@@ -4312,7 +4522,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool InsertMenuItemW(IntPtr hmenu, uint item, bool fByPosition, MENUITEMINFOW lpmi);
+        public static extern bool InsertMenuItemW(nint hmenu, uint item, bool fByPosition, MENUITEMINFOW lpmi);
 
         /// <summary>
         ///Inserts a new menu item into a menu, moving other items down the menu.
@@ -4321,28 +4531,31 @@ namespace WindowAPI.winuser.h
         /// <param name="uPosition">Type: UINTThe menu item before which the new menu item is to be inserted, as determined by the uFlags parameter.</param>
         /// <param name="uFlags">Type: UINTControls the interpretation of the uPosition parameter and the content, appearance, and behavior of the new menu item. This parameter must include one of the following required values.The parameter must also include at least one of the following values.</param>
         /// <param name="uIDNewItem">Type: UINT_PTRThe identifier of the new menu item or, if the uFlags parameter has the MF_POPUP flag set, a handle to the drop-down menu or submenu.</param>
+        /// <param name="lpNewItem"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool InsertMenuW(IntPtr hMenu, uint uPosition, uint uFlags, IntPtr uIDNewItem, string lpNewItem);
+        public static extern bool InsertMenuW(nint hMenu, uint uPosition, uint uFlags, nint uIDNewItem, string lpNewItem);
 
         /// <summary>
         ///[This function is not intended for general use. It may be altered or unavailable in subsequent versions of Windows.]
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window or control containing the text.</param>
+        /// <param name="pString"></param>
         /// <param name="cchMaxCount">Type: intThe maximum number of characters to be copied to the buffer, including the null character. If the text exceeds this limit, it is truncated.Type: intIf the function succeeds, the return value is the length, in characters, of the copied string, not including the terminating null character.If the window has no title bar or text, if the title bar is empty, or if the window or control handle is invalid, the return value is zero. To get extended error information, call GetLastError.This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using LoadLibrary and GetProcAddress.ConceptualGetWindowTextGetWindowTextLengthReferenceSetWindowTextUsing Messages and Message QueuesWM_GETTEXTWindows</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int InternalGetWindowText(IntPtr hWnd, out string pString, int cchMaxCount);
+        public static extern int InternalGetWindowText(nint hWnd, out string pString, int cchMaxCount);
 
         /// <summary>
         ///The IntersectRect function calculates the intersection of two source rectangles and places the coordinates of the intersection rectangle into the destination rectangle. If the source rectangles do not intersect, an empty rectangle (in which all coordinates are set to zero) is placed into the destination rectangle.
         /// </summary>
+        /// <param name="lprcDst"></param>
         /// <param name="lprcSrc1">A pointer to the RECT structure that contains the first source rectangle.</param>
         /// <param name="lprcSrc2">A pointer to the RECT structure that contains the second source rectangle.If the rectangles intersect, the return value is nonzero.If the rectangles do not intersect, the return value is zero.Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.For an example, see Using Rectangles.InflateRectOffsetRectRECTRectangle FunctionsRectangles OverviewUnionRect</param>
 
@@ -4357,7 +4570,7 @@ namespace WindowAPI.winuser.h
         /// <param name="bErase">Specifies whether the background within the update region is to be erased when the update region is processed. If this parameter is TRUE, the background is erased when the BeginPaint function is called. If this parameter is FALSE, the background remains unchanged.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.The invalidated areas accumulate in the update region until the region is processed when the next WM_PAINT message occurs or until the region is validated by using the ValidateRect or ValidateRgn function.The system sends a WM_PAINT message to a window whenever its update region is not empty and there are no other messages in the application queue for that window.If the bErase parameter is TRUE for any part of the update region, the background is erased in the entire region, not just in the specified part.For an example, see Invalidating the Client Area.BeginPaintInvalidateRgnPainting and Drawing FunctionsPainting and Drawing OverviewRECTValidateRectValidateRgnWM_ERASEBKGNDWM_NCPAINTWM_PAINT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool InvalidateRect(IntPtr hWnd, RECT lpRect, bool bErase);
+        public static extern bool InvalidateRect(nint hWnd, RECT lpRect, bool bErase);
 
         /// <summary>
         ///The InvalidateRgn function invalidates the client area within the specified region by adding it to the current update region of a window. The invalidated region, along with all other areas in the update region, is marked for painting when the next WM_PAINT message occurs.
@@ -4367,7 +4580,7 @@ namespace WindowAPI.winuser.h
         /// <param name="bErase">Specifies whether the background within the update region should be erased when the update region is processed. If this parameter is TRUE, the background is erased when the BeginPaint function is called. If the parameter is FALSE, the background remains unchanged.The return value is always nonzero.Invalidated areas accumulate in the update region until the next WM_PAINT message is processed or until the region is validated by using the ValidateRect or ValidateRgn function.The system sends a WM_PAINT message to a window whenever its update region is not empty and there are no other messages in the application queue for that window.The specified region must have been created by using one of the region functions.If the bErase parameter is TRUE for any part of the update region, the background in the entire region is erased, not just in the specified part.BeginPaintInvalidateRectPainting and Drawing FunctionsPainting and Drawing OverviewValidateRectValidateRgnWM_PAINT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool InvalidateRgn(IntPtr hWnd, IntPtr hRgn, bool bErase);
+        public static extern bool InvalidateRgn(nint hWnd, nint hRgn, bool bErase);
 
         /// <summary>
         ///The InvertRect function inverts a rectangle in a window by performing a logical NOT operation on the color values for each pixel in the rectangle's interior.
@@ -4376,7 +4589,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lprc">A pointer to a RECT structure that contains the logical coordinates of the rectangle to be inverted.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.On monochrome screens, InvertRect makes white pixels black and black pixels white. On color screens, the inversion depends on how colors are generated for the screen. Calling InvertRect twice for the same rectangle restores the display to its previous colors.FillRectFilled Shape FunctionsFilled Shapes OverviewRECT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool InvertRect(IntPtr hDC, RECT lprc);
+        public static extern bool InvertRect(nint hDC, RECT lprc);
 
         /// <summary>
         ///Determines whether a character is an alphabetical character. This determination is based on the semantics of the language selected by the user during setup or through Control Panel.
@@ -4462,7 +4675,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the window to be tested.Type: BOOLIf the window is a child or descendant window of the specified parent window, the return value is nonzero.If the window is not a child or descendant window of the specified parent window, the return value is zero.ConceptualIsWindowReferenceSetParentWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsChild(IntPtr hWndParent, IntPtr hWnd);
+        public static extern bool IsChild(nint hWndParent, nint hWnd);
 
         /// <summary>
         ///Determines whether the clipboard contains data in the specified format.
@@ -4482,7 +4695,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpMsg">Type: LPMSGA pointer to an MSG structure that contains the message to be checked.Type: BOOLIf the message has been processed, the return value is nonzero.If the message has not been processed, the return value is zero.Although the IsDialogMessage function is intended for modeless dialog boxes, you can use it with any window that contains controls, enabling the windows to provide the same keyboard selection as is used in a dialog box.When IsDialogMessage processes a message, it checks for keyboard messages and converts them into selections for the corresponding dialog box. For example, the TAB key, when pressed, selects the next control or group of controls, and the DOWN ARROW key, when pressed, selects the next control in a group.Because the IsDialogMessage function performs all necessary translating and dispatching of messages, a message processed by IsDialogMessage must not be passed to the TranslateMessage or DispatchMessage function.IsDialogMessage sends WM_GETDLGCODE messages to the dialog box procedure to determine which keys should be processed.IsDialogMessage can send DM_GETDEFID and DM_SETDEFID messages to the window. These messages are defined in the Winuser.h header file as WM_USER and WM_USER + 1, so conflicts are possible with application-defined messages having the same values.ConceptualDM_GETDEFIDDM_SETDEFIDDialog BoxesDispatchMessageMSGReferenceTranslateMessageWM_GETDLGCODEWM_USER</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsDialogMessageA(IntPtr hDlg, MSG lpMsg);
+        public static extern bool IsDialogMessageA(nint hDlg, MSG lpMsg);
 
         /// <summary>
         ///Determines whether a message is intended for the specified dialog box and, if it is, processes the message.
@@ -4491,7 +4704,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpMsg">Type: LPMSGA pointer to an MSG structure that contains the message to be checked.Type: BOOLIf the message has been processed, the return value is nonzero.If the message has not been processed, the return value is zero.Although the IsDialogMessage function is intended for modeless dialog boxes, you can use it with any window that contains controls, enabling the windows to provide the same keyboard selection as is used in a dialog box.When IsDialogMessage processes a message, it checks for keyboard messages and converts them into selections for the corresponding dialog box. For example, the TAB key, when pressed, selects the next control or group of controls, and the DOWN ARROW key, when pressed, selects the next control in a group.Because the IsDialogMessage function performs all necessary translating and dispatching of messages, a message processed by IsDialogMessage must not be passed to the TranslateMessage or DispatchMessage function.IsDialogMessage sends WM_GETDLGCODE messages to the dialog box procedure to determine which keys should be processed.IsDialogMessage can send DM_GETDEFID and DM_SETDEFID messages to the window. These messages are defined in the Winuser.h header file as WM_USER and WM_USER + 1, so conflicts are possible with application-defined messages having the same values.ConceptualDM_GETDEFIDDM_SETDEFIDDialog BoxesDispatchMessageMSGReferenceTranslateMessageWM_GETDLGCODEWM_USER</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsDialogMessageW(IntPtr hDlg, MSG lpMsg);
+        public static extern bool IsDialogMessageW(nint hDlg, MSG lpMsg);
 
         /// <summary>
         ///The IsDlgButtonChecked function determines whether a button control is checked or whether a three-state button control is checked, unchecked, or indeterminate.
@@ -4500,7 +4713,7 @@ namespace WindowAPI.winuser.h
         /// <param name="nIDButton">Type: intThe identifier of the button control.Type: UINTThe return value from a button created with the BS_AUTOCHECKBOX, BS_AUTORADIOBUTTON, BS_AUTO3STATE, BS_CHECKBOX, BS_RADIOBUTTON, or BS_3STATE styles can be one of the values in the following table. If the button has any other style, the return value is zero.The IsDlgButtonChecked function sends a BM_GETCHECK message to the specified button control.For an example, see the section titled "Creating a Modeless Dialog Box" in Using Dialog Boxes.CheckDlgButton</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint IsDlgButtonChecked(IntPtr hDlg, int nIDButton);
+        public static extern uint IsDlgButtonChecked(nint hDlg, int nIDButton);
 
         /// <summary>
         ///Determines whether the calling thread is already a GUI thread. It can also optionally convert the thread to a GUI thread.
@@ -4516,7 +4729,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hwnd">Type: HWNDA handle to the window to be tested.Type: BOOLThe return value is TRUE if the window stops responding; otherwise, it is FALSE. Ghost windows always return TRUE.The Windows timeout criteria of 5 seconds is subject to change.This function was not included in the SDK headers and libraries until Windows XP Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using LoadLibrary and GetProcAddress.ConceptualIsWindowReferenceWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsHungAppWindow(IntPtr hwnd);
+        public static extern bool IsHungAppWindow(nint hwnd);
 
         /// <summary>
         ///Determines whether the specified window is minimized (iconic).
@@ -4524,7 +4737,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the window to be tested.Type: BOOLIf the window is iconic, the return value is nonzero.If the window is not iconic, the return value is zero.ConceptualIsZoomedReferenceWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsIconic(IntPtr hWnd);
+        public static extern bool IsIconic(nint hWnd);
 
         /// <summary>
         ///Determines whether the process belongs to a Windows Store app.
@@ -4535,7 +4748,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsImmersiveProcess(IntPtr hProcess);
+        public static extern bool IsImmersiveProcess(nint hProcess);
 
         /// <summary>
         ///Determines whether a handle is a menu handle.
@@ -4543,7 +4756,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hMenu">Type: HMENUA handle to be tested.Type: BOOLIf the handle is a menu handle, the return value is nonzero.If the handle is not a menu handle, the return value is zero.Menus</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsMenu(IntPtr hMenu);
+        public static extern bool IsMenu(nint hMenu);
 
         /// <summary>
         ///Indicates whether EnableMouseInPointer is set for the mouse to act as a pointer input device and send WM_POINTER messages.
@@ -4571,9 +4784,10 @@ namespace WindowAPI.winuser.h
         ///Checks whether a specified window is touch-capable and, optionally, retrieves the modifier flags set for the window's touch capability.
         /// </summary>
         /// <param name="hwnd">The handle of the window. The function fails with ERROR_ACCESS_DENIED if the calling thread is not on the same desktop as the specified window.</param>
+        /// <param name="pulFlags"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsTouchWindow(IntPtr hwnd, out uint pulFlags);
+        public static extern bool IsTouchWindow(nint hwnd, out uint pulFlags);
 
         /// <summary>
         ///Determines if a specified DPI_AWARENESS_CONTEXT is valid and supported by the current system.
@@ -4588,14 +4802,14 @@ namespace WindowAPI.winuser.h
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsWindow(IntPtr hWnd);
+        public static extern bool IsWindow(nint hWnd);
 
         /// <summary>
         ///Determines whether a window is arranged.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsWindowArranged(IntPtr hwnd);
+        public static extern bool IsWindowArranged(nint hwnd);
 
         /// <summary>
         ///Determines whether the specified window is enabled for mouse and keyboard input.
@@ -4603,7 +4817,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the window to be tested.Type: BOOLIf the window is enabled, the return value is nonzero.If the window is not enabled, the return value is zero.A child window receives input only if it is both enabled and visible.ConceptualEnableWindowIsWindowVisibleKeyboard InputReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsWindowEnabled(IntPtr hWnd);
+        public static extern bool IsWindowEnabled(nint hWnd);
 
         /// <summary>
         ///Determines whether the specified window is a native Unicode window.
@@ -4611,7 +4825,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the window to be tested.Type: BOOLIf the window is a native Unicode window, the return value is nonzero.If the window is not a native Unicode window, the return value is zero. The window is a native ANSI window.The character set of a window is determined by the use of the RegisterClass function. If the window class was registered with the ANSI version of RegisterClass (RegisterClassA), the character set of the window is ANSI. If the window class was registered with the Unicode version of RegisterClass (RegisterClassW), the character set of the window is Unicode.The system does automatic two-way translation (Unicode to ANSI) for window messages. For example, if an ANSI window message is sent to a window that uses the Unicode character set, the system translates that message into a Unicode message before calling the window procedure. The system calls IsWindowUnicode to determine whether to translate the message.Windows Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsWindowUnicode(IntPtr hWnd);
+        public static extern bool IsWindowUnicode(nint hWnd);
 
         /// <summary>
         ///Determines the visibility state of the specified window.
@@ -4619,7 +4833,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the window to be tested.Type: BOOLIf the specified window, its parent window, its parent's parent window, and so forth, have the WS_VISIBLE style, the return value is nonzero. Otherwise, the return value is zero.Because the return value specifies whether the window has the WS_VISIBLE style, it may be nonzero even if the window is totally obscured by other windows.The visibility state of a window is indicated by the WS_VISIBLE style bit. When WS_VISIBLE is set, the window is displayed and subsequent drawing into it is displayed as long as the window has the WS_VISIBLE style.Any drawing to a window with the WS_VISIBLE style will not be displayed if the window is obscured by other windows or is clipped by its parent window.ConceptualReferenceShowWindowWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsWindowVisible(IntPtr hWnd);
+        public static extern bool IsWindowVisible(nint hWnd);
 
         /// <summary>
         ///Determines whether there is an installed WinEvent hook that might be notified of a specified event.
@@ -4642,7 +4856,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the window to be tested.Type: BOOLIf the window is zoomed, the return value is nonzero.If the window is not zoomed, the return value is zero.ConceptualIsIconicReferenceWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool IsZoomed(IntPtr hWnd);
+        public static extern bool IsZoomed(nint hWnd);
 
         /// <summary>
         ///Synthesizes a keystroke. The system can use such a synthesized keystroke to generate a WM_KEYUP or WM_KEYDOWN message. The keyboard driver's interrupt handler calls the keybd_event function.
@@ -4658,35 +4872,38 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Destroys the specified timer.
         /// </summary>
+        /// <param name="hWnd"></param>
         /// <param name="uIDEvent">Type: UINT_PTRThe timer to be destroyed. If the window handle passed to SetTimer is valid, this parameter must be the same as the nIDEventvalue passed to SetTimer. If the application calls SetTimer with hWnd set to NULL, this parameter must be the timer identifier returned by SetTimer.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.The KillTimer function does not remove WM_TIMER messages already posted to the message queue.For an example, see Destroying a Timer.ConceptualReferenceSetTimerTimersWM_TIMER</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool KillTimer(IntPtr hWnd, IntPtr uIDEvent);
+        public static extern bool KillTimer(nint hWnd, nint uIDEvent);
 
         /// <summary>
         ///Loads the specified accelerator table.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpTableName">Type: LPCTSTRThe name of the accelerator table to be loaded. Alternatively, this parameter can specify the resource identifier of an accelerator-table resource in the low-order word and zero in the high-order word. To create this value, use the MAKEINTRESOURCE macro.Type: HACCELIf the function succeeds, the return value is a handle to the loaded accelerator table.If the function fails, the return value is NULL. To get extended error information, call GetLastError.If the accelerator table has not yet been loaded, the function loads it from the specified executable file.Accelerator tables loaded from resources are freed automatically when the application terminates.For an example, see Creating Accelerators for Font Attributes.ConceptualCopyAcceleratorTableCreateAcceleratorTableDestroyAcceleratorTableKeyboard AcceleratorsMAKEINTRESOURCEReference</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern ACCEL LoadAcceleratorsA(IntPtr hInstance, string lpTableName);
+        public static extern ACCEL LoadAcceleratorsA(nint hInstance, string lpTableName);
 
         /// <summary>
         ///Loads the specified accelerator table.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpTableName">Type: LPCTSTRThe name of the accelerator table to be loaded. Alternatively, this parameter can specify the resource identifier of an accelerator-table resource in the low-order word and zero in the high-order word. To create this value, use the MAKEINTRESOURCE macro.Type: HACCELIf the function succeeds, the return value is a handle to the loaded accelerator table.If the function fails, the return value is NULL. To get extended error information, call GetLastError.If the accelerator table has not yet been loaded, the function loads it from the specified executable file.Accelerator tables loaded from resources are freed automatically when the application terminates.For an example, see Creating Accelerators for Font Attributes.ConceptualCopyAcceleratorTableCreateAcceleratorTableDestroyAcceleratorTableKeyboard AcceleratorsMAKEINTRESOURCEReference</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern ACCEL LoadAcceleratorsW(IntPtr hInstance, string lpTableName);
+        public static extern ACCEL LoadAcceleratorsW(nint hInstance, string lpTableName);
 
         /// <summary>
         ///[LoadBitmap is available for use in the operating systems specified in the Requirements section. It may be altered or unavailable in subsequent versions. Instead, use LoadImage and DrawFrameControl.]
@@ -4695,7 +4912,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpBitmapName">A pointer to a null-terminated string that contains the name of the bitmap resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The MAKEINTRESOURCE macro can be used to create this value.If the function succeeds, the return value is the handle to the specified bitmap.If the function fails, the return value is NULL.If the bitmap pointed to by the lpBitmapName parameter does not exist or there is insufficient memory to load the bitmap, the function fails.LoadBitmap creates a compatible bitmap of the display, which cannot be selected to a printer. To load a bitmap that you can select to a printer, call LoadImage and specify LR_CREATEDIBSECTION to create a DIB section. A DIB section can be selected to any device.An application can use the LoadBitmap function to access predefined bitmaps. To do so, the application must set the hInstance parameter to NULL and the lpBitmapName parameter to one of the following values.Bitmap names that begin with OBM_OLD represent bitmaps used by 16-bit versions of Windows earlier than 3.0.For an application to use any of the OBM_ constants, the constant OEMRESOURCE must be defined before the Windows.h header file is included.The application must call the DeleteObject function to delete each bitmap handle returned by the LoadBitmap function.For an example, see Example of Menu-Item Bitmaps in Using Menus.Bitmap FunctionsBitmaps OverviewCreateBitmapDeleteObjectDrawFrameControlLoadCursorLoadIconLoadImageMAKEINTRESOURCE</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadBitmapA(IntPtr hInstance, string lpBitmapName);
+        public static extern nint LoadBitmapA(nint hInstance, string lpBitmapName);
 
         /// <summary>
         ///[LoadBitmap is available for use in the operating systems specified in the Requirements section. It may be altered or unavailable in subsequent versions. Instead, use LoadImage and DrawFrameControl.]
@@ -4704,18 +4921,19 @@ namespace WindowAPI.winuser.h
         /// <param name="lpBitmapName">A pointer to a null-terminated string that contains the name of the bitmap resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The MAKEINTRESOURCE macro can be used to create this value.If the function succeeds, the return value is the handle to the specified bitmap.If the function fails, the return value is NULL.If the bitmap pointed to by the lpBitmapName parameter does not exist or there is insufficient memory to load the bitmap, the function fails.LoadBitmap creates a compatible bitmap of the display, which cannot be selected to a printer. To load a bitmap that you can select to a printer, call LoadImage and specify LR_CREATEDIBSECTION to create a DIB section. A DIB section can be selected to any device.An application can use the LoadBitmap function to access predefined bitmaps. To do so, the application must set the hInstance parameter to NULL and the lpBitmapName parameter to one of the following values.Bitmap names that begin with OBM_OLD represent bitmaps used by 16-bit versions of Windows earlier than 3.0.For an application to use any of the OBM_ constants, the constant OEMRESOURCE must be defined before the Windows.h header file is included.The application must call the DeleteObject function to delete each bitmap handle returned by the LoadBitmap function.For an example, see Example of Menu-Item Bitmaps in Using Menus.Bitmap FunctionsBitmaps OverviewCreateBitmapDeleteObjectDrawFrameControlLoadCursorLoadIconLoadImageMAKEINTRESOURCE</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadBitmapW(IntPtr hInstance, string lpBitmapName);
+        public static extern nint LoadBitmapW(nint hInstance, string lpBitmapName);
 
         /// <summary>
         ///Loads the specified cursor resource from the executable (.EXE) file associated with an application instance.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpCursorName">Type: LPCTSTRIf hInstance is non-NULL, lpCursorName specifies the cursor resource either by name or ordinal. This ordinal must be packaged by using the MAKEINTRESOURCE macro.If hInstance is NULL, lpCursorName specifies the identifier (beginning with the IDC_ prefix) of a predefined system cursor to load.Type: HCURSORIf the function succeeds, the return value is the handle to the newly loaded cursor.If the function fails, the return value is NULL. To get extended error information, call GetLastError.The LoadCursor function loads the cursor resource only if it has not been loaded; otherwise, it retrieves the handle to the existing resource. This function returns a valid cursor handle only if the lpCursorName parameter is a pointer to a cursor resource. If lpCursorName is a pointer to any type of resource other than a cursor (such as an icon), the return value is not NULL, even though it is not a valid cursor handle.The LoadCursor function searches the cursor resource most appropriate for the cursor for the current display device. The cursor resource can be a color or monochrome bitmap.For an example, see Creating a Cursor.ConceptualCursorsLoadImageMAKEINTRESOURCEIS_INTRESOURCEReferenceSetCursorSetCursorPosShowCursor</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadCursorA(IntPtr hInstance, string lpCursorName);
+        public static extern nint LoadCursorA(nint hInstance, string lpCursorName);
 
         /// <summary>
         ///Creates a cursor based on data contained in a file.
@@ -4726,7 +4944,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadCursorFromFileA(string lpFileName);
+        public static extern nint LoadCursorFromFileA(string lpFileName);
 
         /// <summary>
         ///Creates a cursor based on data contained in a file.
@@ -4737,44 +4955,48 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadCursorFromFileW(string lpFileName);
+        public static extern nint LoadCursorFromFileW(string lpFileName);
 
         /// <summary>
         ///Loads the specified cursor resource from the executable (.exe) file associated with an application instance.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpCursorName">Type: LPCTSTRIf hInstance is non-NULL, lpCursorName specifies the cursor resource either by name or ordinal. This ordinal must be packaged by using the MAKEINTRESOURCE macro.If hInstance is NULL, lpCursorName specifies the identifier that begins with the IDC_ prefix of a predefined system cursor to load.Type: HCURSORIf the function succeeds, the return value is the handle to the newly loaded cursor.If the function fails, the return value is NULL. To get extended error information, call GetLastError.The LoadCursor function loads the cursor resource only if it has not been loaded; otherwise, it retrieves the handle to the existing resource. This function returns a valid cursor handle only if the lpCursorName parameter is a pointer to a cursor resource. If lpCursorName is a pointer to any type of resource other than a cursor (such as an icon), the return value is not NULL, even though it is not a valid cursor handle.The LoadCursor function searches the cursor resource most appropriate for the cursor for the current display device. The cursor resource can be a color or monochrome bitmap.For an example, see Creating a Cursor.ConceptualCursorsLoadImageMAKEINTRESOURCEIS_INTRESOURCEReferenceSetCursorSetCursorPosShowCursor</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadCursorW(IntPtr hInstance, string lpCursorName);
+        public static extern nint LoadCursorW(nint hInstance, string lpCursorName);
 
         /// <summary>
         ///Loads the specified icon resource from the executable (.exe) file associated with an application instance.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpIconName">Type: LPCTSTRIf hInstance is non-NULL, lpIconName specifies the icon resource either by name or ordinal. This ordinal must be packaged by using the MAKEINTRESOURCE macro.If hInstance is NULL, lpIconName specifies the identifier (beginning with the IDI_ prefix) of a predefined system icon to load.Type: HICONIf the function succeeds, the return value is a handle to the newly loaded icon.If the function fails, the return value is NULL. To get extended error information, call GetLastError.LoadIcon loads the icon resource only if it has not been loaded; otherwise, it retrieves a handle to the existing resource. The function searches the icon resource for the icon most appropriate for the current display. The icon resource can be a color or monochrome bitmap.LoadIcon can only load an icon whose size conforms to the SM_CXICON and SM_CYICON system metric values. Use the LoadImage function to load icons of other sizes.ConceptualCreateIconIconsLoadImageMAKEINTRESOURCEIS_INTRESOURCE</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadIconA(IntPtr hInstance, string lpIconName);
+        public static extern nint LoadIconA(nint hInstance, string lpIconName);
 
         /// <summary>
         ///Loads the specified icon resource from the executable (.exe) file associated with an application instance.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpIconName">Type: LPCTSTRIf hInstance is non-NULL, lpIconName specifies the icon resource either by name or ordinal. This ordinal must be packaged by using the MAKEINTRESOURCE macro.If hInstance is NULL, lpIconName specifies the identifier (beginning with the IDI_ prefix) of a predefined system icon to load.Type: HICONIf the function succeeds, the return value is a handle to the newly loaded icon.If the function fails, the return value is NULL. To get extended error information, call GetLastError.LoadIcon loads the icon resource only if it has not been loaded; otherwise, it retrieves a handle to the existing resource. The function searches the icon resource for the icon most appropriate for the current display. The icon resource can be a color or monochrome bitmap.LoadIcon can only load an icon whose size conforms to the SM_CXICON and SM_CYICON system metric values. Use the LoadImage function to load icons of other sizes.ConceptualCreateIconIconsLoadImageMAKEINTRESOURCEIS_INTRESOURCE</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadIconW(IntPtr hInstance, string lpIconName);
+        public static extern nint LoadIconW(nint hInstance, string lpIconName);
 
         /// <summary>
         ///Loads an icon, cursor, animated cursor, or bitmap.
         /// </summary>
+        /// <param name="hInst"></param>
         /// <param name="name">Type: LPCTSTRThe image to be loaded.If the hInst parameter is non-NULL and the fuLoad parameter omits LR_LOADFROMFILE, name specifies the image resource in the hInst module.If the image resource is to be loaded by name from the module, the name parameter is a pointer to a null-terminated string that contains the name of the image resource.If the image resource is to be loaded by ordinal from the module, use the MAKEINTRESOURCE macro to convert the image ordinal into a form that can be passed to the LoadImage function.If the hInst parameter is NULL and the fuLoad parameter omits the LR_LOADFROMFILE value, the name specifies the predefined image to load.The predefined image identifiers are defined in Winuser.h and have the following prefixes:To pass OEM image identifiers constants to the LoadImage function, use the MAKEINTRESOURCE macro. For example, to load the OCR_NORMAL cursor, pass MAKEINTRESOURCE(OCR_NORMAL) as the name parameter, NULL as the hInst parameter, and LR_SHARED as one of the flags to the fuLoad parameter.If the hInst parameter is NULL and the fuLoad parameter includes the LR_LOADFROMFILE value, name is the name of the file that contains the standalone resource (icon, cursor, or bitmap file), - for example, c:\myicon.ico.For more information, see the Remarks section below.</param>
         /// <param name="type">Type: UINTThe type of image to be loaded.This parameter can be one of the following values:</param>
         /// <param name="cx">Type: intThe width, in pixels, of the icon or cursor. If this parameter is zero and the fuLoad parameter is LR_DEFAULTSIZE, the function uses the SM_CXICON or SM_CXCURSOR system metric value to set the width. If this parameter is zero and LR_DEFAULTSIZE is not used, the function uses the actual resource width.</param>
@@ -4785,11 +5007,12 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadImageA(IntPtr hInst, string name, uint type, int cx, int cy, uint fuLoad);
+        public static extern nint LoadImageA(nint hInst, string name, uint type, int cx, int cy, uint fuLoad);
 
         /// <summary>
         ///Loads an icon, cursor, animated cursor, or bitmap.
         /// </summary>
+        /// <param name="hInst"></param>
         /// <param name="name">Type: LPCTSTRThe image to be loaded.If the hInst parameter is non-NULL and the fuLoad parameter omits LR_LOADFROMFILE, name specifies the image resource in the hInst module.If the image resource is to be loaded by name from the module, the name parameter is a pointer to a null-terminated string that contains the name of the image resource.If the image resource is to be loaded by ordinal from the module, use the MAKEINTRESOURCE macro to convert the image ordinal into a form that can be passed to the LoadImage function.If the hInst parameter is NULL and the fuLoad parameter omits the LR_LOADFROMFILE value, the name specifies the predefined image to load.The predefined image identifiers are defined in Winuser.h and have the following prefixes:To pass OEM image identifiers constants to the LoadImage function, use the MAKEINTRESOURCE macro. For example, to load the OCR_NORMAL cursor, pass MAKEINTRESOURCE(OCR_NORMAL) as the name parameter, NULL as the hInst parameter, and LR_SHARED as one of the flags to the fuLoad parameter.If the hInst parameter is NULL and the fuLoad parameter includes the LR_LOADFROMFILE value, name is the name of the file that contains the standalone resource (icon, cursor, or bitmap file), - for example, c:\myicon.ico.For more information, see the Remarks section below.</param>
         /// <param name="type">Type: UINTThe type of image to be loaded.This parameter can be one of the following values:</param>
         /// <param name="cx">Type: intThe width, in pixels, of the icon or cursor. If this parameter is zero and the fuLoad parameter is LR_DEFAULTSIZE, the function uses the SM_CXICON or SM_CXCURSOR system metric value to set the width. If this parameter is zero and LR_DEFAULTSIZE is not used, the function uses the actual resource width.</param>
@@ -4800,7 +5023,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadImageW(IntPtr hInst, string name, uint type, int cx, int cy, uint fuLoad);
+        public static extern nint LoadImageW(nint hInst, string name, uint type, int cx, int cy, uint fuLoad);
 
         /// <summary>
         ///Loads a new input locale identifier (formerly called the keyboard layout) into the system.
@@ -4812,7 +5035,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadKeyboardLayoutA(string pwszKLID, uint Flags);
+        public static extern nint LoadKeyboardLayoutA(string pwszKLID, uint Flags);
 
         /// <summary>
         ///Loads a new input locale identifier (formerly called the keyboard layout) into the system.
@@ -4824,18 +5047,19 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadKeyboardLayoutW(string pwszKLID, uint Flags);
+        public static extern nint LoadKeyboardLayoutW(string pwszKLID, uint Flags);
 
         /// <summary>
         ///Loads the specified menu resource from the executable (.exe) file associated with an application instance.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpMenuName">Type: LPCTSTRThe name of the menu resource. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. To create this value, use the MAKEINTRESOURCE macro.Type: HMENUIf the function succeeds, the return value is a handle to the menu resource.If the function fails, the return value is NULL. To get extended error information, call GetLastError.The DestroyMenu function is used, before an application closes, to destroy the menu and free memory that the loaded menu occupied.For an example, see Displaying a Shortcut MenuConceptualLoadMenuIndirectMAKEINTRESOURCEMenusReference</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadMenuA(IntPtr hInstance, string lpMenuName);
+        public static extern nint LoadMenuA(nint hInstance, string lpMenuName);
 
         /// <summary>
         ///Loads the specified menu template in memory.
@@ -4846,7 +5070,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadMenuIndirectA(DLGTEMPLATE lpMenuTemplate);
+        public static extern nint LoadMenuIndirectA(DLGTEMPLATE lpMenuTemplate);
 
         /// <summary>
         ///Loads the specified menu template in memory.
@@ -4857,42 +5081,47 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadMenuIndirectW(DLGTEMPLATE lpMenuTemplate);
+        public static extern nint LoadMenuIndirectW(DLGTEMPLATE lpMenuTemplate);
 
         /// <summary>
         ///Loads the specified menu resource from the executable (.exe) file associated with an application instance.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="lpMenuName">Type: LPCTSTRThe name of the menu resource. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. To create this value, use the MAKEINTRESOURCE macro.Type: HMENUIf the function succeeds, the return value is a handle to the menu resource.If the function fails, the return value is NULL. To get extended error information, call GetLastError.The DestroyMenu function is used, before an application closes, to destroy the menu and free memory that the loaded menu occupied.For an example, see Displaying a Shortcut MenuConceptualLoadMenuIndirectMAKEINTRESOURCEMenusReference</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadMenuW(IntPtr hInstance, string lpMenuName);
+        public static extern nint LoadMenuW(nint hInstance, string lpMenuName);
 
         /// <summary>
         ///Loads a string resource from the executable file associated with a specified module and either copies the string into a buffer with a terminating null character or returns a read-only pointer to the string resource itself.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="uID">Type: UINTThe identifier of the string to be loaded.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="cchBufferMax">Type: intThe size of the buffer, in characters. The string is truncated and null-terminated if it is longer than the number of characters specified. This parameter may not be zero.Type: intIf the function succeeds, the return value is the number of characters copied into the buffer, not including the terminating null character.If the string resource does not exist, the return value is zero.To get extended error information, call GetLastError.Unlike the LoadStringW function, the LoadStringA function does not support passing a value of zero for cchBufferMax. Doing so will corrupt memory.For an example, see Creating a Child WindowConceptualFormatMessageLoadAcceleratorsLoadBitmapLoadCursorLoadIconLoadMenuLoadMenuIndirectOther ResourcesReferenceStrings</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int LoadStringA(IntPtr hInstance, uint uID, out string lpBuffer, int cchBufferMax);
+        public static extern int LoadStringA(nint hInstance, uint uID, out string lpBuffer, int cchBufferMax);
 
         /// <summary>
         ///Loads a string resource from the executable file associated with a specified module and either copies the string into a buffer with a terminating null character or returns a read-only pointer to the string resource itself.
         /// </summary>
+        /// <param name="hInstance"></param>
         /// <param name="uID">Type: UINTThe identifier of the string to be loaded.</param>
+        /// <param name="lpBuffer"></param>
         /// <param name="cchBufferMax">Type: intThe size of the buffer, in characters. The string is truncated and null-terminated if it is longer than the number of characters specified. If this parameter is 0, then lpBuffer receives a read-only pointer to the string resource itself.Type: intIf the function succeeds, the return value is one of the following:To get extended error information, call GetLastError.If you pass 0 to cchBufferMax to return a read-only pointer to the string resource in the lpBuffer parameter, use the number of characters in the return value to determine the length of the string resource. String resources are not guaranteed to be null-terminated in the module's resource table. However, resource tables can contain null characters. String resources are stored in blocks of 16 strings, and any empty slots within a block are indicated by null characters.For an example, see Creating a Child WindowConceptualFormatMessageLoadAcceleratorsLoadBitmapLoadCursorLoadIconLoadMenuLoadMenuIndirectOther ResourcesReferenceStrings</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int LoadStringW(IntPtr hInstance, uint uID, out string lpBuffer, int cchBufferMax);
+        public static extern int LoadStringW(nint hInstance, uint uID, out string lpBuffer, int cchBufferMax);
 
         /// <summary>
         ///The foreground process can call the LockSetForegroundWindow function to disable calls to the SetForegroundWindow function.
@@ -4911,7 +5140,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWndLock">The window in which drawing will be disabled. If this parameter is NULL, drawing in the locked window is enabled.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero, indicating that an error occurred or another window was already locked.The purpose of the LockWindowUpdate function is to permit drag/drop feedback to be drawn over a window without interference from the window itself. The intent is that the window is locked when feedback is drawn and unlocked when feedback is complete. LockWindowUpdate is not intended for general-purpose suppression of window redraw. Use the WM_SETREDRAW message to disable redrawing of a particular window.If an application with a locked window (or any locked child windows) calls the GetDC, GetDCEx, or BeginPaint function, the called function returns a device context with a visible region that is empty. This will occur until the application unlocks the window by calling LockWindowUpdate, specifying a value of NULL for hWndLock.If an application attempts to draw within a locked window, the system records the extent of the attempted operation in a bounding rectangle. When the window is unlocked, the system invalidates the area within this bounding rectangle, forcing an eventual WM_PAINT message to be sent to the previously locked window and its child windows. If no drawing has occurred while the window updates were locked, no area is invalidated.LockWindowUpdate does not make the specified window invisible and does not clear the WS_VISIBLE style bit.A locked window cannot be moved.BeginPaintGetDCGetDCExPainting and Drawing FunctionsPainting and Drawing OverviewWM_PAINT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool LockWindowUpdate(IntPtr hWndLock);
+        public static extern bool LockWindowUpdate(nint hWndLock);
 
         /// <summary>
         ///Locks the workstation's display. Locking a workstation protects it from unauthorized use.
@@ -4930,7 +5159,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpPoint">Type: LPPOINTA pointer to a POINT structure that specifies the logical coordinates to be converted. The new physical coordinates are copied into this structure if the function succeeds.NoneWindows Vista introduces the concept of physical coordinates. Desktop Window Manager (DWM) scales non-dots per inch (dpi) aware windows when the display is high dpi. The window seen on the screen corresponds to the physical coordinates. The application continues to work in logical space. Therefore, the application's view of the window is different from that which appears on the screen. For scaled windows, logical and physical coordinates are different.LogicalToPhysicalPoint is a transformation API that can be called by a process that declares itself as dpi aware. The function uses the window identified by the hWnd parameter and the logical coordinates given in the POINT structure to compute the physical coordinates.The LogicalToPhysicalPoint function replaces the logical coordinates in the POINT structure with the physical coordinates. The physical coordinates are relative to the upper-left corner of the screen. The coordinates have to be inside the client area of hWnd.On all platforms, LogicalToPhysicalPoint will fail on a window that has either 0 width or height; an application must first establish a non-0 width and height by calling, for example, MoveWindow. On some versions of Windows (including Windows 7), LogicalToPhysicalPoint will still fail if MoveWindow has been called after a call to ShowWindow with SH_HIDE has hidden the window.In Windows 8, system–DPI aware applications translate between physical and logical space using PhysicalToLogicalPoint and LogicalToPhysicalPoint. In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications, you do not need these APIs. As a result, in Windows 8.1, PhysicalToLogicalPoint and LogicalToPhysicalPoint no longer transform points. The system returns all points to an application in its own coordinate space. This behavior preserves functionality for the majority of applications, but there are some exceptions in which you must make changes to ensure that the application works as expected. In those cases, use PhysicalToLogicalPointForPerMonitorDPI and LogicalToPhysicalPointForPerMonitorDPI.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool LogicalToPhysicalPoint(IntPtr hWnd, out POINT lpPoint);
+        public static extern bool LogicalToPhysicalPoint(nint hWnd, out POINT lpPoint);
 
         /// <summary>
         ///Converts a point in a window from logical coordinates into physical coordinates, regardless of the dots per inch (dpi) awareness of the caller. For more information about DPI awareness levels, see PROCESS_DPI_AWARENESS.
@@ -4939,7 +5168,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpPoint">A pointer to a POINT structure that specifies the logical coordinates to be converted. The new physical coordinates are copied into this structure if the function succeeds.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool LogicalToPhysicalPointForPerMonitorDPI(IntPtr hWnd, out POINT lpPoint);
+        public static extern bool LogicalToPhysicalPointForPerMonitorDPI(nint hWnd, out POINT lpPoint);
 
         /// <summary>
         ///Searches through icon (RT_GROUP_ICON) or cursor (RT_GROUP_CURSOR) resource data for the icon or cursor that best fits the current display device.
@@ -4978,7 +5207,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool MapDialogRect(IntPtr hDlg, out RECT lpRect);
+        public static extern bool MapDialogRect(nint hDlg, out RECT lpRect);
 
         /// <summary>
         ///Translates (maps) a virtual-key code into a scan code or character value, or translates a scan code into a virtual-key code.
@@ -4994,18 +5223,20 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="uCode">Type: UINTThe virtual key code or scan code for a key. How this value is interpreted depends on the value of the uMapType parameter.Starting with Windows Vista, the high byte of the uCode value can contain either 0xe0 or 0xe1 to specify the extended scan code.</param>
         /// <param name="uMapType">Type: UINTThe translation to perform. The value of this parameter depends on the value of the uCode parameter.</param>
+        /// <param name="dwhkl"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint MapVirtualKeyExA(uint uCode, uint uMapType, out IntPtr dwhkl);
+        public static extern uint MapVirtualKeyExA(uint uCode, uint uMapType, out nint dwhkl);
 
         /// <summary>
         ///Translates (maps) a virtual-key code into a scan code or character value, or translates a scan code into a virtual-key code. The function translates the codes using the input language and an input locale identifier.
         /// </summary>
         /// <param name="uCode">Type: UINTThe virtual key code or scan code for a key. How this value is interpreted depends on the value of the uMapType parameter.Starting with Windows Vista, the high byte of the uCode value can contain either 0xe0 or 0xe1 to specify the extended scan code.</param>
         /// <param name="uMapType">Type: UINTThe translation to perform. The value of this parameter depends on the value of the uCode parameter.</param>
+        /// <param name="dwhkl"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint MapVirtualKeyExW(uint uCode, uint uMapType, out IntPtr dwhkl);
+        public static extern uint MapVirtualKeyExW(uint uCode, uint uMapType, out nint dwhkl);
 
         /// <summary>
         ///Translates (maps) a virtual-key code into a scan code or character value, or translates a scan code into a virtual-key code.
@@ -5025,16 +5256,17 @@ namespace WindowAPI.winuser.h
         /// <param name="cPoints">The number of POINT structures in the array pointed to by the lpPoints parameter.If the function succeeds, the low-order word of the return value is the number of pixels added to the horizontal coordinate of each source point in order to compute the horizontal coordinate of each destination point. (In addition to that, if precisely one of hWndFrom and hWndTo is mirrored, then each resulting horizontal coordinate is multiplied by -1.) The high-order word is the number of pixels added to the vertical coordinate of each source point in order to compute the vertical coordinate of each destination point.If the function fails, the return value is zero. Call SetLastError prior to calling this method to differentiate an error return value from a legitimate "0" return value.If hWndFrom or hWndTo (or both) are mirrored windows (that is, have WS_EX_LAYOUTRTL extended style) and precisely two points are passed in lpPoints, MapWindowPoints will interpret those two points as a RECT and possibly automatically swap the left and right fields of that rectangle to ensure that left is not greater than right. If any number of points other than 2 is passed in lpPoints, then MapWindowPoints will correctly map the coordinates of each of those points separately, so if you pass in a pointer to an array of more than one rectangle in lpPoints, the new rectangles may get their left field greater than right. Thus, to guarantee the correct transformation of rectangle coordinates, you must call MapWindowPoints with one RECT pointer at a time, as shown in the following example:Also, if you need to map precisely two independent points and don't want the RECT logic applied to them by MapWindowPoints, to guarantee the correct result you must call MapWindowPoints with one POINT pointer at a time, as shown in the following example:ClientToScreenCoordinate Space and Transformation FunctionsCoordinate Spaces and Transformations OverviewPOINTRECTScreenToClient</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int MapWindowPoints(IntPtr hWndFrom, IntPtr hWndTo, out POINT lpPoints, uint cPoints);
+        public static extern int MapWindowPoints(nint hWndFrom, nint hWndTo, out POINT lpPoints, uint cPoints);
 
         /// <summary>
         ///Determines which menu item, if any, is at the specified location.
         /// </summary>
+        /// <param name="hWnd"></param>
         /// <param name="hMenu">Type: HMENUA handle to the menu containing the menu items to hit test.</param>
         /// <param name="ptScreen">Type: POINTA structure that specifies the location to test. If hMenu specifies a menu bar, this parameter is in window coordinates. Otherwise, it is in client coordinates.Type: int</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int MenuItemFromPoint(IntPtr hWnd, IntPtr hMenu, POINT ptScreen);
+        public static extern int MenuItemFromPoint(nint hWnd, nint hMenu, POINT ptScreen);
 
         /// <summary>
         ///Plays a waveform sound. The waveform sound for each sound type is identified by an entry in the registry.
@@ -5050,28 +5282,37 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Displays a modal dialog box that contains a system icon, a set of buttons, and a brief application-specific message, such as status or error information. The message box returns an integer value that indicates which button the user clicked.
         /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="lpText"></param>
+        /// <param name="lpCaption"></param>
         /// <param name="uType">Type: UINTThe contents and behavior of the dialog box. This parameter can be a combination of flags from the following groups of flags.To indicate the buttons displayed in the message box, specify one of the following values.To display an icon in the message box, specify one of the following values.To indicate the default button, specify one of the following values.To indicate the modality of the dialog box, specify one of the following values.To specify other options, use one or more of the following values.Type: intIf a message box has a Cancel button, the function returns the IDCANCEL value if either the ESC key is pressed or the Cancel button is selected. If the message box has no Cancel button, pressing ESC will no effect - unless an MB_OK button is present. If an MB_OK button is displayed and the user presses ESC, the return value will be IDOK.If the function fails, the return value is zero. To get extended error information, call GetLastError.If the function succeeds, the return value is one of the following menu-item values.The following system icons can be used in a message box by setting the uType parameter to the corresponding flag value.Adding two right-to-left marks (RLMs), represented by Unicode formatting character U+200F, in the beginning of a MessageBox display string is interpreted by the MessageBox rendering engine so as to cause the reading order of the MessageBox to be rendered as right-to-left (RTL).When you use a system-modal message box to indicate that the system is low on memory, the strings pointed to by the lpText and lpCaption parameters should not be taken from a resource file because an attempt to load the resource may fail.If you create a message box while a dialog box is present, use a handle to the dialog box as the hWnd parameter. The hWnd parameter should not identify a child window, such as a control in a dialog box.In the following example, the application displays a message box that prompts the user for an action after an error condition has occurred. The message box displays the message that describes the error condition and how to resolve it. The MB_CANCELTRYCONTINUE style directs MessageBox to provide three buttons with which the user can choose how to proceed. The MB_DEFBUTTON2 style sets the default focus on the second button of the message box, in this case, the Try Again button.The following image shows the output from the preceding code example:For another message box example, see Displaying a Message Box.ConceptualDialog BoxesFlashWindowMessageBeepMessageBoxExMessageBoxIndirectOther ResourcesReferenceSetForegroundWindow</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int MessageBox(IntPtr hWnd, string lpText, string lpCaption, uint uType);
+        public static extern int MessageBox(nint hWnd, string lpText, string lpCaption, uint uType);
 
         /// <summary>
         ///Displays a modal dialog box that contains a system icon, a set of buttons, and a brief application-specific message, such as status or error information. The message box returns an integer value that indicates which button the user clicked.
         /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="lpText"></param>
+        /// <param name="lpCaption"></param>
         /// <param name="uType">Type: UINTThe contents and behavior of the dialog box. This parameter can be a combination of flags from the following groups of flags.To indicate the buttons displayed in the message box, specify one of the following values.To display an icon in the message box, specify one of the following values.To indicate the default button, specify one of the following values.To indicate the modality of the dialog box, specify one of the following values.To specify other options, use one or more of the following values.Type: intIf a message box has a Cancel button, the function returns the IDCANCEL value if either the ESC key is pressed or the Cancel button is selected. If the message box has no Cancel button, pressing ESC will no effect - unless an MB_OK button is present. If an MB_OK button is displayed and the user presses ESC, the return value will be IDOK.If the function fails, the return value is zero. To get extended error information, call GetLastError.If the function succeeds, the return value is one of the following menu-item values.The following system icons can be used in a message box by setting the uType parameter to the corresponding flag value.Adding two right-to-left marks (RLMs), represented by Unicode formatting character U+200F, in the beginning of a MessageBox display string is interpreted by the MessageBox rendering engine so as to cause the reading order of the MessageBox to be rendered as right-to-left (RTL).When you use a system-modal message box to indicate that the system is low on memory, the strings pointed to by the lpText and lpCaption parameters should not be taken from a resource file because an attempt to load the resource may fail.If you create a message box while a dialog box is present, use a handle to the dialog box as the hWnd parameter. The hWnd parameter should not identify a child window, such as a control in a dialog box.In the following example, the application displays a message box that prompts the user for an action after an error condition has occurred. The message box displays the message that describes the error condition and how to resolve it. The MB_CANCELTRYCONTINUE style directs MessageBox to provide three buttons with which the user can choose how to proceed. The MB_DEFBUTTON2 style sets the default focus on the second button of the message box, in this case, the Try Again button.The following image shows the output from the preceding code example:For another message box example, see Displaying a Message Box.ConceptualDialog BoxesFlashWindowMessageBeepMessageBoxExMessageBoxIndirectOther ResourcesReferenceSetForegroundWindow</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int MessageBoxA(IntPtr hWnd, string lpText, string lpCaption, uint uType);
+        public static extern int MessageBoxA(nint hWnd, string lpText, string lpCaption, uint uType);
 
         /// <summary>
         ///Creates, displays, and operates a message box. The message box contains an application-defined message and title, plus any combination of predefined icons and push buttons. The buttons are in the language of the system user interface.
         /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="lpText"></param>
+        /// <param name="lpCaption"></param>
         /// <param name="uType">Type: UINTThe contents and behavior of the dialog box. For information on the supported flags, see MessageBox.</param>
         /// <param name="wLanguageId">Type: WORDThe language for the text displayed in the message box button(s). Specifying a value of zero (0) indicates to display the button text in the default system language. If this parameter is MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), the current language associated with the calling thread is used.To specify a language other than the current language, use the MAKELANGID macro to create this parameter. For more information, see MAKELANGID.Type: intIf a message box has a Cancel button, the function returns the IDCANCEL value if either the ESC key is pressed or the Cancel button is selected. If the message box has no Cancel button, pressing ESC will no effect - unless an MB_OK button is present. If an MB_OK button is displayed and the user presses ESC, the return value will be IDOK.If the function fails, the return value is zero. To get extended error information, call GetLastError.If the function succeeds, the return value is one of the following menu-item values.When you use a system-modal message box to indicate that the system is low on memory, the strings pointed to by the lpText and lpCaption parameters should not be taken from a resource file because an attempt to load the resource may fail.If you create a message box while a dialog box is present, use a handle to the dialog box as the hWnd parameter. The hWnd parameter should not identify a child window, such as a control in a dialog box.ConceptualDialog BoxesMAKELANGIDMessageBeepMessageBoxMessageBoxIndirectOther ResourcesReferenceSetForegroundWindow</param>
         /// <remarks>
@@ -5079,11 +5320,14 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int MessageBoxExA(IntPtr hWnd, string lpText, string lpCaption, uint uType, short wLanguageId);
+        public static extern int MessageBoxExA(nint hWnd, string lpText, string lpCaption, uint uType, short wLanguageId);
 
         /// <summary>
         ///Creates, displays, and operates a message box. The message box contains an application-defined message and title, plus any combination of predefined icons and push buttons. The buttons are in the language of the system user interface.
         /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="lpText"></param>
+        /// <param name="lpCaption"></param>
         /// <param name="uType">Type: UINTThe contents and behavior of the dialog box. For information on the supported flags, see MessageBox.</param>
         /// <param name="wLanguageId">Type: WORDThe language for the text displayed in the message box button(s). Specifying a value of zero (0) indicates to display the button text in the default system language. If this parameter is MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), the current language associated with the calling thread is used.To specify a language other than the current language, use the MAKELANGID macro to create this parameter. For more information, see MAKELANGID.Type: intIf a message box has a Cancel button, the function returns the IDCANCEL value if either the ESC key is pressed or the Cancel button is selected. If the message box has no Cancel button, pressing ESC will no effect - unless an MB_OK button is present. If an MB_OK button is displayed and the user presses ESC, the return value will be IDOK.If the function fails, the return value is zero. To get extended error information, call GetLastError.If the function succeeds, the return value is one of the following menu-item values.When you use a system-modal message box to indicate that the system is low on memory, the strings pointed to by the lpText and lpCaption parameters should not be taken from a resource file because an attempt to load the resource may fail.If you create a message box while a dialog box is present, use a handle to the dialog box as the hWnd parameter. The hWnd parameter should not identify a child window, such as a control in a dialog box.ConceptualDialog BoxesMAKELANGIDMessageBeepMessageBoxMessageBoxIndirectOther ResourcesReferenceSetForegroundWindow</param>
         /// <remarks>
@@ -5091,7 +5335,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int MessageBoxExW(IntPtr hWnd, string lpText, string lpCaption, uint uType, short wLanguageId);
+        public static extern int MessageBoxExW(nint hWnd, string lpText, string lpCaption, uint uType, short wLanguageId);
 
         /// <summary>
         ///Creates, displays, and operates a message box. The message box contains application-defined message text and title, any icon, and any combination of predefined push buttons.
@@ -5112,13 +5356,16 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Displays a modal dialog box that contains a system icon, a set of buttons, and a brief application-specific message, such as status or error information. The message box returns an integer value that indicates which button the user clicked.
         /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="lpText"></param>
+        /// <param name="lpCaption"></param>
         /// <param name="uType">Type: UINTThe contents and behavior of the dialog box. This parameter can be a combination of flags from the following groups of flags.To indicate the buttons displayed in the message box, specify one of the following values.To display an icon in the message box, specify one of the following values.To indicate the default button, specify one of the following values.To indicate the modality of the dialog box, specify one of the following values.To specify other options, use one or more of the following values.Type: intIf a message box has a Cancel button, the function returns the IDCANCEL value if either the ESC key is pressed or the Cancel button is selected. If the message box has no Cancel button, pressing ESC will no effect - unless an MB_OK button is present. If an MB_OK button is displayed and the user presses ESC, the return value will be IDOK.If the function fails, the return value is zero. To get extended error information, call GetLastError.If the function succeeds, the return value is one of the following menu-item values.The following system icons can be used in a message box by setting the uType parameter to the corresponding flag value.Adding two right-to-left marks (RLMs), represented by Unicode formatting character U+200F, in the beginning of a MessageBox display string is interpreted by the MessageBox rendering engine so as to cause the reading order of the MessageBox to be rendered as right-to-left (RTL).When you use a system-modal message box to indicate that the system is low on memory, the strings pointed to by the lpText and lpCaption parameters should not be taken from a resource file because an attempt to load the resource may fail.If you create a message box while a dialog box is present, use a handle to the dialog box as the hWnd parameter. The hWnd parameter should not identify a child window, such as a control in a dialog box.In the following example, the application displays a message box that prompts the user for an action after an error condition has occurred. The message box displays the message that describes the error condition and how to resolve it. The MB_CANCELTRYCONTINUE style directs MessageBox to provide three buttons with which the user can choose how to proceed. The MB_DEFBUTTON2 style sets the default focus on the second button of the message box, in this case, the Try Again button.The following image shows the output from the preceding code example:For another message box example, see Displaying a Message Box.ConceptualDialog BoxesFlashWindowMessageBeepMessageBoxExMessageBoxIndirectOther ResourcesReferenceSetForegroundWindow</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int MessageBoxW(IntPtr hWnd, string lpText, string lpCaption, uint uType);
+        public static extern int MessageBoxW(nint hWnd, string lpText, string lpCaption, uint uType);
 
         /// <summary>
         ///Changes an existing menu item. This function is used to specify the content, appearance, and behavior of the menu item.
@@ -5127,12 +5374,13 @@ namespace WindowAPI.winuser.h
         /// <param name="uPosition">Type: UINTThe menu item to be changed, as determined by the uFlags parameter.</param>
         /// <param name="uFlags">Type: UINTControls the interpretation of the uPosition parameter and the content, appearance, and behavior of the menu item. This parameter must include one of the following required values.The parameter must also include at least one of the following values.</param>
         /// <param name="uIDNewItem">Type: UINT_PTRThe identifier of the modified menu item or, if the uFlags parameter has the MF_POPUP flag set, a handle to the drop-down menu or submenu.</param>
+        /// <param name="lpNewItem"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ModifyMenuA(IntPtr hMnu, uint uPosition, uint uFlags, IntPtr uIDNewItem, string lpNewItem);
+        public static extern bool ModifyMenuA(nint hMnu, uint uPosition, uint uFlags, nint uIDNewItem, string lpNewItem);
 
         /// <summary>
         ///Changes an existing menu item. This function is used to specify the content, appearance, and behavior of the menu item.
@@ -5141,12 +5389,13 @@ namespace WindowAPI.winuser.h
         /// <param name="uPosition">Type: UINTThe menu item to be changed, as determined by the uFlags parameter.</param>
         /// <param name="uFlags">Type: UINTControls the interpretation of the uPosition parameter and the content, appearance, and behavior of the menu item. This parameter must include one of the following required values.The parameter must also include at least one of the following values.</param>
         /// <param name="uIDNewItem">Type: UINT_PTRThe identifier of the modified menu item or, if the uFlags parameter has the MF_POPUP flag set, a handle to the drop-down menu or submenu.</param>
+        /// <param name="lpNewItem"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ModifyMenuW(IntPtr hMnu, uint uPosition, uint uFlags, IntPtr uIDNewItem, string lpNewItem);
+        public static extern bool ModifyMenuW(nint hMnu, uint uPosition, uint uFlags, nint uIDNewItem, string lpNewItem);
 
         /// <summary>
         ///The MonitorFromPoint function retrieves a handle to the display monitor that contains a specified point.
@@ -5155,7 +5404,7 @@ namespace WindowAPI.winuser.h
         /// <param name="dwFlags">Determines the function's return value if the point is not contained within any display monitor.This parameter can be one of the following values.If the point is contained by a display monitor, the return value is an HMONITOR handle to that display monitor.If the point is not contained by a display monitor, the return value depends on the value of dwFlags.MonitorFromRectMonitorFromWindowMultiple Display Monitors FunctionsMultiple Display Monitors Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr MonitorFromPoint(POINT pt, uint dwFlags);
+        public static extern nint MonitorFromPoint(POINT pt, uint dwFlags);
 
         /// <summary>
         ///The MonitorFromRect function retrieves a handle to the display monitor that has the largest area of intersection with a specified rectangle.
@@ -5164,7 +5413,7 @@ namespace WindowAPI.winuser.h
         /// <param name="dwFlags">Determines the function's return value if the rectangle does not intersect any display monitor.This parameter can be one of the following values.If the rectangle intersects one or more display monitor rectangles, the return value is an HMONITOR handle to the display monitor that has the largest area of intersection with the rectangle.If the rectangle does not intersect a display monitor, the return value depends on the value of dwFlags.MonitorFromPointMonitorFromWindowMultiple Display Monitors FunctionsMultiple Display Monitors Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr MonitorFromRect(RECT lprc, uint dwFlags);
+        public static extern nint MonitorFromRect(RECT lprc, uint dwFlags);
 
         /// <summary>
         ///The MonitorFromWindow function retrieves a handle to the display monitor that has the largest area of intersection with the bounding rectangle of a specified window.
@@ -5173,7 +5422,7 @@ namespace WindowAPI.winuser.h
         /// <param name="dwFlags">Determines the function's return value if the window does not intersect any display monitor.This parameter can be one of the following values.If the window intersects one or more display monitor rectangles, the return value is an HMONITOR handle to the display monitor that has the largest area of intersection with the window.If the window does not intersect a display monitor, the return value depends on the value of dwFlags.If the window is currently minimized, MonitorFromWindow uses the rectangle of the window before it was minimized.MonitorFromPointMonitorFromRectMultiple Display Monitors FunctionsMultiple Display Monitors Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
+        public static extern nint MonitorFromWindow(nint hwnd, uint dwFlags);
 
         /// <summary>
         ///The mouse_event function synthesizes mouse motion and button clicks.
@@ -5201,7 +5450,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+        public static extern bool MoveWindow(nint hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
 
         /// <summary>
         ///Waits until one or all of the specified objects are in the signaled state or the time-out interval elapses. The objects can include input event objects, which you specify using the dwWakeMask parameter.
@@ -5213,7 +5462,7 @@ namespace WindowAPI.winuser.h
         /// <param name="dwWakeMask">The input types for which an input event object handle will be added to the array of object handles. This parameter can be any combination of the values listed in GetQueueStatus flags parameter.If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values. (Note that WAIT_OBJECT_0 is defined as 0 and WAIT_ABANDONED_0 is defined as 0x00000080L.)The MsgWaitForMultipleObjects function determines whether the wait criteria have been met. If the criteria have not been met, the calling thread enters the wait state until the conditions of the wait criteria have been met or the time-out interval elapses.When bWaitAll is TRUE, the function does not modify the states of the specified objects until the states of all objects have been set to signaled. For example, a mutex can be signaled, but the thread does not get ownership until the states of the other objects have also been set to signaled. In the meantime, some other thread may get ownership of the mutex, thereby setting its state to nonsignaled.When bWaitAll is TRUE, the function's wait is completed only when the states of all objects have been set to signaled and an input event has been received. Therefore, setting bWaitAll to TRUE prevents input from being processed until the state of all objects in the pHandles array have been set to signaled. For this reason, if you set bWaitAll to TRUE, you should use a short timeout value in dwMilliseconds. If you have a thread that creates windows waiting for all objects in the pHandles array, including input events specified by dwWakeMask, with no timeout interval, the system will deadlock. This is because threads that create windows must process messages. DDE sends message to all windows in the system. Therefore, if a thread creates windows, do not set the bWaitAll parameter to TRUE in calls to MsgWaitForMultipleObjects made from that thread.When bWaitAll is FALSE, this function checks the handles in the array in order starting with index 0, until one of the objects is signaled. If multiple objects become signaled, the function returns the index of the first handle in the array whose object was signaled.MsgWaitForMultipleObjects does not return if there is unread input of the specified type in the message queue after the thread has called a function to check the queue. This is because functions such as PeekMessage, GetMessage, GetQueueStatus, and WaitMessage check the queue and then change the state information for the queue so that the input is no longer considered new. A subsequent call to MsgWaitForMultipleObjects will not return until new input of the specified type arrives. The existing unread input (received prior to the last time the thread checked the queue) is ignored.The function modifies the state of some types of synchronization objects. Modification occurs only for the object or objects whose signaled state caused the function to return. For example, the count of a semaphore object is decreased by one. For more information, see the documentation for the individual synchronization objects.The MsgWaitForMultipleObjects function can specify handles of any of the following object types in the pHandles array:MsgWaitForMultipleObjectsExSynchronization FunctionsWait Functions</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint MsgWaitForMultipleObjects(uint nCount, IntPtr pHandles, bool fWaitAll, uint dwMilliseconds, uint dwWakeMask);
+        public static extern uint MsgWaitForMultipleObjects(uint nCount, nint pHandles, bool fWaitAll, uint dwMilliseconds, uint dwWakeMask);
 
         /// <summary>
         ///Waits until one or all of the specified objects are in the signaled state, an I/O completion routine or asynchronous procedure call (APC) is queued to the thread, or the time-out interval elapses. The array of objects can include input event objects, which you specify using the dwWakeMask parameter.
@@ -5225,7 +5474,7 @@ namespace WindowAPI.winuser.h
         /// <param name="dwFlags">The wait type. This parameter can be one or more of the following values.If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values. (Note that WAIT_OBJECT_0 is defined as 0 and WAIT_ABANDONED_0 is defined as 0x00000080L.)The MsgWaitForMultipleObjectsEx function determines whether the conditions specified by dwWakeMask and dwFlags have been met. If the conditions have not been met, the calling thread enters the wait state until the conditions of the wait criteria have been met or the time-out interval elapses.When dwFlags is zero, this function checks the handles in the array in order starting with index 0, until one of the objects is signaled. If multiple objects become signaled, the function returns the index of the first handle in the array whose object was signaled.MsgWaitForMultipleObjectsEx does not return if there is unread input of the specified type in the message queue after the thread has called a function to check the queue, unless you use the MWMO_INPUTAVAILABLE flag. This is because functions such as PeekMessage, GetMessage, GetQueueStatus, and WaitMessage check the queue and then change the state information for the queue so that the input is no longer considered new. A subsequent call to MsgWaitForMultipleObjectsEx will not return until new input of the specified type arrives, unless you use the MWMO_INPUTAVAILABLE flag. If this flag is not used, the existing unread input (received prior to the last time the thread checked the queue) is ignored.The function modifies the state of some types of synchronization objects. Modification occurs only for the object or objects whose signaled state caused the function to return. For example, the system decreases the count of a semaphore object by one. For more information, see the documentation for the individual synchronization objects.The MsgWaitForMultipleObjectsEx function can specify handles of any of the following object types in the pHandles array:Synchronization FunctionsWait Functions</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint MsgWaitForMultipleObjectsEx(uint nCount, IntPtr pHandles, uint dwMilliseconds, uint dwWakeMask, uint dwFlags);
+        public static extern uint MsgWaitForMultipleObjectsEx(uint nCount, nint pHandles, uint dwMilliseconds, uint dwWakeMask, uint dwFlags);
 
         /// <summary>
         ///Signals the system that a predefined event occurred. If any client applications have registered a hook function for the event, the system calls the client's hook function.
@@ -5236,7 +5485,7 @@ namespace WindowAPI.winuser.h
         /// <param name="idChild">Type: LONGIdentifies whether the event was generated by an object or by a child element of the object. If this value is CHILDID_SELF, the event was generated by the object itself. If not CHILDID_SELF, this value is the child ID of the element that generated the event.NoneServers call this function to notify the system that an event has occurred. Microsoft Active Accessibility checks to see if any client applications have set hook procedures for the event and, if so, calls the appropriate hook procedures.If no hook procedures are registered for the event, the performance penalty for calling this function is minor.Servers call NotifyWinEvent to announce the event to the system after the event has occurred; they must never notify the system of an event before the event has occurred.When the client's hook procedure is called, it receives a number of parameters that describe the event and the object that generated the event. The hook procedure uses the AccessibleObjectFromEvent function to retrieve a pointer to the IAccessible interface of the object that generated the event.Servers may receive a WM_GETOBJECT message immediately after calling this function. This can happen if there are any in-context clients that call AccessibleObjectFromEvent in the event callback.When servers call this function, they must be ready to handle WM_GETOBJECT, return an IAccessible interface pointer, and handle any of the IAccessible methods.Note to Server Developers:  When you call NotifyWinEvent, if any clients are listening for that event in-context, their event handlers, which typically send WM_GETOBJECT and call IAccessible methods, will execute before NotifyWinEvent returns. When you call NotifyWinEvent, you should be prepared to handle these calls, if they occur. If you need to do extra setup to allow for this, you should do so before you call NotifyWinEvent, not after.AccessibleObjectFromEventSetWinEventHookUnHookWinEventWinEvents</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern void NotifyWinEvent(uint @event, IntPtr hwnd, int idObject, int idChild);
+        public static extern void NotifyWinEvent(uint @event, nint hwnd, int idObject, int idChild);
 
         /// <summary>
         ///Maps OEMASCII codes 0 through 0x0FF into the OEM scan codes and shift states. The function provides information that allows a program to send OEM text to another program by simulating keyboard input.
@@ -5250,6 +5499,7 @@ namespace WindowAPI.winuser.h
         ///Translates a string from the OEM-defined character set into either an ANSI or a wide-character string.
         /// </summary>
         /// <param name="pSrc">Type: LPCSTRA null-terminated string of characters from the OEM-defined character set.</param>
+        /// <param name="pDst"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool OemToCharA(string pSrc, out string pDst);
@@ -5258,6 +5508,7 @@ namespace WindowAPI.winuser.h
         ///Translates a specified number of characters in a string from the OEM-defined character set into either an ANSI or a wide-character string.
         /// </summary>
         /// <param name="lpszSrc">Type: LPCSTROne or more characters from the OEM-defined character set.</param>
+        /// <param name="lpszDst"></param>
         /// <param name="cchDstLength">Type: DWORDThe number of characters to be translated in the buffer identified by the lpszSrc parameter.Type: BOOLThe return value is always nonzero except when you pass the same address to lpszSrc and lpszDst in the wide-character version of the function. In this case the function returns zero and GetLastError returns ERROR_INVALID_ADDRESS.Unlike the OemToChar function, the OemToCharBuff function does not stop converting characters when it encounters a null character in the buffer pointed to by lpszSrc. The OemToCharBuff function converts all cchDstLength characters.CharToOemCharToOemBuffConceptualOemToCharReferenceStrings</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -5267,6 +5518,7 @@ namespace WindowAPI.winuser.h
         ///Translates a specified number of characters in a string from the OEM-defined character set into either an ANSI or a wide-character string.
         /// </summary>
         /// <param name="lpszSrc">Type: LPCSTROne or more characters from the OEM-defined character set.</param>
+        /// <param name="lpszDst"></param>
         /// <param name="cchDstLength">Type: DWORDThe number of characters to be translated in the buffer identified by the lpszSrc parameter.Type: BOOLThe return value is always nonzero except when you pass the same address to lpszSrc and lpszDst in the wide-character version of the function. In this case the function returns zero and GetLastError returns ERROR_INVALID_ADDRESS.Unlike the OemToChar function, the OemToCharBuff function does not stop converting characters when it encounters a null character in the buffer pointed to by lpszSrc. The OemToCharBuff function converts all cchDstLength characters.CharToOemCharToOemBuffConceptualOemToCharReferenceStrings</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -5276,6 +5528,7 @@ namespace WindowAPI.winuser.h
         ///Translates a string from the OEM-defined character set into either an ANSI or a wide-character string.
         /// </summary>
         /// <param name="pSrc">Type: LPCSTRA null-terminated string of characters from the OEM-defined character set.</param>
+        /// <param name="pDst"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool OemToCharW(string pSrc, out string pDst);
@@ -5298,7 +5551,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool OpenClipboard(IntPtr hWndNewOwner);
+        public static extern bool OpenClipboard(nint hWndNewOwner);
 
         /// <summary>
         ///Opens the specified desktop object.
@@ -5312,7 +5565,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr OpenDesktopA(string lpszDesktop, uint dwFlags, bool fInherit, ACCESSTIMEOUT dwDesiredAccess);
+        public static extern nint OpenDesktopA(string lpszDesktop, uint dwFlags, bool fInherit, ACCESSTIMEOUT dwDesiredAccess);
 
         /// <summary>
         ///Opens the specified desktop object.
@@ -5326,7 +5579,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr OpenDesktopW(string lpszDesktop, uint dwFlags, bool fInherit, ACCESSTIMEOUT dwDesiredAccess);
+        public static extern nint OpenDesktopW(string lpszDesktop, uint dwFlags, bool fInherit, ACCESSTIMEOUT dwDesiredAccess);
 
         /// <summary>
         ///Restores a minimized (iconic) window to its previous size and position; it then activates the window.
@@ -5337,7 +5590,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool OpenIcon(IntPtr hWnd);
+        public static extern bool OpenIcon(nint hWnd);
 
         /// <summary>
         ///Opens the desktop that receives user input.
@@ -5350,7 +5603,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr OpenInputDesktop(uint dwFlags, bool fInherit, ACCESSTIMEOUT dwDesiredAccess);
+        public static extern nint OpenInputDesktop(uint dwFlags, bool fInherit, ACCESSTIMEOUT dwDesiredAccess);
 
         /// <summary>
         ///Opens the specified window station.
@@ -5385,7 +5638,7 @@ namespace WindowAPI.winuser.h
         /// <param name="pProximityEval">The TOUCH_HIT_TESTING_PROXIMITY_EVALUATION structure that holds the score and adjusted touch-point data that the EvaluateProximityToPolygon or EvaluateProximityToRect function returns.If this function succeeds, it returns the score and adjustedPoint values from TOUCH_HIT_TESTING_PROXIMITY_EVALUATION as an LRESULT. To retrieve extended error information, call the GetLastError function.Usually, this is the last function that's called in a WM_TOUCHHITTESTING handler.FunctionsTouch Hit Testing Scores</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr PackTouchHitTestingProximityEvaluation(TOUCH_HIT_TESTING_INPUT pHitTestingInput, TOUCH_HIT_TESTING_PROXIMITY_EVALUATION pProximityEval);
+        public static extern nint PackTouchHitTestingProximityEvaluation(TOUCH_HIT_TESTING_INPUT pHitTestingInput, TOUCH_HIT_TESTING_PROXIMITY_EVALUATION pProximityEval);
 
         /// <summary>
         ///The PaintDesktop function fills the clipping region in the specified device context with the desktop pattern or wallpaper. The function is provided primarily for shell desktops.
@@ -5393,27 +5646,31 @@ namespace WindowAPI.winuser.h
         /// <param name="hdc">Handle to the device context.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.Painting and Drawing FunctionsPainting and Drawing Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool PaintDesktop(IntPtr hdc);
+        public static extern bool PaintDesktop(nint hdc);
 
         /// <summary>
         ///Dispatches incoming nonqueued messages, checks the thread message queue for a posted message, and retrieves the message (if any exist).
         /// </summary>
+        /// <param name="lpMsg"></param>
+        /// <param name="hWnd"></param>
         /// <param name="wMsgFilterMin">Type: UINTThe value of the first message in the range of messages to be examined. Use WM_KEYFIRST (0x0100) to specify the first keyboard message or WM_MOUSEFIRST (0x0200) to specify the first mouse message.If wMsgFilterMin and wMsgFilterMax are both zero, PeekMessage returns all available messages (that is, no range filtering is performed).</param>
         /// <param name="wMsgFilterMax">Type: UINTThe value of the last message in the range of messages to be examined. Use WM_KEYLAST to specify the last keyboard message or WM_MOUSELAST to specify the last mouse message.If wMsgFilterMin and wMsgFilterMax are both zero, PeekMessage returns all available messages (that is, no range filtering is performed).</param>
         /// <param name="wRemoveMsg">Type: UINTSpecifies how messages are to be handled. This parameter can be one or more of the following values.By default, all message types are processed. To specify that only certain message should be processed, specify one or more of the following values.Type: BOOLIf a message is available, the return value is nonzero.If no messages are available, the return value is zero.PeekMessage retrieves messages associated with the window identified by the hWnd parameter or any of its children as specified by the IsChild function, and within the range of message values given by the wMsgFilterMin and wMsgFilterMax parameters. Note that an application can only use the low word in the wMsgFilterMin and wMsgFilterMax parameters; the high word is reserved for the system.Note that PeekMessage always retrieves WM_QUIT messages, no matter which values you specify for wMsgFilterMin and wMsgFilterMax.During this call, the system dispatches (DispatchMessage) pending, nonqueued messages, that is, messages sent to windows owned by the calling thread using the SendMessage, SendMessageCallback, SendMessageTimeout, or SendNotifyMessage function. Then the first queued message that matches the specified filter is retrieved. The system may also process internal events. If no filter is specified, messages are processed in the following order:The PeekMessage function normally does not remove WM_PAINT messages from the queue. WM_PAINT messages remain in the queue until they are processed. However, if a WM_PAINT message has a NULL update region, PeekMessage does remove it from the queue.If a top-level window stops responding to messages for more than several seconds, the system considers the window to be not responding and replaces it with a ghost window that has the same z-order, location, size, and visual attributes. This allows the user to move it, resize it, or even close the application. However, these are the only actions available because the application is actually not responding. When an application is being debugged, the system does not generate a ghost window.For an example, see Examining a Message Queue.ConceptualGetMessageIsChildMSGMessages and Message QueuesOther ResourcesReferenceWaitForInputIdleWaitMessage</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool PeekMessageA(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg);
+        public static extern bool PeekMessageA(out MSG lpMsg, nint hWnd, uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg);
 
         /// <summary>
         ///Dispatches incoming nonqueued messages, checks the thread message queue for a posted message, and retrieves the message (if any exist).
         /// </summary>
+        /// <param name="lpMsg"></param>
+        /// <param name="hWnd"></param>
         /// <param name="wMsgFilterMin">Type: UINTThe value of the first message in the range of messages to be examined. Use WM_KEYFIRST (0x0100) to specify the first keyboard message or WM_MOUSEFIRST (0x0200) to specify the first mouse message.If wMsgFilterMin and wMsgFilterMax are both zero, PeekMessage returns all available messages (that is, no range filtering is performed).</param>
         /// <param name="wMsgFilterMax">Type: UINTThe value of the last message in the range of messages to be examined. Use WM_KEYLAST to specify the last keyboard message or WM_MOUSELAST to specify the last mouse message.If wMsgFilterMin and wMsgFilterMax are both zero, PeekMessage returns all available messages (that is, no range filtering is performed).</param>
         /// <param name="wRemoveMsg">Type: UINTSpecifies how messages are to be handled. This parameter can be one or more of the following values.By default, all message types are processed. To specify that only certain message should be processed, specify one or more of the following values.Type: BOOLIf a message is available, the return value is nonzero.If no messages are available, the return value is zero.PeekMessage retrieves messages associated with the window identified by the hWnd parameter or any of its children as specified by the IsChild function, and within the range of message values given by the wMsgFilterMin and wMsgFilterMax parameters. Note that an application can only use the low word in the wMsgFilterMin and wMsgFilterMax parameters; the high word is reserved for the system.Note that PeekMessage always retrieves WM_QUIT messages, no matter which values you specify for wMsgFilterMin and wMsgFilterMax.During this call, the system dispatches (DispatchMessage) pending, nonqueued messages, that is, messages sent to windows owned by the calling thread using the SendMessage, SendMessageCallback, SendMessageTimeout, or SendNotifyMessage function. Then the first queued message that matches the specified filter is retrieved. The system may also process internal events. If no filter is specified, messages are processed in the following order:The PeekMessage function normally does not remove WM_PAINT messages from the queue. WM_PAINT messages remain in the queue until they are processed. However, if a WM_PAINT message has a NULL update region, PeekMessage does remove it from the queue.If a top-level window stops responding to messages for more than several seconds, the system considers the window to be not responding and replaces it with a ghost window that has the same z-order, location, size, and visual attributes. This allows the user to move it, resize it, or even close the application. However, these are the only actions available because the application is actually not responding. When an application is being debugged, the system does not generate a ghost window.For an example, see Examining a Message Queue.ConceptualGetMessageIsChildMSGMessages and Message QueuesOther ResourcesReferenceWaitForInputIdleWaitMessage</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool PeekMessageW(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg);
+        public static extern bool PeekMessageW(out MSG lpMsg, nint hWnd, uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg);
 
         /// <summary>
         ///Converts the physical coordinates of a point in a window to logical coordinates.
@@ -5422,7 +5679,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpPoint">Type: LPPOINTA pointer to a POINT structure that specifies the physical/screen coordinates to be converted. The new logical coordinates are copied into this structure if the function succeeds.NoneWindows Vista introduces the concept of physical coordinates. Desktop Window Manager (DWM) scales non-dots per inch (dpi) aware windows when the display is high dpi. The window seen on the screen corresponds to the physical coordinates. The application continues to work in logical space. Therefore, the application's view of the window is different from that which appears on the screen. For scaled windows, logical and physical coordinates are different.The function uses the window identified by the hWnd parameter and the physical coordinates given in the POINT structure to compute the logical coordinates. The logical coordinates are the unscaled coordinates that appear to the application in a programmatic way. In other words, the logical coordinates are the coordinates the application recognizes, which can be different from the physical coordinates. The API then replaces the physical coordinates with the logical coordinates. The new coordinates are in the world coordinates whose origin is (0, 0) on the desktop. The coordinates passed to the API have to be on the hWnd.The source coordinates are in device units.On all platforms, PhysicalToLogicalPoint will fail on a window that has either 0 width or height; an application must first establish a non-0 width and height by calling, for example, MoveWindow. On some versions of Windows (including Windows 7), PhysicalToLogicalPoint will still fail if MoveWindow has been called after a call to ShowWindow with SH_HIDE has hidden the window.In Windows 8, system–DPI aware applications translate between physical and logical space using PhysicalToLogicalPoint and LogicalToPhysicalPoint. In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications, you do not need these APIs. As a result, in Windows 8.1, PhysicalToLogicalPoint and LogicalToPhysicalPoint no longer transform points. The system returns all points to an application in its own coordinate space. This behavior preserves functionality for the majority of applications, but there are some exceptions in which you must make changes to ensure that the application works as expected. In those cases, use PhysicalToLogicalPointForPerMonitorDPI and LogicalToPhysicalPointForPerMonitorDPI.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool PhysicalToLogicalPoint(IntPtr hWnd, out POINT lpPoint);
+        public static extern bool PhysicalToLogicalPoint(nint hWnd, out POINT lpPoint);
 
         /// <summary>
         ///Converts a point in a window from physical coordinates into logical coordinates, regardless of the dots per inch (dpi) awareness of the caller. For more information about DPI awareness levels, see PROCESS_DPI_AWARENESS.
@@ -5431,11 +5688,12 @@ namespace WindowAPI.winuser.h
         /// <param name="lpPoint">A pointer to a POINT structure that specifies the physical/screen coordinates to be converted. The new logical coordinates are copied into this structure if the function succeeds.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool PhysicalToLogicalPointForPerMonitorDPI(IntPtr hWnd, out POINT lpPoint);
+        public static extern bool PhysicalToLogicalPointForPerMonitorDPI(nint hWnd, out POINT lpPoint);
 
         /// <summary>
         ///Places (posts) a message in the message queue associated with the thread that created the specified window and returns without waiting for the thread to process the message.
         /// </summary>
+        /// <param name="hWnd"></param>
         /// <param name="Msg">Type: UINTThe message to be posted.For lists of the system-provided messages, see System-Defined Messages.</param>
         /// <param name="wParam">Type: WPARAMAdditional message-specific information.</param>
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.When a message is blocked by UIPI the last error, retrieved with GetLastError, is set to 5 (access denied).Messages in a message queue are retrieved by calls to the GetMessage or PeekMessage function.Applications that need to communicate using HWND_BROADCAST should use the RegisterWindowMessage function to obtain a unique message for inter-application communication.The system only does marshalling for system messages (those in the range 0 to (WM_USER-1)). To send other messages (those >= WM_USER) to another process, you must do custom marshalling.If you send a message in the range below WM_USER to the asynchronous message functions (PostMessage, SendNotifyMessage, and SendMessageCallback), its message parameters cannot include pointers. Otherwise, the operation will fail. The functions will return before the receiving thread has had a chance to process the message and the sender will free the memory before it is used.Do not post the WM_QUIT message using PostMessage; use the PostQuitMessage function.An accessibility application can use PostMessage to post WM_APPCOMMAND messages to the shell to launch applications. This functionality is not guaranteed to work for other types of applications.A message queue can contain at most 10,000 messages. This limit should be sufficiently large. If your application exceeds the limit, it should be redesigned to avoid consuming so many system resources. To adjust this limit, modify the following registry key.If the function fails, call GetLastError to get extended error information. GetLastError returns ERROR_NOT_ENOUGH_QUOTA when the limit is hit.The minimum acceptable value is 4000.The following example shows how to post a private window message using the PostMessage function. Assume you defined a private window message called WM_COMPLETE:You can post a message to the message queue associated with the thread that created the specified window as shown below:For more examples, see Initiating a Data Link.ConceptualGetMessageMessages and Message QueuesPeekMessagePostQuitMessagePostThreadMessageReferenceRegisterWindowMessageSendMessageCallbackSendNotifyMessage</param>
@@ -5444,11 +5702,12 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool PostMessageA(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern bool PostMessageA(nint hWnd, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Places (posts) a message in the message queue associated with the thread that created the specified window and returns without waiting for the thread to process the message.
         /// </summary>
+        /// <param name="hWnd"></param>
         /// <param name="Msg">Type: UINTThe message to be posted.For lists of the system-provided messages, see System-Defined Messages.</param>
         /// <param name="wParam">Type: WPARAMAdditional message-specific information.</param>
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.When a message is blocked by UIPI the last error, retrieved with GetLastError, is set to 5 (access denied).Messages in a message queue are retrieved by calls to the GetMessage or PeekMessage function.Applications that need to communicate using HWND_BROADCAST should use the RegisterWindowMessage function to obtain a unique message for inter-application communication.The system only does marshalling for system messages (those in the range 0 to (WM_USER-1)). To send other messages (those >= WM_USER) to another process, you must do custom marshalling.If you send a message in the range below WM_USER to the asynchronous message functions (PostMessage, SendNotifyMessage, and SendMessageCallback), its message parameters cannot include pointers. Otherwise, the operation will fail. The functions will return before the receiving thread has had a chance to process the message and the sender will free the memory before it is used.Do not post the WM_QUIT message using PostMessage; use the PostQuitMessage function.An accessibility application can use PostMessage to post WM_APPCOMMAND messages to the shell to launch applications. This functionality is not guaranteed to work for other types of applications.There is a limit of 10,000 posted messages per message queue. This limit should be sufficiently large. If your application exceeds the limit, it should be redesigned to avoid consuming so many system resources. To adjust this limit, modify the following registry key.If the function fails, call GetLastError to get extended error information. GetLastError returns ERROR_NOT_ENOUGH_QUOTA when the limit is hit.The minimum acceptable value is 4000.The following example shows how to post a private window message using the PostMessage function. Assume you defined a private window message called WM_COMPLETE:You can post a message to the message queue associated with the thread that created the specified window as shown below:For more examples, see Initiating a Data Link.ConceptualGetMessageMessages and Message QueuesPeekMessagePostQuitMessagePostThreadMessageReferenceRegisterWindowMessageSendMessageCallbackSendNotifyMessage</param>
@@ -5457,7 +5716,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool PostMessageW(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern bool PostMessageW(nint hWnd, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Indicates to the system that a thread has made a request to terminate (quit). It is typically used in response to a WM_DESTROY message.
@@ -5479,7 +5738,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool PostThreadMessageA(uint idThread, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern bool PostThreadMessageA(uint idThread, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Posts a message to the message queue of the specified thread. It returns without waiting for the thread to process the message.
@@ -5493,14 +5752,14 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool PostThreadMessageW(uint idThread, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern bool PostThreadMessageW(uint idThread, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///The PrintWindow function copies a visual window into the specified device context (DC), typically a printer DC.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool PrintWindow(IntPtr hwnd, IntPtr hdcBlt, uint nFlags);
+        public static extern bool PrintWindow(nint hwnd, nint hdcBlt, uint nFlags);
 
         /// <summary>
         ///[This function is not intended for general use. It may be altered or unavailable in subsequent versions of Windows.]
@@ -5509,11 +5768,13 @@ namespace WindowAPI.winuser.h
         /// <param name="nIconIndex">Type: intThe zero-based index of the first icon to extract. For example, if this value is zero, the function extracts the first icon in the specified file.</param>
         /// <param name="cxIcon">Type: intThe horizontal icon size wanted. See Remarks.</param>
         /// <param name="cyIcon">Type: intThe vertical icon size wanted. See Remarks.</param>
+        /// <param name="phicon"></param>
+        /// <param name="piconid"></param>
         /// <param name="nIcons">Type: UINTThe number of icons to extract from the file. This parameter is only valid when extracting from .exe and .dll files.</param>
         /// <param name="flags">Type: UINTSpecifies flags that control this function. These flags are the LR_* flags used by the LoadImage function.Type: UINTIf the phicon parameter is NULL and this function succeeds, then the return value is the number of icons in the file. If the function fails then the return value is 0.If the phicon parameter is not NULL and the function succeeds, then the return value is the number of icons extracted. Otherwise, the return value is 0xFFFFFFFF if the file is not found.This function extracts from executable (.exe), DLL (.dll), icon (.ico), cursor (.cur), animated cursor (.ani), and bitmap (.bmp) files. Extractions from Windows 3.x 16-bit executables (.exe or .dll) are also supported.The cxIcon and cyIcon parameters specify the size of the icons to extract. Two sizes can be extracted by putting the first size in the LOWORD of the parameter and the second size in the HIWORD. For example, MAKELONG(24, 48) for both the cxIcon and cyIcon parameters would extract both 24 and 48 size icons.You must destroy all icons extracted by PrivateExtractIcons by calling the DestroyIcon function.This function was not included in the SDK headers and libraries until Windows XP Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using LoadLibrary and GetProcAddress.ConceptualDestroyIconExtractIconExtractIconExIconsReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint PrivateExtractIconsA(string szFileName, int nIconIndex, int cxIcon, int cyIcon, out IntPtr phicon, out uint piconid, uint nIcons, uint flags);
+        public static extern uint PrivateExtractIconsA(string szFileName, int nIconIndex, int cxIcon, int cyIcon, out nint phicon, out uint piconid, uint nIcons, uint flags);
 
         /// <summary>
         ///[This function is not intended for general use. It may be altered or unavailable in subsequent versions of Windows.]
@@ -5522,11 +5783,13 @@ namespace WindowAPI.winuser.h
         /// <param name="nIconIndex">Type: intThe zero-based index of the first icon to extract. For example, if this value is zero, the function extracts the first icon in the specified file.</param>
         /// <param name="cxIcon">Type: intThe horizontal icon size wanted. See Remarks.</param>
         /// <param name="cyIcon">Type: intThe vertical icon size wanted. See Remarks.</param>
+        /// <param name="phicon"></param>
+        /// <param name="piconid"></param>
         /// <param name="nIcons">Type: UINTThe number of icons to extract from the file. This parameter is only valid when extracting from .exe and .dll files.</param>
         /// <param name="flags">Type: UINTSpecifies flags that control this function. These flags are the LR_* flags used by the LoadImage function.Type: UINTIf the phicon parameter is NULL and this function succeeds, then the return value is the number of icons in the file. If the function fails then the return value is 0.If the phicon parameter is not NULL and the function succeeds, then the return value is the number of icons extracted. Otherwise, the return value is 0xFFFFFFFF if the file is not found.This function extracts from executable (.exe), DLL (.dll), icon (.ico), cursor (.cur), animated cursor (.ani), and bitmap (.bmp) files. Extractions from Windows 3.x 16-bit executables (.exe or .dll) are also supported.The cxIcon and cyIcon parameters specify the size of the icons to extract. Two sizes can be extracted by putting the first size in the LOWORD of the parameter and the second size in the HIWORD. For example, MAKELONG(24, 48) for both the cxIcon and cyIcon parameters would extract both 24 and 48 size icons.You must destroy all icons extracted by PrivateExtractIcons by calling the DestroyIcon function.This function was not included in the SDK headers and libraries until Windows XP Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using LoadLibrary and GetProcAddress.ConceptualDestroyIconExtractIconExtractIconExIconsReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint PrivateExtractIconsW(string szFileName, int nIconIndex, int cxIcon, int cyIcon, out IntPtr phicon, out uint piconid, uint nIcons, uint flags);
+        public static extern uint PrivateExtractIconsW(string szFileName, int nIconIndex, int cxIcon, int cyIcon, out nint phicon, out uint piconid, uint nIcons, uint flags);
 
         /// <summary>
         ///The PtInRect function determines whether the specified point lies within the specified rectangle. A point is within a rectangle if it lies on the left or top side or is within all four sides. A point on the right or bottom side is considered outside the rectangle.
@@ -5542,7 +5805,10 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="flags">The type of information to retrieve. The value for the Flags parameter must use one of the following values.The Flags parameter may also be bitwise OR'ed with zero or more of the following values.</param>
         /// <param name="numPathArrayElements">Pointer to a variable that contains the number of elements in pPathInfoArray. This parameter cannot be NULL. If QueryDisplayConfig returns ERROR_SUCCESS, pNumPathInfoElements is updated with the number of valid entries in pPathInfoArray.</param>
+        /// <param name="pathArray"></param>
         /// <param name="numModeInfoArrayElements">Pointer to a variable that specifies the number in element of the mode information table. This parameter cannot be NULL. If QueryDisplayConfig returns ERROR_SUCCESS, pNumModeInfoArrayElements is updated with the number of valid entries in pModeInfoArray.</param>
+        /// <param name="modeInfoArray"></param>
+        /// <param name="currentTopologyId"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern int QueryDisplayConfig(int flags, out int numPathArrayElements, out DISPLAYCONFIG_PATH_INFO pathArray, out int numModeInfoArrayElements, out DISPLAYCONFIG_PATH_INFO modeInfoArray, out DISPLAYCONFIG_TOPOLOGY_ID currentTopologyId);
@@ -5554,31 +5820,33 @@ namespace WindowAPI.winuser.h
         /// <param name="ptParentClientCoords">Type: POINTA POINT structure that defines the client coordinates of the point to be checked.Type: HWNDThe return value is a handle to the child window that contains the specified point.RealChildWindowFromPoint treats HTTRANSPARENT areas of a standard control differently from other areas of the control; it returns the child window behind a transparent part of a control. In contrast, ChildWindowFromPoint treats HTTRANSPARENT areas of a control the same as other areas. For example, if the point is in a transparent area of a groupbox, RealChildWindowFromPoint returns the child window behind a groupbox, whereas ChildWindowFromPoint returns the groupbox. However, both APIs return a static field, even though it, too, returns HTTRANSPARENT.ChildWindowFromPointConceptualOther ResourcesPOINTReferenceWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr RealChildWindowFromPoint(IntPtr hwndParent, POINT ptParentClientCoords);
+        public static extern nint RealChildWindowFromPoint(nint hwndParent, POINT ptParentClientCoords);
 
         /// <summary>
         ///Retrieves a string that specifies the window type.
         /// </summary>
         /// <param name="hwnd">Type: HWNDA handle to the window whose type will be retrieved.</param>
+        /// <param name="ptszClassName"></param>
         /// <param name="cchClassNameMax">Type: UINTThe length, in characters, of the buffer pointed to by the pszType parameter.Type: UINTIf the function succeeds, the return value is the number of characters copied to the specified buffer.If the function fails, the return value is zero. To get extended error information, call GetLastError.Windows Overview</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint RealGetWindowClassA(IntPtr hwnd, out string ptszClassName, uint cchClassNameMax);
+        public static extern uint RealGetWindowClassA(nint hwnd, out string ptszClassName, uint cchClassNameMax);
 
         /// <summary>
         ///Retrieves a string that specifies the window type.
         /// </summary>
         /// <param name="hwnd">Type: HWNDA handle to the window whose type will be retrieved.</param>
+        /// <param name="ptszClassName"></param>
         /// <param name="cchClassNameMax">Type: UINTThe length, in characters, of the buffer pointed to by the pszType parameter.Type: UINTIf the function succeeds, the return value is the number of characters copied to the specified buffer.If the function fails, the return value is zero. To get extended error information, call GetLastError.Windows Overview</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint RealGetWindowClassW(IntPtr hwnd, out string ptszClassName, uint cchClassNameMax);
+        public static extern uint RealGetWindowClassW(nint hwnd, out string ptszClassName, uint cchClassNameMax);
 
         /// <summary>
         ///The RedrawWindow function updates the specified rectangle or region in a window's client area.
@@ -5589,7 +5857,7 @@ namespace WindowAPI.winuser.h
         /// <param name="flags">One or more redraw flags. This parameter can be used to invalidate or validate a window, control repainting, and control which windows are affected by RedrawWindow.The following flags are used to invalidate the window.The following flags are used to validate the window.The following flags control when repainting occurs. RedrawWindow will not repaint unless one of these flags is specified.By default, the windows affected by RedrawWindow depend on whether the specified window has the WS_CLIPCHILDREN style. Child windows that are not the WS_CLIPCHILDREN style are unaffected; non-WS_CLIPCHILDREN windows are recursively validated or invalidated until a WS_CLIPCHILDREN window is encountered. The following flags control which windows are affected by the RedrawWindow function.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.When RedrawWindow is used to invalidate part of the desktop window, the desktop window does not receive a WM_PAINT message. To repaint the desktop, an application uses the RDW_ERASE flag to generate a WM_ERASEBKGND message.GetUpdateRectGetUpdateRgnInvalidateRectInvalidateRgnPainting and Drawing FunctionsPainting and Drawing OverviewRECTUpdateWindow</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool RedrawWindow(IntPtr hWnd, RECT lprcUpdate, IntPtr hrgnUpdate, uint flags);
+        public static extern bool RedrawWindow(nint hWnd, RECT lprcUpdate, nint hrgnUpdate, uint flags);
 
         /// <summary>
         ///Registers a window class for subsequent use in calls to the CreateWindow or CreateWindowEx function.
@@ -5668,7 +5936,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr RegisterDeviceNotificationA(IntPtr hRecipient, IntPtr NotificationFilter, uint Flags);
+        public static extern nint RegisterDeviceNotificationA(nint hRecipient, nint NotificationFilter, uint Flags);
 
         /// <summary>
         ///Registers the device or type of device for which a window will receive notifications.
@@ -5681,11 +5949,12 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr RegisterDeviceNotificationW(IntPtr hRecipient, IntPtr NotificationFilter, uint Flags);
+        public static extern nint RegisterDeviceNotificationW(nint hRecipient, nint NotificationFilter, uint Flags);
 
         /// <summary>
         ///Defines a system-wide hot key.
         /// </summary>
+        /// <param name="hWnd"></param>
         /// <param name="id">Type: intThe identifier of the hot key. If the hWnd parameter is NULL, then the hot key is associated with the current thread rather than with a particular window. If a hot key already exists with the same hWnd and id parameters, see Remarks for the action taken.</param>
         /// <param name="fsModifiers">Type: UINTThe keys that must be pressed in combination with the key specified by the vk parameter in order to generate the WM_HOTKEY message. The fsModifiers parameter can be a combination of the following values.</param>
         /// <param name="vk">Type: UINTThe virtual-key code of the hot key. See Virtual Key Codes.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.When a key is pressed, the system looks for a match against all hot keys. Upon finding a match, the system posts the WM_HOTKEY message to the message queue of the window with which the hot key is associated. If the hot key is not associated with a window, then the WM_HOTKEY message is posted to the thread associated with the hot key.This function cannot associate a hot key with a window created by another thread.RegisterHotKey fails if the keystrokes specified for the hot key have already been registered by another hot key.If a hot key already exists with the same hWnd and id parameters, it is maintained along with the new hot key. The application must explicitly call UnregisterHotKey to unregister the old hot key.Windows Server 2003:  If a hot key already exists with the same hWnd and id parameters, it is replaced by the new hot key.The F12 key is reserved for use by the debugger at all times, so it should not be registered as a hot key. Even when you are not debugging an application, F12 is reserved in case a kernel-mode debugger or a just-in-time debugger is resident.An application must specify an id value in the range 0x0000 through 0xBFFF. A shared DLL must specify a value in the range 0xC000 through 0xFFFF (the range returned by the GlobalAddAtom function). To avoid conflicts with hot-key identifiers defined by other shared DLLs, a DLL should use the GlobalAddAtom function to obtain the hot-key identifier.The following example shows how to use the RegisterHotKey function with the MOD_NOREPEAT flag. In this example, the hotkey 'ALT+b' is registered for the main thread. When the hotkey is pressed, the thread will receive a WM_HOTKEY message, which will get picked up in the GetMessage call. Because this example uses MOD_ALT with the MOD_NOREPEAT value for fsModifiers, the thread will only receive another WM_HOTKEY message when the 'b' key is released and then pressed again while the 'ALT' key is being pressed down.ConceptualGlobalAddAtomKeyboard InputReferenceRegister hotkey for the current app (CSRegisterHotkey)Register hotkey for the current app (CppRegisterHotkey)Register hotkey for the current app (VBRegisterHotkey)SamplesUnregisterHotKeyWM_HOTKEY</param>
@@ -5694,7 +5963,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+        public static extern bool RegisterHotKey(nint hWnd, int id, uint fsModifiers, uint vk);
 
         /// <summary>
         ///Registers a window to process the WM_POINTERDEVICECHANGE, WM_POINTERDEVICEINRANGE, and WM_POINTERDEVICEOUTOFRANGE pointer device notifications.
@@ -5703,7 +5972,7 @@ namespace WindowAPI.winuser.h
         /// <param name="notifyRange">If set to TRUE, process the WM_POINTERDEVICEINRANGE and WM_POINTERDEVICEOUTOFRANGE messages. If set to FALSE, these messages aren't processed.If this function succeeds, it returns TRUE.Otherwise, it returns FALSE. To retrieve extended error information, call the GetLastError function.Functions</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool RegisterPointerDeviceNotifications(IntPtr window, bool notifyRange);
+        public static extern bool RegisterPointerDeviceNotifications(nint window, bool notifyRange);
 
         /// <summary>
         ///Allows the caller to register a target window to which all pointer input of the specified type is redirected.
@@ -5715,7 +5984,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool RegisterPointerInputTarget(IntPtr hwnd, POINTER_INPUT_TYPE pointerType);
+        public static extern bool RegisterPointerInputTarget(nint hwnd, POINTER_INPUT_TYPE pointerType);
 
         /// <summary>
         ///[RegisterPointerInputTargetEx is not supported and may be altered or unavailable in the future. Instead, use RegisterPointerInputTarget.]
@@ -5725,7 +5994,7 @@ namespace WindowAPI.winuser.h
         /// <param name="fObserve">Not supported.Not supported.RegisterPointerInputTarget</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool RegisterPointerInputTargetEx(IntPtr hwnd, POINTER_INPUT_TYPE pointerType, bool fObserve);
+        public static extern bool RegisterPointerInputTargetEx(nint hwnd, POINTER_INPUT_TYPE pointerType, bool fObserve);
 
         /// <summary>
         ///Registers the application to receive power setting notifications for the specific power setting event.
@@ -5738,7 +6007,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern POWER_ACTION RegisterPowerSettingNotification(IntPtr hRecipient, ushort PowerSettingGuid, uint Flags);
+        public static extern POWER_ACTION RegisterPowerSettingNotification(nint hRecipient, ushort PowerSettingGuid, uint Flags);
 
         /// <summary>
         ///Registers the devices that supply the raw input data.
@@ -5756,7 +6025,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hwnd">Type: HWNDA handle to the window to register for Shell hook messages.Type: BOOLTRUE if the function succeeds; otherwise, FALSE.As with normal window messages, the second parameter of the window procedure identifies the message as a WM_SHELLHOOKMESSAGE. However, for these Shell hook messages, the message value is not a pre-defined constant like other message IDs such as WM_COMMAND. The value must be obtained dynamically using a call to RegisterWindowMessage as shown here:RegisterWindowMessage(TEXT("SHELLHOOK"));This precludes handling these messages using a traditional switch statement which requires ID values that are known at compile time. For handling Shell hook messages, the normal practice is to code an If statement in the default section of your switch statement and then handle the message if the value of the message ID is the same as the value obtained from the RegisterWindowMessage call.The following table describes the wParam and lParam parameter values passed to the window procedure for the Shell hook messages.This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using LoadLibrary and GetProcAddress.ConceptualDeregisterShellHookWindowOther ResourcesReferenceSetWindowsHookExShellProcUsing Messages and Message QueuesWinEventsWindowProcWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool RegisterShellHookWindow(IntPtr hwnd);
+        public static extern bool RegisterShellHookWindow(nint hwnd);
 
         /// <summary>
         ///Registers to receive notification when the system is suspended or resumed. Similar to PowerRegisterSuspendResumeNotification, but operates in user mode and can take a window handle.
@@ -5768,7 +6037,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern POWER_ACTION RegisterSuspendResumeNotification(IntPtr hRecipient, uint Flags);
+        public static extern POWER_ACTION RegisterSuspendResumeNotification(nint hRecipient, uint Flags);
 
         /// <summary>
         ///Registers a window to process the
@@ -5777,7 +6046,7 @@ namespace WindowAPI.winuser.h
         /// <param name="value">One of the following values:If this function succeeds, it returns TRUE.Otherwise, it returns FALSE. To retrieve extended error information, call the GetLastError function.Functions</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool RegisterTouchHitTestingWindow(IntPtr hwnd, uint value);
+        public static extern bool RegisterTouchHitTestingWindow(nint hwnd, uint value);
 
         /// <summary>
         ///Registers a window as being touch-capable.
@@ -5789,7 +6058,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool RegisterTouchWindow(IntPtr hwnd, uint ulFlags);
+        public static extern bool RegisterTouchWindow(nint hwnd, uint ulFlags);
 
         /// <summary>
         ///Defines a new window message that is guaranteed to be unique throughout the system. The message value can be used when sending or posting messages.
@@ -5830,7 +6099,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hDC">A handle to the DC to be released.The return value indicates whether the DC was released. If the DC was released, the return value is 1.If the DC was not released, the return value is zero.The application must call the ReleaseDC function for each call to the GetWindowDC function and for each call to the GetDC function that retrieves a common DC.An application cannot use the ReleaseDC function to release a DC that was created by calling the CreateDC function; instead, it must use the DeleteDC function. ReleaseDC must be called from the same thread that called GetDC.For an example, see Scaling an Image.CreateDCDeleteDCDevice Context FunctionsDevice Contexts OverviewGetDCGetWindowDC</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+        public static extern int ReleaseDC(nint hWnd, nint hDC);
 
         /// <summary>
         ///Removes the given window from the system-maintained clipboard format listener list.
@@ -5838,7 +6107,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hwnd">Type: HWNDA handle to the window to remove from the clipboard format listener list.Type: BOOL</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool RemoveClipboardFormatListener(IntPtr hwnd);
+        public static extern bool RemoveClipboardFormatListener(nint hwnd);
 
         /// <summary>
         ///Deletes a menu item or detaches a submenu from the specified menu. If the menu item opens a drop-down menu or submenu, RemoveMenu does not destroy the menu or its handle, allowing the menu to be reused. Before this function is called, the GetSubMenu function should retrieve a handle to the drop-down menu or submenu.
@@ -5851,7 +6120,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool RemoveMenu(IntPtr hMenu, uint uPosition, uint uFlags);
+        public static extern bool RemoveMenu(nint hMenu, uint uPosition, uint uFlags);
 
         /// <summary>
         ///Removes an entry from the property list of the specified window. The specified character string identifies the entry to be removed.
@@ -5860,7 +6129,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpString">Type: LPCTSTRA null-terminated character string or an atom that identifies a string. If this parameter is an atom, it must have been created using the GlobalAddAtom function. The atom, a 16-bit value, must be placed in the low-order word of lpString; the high-order word must be zero.Type: HANDLEThe return value identifies the specified data. If the data cannot be found in the specified property list, the return value is NULL.The return value is the hData value that was passed to SetProp; it is an application-defined value. Note, this function only destroys the association between the data and the window. If appropriate, the application must free the data handles associated with entries removed from a property list. The application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.The RemoveProp function returns the data handle associated with the string so that the application can free the data associated with the handle.Starting with Windows Vista, RemoveProp is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, GetLastError will return 5.For an example, see Deleting a Window Property.AddAtomConceptualGetPropReferenceSetPropWindow Properties</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr RemovePropA(IntPtr hWnd, string lpString);
+        public static extern nint RemovePropA(nint hWnd, string lpString);
 
         /// <summary>
         ///Removes an entry from the property list of the specified window. The specified character string identifies the entry to be removed.
@@ -5869,7 +6138,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpString">Type: LPCTSTRA null-terminated character string or an atom that identifies a string. If this parameter is an atom, it must have been created using the GlobalAddAtom function. The atom, a 16-bit value, must be placed in the low-order word of lpString; the high-order word must be zero.Type: HANDLEThe return value identifies the specified data. If the data cannot be found in the specified property list, the return value is NULL.The return value is the hData value that was passed to SetProp; it is an application-defined value. Note, this function only destroys the association between the data and the window. If appropriate, the application must free the data handles associated with entries removed from a property list. The application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.The RemoveProp function returns the data handle associated with the string so that the application can free the data associated with the handle.Starting with Windows Vista, RemoveProp is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, GetLastError will return 5.For an example, see Deleting a Window Property.AddAtomConceptualGetPropReferenceSetPropWindow Properties</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr RemovePropW(IntPtr hWnd, string lpString);
+        public static extern nint RemovePropW(nint hWnd, string lpString);
 
         /// <summary>
         ///Replies to a message sent from another thread by the SendMessage function.
@@ -5877,7 +6146,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lResult">Type: LRESULTThe result of the message processing. The possible values are based on the message sent.Type: BOOLIf the calling thread was processing a message sent from another thread or process, the return value is nonzero.If the calling thread was not processing a message sent from another thread or process, the return value is zero.By calling this function, the window procedure that receives the message allows the thread that called SendMessage to continue to run as though the thread receiving the message had returned control. The thread that calls the ReplyMessage function also continues to run.If the message was not sent through SendMessage or if the message was sent by the same thread, ReplyMessage has no effect.For an example, see Sending a Message.ConceptualInSendMessageMessages and Message QueuesReferenceSendMessage</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ReplyMessage(IntPtr lResult);
+        public static extern bool ReplyMessage(nint lResult);
 
         /// <summary>
         ///The ScreenToClient function converts the screen coordinates of a specified point on the screen to client-area coordinates.
@@ -5885,7 +6154,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">A handle to the window whose client area will be used for the conversion.lpPointA pointer to a POINT structure that specifies the screen coordinates to be converted.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.The function uses the window identified by the hWnd parameter and the screen coordinates given in the POINT structure to compute client coordinates. It then replaces the screen coordinates with the client coordinates. The new coordinates are relative to the upper-left corner of the specified window's client area.The ScreenToClient function assumes the specified point is in screen coordinates.All coordinates are in device units.Do not use ScreenToClient when in a mirroring situation, that is, when changing from left-to-right layout to right-to-left layout. Instead, use MapWindowPoints. For more information, see "Window Layout and Mirroring" in Window Features.ClientToScreenCoordinate Space and Transformation FunctionsCoordinate Spaces and Transformations OverviewMapWindowPointsPOINT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ScreenToClient(IntPtr hWnd);
+        public static extern bool ScreenToClient(nint hWnd);
 
         /// <summary>
         ///The ScrollDC function scrolls a rectangle of bits horizontally and vertically.
@@ -5896,12 +6165,13 @@ namespace WindowAPI.winuser.h
         /// <param name="lprcScroll">Type: const RECT*Pointer to a RECT structure containing the coordinates of the bits to be scrolled. The only bits affected by the scroll operation are bits in the intersection of this rectangle and the rectangle specified by lprcClip. If lprcScroll is NULL, the entire client area is used.</param>
         /// <param name="lprcClip">Type: const RECT*Pointer to a RECT structure containing the coordinates of the clipping rectangle. The only bits that will be painted are the bits that remain inside this rectangle after the scroll operation has been completed. If lprcClip is NULL, the entire client area is used.</param>
         /// <param name="hrgnUpdate">Type: HRGNHandle to the region uncovered by the scrolling process. ScrollDC defines this region; it is not necessarily a rectangle.</param>
+        /// <param name="lprcUpdate"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ScrollDC(IntPtr hDC, int dx, int dy, RECT lprcScroll, RECT lprcClip, IntPtr hrgnUpdate, out RECT lprcUpdate);
+        public static extern bool ScrollDC(nint hDC, int dx, int dy, RECT lprcScroll, RECT lprcClip, nint hrgnUpdate, out RECT lprcUpdate);
 
         /// <summary>
         ///The ScrollWindow function scrolls the contents of the specified window's client area.
@@ -5916,7 +6186,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ScrollWindow(IntPtr hWnd, int XAmount, int YAmount, RECT lpRect, RECT lpClipRect);
+        public static extern bool ScrollWindow(nint hWnd, int XAmount, int YAmount, RECT lpRect, RECT lpClipRect);
 
         /// <summary>
         ///The ScrollWindowEx function scrolls the contents of the specified window's client area.
@@ -5927,13 +6197,14 @@ namespace WindowAPI.winuser.h
         /// <param name="prcScroll">Type: const RECT*Pointer to a RECT structure that specifies the portion of the client area to be scrolled. If this parameter is NULL, the entire client area is scrolled.</param>
         /// <param name="prcClip">Type: const RECT*Pointer to a RECT structure that contains the coordinates of the clipping rectangle. Only device bits within the clipping rectangle are affected. Bits scrolled from the outside of the rectangle to the inside are painted; bits scrolled from the inside of the rectangle to the outside are not painted. This parameter may be NULL.</param>
         /// <param name="hrgnUpdate">Type: HRGNHandle to the region that is modified to hold the region invalidated by scrolling. This parameter may be NULL.</param>
+        /// <param name="prcUpdate"></param>
         /// <param name="flags">Type: UINTSpecifies flags that control scrolling. This parameter can be a combination of the following values.Type: intIf the function succeeds, the return value is SIMPLEREGION (rectangular invalidated region), COMPLEXREGION (nonrectangular invalidated region; overlapping rectangles), or NULLREGION (no invalidated region).If the function fails, the return value is ERROR. To get extended error information, call GetLastError.If the SW_INVALIDATE and SW_ERASE flags are not specified, ScrollWindowEx does not invalidate the area that is scrolled from. If either of these flags is set, ScrollWindowEx invalidates this area. The area is not updated until the application calls the UpdateWindow function, calls the RedrawWindow function (specifying the RDW_UPDATENOW or RDW_ERASENOW flag), or retrieves the WM_PAINT message from the application queue.If the window has the WS_CLIPCHILDREN style, the returned areas specified by hrgnUpdate and prcUpdate represent the total area of the scrolled window that must be updated, including any areas in child windows that need updating.If the SW_SCROLLCHILDREN flag is specified, the system does not properly update the screen if part of a child window is scrolled. The part of the scrolled child window that lies outside the source rectangle is not erased and is not properly redrawn in its new destination. To move child windows that do not lie completely within the rectangle specified by prcScroll, use the DeferWindowPos function. The cursor is repositioned if the SW_SCROLLCHILDREN flag is set and the caret rectangle intersects the scroll rectangle.All input and output coordinates (for prcScroll, prcClip, prcUpdate, and hrgnUpdate) are determined as client coordinates, regardless of whether the window has the CS_OWNDC or CS_CLASSDC class style. Use the LPtoDP and DPtoLP functions to convert to and from logical coordinates, if necessary.For an example, see Scrolling Text with the WM_PAINT Message.DPtoLPDeferWindowPosLPtoDPOther ResourcesRECTRedrawWindowUpdateWindow</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int ScrollWindowEx(IntPtr hWnd, int dx, int dy, RECT prcScroll, RECT prcClip, IntPtr hrgnUpdate, out RECT prcUpdate, uint flags);
+        public static extern int ScrollWindowEx(nint hWnd, int dx, int dy, RECT prcScroll, RECT prcClip, nint hrgnUpdate, out RECT prcUpdate, uint flags);
 
         /// <summary>
         ///Sends a message to the specified control in a dialog box.
@@ -5945,7 +6216,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: LRESULTThe return value specifies the result of the message processing and depends on the message sent.The SendDlgItemMessage function does not return until the message has been processed.Using SendDlgItemMessage is identical to retrieving a handle to the specified control and calling the SendMessage function.For an example, see Creating a Modeless Dialog Box.ConceptualDialog BoxesReferenceSendMessage</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SendDlgItemMessageA(IntPtr hDlg, int nIDDlgItem, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern nint SendDlgItemMessageA(nint hDlg, int nIDDlgItem, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Sends a message to the specified control in a dialog box.
@@ -5957,7 +6228,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: LRESULTThe return value specifies the result of the message processing and depends on the message sent.The SendDlgItemMessage function does not return until the message has been processed.Using SendDlgItemMessage is identical to retrieving a handle to the specified control and calling the SendMessage function.For an example, see Creating a Modeless Dialog Box.ConceptualDialog BoxesReferenceSendMessage</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SendDlgItemMessageW(IntPtr hDlg, int nIDDlgItem, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern nint SendDlgItemMessageW(nint hDlg, int nIDDlgItem, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Synthesizes keystrokes, mouse motions, and button clicks.
@@ -5981,7 +6252,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: LRESULTThe return value specifies the result of the message processing; it depends on the message sent.When a message is blocked by UIPI the last error, retrieved with GetLastError, is set to 5 (access denied).Applications that need to communicate using HWND_BROADCAST should use the RegisterWindowMessage function to obtain a unique message for inter-application communication.The system only does marshalling for system messages (those in the range 0 to (WM_USER-1)). To send other messages (those >= WM_USER) to another process, you must do custom marshalling.If the specified window was created by the calling thread, the window procedure is called immediately as a subroutine. If the specified window was created by a different thread, the system switches to that thread and calls the appropriate window procedure. Messages sent between threads are processed only when the receiving thread executes message retrieval code. The sending thread is blocked until the receiving thread processes the message. However, the sending thread will process incoming nonqueued messages while waiting for its message to be processed. To prevent this, use SendMessageTimeout with SMTO_BLOCK set. For more information on nonqueued messages, see Nonqueued Messages.An accessibility application can use SendMessage to send WM_APPCOMMAND messages to the shell to launch applications. This functionality is not guaranteed to work for other types of applications.For an example, see Displaying Keyboard Input.ConceptualInSendMessageMessages and Message QueuesPostMessagePostThreadMessageReferenceRegisterWindowMessageSendDlgItemMessageSendMessageCallbackSendMessageTimeoutSendNotifyMessage</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern nint SendMessage(nint hWnd, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
@@ -5992,7 +6263,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: LRESULTThe return value specifies the result of the message processing; it depends on the message sent.When a message is blocked by UIPI the last error, retrieved with GetLastError, is set to 5 (access denied).Applications that need to communicate using HWND_BROADCAST should use the RegisterWindowMessage function to obtain a unique message for inter-application communication.The system only does marshalling for system messages (those in the range 0 to (WM_USER-1)). To send other messages (those >= WM_USER) to another process, you must do custom marshalling.If the specified window was created by the calling thread, the window procedure is called immediately as a subroutine. If the specified window was created by a different thread, the system switches to that thread and calls the appropriate window procedure. Messages sent between threads are processed only when the receiving thread executes message retrieval code. The sending thread is blocked until the receiving thread processes the message. However, the sending thread will process incoming nonqueued messages while waiting for its message to be processed. To prevent this, use SendMessageTimeout with SMTO_BLOCK set. For more information on nonqueued messages, see Nonqueued Messages.An accessibility application can use SendMessage to send WM_APPCOMMAND messages to the shell to launch applications. This functionality is not guaranteed to work for other types of applications.For an example, see Displaying Keyboard Input.ConceptualInSendMessageMessages and Message QueuesPostMessagePostThreadMessageReferenceRegisterWindowMessageSendDlgItemMessageSendMessageCallbackSendMessageTimeoutSendNotifyMessage</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SendMessageA(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern nint SendMessageA(nint hWnd, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Sends the specified message to a window or windows. It calls the window procedure for the specified window and returns immediately if the window belongs to another thread. After the window procedure processes the message, the system calls the specified callback function, passing the result of the message processing and an application-defined value to the callback function.
@@ -6008,7 +6279,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SendMessageCallbackA(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam, SENDASYNCPROC lpResultCallBack, uint dwData);
+        public static extern bool SendMessageCallbackA(nint hWnd, uint Msg, nint wParam, nint lParam, SENDASYNCPROC lpResultCallBack, uint dwData);
 
         /// <summary>
         ///Sends the specified message to a window or windows. It calls the window procedure for the specified window and returns immediately if the window belongs to another thread. After the window procedure processes the message, the system calls the specified callback function, passing the result of the message processing and an application-defined value to the callback function.
@@ -6024,7 +6295,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SendMessageCallbackW(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam, SENDASYNCPROC lpResultCallBack, uint dwData);
+        public static extern bool SendMessageCallbackW(nint hWnd, uint Msg, nint wParam, nint lParam, SENDASYNCPROC lpResultCallBack, uint dwData);
 
         /// <summary>
         ///Sends the specified message to one or more windows.
@@ -6035,12 +6306,13 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAny additional message-specific information.</param>
         /// <param name="fuFlags">Type: UINTThe behavior of this function. This parameter can be one or more of the following values.</param>
         /// <param name="uTimeout">Type: UINTThe duration of the time-out period, in milliseconds. If the message is a broadcast message, each window can use the full time-out period. For example, if you specify a five second time-out period and there are three top-level windows that fail to process the message, you could have up to a 15 second delay.</param>
+        /// <param name="lpdwResult"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError. If GetLastError returns ERROR_TIMEOUT, then the function timed out.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SendMessageTimeoutA(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam, uint fuFlags, uint uTimeout, out uint lpdwResult);
+        public static extern nint SendMessageTimeoutA(nint hWnd, uint Msg, nint wParam, nint lParam, uint fuFlags, uint uTimeout, out uint lpdwResult);
 
         /// <summary>
         ///Sends the specified message to one or more windows.
@@ -6051,12 +6323,13 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAny additional message-specific information.</param>
         /// <param name="fuFlags">Type: UINTThe behavior of this function. This parameter can be one or more of the following values.</param>
         /// <param name="uTimeout">Type: UINTThe duration of the time-out period, in milliseconds. If the message is a broadcast message, each window can use the full time-out period. For example, if you specify a five second time-out period and there are three top-level windows that fail to process the message, you could have up to a 15 second delay.</param>
+        /// <param name="lpdwResult"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError. If GetLastError returns ERROR_TIMEOUT, then the function timed out.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SendMessageTimeoutW(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam, uint fuFlags, uint uTimeout, out uint lpdwResult);
+        public static extern nint SendMessageTimeoutW(nint hWnd, uint Msg, nint wParam, nint lParam, uint fuFlags, uint uTimeout, out uint lpdwResult);
 
         /// <summary>
         ///Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
@@ -6067,7 +6340,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMAdditional message-specific information.Type: LRESULTThe return value specifies the result of the message processing; it depends on the message sent.When a message is blocked by UIPI the last error, retrieved with GetLastError, is set to 5 (access denied).Applications that need to communicate using HWND_BROADCAST should use the RegisterWindowMessage function to obtain a unique message for inter-application communication.The system only does marshalling for system messages (those in the range 0 to (WM_USER-1)). To send other messages (those >= WM_USER) to another process, you must do custom marshalling.If the specified window was created by the calling thread, the window procedure is called immediately as a subroutine. If the specified window was created by a different thread, the system switches to that thread and calls the appropriate window procedure. Messages sent between threads are processed only when the receiving thread executes message retrieval code. The sending thread is blocked until the receiving thread processes the message. However, the sending thread will process incoming nonqueued messages while waiting for its message to be processed. To prevent this, use SendMessageTimeout with SMTO_BLOCK set. For more information on nonqueued messages, see Nonqueued Messages.An accessibility application can use SendMessage to send WM_APPCOMMAND messages to the shell to launch applications. This functionality is not guaranteed to work for other types of applications.For an example, see Displaying Keyboard Input.ConceptualInSendMessageMessages and Message QueuesPostMessagePostThreadMessageReferenceRegisterWindowMessageSendDlgItemMessageSendMessageCallbackSendMessageTimeoutSendNotifyMessage</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SendMessageW(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern nint SendMessageW(nint hWnd, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Sends the specified message to a window or windows. If the window was created by the calling thread, SendNotifyMessage calls the window procedure for the window and does not return until the window procedure has processed the message. If the window was created by a different thread, SendNotifyMessage passes the message to the window procedure and returns immediately; it does not wait for the window procedure to finish processing the message.
@@ -6081,7 +6354,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SendNotifyMessageA(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern bool SendNotifyMessageA(nint hWnd, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Sends the specified message to a window or windows. If the window was created by the calling thread, SendNotifyMessage calls the window procedure for the window and does not return until the window procedure has processed the message. If the window was created by a different thread, SendNotifyMessage passes the message to the window procedure and returns immediately; it does not wait for the window procedure to finish processing the message.
@@ -6095,7 +6368,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SendNotifyMessageW(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern bool SendNotifyMessageW(nint hWnd, uint Msg, nint wParam, nint lParam);
 
         /// <summary>
         ///Activates a window. The window must be attached to the calling thread's message queue.
@@ -6106,14 +6379,14 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SetActiveWindow(IntPtr hWnd);
+        public static extern nint SetActiveWindow(nint hWnd);
 
         /// <summary>
         ///SetAdditionalForegroundBoostProcesses is a performance assist API to help applications with a multi-process application model where multiple processes contribute to a foreground experience, either as data or rendering. Examples include browsers (with the browser manager or frame, tabs, plugins, etc. hosted in different processes) and IDEs (which spawn processes for compilation and other tasks).
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetAdditionalForegroundBoostProcesses(uint processHandleCount, IntPtr processHandleArray);
+        public static extern bool SetAdditionalForegroundBoostProcesses(uint processHandleCount, nint processHandleArray);
 
         /// <summary>
         ///Sets the mouse capture to the specified window belonging to the current thread. SetCapture captures mouse input either when the mouse is over the capturing window, or when the mouse button was pressed while the mouse was over the capturing window and the button is still down. Only one window at a time can capture the mouse.
@@ -6121,7 +6394,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the window in the current thread that is to capture the mouse.Type: HWNDThe return value is a handle to the window that had previously captured the mouse. If there is no such window, the return value is NULL.Only the foreground window can capture the mouse. When a background window attempts to do so, the window receives messages only for mouse events that occur when the cursor hot spot is within the visible portion of the window. Also, even if the foreground window has captured the mouse, the user can still click another window, bringing it to the foreground.When the window no longer requires all mouse input, the thread that created the window should call the ReleaseCapture function to release the mouse.This function cannot be used to capture mouse input meant for another process.When the mouse is captured, menu hotkeys and other keyboard accelerators do not work.For an example, see Drawing Lines with the Mouse.ConceptualGetCaptureMouse InputReferenceReleaseCaptureWM_CAPTURECHANGED</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SetCapture(IntPtr hWnd);
+        public static extern nint SetCapture(nint hWnd);
 
         /// <summary>
         ///Sets the caret blink time to the specified number of milliseconds. The blink time is the elapsed time, in milliseconds, required to invert the caret's pixels.
@@ -6157,7 +6430,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint SetClassLongA(IntPtr hWnd, int nIndex, int dwNewLong);
+        public static extern uint SetClassLongA(nint hWnd, int nIndex, int dwNewLong);
 
         /// <summary>
         ///Replaces the specified value at the specified offset in the extra class memory or the WNDCLASSEX structure for the class to which the specified window belongs.
@@ -6170,7 +6443,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint SetClassLongPtrA(IntPtr hWnd, int nIndex, int dwNewLong);
+        public static extern uint SetClassLongPtrA(nint hWnd, int nIndex, int dwNewLong);
 
         /// <summary>
         ///Replaces the specified value at the specified offset in the extra class memory or the WNDCLASSEX structure for the class to which the specified window belongs.
@@ -6183,7 +6456,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint SetClassLongPtrW(IntPtr hWnd, int nIndex, int dwNewLong);
+        public static extern uint SetClassLongPtrW(nint hWnd, int nIndex, int dwNewLong);
 
         /// <summary>
         ///Replaces the specified 32-bit (long) value at the specified offset into the extra class memory or the WNDCLASSEX structure for the class to which the specified window belongs.
@@ -6196,7 +6469,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint SetClassLongW(IntPtr hWnd, int nIndex, int dwNewLong);
+        public static extern uint SetClassLongW(nint hWnd, int nIndex, int dwNewLong);
 
         /// <summary>
         ///Replaces the 16-bit (WORD) value at the specified offset into the extra class memory for the window class to which the specified window belongs.
@@ -6209,18 +6482,19 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern short SetClassWord(IntPtr hWnd, int nIndex, short wNewWord);
+        public static extern short SetClassWord(nint hWnd, int nIndex, short wNewWord);
 
         /// <summary>
         ///Places data on the clipboard in a specified clipboard format. The window must be the current clipboard owner, and the application must have called the OpenClipboard function. (When responding to the WM_RENDERFORMAT message, the clipboard owner must not call OpenClipboard before calling SetClipboardData.)
         /// </summary>
         /// <param name="uFormat">Type: UINTThe clipboard format. This parameter can be a registered format or any of the standard clipboard formats. For more information, see Standard Clipboard Formats and Registered Clipboard Formats.</param>
+        /// <param name="hMem"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SetClipboardData(uint uFormat, IntPtr hMem);
+        public static extern nint SetClipboardData(uint uFormat, nint hMem);
 
         /// <summary>
         ///Adds the specified window to the chain of clipboard viewers. Clipboard viewer windows receive a WM_DRAWCLIPBOARD message whenever the content of the clipboard changes. This function is used for backward compatibility with earlier versions of Windows.
@@ -6231,27 +6505,29 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
+        public static extern nint SetClipboardViewer(nint hWndNewViewer);
 
         /// <summary>
         ///Creates a timer with the specified time-out value and coalescing tolerance delay.
         /// </summary>
+        /// <param name="hWnd"></param>
         /// <param name="nIDEvent">Type: UINT_PTRA timer identifier. If the hWnd parameter is NULL, and the nIDEvent does not match an existing timer, then the nIDEvent is ignored and a new timer ID is generated. If the hWnd parameter is not NULL and the window specified by hWnd already has a timer with the value nIDEvent, then the existing timer is replaced by the new timer. When SetCoalescableTimer replaces a timer, the timer is reset. Therefore, a message will be sent after the current time-out value elapses, but the previously set time-out value is ignored. If the call is not intended to replace an existing timer, nIDEvent should be 0 if the hWnd is NULL.</param>
         /// <param name="uElapse">Type: UINTThe time-out value, in milliseconds.If uElapse is less than USER_TIMER_MINIMUM (0x0000000A), the timeout is set to USER_TIMER_MINIMUM. If uElapse is greater than USER_TIMER_MAXIMUM (0x7FFFFFFF), the timeout is set to USER_TIMER_MAXIMUM.If the sum of uElapse and uToleranceDelay exceeds USER_TIMER_MAXIMUM, an ERROR_INVALID_PARAMETER exception occurs.</param>
+        /// <param name="lpTimerFunc"></param>
         /// <param name="uToleranceDelay">Type: ULONGIt can be one of the following values:Type: UINT_PTRIf the function succeeds and the hWnd parameter is NULL, the return value is an integer identifying the new timer. An application can pass this value to the KillTimer function to destroy the timer.If the function succeeds and the hWnd parameter is not NULL, then the return value is a nonzero integer. An application can pass the value of the nIDEvent parameter to the KillTimer function to destroy the timer.If the function fails to create a timer, the return value is zero. To get extended error information, call GetLastError.An application can process WM_TIMER messages by including a WM_TIMER case statement in the window procedure or by specifying a TimerProc callback function when creating the timer. When you specify a TimerProc callback function, the default window procedure calls the callback function when it processes WM_TIMER. Therefore, you need to dispatch messages in the calling thread, even when you use TimerProc instead of processing WM_TIMER.The wParam parameter of the WM_TIMER message contains the value of the nIDEvent parameter.The timer identifier, nIDEvent, is specific to the associated window. Another window can have its own timer which has the same identifier as a timer owned by another window. The timers are distinct.SetTimer can reuse timer IDs in the case where hWnd is NULL.When uToleranceDelay is set to 0, the system default timer coalescing is used and SetCoalescableTimer behaves the same as SetTimer.Before using SetCoalescableTimer or other timer-related functions, it is recommended to set the UOI_TIMERPROC_EXCEPTION_SUPPRESSION flag to false through the SetUserObjectInformationW function, otherwise the application could behave unpredictably and could be vulnerable to security exploits. For more info, see SetUserObjectInformationW.Coalescing timers sampleConceptualKeSetCoalescableTimerKeSetTimerKillTimerMSGReferenceSampleSetTimerTimerProcTimersUsing TimersWM_TIMER</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SetCoalescableTimer(IntPtr hWnd, IntPtr nIDEvent, uint uElapse, TIMERPROC lpTimerFunc, uint uToleranceDelay);
+        public static extern nint SetCoalescableTimer(nint hWnd, nint nIDEvent, uint uElapse, TIMERPROC lpTimerFunc, uint uToleranceDelay);
 
         /// <summary>
         ///Sets the cursor shape.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SetCursor(IntPtr hCursor);
+        public static extern nint SetCursor(nint hCursor);
 
         /// <summary>
         ///Moves the cursor to the specified screen coordinates. If the new coordinates are not within the screen rectangle set by the most recent ClipCursor function call, the system automatically adjusts the coordinates so that the cursor stays within the rectangle.
@@ -6273,7 +6549,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetDialogControlDpiChangeBehavior(IntPtr hWnd, DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS mask, DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS values);
+        public static extern bool SetDialogControlDpiChangeBehavior(nint hWnd, DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS mask, DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS values);
 
         /// <summary>
         ///Dialogs in Per-Monitor v2 contexts are automatically DPI scaled. This method lets you customize their DPI change behavior.
@@ -6283,7 +6559,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetDialogDpiChangeBehavior(IntPtr hDlg, DIALOG_DPI_CHANGE_BEHAVIORS mask, DIALOG_DPI_CHANGE_BEHAVIORS values);
+        public static extern bool SetDialogDpiChangeBehavior(nint hDlg, DIALOG_DPI_CHANGE_BEHAVIORS mask, DIALOG_DPI_CHANGE_BEHAVIORS values);
 
         /// <summary>
         ///Sets the screen auto-rotation preferences for the current process.
@@ -6297,7 +6573,9 @@ namespace WindowAPI.winuser.h
         ///The SetDisplayConfig function modifies the display topology, source, and target modes by exclusively enabling the specified paths in the current session.
         /// </summary>
         /// <param name="numPathArrayElements">Number of elements in pathArray.</param>
+        /// <param name="pathArray"></param>
         /// <param name="numModeInfoArrayElements">Number of elements in modeInfoArray.</param>
+        /// <param name="modeInfoArray"></param>
         /// <param name="flags">A bitwise OR of flag values that indicates the behavior of this function. This parameter can be one the following values, or a combination of the following values; 0 is not valid. See below for a description of valid flag combinations.The following list contains valid combinations of values for the Flags parameter:The function returns one of the following return codes.The SetDisplayConfig function takes the active display paths with any specified source and target mode information and uses best mode logic to generate any missing source and target mode information. This function then sets the complete display path.The ModeInfoIdx members in the DISPLAYCONFIG_PATH_SOURCE_INFO and DISPLAYCONFIG_PATH_TARGET_INFO structures are used to indicate whether source and target mode are supplied for a given active path. If the index value is DISPLAYCONFIG_PATH_MODE_IDX_INVALID for either, this indicates the mode information is not being specified. It is valid for the path plus source mode or the path plus source and target mode information to be specified for a given path. However, it is not valid for the path plus target mode to be specified without the source mode.The source and target modes for each source and target identifiers can only appear in the modeInfoArray array once. For example, a source mode for source identifier S1 can only appear in the table once; if multiple paths reference the same source, they have to use the same ModeInfoIdx.The expectation is that most callers use QueryDisplayConfig to get the current configuration along with other valid possibilities and then use SetDisplayConfig to test and set the configuration.The order in which the active paths appear in the PathArray array determines the path priority.By default, SetDisplayConfig never changes any supplied path, source mode, or target mode information. If best mode logic cannot find a solution without changing the specified display path information, SetDisplayConfig fails with ERROR_BAD_CONFIGURATION. In this case, the caller should specify the SDC_ALLOW_CHANGES flag to allow the function to tweak some of the specified source and mode details to allow the display path change to be successful.If the specified or calculated source and target modes have the same dimensions, SetDisplayConfig automatically sets the path scaling to DISPLAYCONFIG_PPR_IDENTITY before setting the display path and saving it in the database. For information about how SetDisplayConfig handles scaling, see Scaling the Desktop Image.When the caller specifies the SDC_USE_SUPPLIED_DISPLAY_CONFIG flag to set a clone path and if any source mode indexes are invalid in the path array, SetDisplayConfig determines that all of the source mode indexes from that source are invalid. SetDisplayConfig uses the best mode logic to determine the source mode information.Except for the SDC_TOPOLOGY_SUPPLIED flag (for more information about SDC_TOPOLOGY_SUPPLIED, see the following paragraph), the SDC_TOPOLOGY_XXX flags set last display path settings, including the source and target mode information for that topology type. For information about valid SDC_TOPOLOGY_XXX flag combinations, see the Flags parameter description. The pathArray and modeInfoArray parameters must be NULL, and their associated sizes must be zero. For example, if SDC_TOPOLOGY_CLONE and SDC_TOPOLOGY_EXTEND are set, this function uses the most recent clone or extend display path configuration. If a single topology type is requested, the last configuration of that type is used. If that topology had never been set before, SetDisplayConfig uses the best topology logic to find the best topology, and then best mode logic to find the best source and target mode to use. If a combination of the topology flags had been set and none of them had database entries, the following priority is used. For laptops: clone, extend, internal, and then external; for desktops the priority is extend and then clone.The caller can specify the SDC_TOPOLOGY_SUPPLIED flag to indicate that it sets just the path information (topology) and requests that SetDisplayConfig obtains and then uses the source and target mode information from the persistence database. If the active paths that the caller supplies do not have an entry in the persistence database, SetDisplayConfig fails. In this case, if the caller calls SetDisplayConfig again with the same path data but with the SDC_USE_SUPPLIED_DISPLAY_CONFIG flag set, SetDisplayConfig uses best mode logic to create the source and target mode information. When the caller specifies SDC_TOPOLOGY_SUPPLIED, the caller must set the numModeInfoArrayElements parameter to zero and the modeInfoArray parameter to NULL; however, the caller must set the pathArray and numPathArrayElements parameters for the path information that the caller requires. The caller must mark all the source and target mode indexes as invalid (DISPLAYCONFIG_PATH_MODE_IDX_INVALID) in this path data.The following table provides some common scenarios where SetDisplayConfig is called along with the flag combinations that the caller passes to the Flags parameter to achieve the scenarios.DISPLAYCONFIG_MODE_INFODISPLAYCONFIG_PATH_INFODISPLAYCONFIG_PATH_SOURCE_INFODISPLAYCONFIG_PATH_TARGET_INFOQueryDisplayConfig</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -6315,7 +6593,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetDlgItemInt(IntPtr hDlg, int nIDDlgItem, uint uValue, bool bSigned);
+        public static extern bool SetDlgItemInt(nint hDlg, int nIDDlgItem, uint uValue, bool bSigned);
 
         /// <summary>
         ///Sets the title or text of a control in a dialog box.
@@ -6328,7 +6606,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetDlgItemTextA(IntPtr hDlg, int nIDDlgItem, string lpString);
+        public static extern bool SetDlgItemTextA(nint hDlg, int nIDDlgItem, string lpString);
 
         /// <summary>
         ///Sets the title or text of a control in a dialog box.
@@ -6341,7 +6619,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetDlgItemTextW(IntPtr hDlg, int nIDDlgItem, string lpString);
+        public static extern bool SetDlgItemTextW(nint hDlg, int nIDDlgItem, string lpString);
 
         /// <summary>
         ///Sets the double-click time for the mouse. A double-click is a series of two clicks of a mouse button, the second occurring within a specified time after the first. The double-click time is the maximum number of milliseconds that may occur between the first and second clicks of a double-click.
@@ -6362,7 +6640,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SetFocus(IntPtr hWnd);
+        public static extern nint SetFocus(nint hWnd);
 
         /// <summary>
         ///Brings the thread that created the specified window into the foreground and activates the window. Keyboard input is directed to the window, and various visual cues are changed for the user. The system assigns a slightly higher priority to the thread that created the foreground window than it does to other threads.
@@ -6370,7 +6648,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Type: HWNDA handle to the window that should be activated and brought to the foreground.Type: BOOLIf the window was brought to the foreground, the return value is nonzero.If the window was not brought to the foreground, the return value is zero.The system restricts which processes can set the foreground window. A process can set the foreground window by calling SetForegroundWindow only if:It is possible for a process to be denied the right to set the foreground window even if it meets these conditions.An application cannot force a window to the foreground while the user is working with another window. Instead, Windows flashes the taskbar button of the window to notify the user.A process that can set the foreground window can enable another process to set the foreground window by calling the AllowSetForegroundWindow function. The process specified by the dwProcessId parameter to AllowSetForegroundWindow loses the ability to set the foreground window the next time that either the user generates input, unless the input is directed at that process, or the next time a process calls AllowSetForegroundWindow, unless the same process is specified as in the previous call to AllowSetForegroundWindow.The foreground process can disable calls to SetForegroundWindow by calling the LockSetForegroundWindow function.The following code example demonstrates the use of SetForegroundWindowAllowSetForegroundWindowConceptualFlashWindowExGetForegroundWindowLockSetForegroundWindowReferenceSetActiveWindowWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
+        public static extern bool SetForegroundWindow(nint hWnd);
 
         /// <summary>
         ///Configures the messages that are sent from a window for Windows Touch gestures.
@@ -6385,7 +6663,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetGestureConfig(IntPtr hwnd, uint dwReserved, uint cIDs, GESTURECONFIG pGestureConfig, uint cbSize);
+        public static extern bool SetGestureConfig(nint hwnd, uint dwReserved, uint cIDs, GESTURECONFIG pGestureConfig, uint cbSize);
 
         /// <summary>
         ///Copies an array of keyboard key states into the calling thread's keyboard input-state table. This is the same table accessed by the GetKeyboardState and GetKeyState functions. Changes made to this table do not affect keyboard input to any other thread.
@@ -6419,25 +6697,26 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetLayeredWindowAttributes(IntPtr hwnd, COORD crKey, byte bAlpha, uint dwFlags);
+        public static extern bool SetLayeredWindowAttributes(nint hwnd, COORD crKey, byte bAlpha, uint dwFlags);
 
         /// <summary>
         ///Assigns a new menu to the specified window.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window to which the menu is to be assigned.</param>
+        /// <param name="hMenu"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetMenu(IntPtr hWnd, IntPtr hMenu);
+        public static extern bool SetMenu(nint hWnd, nint hMenu);
 
         /// <summary>
         ///Associates a Help context identifier with a menu.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetMenuContextHelpId(IntPtr unnamedParam1, uint unnamedParam2);
+        public static extern bool SetMenuContextHelpId(nint unnamedParam1, uint unnamedParam2);
 
         /// <summary>
         ///Sets the default menu item for the specified menu.
@@ -6450,7 +6729,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetMenuDefaultItem(IntPtr hMenu, uint uItem, uint fByPos);
+        public static extern bool SetMenuDefaultItem(nint hMenu, uint uItem, uint fByPos);
 
         /// <summary>
         ///Sets information for a specified menu.
@@ -6462,7 +6741,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetMenuInfo(IntPtr unnamedParam1, MENUINFO unnamedParam2);
+        public static extern bool SetMenuInfo(nint unnamedParam1, MENUINFO unnamedParam2);
 
         /// <summary>
         ///Associates the specified bitmap with a menu item. Whether the menu item is selected or clear, the system displays the appropriate bitmap next to the menu item.
@@ -6470,38 +6749,42 @@ namespace WindowAPI.winuser.h
         /// <param name="hMenu">Type: HMENUA handle to the menu containing the item to receive new check-mark bitmaps.</param>
         /// <param name="uPosition">Type: UINTThe menu item to be changed, as determined by the uFlags parameter.</param>
         /// <param name="uFlags">Type: UINTSpecifies how the uPosition parameter is to be interpreted. The uFlags parameter must be one of the following values.</param>
+        /// <param name="hBitmapUnchecked"></param>
+        /// <param name="hBitmapChecked"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetMenuItemBitmaps(IntPtr hMenu, uint uPosition, uint uFlags, IntPtr hBitmapUnchecked, IntPtr hBitmapChecked);
+        public static extern bool SetMenuItemBitmaps(nint hMenu, uint uPosition, uint uFlags, nint hBitmapUnchecked, nint hBitmapChecked);
 
         /// <summary>
         ///Changes information about a menu item.
         /// </summary>
         /// <param name="hmenu">Type: HMENUA handle to the menu that contains the menu item.</param>
         /// <param name="item">Type: UINTThe identifier or position of the menu item to change. The meaning of this parameter depends on the value of fByPosition.fByPositon</param>
+        /// <param name="fByPositon"></param>
         /// <param name="lpmii">Type: LPMENUITEMINFOA pointer to a MENUITEMINFO structure that contains information about the menu item and specifies which menu item attributes to change.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, use the GetLastError function.The application must call the DrawMenuBar function whenever a menu changes, whether the menu is in a displayed window.In order for keyboard accelerators to work with bitmap or owner-drawn menu items, the owner of the menu must process the WM_MENUCHAR message. See Owner-Drawn Menus and the WM_MENUCHAR Message for more information.For an example, see Example of Owner-Drawn Menu Items.ConceptualDrawMenuBarGetMenuItemInfoMENUITEMINFOMenusReference</param>
         /// <remarks>
         /// To get extended error information, use the GetLastError function.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetMenuItemInfoA(IntPtr hmenu, uint item, bool fByPositon, MENUITEMINFOA lpmii);
+        public static extern bool SetMenuItemInfoA(nint hmenu, uint item, bool fByPositon, MENUITEMINFOA lpmii);
 
         /// <summary>
         ///Changes information about a menu item.
         /// </summary>
         /// <param name="hmenu">Type: HMENUA handle to the menu that contains the menu item.</param>
         /// <param name="item">Type: UINTThe identifier or position of the menu item to change. The meaning of this parameter depends on the value of fByPosition.fByPositon</param>
+        /// <param name="fByPositon"></param>
         /// <param name="lpmii">Type: LPMENUITEMINFOA pointer to a MENUITEMINFO structure that contains information about the menu item and specifies which menu item attributes to change.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, use the GetLastError function.The application must call the DrawMenuBar function whenever a menu changes, whether the menu is in a displayed window.In order for keyboard accelerators to work with bitmap or owner-drawn menu items, the owner of the menu must process the WM_MENUCHAR message. See Owner-Drawn Menus and the WM_MENUCHAR Message for more information.For an example, see Example of Owner-Drawn Menu Items.ConceptualDrawMenuBarGetMenuItemInfoMENUITEMINFOMenusReference</param>
         /// <remarks>
         /// To get extended error information, use the GetLastError function.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetMenuItemInfoW(IntPtr hmenu, uint item, bool fByPositon, MENUITEMINFOW lpmii);
+        public static extern bool SetMenuItemInfoW(nint hmenu, uint item, bool fByPositon, MENUITEMINFOW lpmii);
 
         /// <summary>
         ///Sets the extra message information for the current thread. Extra message information is an application- or driver-defined value associated with the current thread's message queue. An application can use the GetMessageExtraInfo function to retrieve a thread's extra message information.
@@ -6509,18 +6792,19 @@ namespace WindowAPI.winuser.h
         /// <param name="lParam">Type: LPARAMThe value to be associated with the current thread.Type: LPARAMThe return value is the previous value associated with the current thread.ConceptualGetMessageExtraInfoMessages and Message QueuesReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SetMessageExtraInfo(IntPtr lParam);
+        public static extern nint SetMessageExtraInfo(nint lParam);
 
         /// <summary>
         ///Changes the parent window of the specified child window.
         /// </summary>
         /// <param name="hWndChild">Type: HWNDA handle to the child window.</param>
+        /// <param name="hWndNewParent"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+        public static extern nint SetParent(nint hWndChild, nint hWndNewParent);
 
         /// <summary>
         ///Sets the position of the cursor in physical coordinates.
@@ -6586,28 +6870,31 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window whose property list receives the new entry.</param>
         /// <param name="lpString">Type: LPCTSTRA null-terminated string or an atom that identifies a string. If this parameter is an atom, it must be a global atom created by a previous call to the GlobalAddAtom function. The atom must be placed in the low-order word of lpString; the high-order word must be zero.</param>
+        /// <param name="hData"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetPropA(IntPtr hWnd, string lpString, IntPtr hData);
+        public static extern bool SetPropA(nint hWnd, string lpString, nint hData);
 
         /// <summary>
         ///Adds a new entry or changes an existing entry in the property list of the specified window. The function adds a new entry to the list if the specified character string does not exist already in the list. The new entry contains the string and the handle. Otherwise, the function replaces the string's current handle with the specified handle.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window whose property list receives the new entry.</param>
         /// <param name="lpString">Type: LPCTSTRA null-terminated string or an atom that identifies a string. If this parameter is an atom, it must be a global atom created by a previous call to the GlobalAddAtom function. The atom must be placed in the low-order word of lpString; the high-order word must be zero.</param>
+        /// <param name="hData"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetPropW(IntPtr hWnd, string lpString, IntPtr hData);
+        public static extern bool SetPropW(nint hWnd, string lpString, nint hData);
 
         /// <summary>
         ///The SetRect function sets the coordinates of the specified rectangle. This is equivalent to assigning the left, top, right, and bottom arguments to the appropriate members of the RECT structure.
         /// </summary>
+        /// <param name="lprc"></param>
         /// <param name="xLeft">Specifies the x-coordinate of the rectangle's upper-left corner.</param>
         /// <param name="yTop">Specifies the y-coordinate of the rectangle's upper-left corner.</param>
         /// <param name="xRight">Specifies the x-coordinate of the rectangle's lower-right corner.</param>
@@ -6632,7 +6919,7 @@ namespace WindowAPI.winuser.h
         /// <param name="redraw">Type: BOOLSpecifies whether the scroll bar is redrawn to reflect the changes to the scroll bar. If this parameter is TRUE, the scroll bar is redrawn, otherwise, it is not redrawn.Type: intThe return value is the current position of the scroll box.The SetScrollInfo function performs range checking on the values specified by the nPage and nPos members of the SCROLLINFO structure. The nPage member must specify a value from 0 to nMax - nMin +1. The nPos member must specify a value between nMin and nMax - max( nPage– 1, 0). If either value is beyond its range, the function sets it to a value that is just within the range.If the fnBar parameter is SB_CTL and the window specified by the hwnd parameter is not a system scroll bar control, the system sends the SBM_SETSCROLLINFO message to the window to set scroll bar information (The system can optimize the message to SBM_SETPOS or SBM_SETRANGE if the request is solely for the position or range). This allows SetScrollInfo to operate on a custom control that mimics a scroll bar. If the window does not handle SBM_SETSCROLLINFO (or the optimized SBM_SETPOS message or SBM_SETRANGE message), then the SetScrollInfo function fails.For an example, see Scrolling Text with the WM_PAINT Message.GetScrollInfoReferenceSCROLLINFO</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int SetScrollInfo(IntPtr hwnd, int nBar, SCROLLINFO lpsi, bool redraw);
+        public static extern int SetScrollInfo(nint hwnd, int nBar, SCROLLINFO lpsi, bool redraw);
 
         /// <summary>
         ///The SetScrollPos function sets the position of the scroll box (thumb) in the specified scroll bar and, if requested, redraws the scroll bar to reflect the new position of the scroll box.
@@ -6646,7 +6933,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int SetScrollPos(IntPtr hWnd, int nBar, int nPos, bool bRedraw);
+        public static extern int SetScrollPos(nint hWnd, int nBar, int nPos, bool bRedraw);
 
         /// <summary>
         ///The SetScrollRange function sets the minimum and maximum scroll box positions for the specified scroll bar.
@@ -6661,7 +6948,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetScrollRange(IntPtr hWnd, int nBar, int nMinPos, int nMaxPos, bool bRedraw);
+        public static extern bool SetScrollRange(nint hWnd, int nBar, int nMinPos, int nMaxPos, bool bRedraw);
 
         /// <summary>
         ///Sets the colors for the specified display elements. Display elements are the various parts of a window and the display that appear on the system display screen.
@@ -6686,7 +6973,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetSystemCursor(IntPtr hcur, uint id);
+        public static extern bool SetSystemCursor(nint hcur, uint id);
 
         /// <summary>
         ///Assigns the specified desktop to the calling thread. All subsequent operations on the desktop use the access rights granted to the desktop.
@@ -6697,7 +6984,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetThreadDesktop(IntPtr hDesktop);
+        public static extern bool SetThreadDesktop(nint hDesktop);
 
         /// <summary>
         ///Set the DPI awareness for the current thread to the provided value.
@@ -6717,14 +7004,16 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Creates a timer with the specified time-out value.
         /// </summary>
+        /// <param name="hWnd"></param>
         /// <param name="nIDEvent">Type: UINT_PTRA nonzero timer identifier. If the hWnd parameter is NULL, and the nIDEvent does not match an existing timer then it is ignored and a new timer ID is generated. If the hWnd parameter is not NULL and the window specified by hWnd already has a timer with the value nIDEvent, then the existing timer is replaced by the new timer. When SetTimer replaces a timer, the timer is reset. Therefore, a message will be sent after the current time-out value elapses, but the previously set time-out value is ignored. If the call is not intended to replace an existing timer, nIDEvent should be 0 if the hWnd is NULL.</param>
         /// <param name="uElapse">Type: UINTThe time-out value, in milliseconds.If uElapse is less than USER_TIMER_MINIMUM (0x0000000A), the timeout is set to USER_TIMER_MINIMUM. If uElapse is greater than USER_TIMER_MAXIMUM (0x7FFFFFFF), the timeout is set to USER_TIMER_MAXIMUM.</param>
+        /// <param name="lpTimerFunc"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr SetTimer(IntPtr hWnd, IntPtr nIDEvent, uint uElapse, TIMERPROC lpTimerFunc);
+        public static extern nint SetTimer(nint hWnd, nint nIDEvent, uint uElapse, TIMERPROC lpTimerFunc);
 
         /// <summary>
         ///Sets information about the specified window station or desktop object.
@@ -6738,7 +7027,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetUserObjectInformationA(IntPtr hObj, int nIndex, IntPtr pvInfo, uint nLength);
+        public static extern bool SetUserObjectInformationA(nint hObj, int nIndex, nint pvInfo, uint nLength);
 
         /// <summary>
         ///Sets information about the specified window station or desktop object.
@@ -6752,7 +7041,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetUserObjectInformationW(IntPtr hObj, int nIndex, IntPtr pvInfo, uint nLength);
+        public static extern bool SetUserObjectInformationW(nint hObj, int nIndex, nint pvInfo, uint nLength);
 
         /// <summary>
         ///The SetUserObjectSecurity function sets the security of a user object. This can be, for example, a window or a DDE conversation.
@@ -6765,14 +7054,14 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetUserObjectSecurity(IntPtr hObj, ACL_SIZE_INFORMATION pSIRequested, SECURITY_DESCRIPTOR pSID);
+        public static extern bool SetUserObjectSecurity(nint hObj, ACL_SIZE_INFORMATION pSIRequested, SECURITY_DESCRIPTOR pSID);
 
         /// <summary>
         ///Associates a Help context identifier with the specified window.
         /// </summary>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetWindowContextHelpId(IntPtr unnamedParam1, uint unnamedParam2);
+        public static extern bool SetWindowContextHelpId(nint unnamedParam1, uint unnamedParam2);
 
         /// <summary>
         ///Specifies where the content of the window can be displayed.
@@ -6784,7 +7073,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetWindowDisplayAffinity(IntPtr hWnd, uint dwAffinity);
+        public static extern bool SetWindowDisplayAffinity(nint hWnd, uint dwAffinity);
 
         /// <summary>
         ///Sets the feedback configuration for a window.
@@ -6793,9 +7082,10 @@ namespace WindowAPI.winuser.h
         /// <param name="feedback">One of the values from the FEEDBACK_TYPE enumeration.</param>
         /// <param name="dwFlags">Reserved. Must be 0.</param>
         /// <param name="size">The size, in bytes, of the configuration data. Must be sizeof(BOOL) or 0 if the feedback setting is being reset.</param>
+        /// <param name="configuration"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetWindowFeedbackSetting(IntPtr hwnd, FEEDBACK_TYPE feedback, uint dwFlags, int size, IntPtr configuration);
+        public static extern bool SetWindowFeedbackSetting(nint hwnd, FEEDBACK_TYPE feedback, uint dwFlags, int size, nint configuration);
 
         /// <summary>
         ///Changes an attribute of the specified window. The function also sets the 32-bit (long) value at the specified offset into the extra window memory.
@@ -6808,7 +7098,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int SetWindowLongA(IntPtr hWnd, int nIndex, int dwNewLong);
+        public static extern int SetWindowLongA(nint hWnd, int nIndex, int dwNewLong);
 
         /// <summary>
         ///Changes an attribute of the specified window. The function also sets a value at the specified offset in the extra window memory.
@@ -6821,7 +7111,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int SetWindowLongPtrA(IntPtr hWnd, int nIndex, int dwNewLong);
+        public static extern int SetWindowLongPtrA(nint hWnd, int nIndex, int dwNewLong);
 
         /// <summary>
         ///Changes an attribute of the specified window. The function also sets a value at the specified offset in the extra window memory.
@@ -6834,7 +7124,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int SetWindowLongPtrW(IntPtr hWnd, int nIndex, int dwNewLong);
+        public static extern int SetWindowLongPtrW(nint hWnd, int nIndex, int dwNewLong);
 
         /// <summary>
         ///Changes an attribute of the specified window. The function also sets the 32-bit (long) value at the specified offset into the extra window memory.
@@ -6847,7 +7137,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int SetWindowLongW(IntPtr hWnd, int nIndex, int dwNewLong);
+        public static extern int SetWindowLongW(nint hWnd, int nIndex, int dwNewLong);
 
         /// <summary>
         ///Sets the show state and the restored, minimized, and maximized positions of the specified window.
@@ -6859,12 +7149,13 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetWindowPlacement(IntPtr hWnd, WINDOWPLACEMENT lpwndpl);
+        public static extern bool SetWindowPlacement(nint hWnd, WINDOWPLACEMENT lpwndpl);
 
         /// <summary>
         ///Changes the size, position, and Z order of a child, pop-up, or top-level window. These windows are ordered according to their appearance on the screen. The topmost window receives the highest rank and is the first window in the Z order.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window.</param>
+        /// <param name="hWndInsertAfter"></param>
         /// <param name="X">Type: intThe new position of the left side of the window, in client coordinates.</param>
         /// <param name="Y">Type: intThe new position of the top of the window, in client coordinates.</param>
         /// <param name="cx">Type: intThe new width of the window, in pixels.</param>
@@ -6875,7 +7166,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+        public static extern bool SetWindowPos(nint hWnd, nint hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
         /// <summary>
         ///The SetWindowRgn function sets the window region of a window. The window region determines the area within the window where the system permits drawing. The system does not display any portion of a window that lies outside of the window region
@@ -6885,7 +7176,7 @@ namespace WindowAPI.winuser.h
         /// <param name="bRedraw">Specifies whether the system redraws the window after setting the window region. If bRedraw is TRUE, the system does so; otherwise, it does not.Typically, you set bRedraw to TRUE if the window is visible.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.When this function is called, the system sends the WM_WINDOWPOSCHANGING and WM_WINDOWPOSCHANGED messages to the window.The coordinates of a window's window region are relative to the upper-left corner of the window, not the client area of the window.To obtain the window region of a window, call the GetWindowRgn function.GetWindowRgnPainting and Drawing FunctionsPainting and Drawing OverviewWM_WINDOWPOSCHANGINGWM_WINDOWPOSCHANGED</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
+        public static extern int SetWindowRgn(nint hWnd, nint hRgn, bool bRedraw);
 
         /// <summary>
         ///Installs an application-defined hook procedure into a hook chain. You would install a hook procedure to monitor the system for certain types of events. These events are associated either with a specific thread or with all threads in the same desktop as the calling thread.
@@ -6899,7 +7190,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern short SetWindowsHookExA(int idHook, HOOKPROC lpfn, IntPtr hmod, uint dwThreadId);
+        public static extern short SetWindowsHookExA(int idHook, HOOKPROC lpfn, nint hmod, uint dwThreadId);
 
         /// <summary>
         ///Installs an application-defined hook procedure into a hook chain. You would install a hook procedure to monitor the system for certain types of events. These events are associated either with a specific thread or with all threads in the same desktop as the calling thread.
@@ -6913,29 +7204,31 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern short SetWindowsHookExW(int idHook, HOOKPROC lpfn, IntPtr hmod, uint dwThreadId);
+        public static extern short SetWindowsHookExW(int idHook, HOOKPROC lpfn, nint hmod, uint dwThreadId);
 
         /// <summary>
         ///Changes the text of the specified window's title bar (if it has one). If the specified window is a control, the text of the control is changed. However, SetWindowText cannot change the text of a control in another application.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window or control whose text is to be changed.</param>
+        /// <param name="lpString"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetWindowTextA(IntPtr hWnd, string lpString);
+        public static extern bool SetWindowTextA(nint hWnd, string lpString);
 
         /// <summary>
         ///Changes the text of the specified window's title bar (if it has one). If the specified window is a control, the text of the control is changed. However, SetWindowText cannot change the text of a control in another application.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to the window or control whose text is to be changed.</param>
+        /// <param name="lpString"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetWindowTextW(IntPtr hWnd, string lpString);
+        public static extern bool SetWindowTextW(nint hWnd, string lpString);
 
         /// <summary>
         ///Sets an event hook function for a range of events.
@@ -6949,7 +7242,7 @@ namespace WindowAPI.winuser.h
         /// <param name="dwFlags">Type: UINTFlag values that specify the location of the hook function and of the events to be skipped. The following flags are valid:The following flag combinations are valid:See Remarks section for information on Windows Store app development.Type: HWINEVENTHOOKIf successful, returns an HWINEVENTHOOK value that identifies this event hook instance. Applications save this return value to use it with the UnhookWinEvent function.If unsuccessful, returns zero.This function allows clients to specify which processes and threads they are interested in.If the idProcess parameter is nonzero and idThread is zero, the hook function receives the specified events from all threads in that process. If the idProcess parameter is zero and idThread is nonzero, the hook function receives the specified events only from the thread specified by idThread. If both are zero, the hook function receives the specified events from all threads and processes.Clients can call SetWinEventHook multiple times if they want to register additional hook functions or listen for additional events.The client thread that calls SetWinEventHook must have a message loop in order to receive events.When you use SetWinEventHook to set a callback in managed code, you should use the GCHandle structure to avoid exceptions. This tells the garbage collector not to move the callback.For out-of-context events, the event is delivered on the same thread that called SetWinEventHook. In some situations, even if you request WINEVENT_INCONTEXT events, the events will still be delivered out-of-context. These scenarios include events from console windows and events from processes that have a different bit-depth (64 bit versus 32 bits) than the caller.While a hook function processes an event, additional events may be triggered, which may cause the hook function to reenter before the processing for the original event is finished. The problem with reentrancy in hook functions is that events are completed out of sequence unless the hook function handles this situation. For more information, see Guarding Against Reentrancy.Windows Store app development If dwFlags is WINEVENT_INCONTEXT AND (idProcess = 0 | idThread = 0), then window hook DLLs are not loaded in-process for the Windows Store app processes and the Windows Runtime broker process unless they are installed by UIAccess processes (accessibility tools). The notification is delivered on the installer's thread.This behavior is similar to what happens when there is an architecture mismatch between the hook DLL and the target application process, for example, when the hook DLL is 32-bit and the application process 64-bit.The following example code shows how a client application might listen for menu-start and menu-end events. For simplicity, the event handler just sends some information to the standard output.Registering a Hook FunctionUnhookWinEventWinEventProc</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern WINEVENTPROC SetWinEventHook(uint eventMin, uint eventMax, IntPtr hmodWinEventProc, WINEVENTPROC pfnWinEventProc, uint idProcess, uint idThread, uint dwFlags);
+        public static extern WINEVENTPROC SetWinEventHook(uint eventMin, uint eventMax, nint hmodWinEventProc, WINEVENTPROC pfnWinEventProc, uint idProcess, uint idThread, uint dwFlags);
 
         /// <summary>
         ///Makes the caret visible on the screen at the caret's current position. When the caret becomes visible, it begins flashing automatically.
@@ -6959,7 +7252,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ShowCaret(IntPtr hWnd);
+        public static extern bool ShowCaret(nint hWnd);
 
         /// <summary>
         ///Displays or hides the cursor.
@@ -6979,7 +7272,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ShowOwnedPopups(IntPtr hWnd, bool fShow);
+        public static extern bool ShowOwnedPopups(nint hWnd, bool fShow);
 
         /// <summary>
         ///The ShowScrollBar function shows or hides the specified scroll bar.
@@ -6992,7 +7285,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
+        public static extern bool ShowScrollBar(nint hWnd, int wBar, bool bShow);
 
         /// <summary>
         ///Sets the specified window's show state.
@@ -7001,7 +7294,7 @@ namespace WindowAPI.winuser.h
         /// <param name="nCmdShow">Type: intControls how the window is to be shown. This parameter is ignored the first time an application calls ShowWindow, if the program that launched the application provides a STARTUPINFO structure. Otherwise, the first time ShowWindow is called, the value should be the value obtained by the WinMain function in its nCmdShow parameter. In subsequent calls, this parameter can be one of the following values.Type: BOOLIf the window was previously visible, the return value is nonzero.If the window was previously hidden, the return value is zero.To perform certain special effects when showing or hiding a window, use AnimateWindow.The first time an application calls ShowWindow, it should use the WinMain function's nCmdShow parameter as its nCmdShow parameter. Subsequent calls to ShowWindow must use one of the values in the given list, instead of the one specified by the WinMain function's nCmdShow parameter.As noted in the discussion of the nCmdShow parameter, the nCmdShow value is ignored in the first call to ShowWindow if the program that launched the application specifies startup information in the structure. In this case, ShowWindow uses the information specified in the STARTUPINFO structure to show the window. On subsequent calls, the application must call ShowWindow with nCmdShow set to SW_SHOWDEFAULT to use the startup information provided by the program that launched the application. This behavior is designed for the following situations:For an example, see Creating a Main Window.AnimateWindowConceptualCreateProcessCreateWindowOther ResourcesReferenceSTARTUPINFOShowOwnedPopupsShowWindowAsyncWinMainWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        public static extern bool ShowWindow(nint hWnd, int nCmdShow);
 
         /// <summary>
         ///Sets the show state of a window without waiting for the operation to complete.
@@ -7010,7 +7303,7 @@ namespace WindowAPI.winuser.h
         /// <param name="nCmdShow">Type: intControls how the window is to be shown. For a list of possible values, see the description of the ShowWindow function.Type: BOOLIf the operation was successfully started, the return value is nonzero.This function posts a show-window event to the message queue of the given window. An application can use this function to avoid becoming nonresponsive while waiting for a nonresponsive application to finish processing a show-window event.ConceptualReferenceShowWindowWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+        public static extern bool ShowWindowAsync(nint hWnd, int nCmdShow);
 
         /// <summary>
         ///Indicates that the system cannot be shut down and sets a reason string to be displayed to the user if system shutdown is initiated.
@@ -7022,7 +7315,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ShutdownBlockReasonCreate(IntPtr hWnd, string pwszReason);
+        public static extern bool ShutdownBlockReasonCreate(nint hWnd, string pwszReason);
 
         /// <summary>
         ///Indicates that the system can be shut down and frees the reason string.
@@ -7033,19 +7326,20 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ShutdownBlockReasonDestroy(IntPtr hWnd);
+        public static extern bool ShutdownBlockReasonDestroy(nint hWnd);
 
         /// <summary>
         ///Retrieves the reason string set by the ShutdownBlockReasonCreate function.
         /// </summary>
         /// <param name="hWnd">A handle to the main window of the application.</param>
+        /// <param name="pwszBuff"></param>
         /// <param name="pcchBuff">A pointer to a variable that specifies the size of the pwszBuff buffer, in characters. If the function succeeds, this variable receives the number of characters copied into the buffer, including the null-terminating character. If the buffer is too small, the variable receives the required buffer size, in characters, not including the null-terminating character.If the call succeeds, the return value is nonzero.If the call fails, the return value is zero. To get extended error information, call GetLastError.This function can only be called from the thread that created the window specified by the hWnd parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.The following example retrieves the required buffer size, allocates memory for the reason string, retrieves the reason string, and displays the string as debug output.ShutdownBlockReasonCreateShutting Down</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ShutdownBlockReasonQuery(IntPtr hWnd, out string pwszBuff, out uint pcchBuff);
+        public static extern bool ShutdownBlockReasonQuery(nint hWnd, out string pwszBuff, out uint pcchBuff);
 
         /// <summary>
         ///Determines which pointer input frame generated the most recently retrieved message for the specified pointer and discards any queued (unretrieved) pointer input messages generated from the same pointer input frame. If an application has retrieved information for an entire frame using the GetPointerFrameInfo function, the GetPointerFrameInfoHistory function or one of their type-specific variants, it can use this function to avoid retrieving and discarding remaining messages from that frame one by one.
@@ -7068,6 +7362,7 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///The SubtractRect function determines the coordinates of a rectangle formed by subtracting one rectangle from another.
         /// </summary>
+        /// <param name="lprcDst"></param>
         /// <param name="lprcSrc1">A pointer to a RECT structure from which the function subtracts the rectangle pointed to by lprcSrc2.</param>
         /// <param name="lprcSrc2">A pointer to a RECT structure that the function subtracts from the rectangle pointed to by lprcSrc1.If the resulting rectangle is empty, the return value is zero.If the resulting rectangle is not empty, the return value is nonzero.The function only subtracts the rectangle specified by lprcSrc2 from the rectangle specified by lprcSrc1 when the rectangles intersect completely in either the x- or y-direction. For example, if *lprcSrc1 has the coordinates (10,10,100,100) and *lprcSrc2 has the coordinates (50,50,150,150), the function sets the coordinates of the rectangle pointed to by lprcDst to (10,10,100,100). If *lprcSrc1 has the coordinates (10,10,100,100) and *lprcSrc2 has the coordinates (50,10,150,150), however, the function sets the coordinates of the rectangle pointed to by lprcDst to (10,10,50,100). In other words, the resulting rectangle is the bounding box of the geometric difference.Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.IntersectRectRECTRectangle FunctionsRectangles OverviewUnionRect</param>
 
@@ -7091,7 +7386,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SwitchDesktop(IntPtr hDesktop);
+        public static extern bool SwitchDesktop(nint hDesktop);
 
         /// <summary>
         ///[This function is not intended for general use. It may be altered or unavailable in subsequent versions of Windows.]
@@ -7100,7 +7395,7 @@ namespace WindowAPI.winuser.h
         /// <param name="fUnknown">Type: BOOLA TRUE for this parameter indicates that the window is being switched to using the Alt/Ctl+Tab key sequence. This parameter should be FALSE otherwise.NoneThis function is typically called to maintain window z-ordering.This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using LoadLibrary and GetProcAddress.ConceptualIsWindowVisibleReferenceShowWindowWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern void SwitchToThisWindow(IntPtr hwnd, bool fUnknown);
+        public static extern void SwitchToThisWindow(nint hwnd, bool fUnknown);
 
         /// <summary>
         ///Retrieves or sets the value of one of the system-wide parameters. This function can also update the user profile while setting a parameter.
@@ -7114,7 +7409,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SystemParametersInfoA(uint uiAction, uint uiParam, out IntPtr pvParam, uint fWinIni);
+        public static extern bool SystemParametersInfoA(uint uiAction, uint uiParam, out nint pvParam, uint fWinIni);
 
         /// <summary>
         ///Retrieves the value of one of the system-wide parameters, taking into account the provided DPI value.
@@ -7129,7 +7424,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SystemParametersInfoForDpi(uint uiAction, uint uiParam, out IntPtr pvParam, uint fWinIni, uint dpi);
+        public static extern bool SystemParametersInfoForDpi(uint uiAction, uint uiParam, out nint pvParam, uint fWinIni, uint dpi);
 
         /// <summary>
         ///Retrieves or sets the value of one of the system-wide parameters. This function can also update the user profile while setting a parameter.
@@ -7143,7 +7438,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SystemParametersInfoW(uint uiAction, uint uiParam, out IntPtr pvParam, uint fWinIni);
+        public static extern bool SystemParametersInfoW(uint uiAction, uint uiParam, out nint pvParam, uint fWinIni);
 
         /// <summary>
         ///The TabbedTextOut function writes a character string at a specified location, expanding tabs to the values specified in an array of tab-stop positions. Text is written in the currently selected font, background color, and text color.
@@ -7158,7 +7453,7 @@ namespace WindowAPI.winuser.h
         /// <param name="nTabOrigin">The x-coordinate of the starting position from which tabs are expanded, in logical units.If the function succeeds, the return value is the dimensions, in logical units, of the string. The height is in the high-order word and the width is in the low-order word.If the function fails, the return value is zero.If the nTabPositions parameter is zero and the lpnTabStopPositions parameter is NULL, tabs are expanded to eight times the average character width.If nTabPositions is 1, the tab stops are separated by the distance specified by the first value in the lpnTabStopPositions array.If the lpnTabStopPositions array contains more than one value, a tab stop is set for each value in the array, up to the number specified by nTabPositions.The nTabOrigin parameter allows an application to call the TabbedTextOut function several times for a single line. If the application calls TabbedTextOut more than once with the nTabOrigin set to the same value each time, the function expands all tabs relative to the position specified by nTabOrigin.By default, the current position is not used or updated by the TabbedTextOut function. If an application needs to update the current position when it calls TabbedTextOut, the application can call the SetTextAlign function with the wFlags parameter set to TA_UPDATECP. When this flag is set, the system ignores the X and Y parameters on subsequent calls to the TabbedTextOut function, using the current position instead.DrawTextFont and Text FunctionsFonts and Text OverviewGetTabbedTextExtentGrayStringSelectObjectSetBkColorSetTextAlignSetTextColorTextOut</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int TabbedTextOutA(IntPtr hdc, int x, int y, string lpString, int chCount, int nTabPositions, int lpnTabStopPositions, int nTabOrigin);
+        public static extern int TabbedTextOutA(nint hdc, int x, int y, string lpString, int chCount, int nTabPositions, int lpnTabStopPositions, int nTabOrigin);
 
         /// <summary>
         ///The TabbedTextOut function writes a character string at a specified location, expanding tabs to the values specified in an array of tab-stop positions. Text is written in the currently selected font, background color, and text color.
@@ -7173,25 +7468,30 @@ namespace WindowAPI.winuser.h
         /// <param name="nTabOrigin">The x-coordinate of the starting position from which tabs are expanded, in logical units.If the function succeeds, the return value is the dimensions, in logical units, of the string. The height is in the high-order word and the width is in the low-order word.If the function fails, the return value is zero.If the nTabPositions parameter is zero and the lpnTabStopPositions parameter is NULL, tabs are expanded to eight times the average character width.If nTabPositions is 1, the tab stops are separated by the distance specified by the first value in the lpnTabStopPositions array.If the lpnTabStopPositions array contains more than one value, a tab stop is set for each value in the array, up to the number specified by nTabPositions.The nTabOrigin parameter allows an application to call the TabbedTextOut function several times for a single line. If the application calls TabbedTextOut more than once with the nTabOrigin set to the same value each time, the function expands all tabs relative to the position specified by nTabOrigin.By default, the current position is not used or updated by the TabbedTextOut function. If an application needs to update the current position when it calls TabbedTextOut, the application can call the SetTextAlign function with the wFlags parameter set to TA_UPDATECP. When this flag is set, the system ignores the X and Y parameters on subsequent calls to the TabbedTextOut function, using the current position instead.DrawTextFont and Text FunctionsFonts and Text OverviewGetTabbedTextExtentGrayStringSelectObjectSetBkColorSetTextAlignSetTextColorTextOut</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int TabbedTextOutW(IntPtr hdc, int x, int y, string lpString, int chCount, int nTabPositions, int lpnTabStopPositions, int nTabOrigin);
+        public static extern int TabbedTextOutW(nint hdc, int x, int y, string lpString, int chCount, int nTabPositions, int lpnTabStopPositions, int nTabOrigin);
 
         /// <summary>
         ///Tiles the specified child windows of the specified parent window.
         /// </summary>
+        /// <param name="hwndParent"></param>
         /// <param name="wHow">Type: UINTThe tiling flags. This parameter can be one of the following values—optionally combined with MDITILE_SKIPDISABLED to prevent disabled MDI child windows from being tiled.</param>
+        /// <param name="lpRect"></param>
         /// <param name="cKids">Type: UINTThe number of elements in the array specified by the lpKids parameter. This parameter is ignored if lpKids is NULL.</param>
+        /// <param name="lpKids"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern short TileWindows(IntPtr hwndParent, uint wHow, RECT lpRect, uint cKids, IntPtr lpKids);
+        public static extern short TileWindows(nint hwndParent, uint wHow, RECT lpRect, uint cKids, nint lpKids);
 
         /// <summary>
         ///Translates the specified virtual-key code and keyboard state to the corresponding character or characters. The function translates the code using the input language and physical keyboard layout identified by the keyboard layout handle.
         /// </summary>
         /// <param name="uVirtKey">Type: UINTThe virtual-key code to be translated. See Virtual-Key Codes.</param>
         /// <param name="uScanCode">Type: UINTThe hardware scan code of the key to be translated. The high-order bit of this value is set if the key is up (not pressed).</param>
+        /// <param name="lpKeyState"></param>
+        /// <param name="lpChar"></param>
         /// <param name="uFlags">Type: UINTThis parameter must be 1 if a menu is active, or 0 otherwise.Type: intThe return value is one of the following values.The parameters supplied to the ToAscii function might not be sufficient to translate the virtual-key code, because a previous dead key is stored in the keyboard layout.Typically, ToAscii performs the translation based on the virtual-key code. In some cases, however, bit 15 of the uScanCode parameter may be used to distinguish between a key press and a key release. The scan code is used for translating ALT+ number key combinations.Although NUM LOCK is a toggle key that affects keyboard behavior, ToAscii ignores the toggle setting (the low bit) of lpKeyState (VK_NUMLOCK) because the uVirtKey parameter alone is sufficient to distinguish the cursor movement keys (VK_HOME, VK_INSERT, and so on) from the numeric keys (VK_DECIMAL, VK_NUMPAD0 - VK_NUMPAD9).ConceptualKeyboard InputOemKeyScanReferenceToAsciiExToUnicodeVkKeyScan</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
@@ -7202,16 +7502,21 @@ namespace WindowAPI.winuser.h
         /// </summary>
         /// <param name="uVirtKey">Type: UINTThe virtual-key code to be translated. See Virtual-Key Codes.</param>
         /// <param name="uScanCode">Type: UINTThe hardware scan code of the key to be translated. The high-order bit of this value is set if the key is up (not pressed).</param>
+        /// <param name="lpKeyState"></param>
+        /// <param name="lpChar"></param>
         /// <param name="uFlags">Type: UINTThis parameter must be 1 if a menu is active, zero otherwise.</param>
+        /// <param name="dwhkl"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int ToAsciiEx(uint uVirtKey, uint uScanCode, byte lpKeyState, out uint lpChar, uint uFlags, IntPtr dwhkl);
+        public static extern int ToAsciiEx(uint uVirtKey, uint uScanCode, byte lpKeyState, out uint lpChar, uint uFlags, nint dwhkl);
 
         /// <summary>
         ///Translates the specified virtual-key code and keyboard state to the corresponding Unicode character or characters.
         /// </summary>
         /// <param name="wVirtKey">Type: UINTThe virtual-key code to be translated. See Virtual-Key Codes.</param>
         /// <param name="wScanCode">Type: UINTThe hardware scan code of the key to be translated. The high-order bit of this value is set if the key is up.</param>
+        /// <param name="lpKeyState"></param>
+        /// <param name="pwszBuff"></param>
         /// <param name="cchBuff">Type: intThe size, in characters, of the buffer pointed to by the pwszBuff parameter.</param>
         /// <param name="wFlags">Type: UINTThe behavior of the function.If bit 0 is set, a menu is active. In this mode Alt+Numeric keypad key combinations are not handled.If bit 2 is set, keyboard state is not changed (Windows 10, version 1607 and newer)All other bits (through 31) are reserved.Type: intThe function returns one of the following values.To specify a handle to the keyboard layout to use to translate the specified code, use the ToUnicodeEx function.Some keyboard layouts may return several characters and/or supplementary characters as surrogate pairs in pwszBuff. If a dead key character (accent or diacritic) stored in the keyboard layout could not be combined with the specified virtual key to form a single character then the previous entered dead character can be combined with the current character.The parameters supplied to the ToUnicodeEx function might not be sufficient to translate the virtual-key code because a previous dead key is stored in the keyboard layout.Typically, ToUnicode performs the translation based on the virtual-key code. In some cases, however, bit 15 of the wScanCode parameter can be used to distinguish between a key press and a key release (for example for ALT+numpad key entry).As ToUnicode translates the virtual-key code, it also changes the state of the kernel-mode keyboard buffer. This state-change affects dead keys, ligatures, Alt+Numeric keypad key entry, and so on. It might also cause undesired side-effects if used in conjunction with TranslateMessage (which also changes the state of the kernel-mode keyboard buffer).ConceptualKeyboard InputReferenceToAsciiToUnicodeExVkKeyScan</param>
 
@@ -7224,11 +7529,13 @@ namespace WindowAPI.winuser.h
         /// <param name="wVirtKey">Type: UINTThe virtual-key code to be translated. See Virtual-Key Codes.</param>
         /// <param name="wScanCode">Type: UINTThe hardware scan code of the key to be translated. The high-order bit of this value is set if the key is up.</param>
         /// <param name="lpKeyState">Type: const BYTE*A pointer to a 256-byte array that contains the current keyboard state. Each element (byte) in the array contains the state of one key.If the high-order bit of a byte is set, the key is down. The low bit, if set, indicates that the key is toggled on. In this function, only the toggle bit of the CAPS LOCK key is relevant. The toggle state of the NUM LOCK and SCROLL LOCK keys is ignored. See GetKeyboardState for more info.</param>
+        /// <param name="pwszBuff"></param>
         /// <param name="cchBuff">Type: intThe size, in characters, of the buffer pointed to by the pwszBuff parameter.</param>
         /// <param name="wFlags">Type: UINTThe behavior of the function.If bit 0 is set, a menu is active. In this mode Alt+Numeric keypad key combinations are not handled.If bit 1 is set, ToUnicodeEx will translate scancodes marked as key break events in addition to its usual treatment of key make events.If bit 2 is set, keyboard state is not changed (Windows 10, version 1607 and newer)All other bits (through 31) are reserved.</param>
+        /// <param name="dwhkl"></param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int ToUnicodeEx(uint wVirtKey, uint wScanCode, byte lpKeyState, out string pwszBuff, int cchBuff, uint wFlags, IntPtr dwhkl);
+        public static extern int ToUnicodeEx(uint wVirtKey, uint wScanCode, byte lpKeyState, out string pwszBuff, int cchBuff, uint wFlags, nint dwhkl);
 
         /// <summary>
         ///Posts messages when the mouse pointer leaves a window or hovers over a window for a specified amount of time.
@@ -7250,12 +7557,13 @@ namespace WindowAPI.winuser.h
         /// <param name="y">Type: intThe vertical location of the shortcut menu, in screen coordinates.</param>
         /// <param name="nReserved">Type: intReserved; must be zero.</param>
         /// <param name="hWnd">Type: HWNDA handle to the window that owns the shortcut menu. This window receives all messages from the menu. The window does not receive a WM_COMMAND message from the menu until the function returns. If you specify TPM_NONOTIFY in the uFlags parameter, the function does not send messages to the window identified by hWnd. However, you must still pass a window handle in hWnd. It can be any window handle from your application.</param>
+        /// <param name="prcRect"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool TrackPopupMenu(IntPtr hMenu, uint uFlags, int x, int y, int nReserved, IntPtr hWnd, RECT prcRect);
+        public static extern bool TrackPopupMenu(nint hMenu, uint uFlags, int x, int y, int nReserved, nint hWnd, RECT prcRect);
 
         /// <summary>
         ///Displays a shortcut menu at the specified location and tracks the selection of items on the shortcut menu. The shortcut menu can appear anywhere on the screen.
@@ -7265,12 +7573,13 @@ namespace WindowAPI.winuser.h
         /// <param name="x">Type: intThe horizontal location of the shortcut menu, in screen coordinates.</param>
         /// <param name="y">Type: intThe vertical location of the shortcut menu, in screen coordinates.</param>
         /// <param name="hwnd">Type: HWNDA handle to the window that owns the shortcut menu. This window receives all messages from the menu. The window does not receive a WM_COMMAND message from the menu until the function returns. If you specify TPM_NONOTIFY in the fuFlags parameter, the function does not send messages to the window identified by hwnd. However, you must still pass a window handle in hwnd. It can be any window handle from your application.</param>
+        /// <param name="lptpm"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool TrackPopupMenuEx(IntPtr hMenu, uint uFlags, int x, int y, IntPtr hwnd, TPMPARAMS lptpm);
+        public static extern bool TrackPopupMenuEx(nint hMenu, uint uFlags, int x, int y, nint hwnd, TPMPARAMS lptpm);
 
         /// <summary>
         ///Processes accelerator keys for menu commands. The function translates a WM_KEYDOWN or WM_SYSKEYDOWN message to a WM_COMMAND or WM_SYSCOMMAND message (if there is an entry for the key in the specified accelerator table) and then sends the WM_COMMAND or WM_SYSCOMMAND message directly to the specified window procedure. TranslateAccelerator does not return until the window procedure has processed the message.
@@ -7283,7 +7592,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int TranslateAcceleratorA(IntPtr hWnd, ACCEL hAccTable, MSG lpMsg);
+        public static extern int TranslateAcceleratorA(nint hWnd, ACCEL hAccTable, MSG lpMsg);
 
         /// <summary>
         ///Processes accelerator keys for menu commands. The function translates a WM_KEYDOWN or WM_SYSKEYDOWN message to a WM_COMMAND or WM_SYSCOMMAND message (if there is an entry for the key in the specified accelerator table) and then sends the WM_COMMAND or WM_SYSCOMMAND message directly to the specified window procedure. TranslateAccelerator does not return until the window procedure has processed the message.
@@ -7296,7 +7605,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern int TranslateAcceleratorW(IntPtr hWnd, ACCEL hAccTable, MSG lpMsg);
+        public static extern int TranslateAcceleratorW(nint hWnd, ACCEL hAccTable, MSG lpMsg);
 
         /// <summary>
         ///Processes accelerator keystrokes for window menu commands of the multiple-document interface (MDI) child windows associated with the specified MDI client window. The function translates WM_KEYUP and WM_KEYDOWN messages to WM_SYSCOMMAND messages and sends them to the appropriate MDI child windows.
@@ -7305,7 +7614,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpMsg">Type: LPMSGA pointer to a message retrieved by using the GetMessage or PeekMessage function. The message must be an MSG structure and contain message information from the application's message queue.Type: BOOLIf the message is translated into a system command, the return value is nonzero.If the message is not translated into a system command, the return value is zero.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool TranslateMDISysAccel(IntPtr hWndClient, MSG lpMsg);
+        public static extern bool TranslateMDISysAccel(nint hWndClient, MSG lpMsg);
 
         /// <summary>
         ///Translates virtual-key messages into character messages. The character messages are posted to the calling thread's message queue, to be read the next time the thread calls the GetMessage or PeekMessage function.
@@ -7337,6 +7646,7 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///The UnionRect function creates the union of two rectangles. The union is the smallest rectangle that contains both source rectangles.
         /// </summary>
+        /// <param name="lprcDst"></param>
         /// <param name="lprcSrc1">A pointer to the RECT structure that contains the first source rectangle.</param>
         /// <param name="lprcSrc2">A pointer to the RECT structure that contains the second source rectangle.If the specified structure contains a nonempty rectangle, the return value is nonzero.If the specified structure does not contain a nonempty rectangle, the return value is zero.The system ignores the dimensions of an empty rectangle that is, a rectangle in which all coordinates are set to zero, so that it has no height or no width.Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.InflateRectIntersectRectOffsetRectRECTRectangle FunctionsRectangles Overview</param>
 
@@ -7349,29 +7659,31 @@ namespace WindowAPI.winuser.h
         /// <param name="hkl">Type: HKLThe input locale identifier to be unloaded.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. The function can fail for the following reasons:The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input.UnloadKeyboardLayout cannot unload the system default input locale identifier if it is the only keyboard layout loaded. You must first load another input locale identifier before unloading the default input locale identifier.ActivateKeyboardLayoutConceptualGetKeyboardLayoutNameKeyboard InputLoadKeyboardLayoutReference</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool UnloadKeyboardLayout(IntPtr hkl);
+        public static extern bool UnloadKeyboardLayout(nint hkl);
 
         /// <summary>
         ///Unregisters a window class, freeing the memory required for the class.
         /// </summary>
         /// <param name="lpClassName">Type: LPCTSTRA null-terminated string or a class atom. If lpClassName is a string, it specifies the window class name. This class name must have been registered by a previous call to the RegisterClass or RegisterClassEx function. System classes, such as dialog box controls, cannot be unregistered. If this parameter is an atom, it must be a class atom created by a previous call to the RegisterClass or RegisterClassEx function. The atom must be in the low-order word of lpClassName; the high-order word must be zero.</param>
+        /// <param name="hInstance"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool UnregisterClassA(string lpClassName, IntPtr hInstance);
+        public static extern bool UnregisterClassA(string lpClassName, nint hInstance);
 
         /// <summary>
         ///Unregisters a window class, freeing the memory required for the class.
         /// </summary>
         /// <param name="lpClassName">Type: LPCTSTRA null-terminated string or a class atom. If lpClassName is a string, it specifies the window class name. This class name must have been registered by a previous call to the RegisterClass or RegisterClassEx function. System classes, such as dialog box controls, cannot be unregistered. If this parameter is an atom, it must be a class atom created by a previous call to the RegisterClass or RegisterClassEx function. The atom must be in the low-order word of lpClassName; the high-order word must be zero.</param>
+        /// <param name="hInstance"></param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool UnregisterClassW(string lpClassName, IntPtr hInstance);
+        public static extern bool UnregisterClassW(string lpClassName, nint hInstance);
 
         /// <summary>
         ///Closes the specified device notification handle.
@@ -7382,18 +7694,19 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool UnregisterDeviceNotification(IntPtr Handle);
+        public static extern bool UnregisterDeviceNotification(nint Handle);
 
         /// <summary>
         ///Frees a hot key previously registered by the calling thread.
         /// </summary>
+        /// <param name="hWnd"></param>
         /// <param name="id">Type: intThe identifier of the hot key to be freed.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.ConceptualKeyboard InputReferenceRegisterHotKeyWM_HOTKEY</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        public static extern bool UnregisterHotKey(nint hWnd, int id);
 
         /// <summary>
         ///Allows the caller to unregister a target window to which all pointer input of the specified type is redirected.
@@ -7405,7 +7718,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool UnregisterPointerInputTarget(IntPtr hwnd, POINTER_INPUT_TYPE pointerType);
+        public static extern bool UnregisterPointerInputTarget(nint hwnd, POINTER_INPUT_TYPE pointerType);
 
         /// <summary>
         ///[UnregisterPointerInputTargetEx is not supported and may be altered or unavailable in the future. Instead, use UnregisterPointerInputTarget.]
@@ -7414,7 +7727,7 @@ namespace WindowAPI.winuser.h
         /// <param name="pointerType">Not supported.Not supported.UnregisterPointerInputTarget</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool UnregisterPointerInputTargetEx(IntPtr hwnd, POINTER_INPUT_TYPE pointerType);
+        public static extern bool UnregisterPointerInputTargetEx(nint hwnd, POINTER_INPUT_TYPE pointerType);
 
         /// <summary>
         ///Unregisters the power setting notification.
@@ -7447,20 +7760,26 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool UnregisterTouchWindow(IntPtr hwnd);
+        public static extern bool UnregisterTouchWindow(nint hwnd);
 
         /// <summary>
         ///Updates the position, size, shape, content, and translucency of a layered window.
         /// </summary>
         /// <param name="hWnd">Type: HWNDA handle to a layered window. A layered window is created by specifying WS_EX_LAYERED when creating the window with the CreateWindowEx function.Windows 8:  The WS_EX_LAYERED style is supported for top-level windows and child windows. Previous Windows versions support WS_EX_LAYERED only for top-level windows.</param>
+        /// <param name="hdcDst"></param>
+        /// <param name="pptDst"></param>
+        /// <param name="psize"></param>
+        /// <param name="hdcSrc"></param>
+        /// <param name="pptSrc"></param>
         /// <param name="crKey">Type: COLORREFA structure that specifies the color key to be used when composing the layered window. To generate a COLORREF, use the RGB macro.</param>
+        /// <param name="pblend"></param>
         /// <param name="dwFlags">Type: DWORDThis parameter can be one of the following values.If hdcSrc is NULL, dwFlags should be zero.Type: BOOLIf the function succeeds, the return value is nonzero.If the function fails, the return value is zero. To get extended error information, call GetLastError.The source DC should contain the surface that defines the visible contents of the layered window. For example, you can select a bitmap into a device context obtained by calling the CreateCompatibleDC function.An application should call SetLayout on the hdcSrc device context to properly set the mirroring mode. SetLayout will properly mirror all drawing into an HDC while properly preserving text glyph and (optionally) bitmap direction order. It cannot modify drawing directly into the bits of a device-independent bitmap (DIB). For more information, see Window Layout and Mirroring.The UpdateLayeredWindow function maintains the window's appearance on the screen. The windows underneath a layered window do not need to be repainted when they are uncovered due to a call to UpdateLayeredWindow, because the system will automatically repaint them. This permits seamless animation of the layered window.UpdateLayeredWindow always updates the entire window. To update part of a window, use the traditional WM_PAINT and set the blend value using SetLayeredWindowAttributes.For best drawing performance by the layered window and any underlying windows, the layered window should be as small as possible. An application should also process the message and re-create its layered windows when the display's color depth changes.For more information, see Layered Windows.AlphaBlendConceptualCreateCompatibleBitmapOther ResourcesReferenceSetWindowLongSetWindowPosTransparentBltUpdateLayeredWindowIndirectWindows</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool UpdateLayeredWindow(IntPtr hWnd, IntPtr hdcDst, POINT pptDst, SIZE psize, IntPtr hdcSrc, POINT pptSrc, COORD crKey, BLENDFUNCTION pblend, uint dwFlags);
+        public static extern bool UpdateLayeredWindow(nint hWnd, nint hdcDst, POINT pptDst, SIZE psize, nint hdcSrc, POINT pptSrc, COORD crKey, BLENDFUNCTION pblend, uint dwFlags);
 
         /// <summary>
         ///The UpdateWindow function updates the client area of the specified window by sending a WM_PAINT message to the window if the window's update region is not empty. The function sends a WM_PAINT message directly to the window procedure of the specified window, bypassing the application queue. If the update region is empty, no message is sent.
@@ -7468,7 +7787,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hWnd">Handle to the window to be updated.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.ExcludeUpdateRgnGetUpdateRectGetUpdateRgnInvalidateRectInvalidateRgnPainting and Drawing FunctionsPainting and Drawing OverviewWM_PAINT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool UpdateWindow(IntPtr hWnd);
+        public static extern bool UpdateWindow(nint hWnd);
 
         /// <summary>
         ///Grants or denies access to a handle to a User object to a job that has a user-interface restriction. When access is granted, all processes associated with the job can subsequently recognize and use the handle. When access is denied, the processes can no longer use the handle. For more information see User Objects.
@@ -7481,7 +7800,7 @@ namespace WindowAPI.winuser.h
         /// </remarks>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool UserHandleGrantAccess(IntPtr hUserHandle, IntPtr hJob, bool bGrant);
+        public static extern bool UserHandleGrantAccess(nint hUserHandle, nint hJob, bool bGrant);
 
         /// <summary>
         ///The ValidateRect function validates the client area within a rectangle by removing the rectangle from the update region of the specified window.
@@ -7490,7 +7809,7 @@ namespace WindowAPI.winuser.h
         /// <param name="lpRect">Pointer to a RECT structure that contains the client coordinates of the rectangle to be removed from the update region. If this parameter is NULL, the entire client area is removed.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.The BeginPaint function automatically validates the entire client area. Neither the ValidateRect nor ValidateRgn function should be called if a portion of the update region must be validated before the next WM_PAINT message is generated.The system continues to generate WM_PAINT messages until the current update region is validated.BeginPaintInvalidateRectInvalidateRgnPainting and Drawing FunctionsPainting and Drawing OverviewRECTValidateRgnWM_PAINT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ValidateRect(IntPtr hWnd, RECT lpRect);
+        public static extern bool ValidateRect(nint hWnd, RECT lpRect);
 
         /// <summary>
         ///The ValidateRgn function validates the client area within a region by removing the region from the current update region of the specified window.
@@ -7499,7 +7818,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hRgn">Handle to a region that defines the area to be removed from the update region. If this parameter is NULL, the entire client area is removed.If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.The specified region must have been created by a region function. The region coordinates are assumed to be client coordinates.The BeginPaint function automatically validates the entire client area. Neither the ValidateRect nor ValidateRgn function should be called if a portion of the update region must be validated before the next WM_PAINT message is generated.BeginPaintExcludeUpdateRgnInvalidateRectInvalidateRgnPainting and Drawing FunctionsPainting and Drawing OverviewValidateRectWM_PAINT</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ValidateRgn(IntPtr hWnd, IntPtr hRgn);
+        public static extern bool ValidateRgn(nint hWnd, nint hRgn);
 
         /// <summary>
         ///[This function has been superseded by the VkKeyScanEx function. You can still use VkKeyScan, however, if you do not need to specify a keyboard layout.]
@@ -7516,7 +7835,7 @@ namespace WindowAPI.winuser.h
         /// <param name="dwhkl">Type: HKLInput locale identifier used to translate the character. This parameter can be any input locale identifier previously returned by the LoadKeyboardLayout function.Type: SHORTIf the function succeeds, the low-order byte of the return value contains the virtual-key code and the high-order byte contains the shift state, which can be a combination of the following flag bits.If the function finds no key that translates to the passed character code, both the low-order and high-order bytes contain –1.The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input.For keyboard layouts that use the right-hand ALT key as a shift key (for example, the French keyboard layout), the shift state is represented by the value 6, because the right-hand ALT key is converted internally into CTRL+ALT.Translations for the numeric keypad (VK_NUMPAD0 through VK_DIVIDE) are ignored. This function is intended to translate characters into keystrokes from the main keyboard section only. For example, the character "7" is translated into VK_7, not VK_NUMPAD7.VkKeyScanEx is used by applications that send characters by using the WM_KEYUP and WM_KEYDOWN messages.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern short VkKeyScanExA(char ch, IntPtr dwhkl);
+        public static extern short VkKeyScanExA(char ch, nint dwhkl);
 
         /// <summary>
         ///Translates a character to the corresponding virtual-key code and shift state. The function translates the character using the input language and physical keyboard layout identified by the input locale identifier.
@@ -7525,7 +7844,7 @@ namespace WindowAPI.winuser.h
         /// <param name="dwhkl">Type: HKLInput locale identifier used to translate the character. This parameter can be any input locale identifier previously returned by the LoadKeyboardLayout function.Type: SHORTIf the function succeeds, the low-order byte of the return value contains the virtual-key code and the high-order byte contains the shift state, which can be a combination of the following flag bits.If the function finds no key that translates to the passed character code, both the low-order and high-order bytes contain –1.The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input.For keyboard layouts that use the right-hand ALT key as a shift key (for example, the French keyboard layout), the shift state is represented by the value 6, because the right-hand ALT key is converted internally into CTRL+ALT.Translations for the numeric keypad (VK_NUMPAD0 through VK_DIVIDE) are ignored. This function is intended to translate characters into keystrokes from the main keyboard section only. For example, the character "7" is translated into VK_7, not VK_NUMPAD7.VkKeyScanEx is used by applications that send characters by using the WM_KEYUP and WM_KEYDOWN messages.</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern short VkKeyScanExW(StringBuilder ch, IntPtr dwhkl);
+        public static extern short VkKeyScanExW(StringBuilder ch, nint dwhkl);
 
         /// <summary>
         ///[This function has been superseded by the VkKeyScanEx function. You can still use VkKeyScan, however, if you do not need to specify a keyboard layout.]
@@ -7542,7 +7861,7 @@ namespace WindowAPI.winuser.h
         /// <param name="dwMilliseconds">The time-out interval, in milliseconds. If dwMilliseconds is INFINITE, the function does not return until the process is idle.The following table shows the possible return values for this function.The WaitForInputIdle function enables a thread to suspend its execution until the specified process has finished its initialization and is waiting for user input with no input pending. If the process has multiple threads, the WaitForInputIdle function returns as soon as any thread becomes idle.WaitForInputIdle can be used at any time, not just during application startup. However, WaitForInputIdle waits only once for a process to become idle; subsequent WaitForInputIdle calls return immediately, whether the process is idle or busy.WaitForInputIdle can be useful for synchronizing a parent process and a newly created child process. When a parent process creates a child process, the CreateProcess function returns without waiting for the child process to finish its initialization. Before trying to communicate with the child process, the parent process can use the WaitForInputIdle function to determine when the child's initialization has been completed. For example, the parent process should use the WaitForInputIdle function before trying to find a window associated with the child process.CreateProcessProcess and Thread FunctionsSynchronizing Execution of Multiple Threads</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern uint WaitForInputIdle(IntPtr hProcess, uint dwMilliseconds);
+        public static extern uint WaitForInputIdle(nint hProcess, uint dwMilliseconds);
 
         /// <summary>
         ///Yields control to other threads when a thread has no other messages in its message queue. The WaitMessage function suspends the thread and does not return until a new message is placed in the thread's message queue.
@@ -7560,7 +7879,7 @@ namespace WindowAPI.winuser.h
         /// <param name="hDC">Handle to the device context from which a handle to the associated window is to be retrieved.The return value is a handle to the window associated with the specified DC. If no window is associated with the specified DC, the return value is NULL.GetDCGetDCExGetWindowDCPainting and Drawing FunctionsPainting and Drawing Overview</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr WindowFromDC(IntPtr hDC);
+        public static extern nint WindowFromDC(nint hDC);
 
         /// <summary>
         ///Retrieves a handle to the window that contains the specified physical point.
@@ -7568,7 +7887,7 @@ namespace WindowAPI.winuser.h
         /// <param name="Point">Type: POINTThe physical coordinates of the point.Type: HWNDA handle to the window that contains the given physical point. If no window exists at the point, this value is NULL.The WindowFromPhysicalPoint function does not retrieve a handle to a hidden or disabled window, even if the point is within the window.ChildWindowFromPointConceptualOther ResourcesPOINTReferenceWindowFromDCWindowFromPointWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr WindowFromPhysicalPoint(POINT Point);
+        public static extern nint WindowFromPhysicalPoint(POINT Point);
 
         /// <summary>
         ///Retrieves a handle to the window that contains the specified point.
@@ -7576,7 +7895,7 @@ namespace WindowAPI.winuser.h
         /// <param name="Point">Type: POINTThe point to be checked.Type: HWNDThe return value is a handle to the window that contains the point. If no window exists at the given point, the return value is NULL. If the point is over a static text control, the return value is a handle to the window under the static text control.The WindowFromPoint function does not retrieve a handle to a hidden or disabled window, even if the point is within the window. An application should use the ChildWindowFromPoint function for a nonrestrictive search.For an example, see "Interface from Running Object Table" in About Text Object Model.ChildWindowFromPointConceptualOther ResourcesPOINTReferenceWindowFromDCWindows</param>
 
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr WindowFromPoint(POINT Point);
+        public static extern nint WindowFromPoint(POINT Point);
 
         /// <summary>
         ///Launches Windows Help (Winhelp.exe) and passes additional data that indicates the nature of the help requested by the application.
@@ -7595,6 +7914,7 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Writes formatted data to the specified buffer. Any arguments are converted and copied to the output buffer according to the corresponding format specification in the format string. The function appends a terminating null character to the characters it writes, but the return value does not include the terminating null character in its character count.
         /// </summary>
+        /// <param name="unnamedParam1"></param>
         /// <param name="unnamedParam2">Type: LPCTSTRThe format-control specifications. In addition to ordinary ASCII characters, a format specification for each argument appears in this string. For more information about the format specification, see the Remarks section....One or more optional arguments. The number and type of argument parameters depend on the corresponding format-control specifications in the lpFmt parameter.Type: intIf the function succeeds, the return value is the number of characters stored in the output buffer, not counting the terminating null character.If the function fails, the return value is less than the length of the expected output. To get extended error information, call GetLastError.The format-control string contains format specifications that determine the output format for the arguments following the lpFmt parameter. Format specifications, discussed below, always begin with a percent sign (%). If a percent sign is followed by a character that has no meaning as a format field, the character is not formatted (for example, %% produces a single percent-sign character).The format-control string is read from left to right. When the first format specification (if any) is encountered, it causes the value of the first argument after the format-control string to be converted and copied to the output buffer according to the format specification. The second format specification causes the second argument to be converted and copied, and so on. If there are more arguments than format specifications, the extra arguments are ignored. If there are not enough arguments for all of the format specifications, the results are undefined.A format specification has the following form:%[-][#][0][width][.precision]typeEach field is a single character or a number signifying a particular format option. The type characters that appear after the last optional format field determine whether the associated argument is interpreted as a character, a string, or a number. The simplest format specification contains only the percent sign and a type character (for example, %s). The optional fields control other aspects of the formatting. Following are the optional and required fields and their meanings.ConceptualReferenceStringCbPrintfStringCbPrintfExStringCbVPrintfStringCbVPrintfExStringCchPrintfStringCchPrintfExStringCchVPrintfStringCchVPrintfExStringswvsprintf</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -7606,6 +7926,7 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Writes formatted data to the specified buffer. Any arguments are converted and copied to the output buffer according to the corresponding format specification in the format string. The function appends a terminating null character to the characters it writes, but the return value does not include the terminating null character in its character count.
         /// </summary>
+        /// <param name="unnamedParam1"></param>
         /// <param name="unnamedParam2">Type: LPCTSTRThe format-control specifications. In addition to ordinary ASCII characters, a format specification for each argument appears in this string. For more information about the format specification, see the Remarks section....One or more optional arguments. The number and type of argument parameters depend on the corresponding format-control specifications in the lpFmt parameter.Type: intIf the function succeeds, the return value is the number of characters stored in the output buffer, not counting the terminating null character.If the function fails, the return value is less than the length of the expected output. To get extended error information, call GetLastError.The format-control string contains format specifications that determine the output format for the arguments following the lpFmt parameter. Format specifications, discussed below, always begin with a percent sign (%). If a percent sign is followed by a character that has no meaning as a format field, the character is not formatted (for example, %% produces a single percent-sign character).The format-control string is read from left to right. When the first format specification (if any) is encountered, it causes the value of the first argument after the format-control string to be converted and copied to the output buffer according to the format specification. The second format specification causes the second argument to be converted and copied, and so on. If there are more arguments than format specifications, the extra arguments are ignored. If there are not enough arguments for all of the format specifications, the results are undefined.A format specification has the following form:%[-][#][0][width][.precision]typeEach field is a single character or a number signifying a particular format option. The type characters that appear after the last optional format field determine whether the associated argument is interpreted as a character, a string, or a number. The simplest format specification contains only the percent sign and a type character (for example, %s). The optional fields control other aspects of the formatting. Following are the optional and required fields and their meanings.ConceptualReferenceStringCbPrintfStringCbPrintfExStringCbVPrintfStringCbVPrintfExStringCchPrintfStringCchPrintfExStringCchVPrintfStringCchVPrintfExStringswvsprintf</param>
         /// <remarks>
         /// To get extended error information, call GetLastError.
@@ -7617,6 +7938,7 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Writes formatted data to the specified buffer using a pointer to a list of arguments. The items pointed to by the argument list are converted and copied to an output buffer according to the corresponding format specification in the format-control string. The function appends a terminating null character to the characters it writes, but the return value does not include the terminating null character in its character count.
         /// </summary>
+        /// <param name="unnamedParam1"></param>
         /// <param name="unnamedParam2">Type: LPCTSTRThe format-control specifications. In addition to ordinary ASCII characters, a format specification for each argument appears in this string. For more information about the format specification, see the wsprintf function.</param>
         /// <param name="arglist">Type: va_listEach element of this list specifies an argument for the format-control string. The number, type, and interpretation of the arguments depend on the corresponding format-control specifications in the lpFmt parameter.Type: intIf the function succeeds, the return value is the number of characters stored in the buffer, not counting the terminating null character.If the function fails, the return value is less than the length of the expected output. To get extended error information, call GetLastError.The function copies the format-control string into the output buffer character by character, starting with the first character in the string. When it encounters a format specification in the string, the function retrieves the value of the next available argument (starting with the first argument in the list), converts that value into the specified format, and copies the result to the output buffer. The function continues to copy characters and expand format specifications in this way until it reaches the end of the format-control string. If there are more arguments than format specifications, the extra arguments are ignored. If there are not enough arguments for all of the format specifications, the results are undefined.ConceptualReferenceStringCbPrintfStringCbPrintfExStringCbVPrintfStringCbVPrintfExStringCchPrintfStringCchPrintfExStringCchVPrintfStringCchVPrintfExStringswsprintf</param>
         /// <remarks>
@@ -7629,6 +7951,7 @@ namespace WindowAPI.winuser.h
         /// <summary>
         ///Writes formatted data to the specified buffer using a pointer to a list of arguments. The items pointed to by the argument list are converted and copied to an output buffer according to the corresponding format specification in the format-control string. The function appends a terminating null character to the characters it writes, but the return value does not include the terminating null character in its character count.
         /// </summary>
+        /// <param name="unnamedParam1"></param>
         /// <param name="unnamedParam2">Type: LPCTSTRThe format-control specifications. In addition to ordinary ASCII characters, a format specification for each argument appears in this string. For more information about the format specification, see the wsprintf function.</param>
         /// <param name="arglist">Type: va_listEach element of this list specifies an argument for the format-control string. The number, type, and interpretation of the arguments depend on the corresponding format-control specifications in the lpFmt parameter.Type: intIf the function succeeds, the return value is the number of characters stored in the buffer, not counting the terminating null character.If the function fails, the return value is less than the length of the expected output. To get extended error information, call GetLastError.The function copies the format-control string into the output buffer character by character, starting with the first character in the string. When it encounters a format specification in the string, the function retrieves the value of the next available argument (starting with the first argument in the list), converts that value into the specified format, and copies the result to the output buffer. The function continues to copy characters and expand format specifications in this way until it reaches the end of the format-control string. If there are more arguments than format specifications, the extra arguments are ignored. If there are not enough arguments for all of the format specifications, the results are undefined.ConceptualReferenceStringCbPrintfStringCbPrintfExStringCbVPrintfStringCbVPrintfExStringCchPrintfStringCchPrintfExStringCchVPrintfStringCchVPrintfExStringswsprintf</param>
         /// <remarks>

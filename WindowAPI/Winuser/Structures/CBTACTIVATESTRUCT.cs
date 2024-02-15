@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -6,7 +6,7 @@ namespace WindowAPI.winuser.h.Structures
     public struct CBTACTIVATESTRUCT
     {
         public bool fMouse;
-        public IntPtr hWndActive;
+        public nint hWndActive;
     }
 
 

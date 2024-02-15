@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -9,7 +9,7 @@ namespace WindowAPI.winuser.h.Structures
         public uint fMask;
         public uint dwStyle;
         public uint cyMax;
-        public IntPtr hbrBack;
+        public nint hbrBack;
         public uint dwContextHelpID;
         public int dwMenuData;
     }

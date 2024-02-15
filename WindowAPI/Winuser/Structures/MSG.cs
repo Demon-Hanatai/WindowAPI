@@ -1,14 +1,14 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct MSG
     {
-        public IntPtr hwnd;
+        public nint hwnd;
         public uint message;
-        public IntPtr wParam;
-        public IntPtr lParam;
+        public nint wParam;
+        public nint lParam;
         public uint time;
         public POINT pt;
         public uint lPrivate;

@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -6,7 +6,7 @@ namespace WindowAPI.winuser.h.Structures
     public struct FLASHWINFO
     {
         public uint cbSize;
-        public IntPtr hwnd;
+        public nint hwnd;
         public uint dwFlags;
         public uint uCount;
         public uint dwTimeout;

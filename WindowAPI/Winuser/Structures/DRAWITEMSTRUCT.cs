@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -10,8 +10,8 @@ namespace WindowAPI.winuser.h.Structures
         public uint itemID;
         public uint itemAction;
         public uint itemState;
-        public IntPtr hwndItem;
-        public IntPtr hDC;
+        public nint hwndItem;
+        public nint hDC;
         public RECT rcItem;
         public int itemData;
     }

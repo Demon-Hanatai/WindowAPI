@@ -1,4 +1,6 @@
-namespace WindowAPI.winuser.h.Structures
+using WindowAPI.winuser.Enums;
+
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -6,9 +8,9 @@ namespace WindowAPI.winuser.h.Structures
     public struct POINTER_DEVICE_INFO
     {
         public uint displayOrientation;
-        public IntPtr device;
+        public nint device;
         public POINTER_DEVICE_TYPE pointerDeviceType;
-        public IntPtr monitor;
+        public nint monitor;
         public uint startingCursorId;
         public ushort maxActiveContacts;
         public StringBuilder productString;

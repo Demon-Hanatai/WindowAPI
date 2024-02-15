@@ -1,0 +1,16 @@
+namespace WindowAPI.mstcpip.Enums
+{
+
+
+    public enum _SOCKET_SECURITY_PROTOCOL
+    {
+        SOCKET_SECURITY_PROTOCOL_DEFAULT,
+        SOCKET_SECURITY_PROTOCOL_IPSEC,
+        SOCKET_SECURITY_PROTOCOL_IPSEC2,
+        SOCKET_SECURITY_PROTOCOL_INVALID
+    }
+
+
+
+}
+

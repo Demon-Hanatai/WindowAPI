@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -7,7 +7,7 @@ namespace WindowAPI.winuser.h.Structures
     {
         public int x;
         public int y;
-        public IntPtr hSource;
+        public nint hSource;
         public uint dwID;
         public uint dwFlags;
         public uint dwMask;

@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -9,8 +9,8 @@ namespace WindowAPI.winuser.h.Structures
         public bool fIcon;
         public uint xHotspot;
         public uint yHotspot;
-        public IntPtr hbmMask;
-        public IntPtr hbmColor;
+        public nint hbmMask;
+        public nint hbmColor;
         public short wResID;
         public char szModName;
         public char szResName;

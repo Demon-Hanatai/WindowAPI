@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -10,13 +10,13 @@ namespace WindowAPI.winuser.h.Structures
         public WNDPROC lpfnWndProc;
         public int cbClsExtra;
         public int cbWndExtra;
-        public IntPtr hInstance;
-        public IntPtr hIcon;
-        public IntPtr hCursor;
-        public IntPtr hbrBackground;
+        public nint hInstance;
+        public nint hIcon;
+        public nint hCursor;
+        public nint hbrBackground;
         public string lpszMenuName;
         public string lpszClassName;
-        public IntPtr hIconSm;
+        public nint hIconSm;
     }
 
 

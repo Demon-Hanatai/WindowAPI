@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -7,7 +7,7 @@ namespace WindowAPI.winuser.h.Structures
     {
         public int dwData;
         public uint cbData;
-        public IntPtr lpData;
+        public nint lpData;
     }
 
 

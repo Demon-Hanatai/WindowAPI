@@ -1,4 +1,6 @@
-namespace WindowAPI.winuser.h.Structures
+using WindowAPI.winuser.Enums;
+
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -9,8 +11,8 @@ namespace WindowAPI.winuser.h.Structures
         public int pointerId;
         public int frameId;
         public int pointerFlags;
-        public IntPtr sourceDevice;
-        public IntPtr hwndTarget;
+        public nint sourceDevice;
+        public nint hwndTarget;
         public POINT ptPixelLocation;
         public POINT ptHimetricLocation;
         public POINT ptPixelLocationRaw;

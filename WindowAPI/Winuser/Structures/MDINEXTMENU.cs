@@ -1,13 +1,13 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct MDINEXTMENU
     {
-        public IntPtr hmenuIn;
-        public IntPtr hmenuNext;
-        public IntPtr hwndNext;
+        public nint hmenuIn;
+        public nint hmenuNext;
+        public nint hwndNext;
     }
 
 

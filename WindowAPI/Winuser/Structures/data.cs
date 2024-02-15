@@ -1,11 +1,11 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct data
     {
-        public IntPtr header;
+        public nint header;
         public int mouse;
         public int keyboard;
         public RAWHID hid;

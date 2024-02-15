@@ -71,7 +71,7 @@ namespace WindowAPI.Winbase.h
         /// </remarks>
 
         [DllImport("Advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool AccessCheckAndAuditAlarmA(string SubsystemName, string ObjectTypeName, int SecurityDescriptor, uint DesiredAccess, int GenericMapping, bool ObjectCreation, out uint GrantedAccess, out bool AccessStatus, out bool pfGenerateOnClose);
+        public static extern bool AccessCheckAndAuditAlarmA(string SubsystemName, string ObjectTypeName, int SecurityDescriptor, int DesiredAccess, int GenericMapping, bool ObjectCreation, out uint GrantedAccess, out bool AccessStatus, out bool pfGenerateOnClose);
 
         /// <summary>
         ///The AccessCheckByTypeAndAuditAlarm function determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread. The function can check the client's access to a hierarchy of objects, such as an object, its property sets, and properties. The function grants or denies access to the hierarchy as a whole. If the security descriptor has a system access control list (SACL) with access control entries (ACEs) that apply to the client, the function generates any necessary audit messages in the security event log.

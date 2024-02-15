@@ -1,15 +1,15 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct CWPRETSTRUCT
     {
-        public IntPtr lResult;
-        public IntPtr lParam;
-        public IntPtr wParam;
+        public nint lResult;
+        public nint lParam;
+        public nint wParam;
         public uint message;
-        public IntPtr hwnd;
+        public nint hwnd;
     }
 
 

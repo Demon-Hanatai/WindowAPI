@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -10,13 +10,13 @@ namespace WindowAPI.winuser.h.Structures
         public uint fType;
         public uint fState;
         public uint wID;
-        public IntPtr hSubMenu;
-        public IntPtr hbmpChecked;
-        public IntPtr hbmpUnchecked;
+        public nint hSubMenu;
+        public nint hbmpChecked;
+        public nint hbmpUnchecked;
         public int dwItemData;
         public string dwTypeData;
         public uint cch;
-        public IntPtr hbmpItem;
+        public nint hbmpItem;
     }
 
 

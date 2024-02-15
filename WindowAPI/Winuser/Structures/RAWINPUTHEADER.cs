@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -7,8 +7,8 @@ namespace WindowAPI.winuser.h.Structures
     {
         public uint dwType;
         public uint dwSize;
-        public IntPtr hDevice;
-        public IntPtr wParam;
+        public nint hDevice;
+        public nint wParam;
     }
 
 

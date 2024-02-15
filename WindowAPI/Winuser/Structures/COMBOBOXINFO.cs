@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -9,9 +9,9 @@ namespace WindowAPI.winuser.h.Structures
         public RECT rcItem;
         public RECT rcButton;
         public uint stateButton;
-        public IntPtr hwndCombo;
-        public IntPtr hwndItem;
-        public IntPtr hwndList;
+        public nint hwndCombo;
+        public nint hwndItem;
+        public nint hwndList;
     }
 
 

@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -9,7 +9,7 @@ namespace WindowAPI.winuser.h.Structures
         public uint dwType;
         public int mouse;
         public int keyboard;
-        public IntPtr hid;
+        public nint hid;
     }
 
 

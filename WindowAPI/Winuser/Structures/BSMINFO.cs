@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -6,8 +6,8 @@ namespace WindowAPI.winuser.h.Structures
     public struct BSMINFO
     {
         public uint cbSize;
-        public IntPtr hdesk;
-        public IntPtr hwnd;
+        public nint hdesk;
+        public nint hwnd;
         public LUID luid;
     }
 

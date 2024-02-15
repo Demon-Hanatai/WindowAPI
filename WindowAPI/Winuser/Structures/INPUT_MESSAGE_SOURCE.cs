@@ -1,4 +1,6 @@
-namespace WindowAPI.winuser.h.Structures
+using WindowAPI.winuser.Enums;
+
+namespace WindowAPI.winuser.Structures
 {
 
 

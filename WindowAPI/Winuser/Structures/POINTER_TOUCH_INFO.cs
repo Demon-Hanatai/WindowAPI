@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -6,8 +6,8 @@ namespace WindowAPI.winuser.h.Structures
     public struct POINTER_TOUCH_INFO
     {
         public POINTER_INFO pointerInfo;
-        public IntPtr touchFlags;
-        public IntPtr touchMask;
+        public nint touchFlags;
+        public nint touchMask;
         public RECT rcContact;
         public RECT rcContactRaw;
         public int orientation;

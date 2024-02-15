@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -6,7 +6,7 @@ namespace WindowAPI.winuser.h.Structures
     public struct MOUSEHOOKSTRUCT
     {
         public POINT pt;
-        public IntPtr hwnd;
+        public nint hwnd;
         public uint wHitTestCode;
         public int dwExtraInfo;
     }

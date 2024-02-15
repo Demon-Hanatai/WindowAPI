@@ -1,4 +1,4 @@
-namespace WindowAPI.winuser.h.Structures
+namespace WindowAPI.winuser.Structures
 {
 
 
@@ -8,7 +8,7 @@ namespace WindowAPI.winuser.h.Structures
         public uint CtlType;
         public uint CtlID;
         public uint itemID;
-        public IntPtr hwndItem;
+        public nint hwndItem;
         public int itemData;
     }
 
